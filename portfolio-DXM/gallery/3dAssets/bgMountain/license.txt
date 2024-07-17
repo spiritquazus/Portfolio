@@ -1,0 +1,11 @@
+Model Information:
+* title:	Low Poly Mountain 2
+* source:	https://sketchfab.com/3d-models/low-poly-mountain-2-a839a7c4029b43d59a4eaeab3f5a7e1d
+* author:	TastefullBrick (https://sketchfab.com/tastefullbrick)
+
+Model License:
+* license type:	CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
+* requirements:	Author must be credited. No commercial use.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Low Poly Mountain 2" (https://sketchfab.com/3d-models/low-poly-mountain-2-a839a7c4029b43d59a4eaeab3f5a7e1d) by TastefullBrick (https://sketchfab.com/tastefullbrick) licensed under CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)

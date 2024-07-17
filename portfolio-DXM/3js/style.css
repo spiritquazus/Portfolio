@@ -1,0 +1,72 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body{
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#cMain{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.layer{
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  display: grid;
+  grid-template-columns: repeat(50, 2%);
+  grid-template-rows: repeat(50, 2%);
+  pointer-events: none; 
+  
+}
+
+#imgPavement{
+  grid-column: 1 / span 100;
+  grid-row: 46;
+
+}
+
+.imgRailing{
+  grid-row: 38;
+  height: 10rem;
+  width: 100%;
+  position: absolute;
+}
+
+.filterDarken70{
+  filter: brightness(70%) !important;
+}
+
+#foggyBuilding1{
+  filter: blur(1px);
+  grid-row: 20;
+  grid-column: 43;
+  width: 8rem;
+}
+
+#sideMountain{
+  filter: blur(1px);
+  grid-row: 25;
+  grid-column: 33;
+}
+
+.kontrolScaleBtn{
+  
+}

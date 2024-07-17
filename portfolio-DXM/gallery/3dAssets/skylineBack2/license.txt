@@ -1,0 +1,8 @@
+Model Information:
+* title:	Low-poly City Night
+* source:	https://sketchfab.com/3d-models/low-poly-city-night-885d8034bc02407fb48cf7f0dfe61d67
+* author:	smooth998 (https://sketchfab.com/smooth998)
+
+Model License:
+* license type:	SKETCHFAB Standard (https://sketchfab.com/licenses)
+* requirements:	Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works

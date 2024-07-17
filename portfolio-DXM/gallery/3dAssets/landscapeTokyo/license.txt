@@ -1,0 +1,11 @@
+Model Information:
+* title:	Tokyo station A
+* source:	https://sketchfab.com/3d-models/tokyo-station-a-3d34db7b146a4b0e8e03907df754baa2
+* author:	Nikitos & 3130 (https://sketchfab.com/vrcityphoto)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Tokyo station A" (https://sketchfab.com/3d-models/tokyo-station-a-3d34db7b146a4b0e8e03907df754baa2) by Nikitos & 3130 (https://sketchfab.com/vrcityphoto) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

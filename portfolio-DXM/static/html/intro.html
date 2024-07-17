@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="../css/intro.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header id="DXMInteractive">
+        <img id="DXMpart1" src="../../gallery/2dElems/DXMpart1.webp" class="composite">
+        <img id="DXMpart2" src="../../gallery/2dElems/DXMpart2.webp" class="composite">
+        <img id="DXMpart3" src="../../gallery/2dElems/DXMpart3.webp" style="display:none" class="composite">
+        <div id="socketBound" class=""></div>
+        
+    </header>
+        <img id="DXMpart4" src="../../gallery/2dElems/DXMpart4.webp" class="composite">
+        
+    <div id="langCont">
+        <div id="engLang" class="flagVis" onclick="contLangShow('english')"></div>
+        <div id="frLang" class="flagVis"></div>
+        <div id="krLang" class="flagVis"></div>
+        <div id="jpLang" class="flagVis"></div>
+    </div>
+    <div id="chooseCont" style="display:none">
+        <button id="choose3d" style="opacity:0" onclick="redirBtn()"></button>
+        <button id="chooseMobile" style="opacity:0"></button>
+    </div>
+    <div id="sideBarIntro">
+        <img src="../../gallery/2dElems/inIcon.svg" onclick="redirBtnExt('https\://www.linkedin.com/in/isaac-kimrw/')">
+        <img src="../../gallery/2dElems/githubSymbol.svg" onclick="redirBtnExt('https\://github.com/spiritquazus')">
+        <img src="../../gallery/2dElems/cvSymbol.svg" onclick="redirBtnExt('../txt/CV_IKY_fullStack_2024.pdf')">
+    </div>
+
+
+    <script src="../js/intro.js"></script>
+</body>
+</html>
