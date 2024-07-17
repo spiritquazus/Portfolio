@@ -3,15 +3,19 @@ const dxmEyeSocket = document.getElementById("DXMpart2")
 const dxmEyeBoundaries = document.getElementById("socketBound")
 const dxmEyeLid = document.getElementById("DXMpart3")
 
+const bodyDOM = document.getElementsByTagName("body")[0]
+
 const langCont = document.getElementById("langCont")
 const chooseCont = document.getElementById("chooseCont")
 const choose3d = document.getElementById("choose3d")
 const chooseMobile = document.getElementById("chooseMobile")
 
+/* const handLeft = document.getElementById("handLeft"), handRight = document.getElementById("handRight"), handsCont = document.getElementById("handsCont") */
+
 dxmEye.style.left = `${dxmEyeBoundaries.getBoundingClientRect().left}px`;
 dxmEye.style.top = `${dxmEyeBoundaries.getBoundingClientRect().top}px`;
 
-
+langCont.style.opacity = "1"
 
 
 function eyeSpy(e, _elem, _cont){
@@ -45,14 +49,14 @@ function eyeSpy(e, _elem, _cont){
 
 function eyeBlink(_mainCont, _mainContAfter, _elem, _cont){
     let _localVar;
-    let _intervalMil = 1500
+    let _intervalMil = 2500
     _localVar = setInterval(()=>{
         _localVar?clearInterval(_localVar):_localVar
         _localVar = setInterval(()=>{
             _mainCont.style.display = "none"
             _elem.style.display = "none"
             _mainContAfter.style.display = "flex"
-            _intervalMil = Math.floor(Math.random()*(6000 - 3500))+3500
+            _intervalMil = Math.floor(Math.random()*(8000 - 3500))+3500
             setTimeout(()=>{
                 _mainCont.style.display = "flex"
                 _elem.style.display = "flex"
@@ -87,6 +91,7 @@ activeEye(dxmEye, dxmEyeBoundaries, dxmEyeSocket, dxmEyeLid)
 
 function contLangShow(_lang){
     chooseCont.style.display = "flex";
+    Array.from(document.getElementsByClassName("lineUp")).forEach((elem)=>{elem.style.opacity="1"})
     setTimeout(()=>{
         chooseMobile.style.opacity = 1;
         choose3d.style.opacity = 1;
@@ -110,7 +115,16 @@ function contLangShow(_lang){
 }
 
 function redirBtn(_route){
-    window.location.href = `http://www.w3schools.com`;
+    chooseCont.style.transform = "scale3d(0, 0.9, 0.4)";
+/*     handLeft.style.transform = "translateX(52vw)"
+    handRight.style.transform = "translateX(-52vw)"
+    handsCont.style.opacity = "1" */
+    bodyDOM.style.opacity = "0"  
+    setTimeout(()=>{
+        window.location.href = `http://www.w3schools.com`; 
+    },1200)
+
+    
 }
 
 function redirBtnExt(_route){

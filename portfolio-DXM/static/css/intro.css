@@ -7,6 +7,7 @@ body{
     grid-template-columns: repeat(25, 4vw);
     grid-template-rows: repeat(25, 4vh);
     overflow: hidden;
+    transition: opacity .5s .5s ease-in;
 }
 
 .composite{
@@ -51,8 +52,9 @@ body{
     grid-row: 16;
     grid-column: 13;
     place-self: center;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.5s ease-in-out;
     position: relative;
+    opacity: 0;
 }
 
 .flagVis{
@@ -135,6 +137,8 @@ body{
     place-self: center;
     /* background-color: red; */
     justify-content: space-evenly;
+    transition: all 0.4s 0.2s ease-in;
+    
 }
 
 #chooseCont > button{
@@ -177,8 +181,8 @@ button:hover{
 }
 
 #sideBarIntro > img {
-    min-width: 5vw;
-    min-height: 5vw;
+    min-width: 20px;
+    min-height: 20px;
     max-height: 2rem;
     max-width: 2rem;
     position: relative;
@@ -191,6 +195,145 @@ button:hover{
     filter: drop-shadow(0 0 3px white);
     transition: filter 0.2s;
 }
+
+/* #handsCont{
+    position: relative; 
+    grid-row: 17; 
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+    opacity: 0;
+}
+
+.handsAnim{
+    position: relative;
+    width: 20rem;
+    height: 20rem;
+    left: -10%;
+    transition: transform 0.5s 0.1s ease-in-out;
+
+}
+
+#handRight{
+    left: 10%;
+} */
+
+.lineUp{
+    background-size: contain;
+    width: 50%;
+    height: 50%;
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.35s 0.2s ease-in;
+}
+
+.lineLong{
+    background-image: url(../../gallery/2dElems/lineLg.svg);
+}
+
+.lineShort{
+    background-image: url(../../gallery/2dElems/lineSm.svg);
+}
+
+.S1{
+    animation: floatFX2 4.7s 0.1s ease-in-out infinite;
+}
+
+.S2{
+    animation: floatFX1 5s ease-in-out infinite;
+}
+
+.S3{
+    animation: floatFX3 3.5s 0.4s ease-in-out infinite;
+}
+
+@keyframes floatFX1 {
+    0% {
+        transform: translate(-20%, -10%) rotate(-45deg);
+    }
+    50% {
+        transform: translate(5%, 5%) rotate(-45deg);
+    }
+    100% {
+        transform: translate(-20%, -10%) rotate(-45deg);
+    }
+}
+
+@keyframes floatFX2 {
+    0% {
+        transform: translate(-5%, -5%) rotate(-25deg);
+    }
+    50% {
+        transform: translate(5%, 5%) rotate(-25deg);
+    }
+    100% {
+        transform: translate(-5%, -5%) rotate(-25deg);
+    }
+}
+
+@keyframes floatFX3 {
+    0% {
+        transform: translate(-10%, -10%) rotate(-86deg);
+    }
+    50% {
+        transform: translate(8%, 10%) rotate(-86deg);
+    }
+    100% {
+        transform: translate(-10%, -10%) rotate(-86deg);
+    }
+}
+
+.S4{
+    animation: floatFX4 5s 0.5s ease-in-out infinite;
+
+
+}
+
+.S5{
+    animation: floatFX5 3.5s 0.4s ease-in-out infinite;
+}
+
+.S6{
+    animation: floatFX6 3.9s ease-in-out infinite;
+
+} 
+
+@keyframes floatFX4 {
+    0% {
+        transform: translate(5%, -9%) rotate(25deg);
+    }
+    50% {
+        transform: translate(-20%, 10%) rotate(25deg);
+    }
+    100% {
+        transform: translate(5%, -9%) rotate(25deg);
+    }
+}
+
+@keyframes floatFX5 {
+    0% {
+        transform: translate(3%, -5%) rotate(45deg);
+    }
+    50% {
+        transform: translate(-7%, 5%) rotate(45deg);
+    }
+    100% {
+        transform: translate(3%, -5%) rotate(45deg);
+    }
+}
+
+@keyframes floatFX6 {
+    0% {
+        transform: translate(15%, -8%) rotate(86deg);
+    }
+    50% {
+        transform: translate(-8%, 10%) rotate(86deg);
+    }
+    100% {
+        transform: translate(15%, -8%) rotate(86deg);
+    }
+}
+
 
 @media (max-width: 950px){
     #chooseCont > button{
