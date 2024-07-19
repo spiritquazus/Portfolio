@@ -3,11 +3,11 @@ import * as THREE from 'three';
 /* const vertexShader = document.getElementById('vertexShader').textContent;
 const fragmentShader = document.getElementById('fragmentShader').textContent; */
 
-import vertexShader from '../gallery/3jsTextures/shaders/vertexShader.glsl'
-import fragmentShader from '../gallery/3jsTextures/shaders/fragmentShader.glsl'
+import vertexShader from '/gallery/3jsTextures/shaders/vertexShader.glsl'
+import fragmentShader from '/gallery/3jsTextures/shaders/fragmentShader.glsl'
 
-import bgCoverFragment from '../gallery/3jsTextures/shaders/bgCoverFragment.glsl'
-import bgCoverVertex from '../gallery/3jsTextures/shaders/bgCoverVertex.glsl'
+import bgCoverFragment from '/gallery/3jsTextures/shaders/bgCoverFragment.glsl'
+import bgCoverVertex from '/gallery/3jsTextures/shaders/bgCoverVertex.glsl'
 
 
 
@@ -18,7 +18,7 @@ import bgCoverVertex from '../gallery/3jsTextures/shaders/bgCoverVertex.glsl'
 
 const uniforms = { //for shaders! decides which texture to use as a base
     nightCityTex: {
-        value: new THREE.TextureLoader().load('../gallery/3jsTextures/skylineBGNight.jpg')
+        value: new THREE.TextureLoader().load('/gallery/3jsTextures/skylineBGNight.jpg')
     }
 }
 
@@ -36,7 +36,7 @@ const BGcoverMat = new THREE.ShaderMaterial({
 })
 
 //background Mesh:
-const BGbackgroundMesh = new THREE.TextureLoader().load('../gallery/3jsTextures/tokyoBGNight.jpg') //unused
+const BGbackgroundMesh = new THREE.TextureLoader().load('/gallery/3jsTextures/tokyoBGNight.jpg') //unused
 const BGbackgroundMaterial = new THREE.MeshPhongMaterial({ //unused
     map: BGbackgroundMesh,
     side: THREE.FrontSide,
@@ -85,10 +85,10 @@ function modelInstall(_loaderType, _item, _scene, _obj){
         },
         (xhr) => {
             console.log((xhr.loaded / xhr.total * 100) + `% loaded`);
-        },
+        }/* ,
         (error) => {
             console.error(`Error loading item: ${error}`);
-        }
+        } */
     );
 }
 

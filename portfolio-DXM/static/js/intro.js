@@ -3,7 +3,8 @@ const dxmEyeSocket = document.getElementById("DXMpart2")
 const dxmEyeBoundaries = document.getElementById("socketBound")
 const dxmEyeLid = document.getElementById("DXMpart3")
 
-const bodyDOM = document.getElementsByTagName("body")[0]
+const bodyDOM = document.getElementsByTagName("body")[0],
+    bodyCover = document.getElementById("bodyCover")
 
 const langCont = document.getElementById("langCont")
 const chooseCont = document.getElementById("chooseCont")
@@ -73,6 +74,7 @@ function activeEye(_elem, _cont, _mainCont, _mainContAfter){
     eyeBlink(_mainCont, _mainContAfter, _elem, _cont)
 }
 
+bodyCover.style.opacity="0.8"
 
 activeEye(dxmEye, dxmEyeBoundaries, dxmEyeSocket, dxmEyeLid)
 

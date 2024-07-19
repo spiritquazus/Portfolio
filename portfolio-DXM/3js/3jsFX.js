@@ -9,7 +9,7 @@ const pointLight1 = new THREE.PointLight("rgb(255,255,255)", 10, 1000, 1)
 pointLight1.position.set(0, 0, 0)
 const lightHelperPoint1 = new THREE.PointLightHelper(bulbLight1)
 const lightHelper1 = new THREE.PointLightHelper(pointLight1)
-const ambientLight = new THREE.AmbientLight("rgb(255,255,255)",0.1)
+const ambientLight = new THREE.AmbientLight("rgb(255,255,255)",0.05)
 
 //createLight(PointLight, BGscene, {lightSetup:[], posxyz:[], rotaxyz[], lightH:false, lightHSetup:[]})
 function createLight(_lightType, _scene, _obj){
@@ -29,7 +29,7 @@ function createLight(_lightType, _scene, _obj){
             }
             break;
         case 'DirectionalLight':
-            newLight = new THREE.DirectionalLight(..._obj.lightSetupffff);
+            newLight = new THREE.DirectionalLight(..._obj.lightSetup);
             if (_obj.lightH){
                 newLightHelper = new THREE.DirectionalLightHelper(newLight, ..._obj.lightHSetup)
             }
@@ -45,6 +45,8 @@ function createLight(_lightType, _scene, _obj){
             if (_obj.lightH){
                 newLightHelper = new RectAreaLightHelper(newLight, ..._obj.lightHSetup)
             }
+            _obj.width?newLight.width = _obj.width:console.log(_lightType, " No light width detected. resorting to default")
+            _obj.height?newLight.height = _obj.height:console.log(_lightType, " No light height detected. resorting to default")
             break;
         case 'AmbientLight':
             newLight = new THREE.AmbientLight(..._obj.lightSetup); 
@@ -53,11 +55,17 @@ function createLight(_lightType, _scene, _obj){
             console.error(`Light type "${_lightType}" not recognized.`);
             return null; 
     }
+
     newLight.position.set(..._obj.posxyz)
     newLight.rotation.set(..._obj.rotaxyz)
-    //helper
+    _lightType=="HemisphereLight"?console.log("NOTREADYET"):_obj.lightColor?newLight.color.set(..._obj.lightColor):console.log(_lightType, " No light color detected. resorting to default")
+    _obj.intensity?newLight.intensity.set(_obj.intensity):console.log(_lightType, " No light intensity detected. resorting to default")
+
+    
     console.log(`Adding light ${newLight} to scene`)
     _scene.add(newLight)
+
+    //helper
     if (_obj.lightH){
         _scene.add(newLightHelper)
         console.log("adding light helper")

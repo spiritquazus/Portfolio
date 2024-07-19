@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        #kontrolBox{
+            position: absolute;
+            z-index: 999;
+            background-color: rgba(170,170,170,0.7);
+            border: 1px solid black;
+            font-size: larger;
+        }
+        #kontrolLightsUI{
+            display: flex;
+            flex-direction: column;
+            columns: 20rem 2;
+            column-gap: 3rem;
+            flex-wrap: wrap;
+            max-height: 70vh;
+            max-width: 28vw;
+            background-color: rgba(220,220,220,0.5);
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            padding: 10px;
+        }
+        #lightSettingsColor{
+            width: 1rem;
+            height: 1rem;
+            border: 1px solid black;
+            margin: 0 3px;
+        }
+        #kontrolLightsChosen{
+            border-right: 1px white solid;
+            max-width: 20rem;
+            overflow-y: scroll;
+        }
+        #kontrolLightsListCont{
+            width: 10rem;
+            overflow-y: scroll;
+        }
+        .kontrolTab{
+            display: none !important
+        }
+        
+
+    </style>
+    <div id="kontrolBox">KONTROLBOX
+        <button id="kontrolLightsBtn">Lights</button>
+        <button id="kontrolMeshesBtn">Meshes</button>
+        <button id="closeKontrolsBtn">X</button>
+    </div>
+    <div id="kontrolLightsUI" class="kontrolTab">
+        <div id="kontrolLightsChosen"><h1>Kontrol Lights</h1><h1 id="chosenLightName"></h1>
+            <br/>
+            <span>Increment:</span>
+            <input type="text" value="1" style="width: 2rem">
+            <br/>
+            <br/>
+            <div>Current XYZ position: <span id="lightPositionXYZ"></span></div>
+            <div><button id="posXplus">posXplus</button> <button id="posYplus">posYplus</button> <button id="posZplus">posZplus</button></div>
+            <div><button id="posXminus">posXminus</button> <button id="posYminus">posYminus</button> <button id="posZminus">posZminus</button></div>
+            <br/>
+            <div>Current XYZ Rotation: <span id="lightRotationXYZ"></span></div>
+            <div><button id="rotaXplus">rotaXplus</button> <button id="rotaYplus">rotaYplus</button> <button id="rotaZplus">rotaZplus</button></div>
+            <div><button id="rotaXminus">rotaXminus</button> <button id="rotaYminus">rotaYminus</button> <button id="rotaZminus">rotaZminus</button></div>
+            <br/>
+
+            <div>Lights Settings <span id="lightSettingsAAA"></span>:</div>
+            <div style="display: flex">Color/skyColor<span id="lightOption1"></span><div id=lightSettingsColor></div></div>
+            <div><button id="rotaXplus">Red+</button><button id="rotaXplus">Red-</button><button id="rotaXplus">Blue+</button><button id="rotaXplus">Blue-</button><button id="rotaXplus">Green+</button><button id="rotaXplus">Green-</button></div>
+            
+            <div>Intensity/groundcolor<span id="lightOption2"></span></div>
+            <div><button id="lightOption2Plus">+</button><button id="lightOption2Minus">-</button></div>
+            
+            <div>Width/distance/skyIntensity/<span id="lightOption3"></span></div>
+            <div><button id="lightOption3Plus">+</button><button id="lightOption3Minus">-</button></div>
+            
+            <div>Height/angle/decay<span id="lightOption4"></span></div>
+            <div><button id="lightOption4Plus">+</button><button id="lightOption4Minus">-</button></div>
+            <br/>
+            <button id="saveChanges"> SAVE! (copies to clipboard) </button>
+        
+            
+        </div>
+        <div id="kontrolLightsListCont"><h1>Light List</h1>
+            <ul id="kontrolLightsList"> 
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+                <li>test</li>
+            </ul>
+        </div>
+    </div>
+    <div id="kontrolMeshesUI" class="kontrolTab">kontrolMeshesUI
+    </div>
+
+
+
+    <script>
+
+        const kontrolLightsUI = document.getElementById("kontrolLightsUI"), 
+            kontrolMeshesUI = document.getElementById("kontrolMeshesUI"), 
+            kontrolLightsBtn = document.getElementById("kontrolLightsBtn"), 
+            kontrolMeshesBtn = document.getElementById("kontrolMeshesBtn"), 
+            kontrolLightsList = document.getElementById("kontrolLightsList"), 
+            lightSettingsColor = document.getElementById("lightSettingsColor"),
+            kontrolTab = Array.from(document.getElementsByClassName("kontrolTab"))
+
+        kontrolLightsBtn.addEventListener("click", ()=>{
+            if (kontrolLightsUI.classList.contains("kontrolTab")){
+                kontrolTab.forEach((div)=>{
+                    div.classList.toggle("kontrolTab", true)
+                })
+                
+            }
+                kontrolLightsUI.classList.toggle("kontrolTab")
+            //kontrolLightsUI.classList.toggle("kontrolTab")
+        })
+        kontrolMeshesBtn.addEventListener("click", ()=>{
+            kontrolMeshesUI.style.display = "flex"
+        })
+
+        
+    </script>
+</body>
+
+</html>
