@@ -203,7 +203,7 @@ p{
     flex-wrap: wrap;
     font-size: 2rem;
     color: white;
-    font-family: "Bebas Neue", sans-serif;
+    font-family: var(--font-primary);
     transition: opacity 0.2s ease-in;
 }
 

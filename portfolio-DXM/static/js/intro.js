@@ -4,7 +4,9 @@ const dxmEyeBoundaries = document.getElementById("socketBound")
 const dxmEyeLid = document.getElementById("DXMpart3")
 
 const bodyDOM = document.getElementsByTagName("body")[0],
-    bodyCover = document.getElementById("bodyCover")
+    bodyCover = document.getElementById("bodyCover"),
+    greetingsMsg = document.getElementById("greetingsMsg"),
+    rootCSS = document.querySelector(':root')
 
 const langCont = document.getElementById("langCont")
 const chooseCont = document.getElementById("chooseCont")
@@ -18,6 +20,7 @@ dxmEye.style.top = `${dxmEyeBoundaries.getBoundingClientRect().top}px`;
 
 langCont.style.opacity = "1"
 
+bodyCover.style.opacity="0.9"
 
 function eyeSpy(e, _elem, _cont){
     const _contRect = _cont.getBoundingClientRect();
@@ -74,7 +77,6 @@ function activeEye(_elem, _cont, _mainCont, _mainContAfter){
     eyeBlink(_mainCont, _mainContAfter, _elem, _cont)
 }
 
-bodyCover.style.opacity="0.8"
 
 activeEye(dxmEye, dxmEyeBoundaries, dxmEyeSocket, dxmEyeLid)
 
@@ -103,14 +105,32 @@ function contLangShow(_lang){
 
     switch(_lang){
         case "english":           
+            bodyDOM.style.backgroundImage = "url(../../gallery/2dElems/bg_london.jpg)"
             chooseMobile.innerText = "Mobile/Static Portfolio"
             choose3d.innerText = "3D Portfolio (You have a decent computer)"
+            greetingsMsg.innerHTML = "<p>Portfolio</p><p>Isaac Kim</p>"
+            rootCSS.style.setProperty("--font-primary", "Zen Antique, serif")
             break;
         case "french":
+            bodyDOM.style.backgroundImage = "url(../../gallery/2dElems/bg_louvre.jpg)"
+            chooseMobile.innerText = "Portfolio Statique"
+            choose3d.innerText = "Portfolio en 3D (Three.js)"
+            greetingsMsg.innerHTML = "<p>Portfolio de</p><p>Isaac Kim</p>"
+            rootCSS.style.setProperty("--font-primary", "Zen Antique, serif")
             break;
         case "korean":
+            bodyDOM.style.backgroundImage = "url(../../gallery/2dElems/bg_seoul.jpg)"
+            chooseMobile.innerText = "포트폴리오 링크"
+            choose3d.innerText = "3D 포트폴리오 링크 (성능 주의)"
+            greetingsMsg.innerHTML = "<p>김이작의</p><p>포트폴리오</p>"
+            rootCSS.style.setProperty("--font-primary", "Song Myung, serif")
             break;
         case "japanese":
+            bodyDOM.style.backgroundImage = "url(../../gallery/2dElems/bg_tokyo.jpg)"
+            chooseMobile.innerText = "ポートフォリオ"
+            choose3d.innerText = "3D ポートフォリオ"
+            greetingsMsg.innerHTML = "<p>キムアイザックの</p><p style='font-size: 1.6rem; font-style: bold'>ポートフォリオ</p>"
+            rootCSS.style.setProperty("--font-primary", "Zen Antique, serif")
             break;
         
     };

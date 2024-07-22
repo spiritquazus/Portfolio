@@ -352,9 +352,9 @@ function kontroller(_scene){
     }
 
     function hideHelpers(_scene){
-        console.log("Hiding helpers throughout Scene, ",_scene)
+        console.log("Hiding helpers throughout Scene")
         _scene.traverse((object) => {
-            console.log("WHAT IS THE OBJECTm, ", object)
+            console.log("!!WHAT IS THE OBJECTm, ", object)
             if (object.type.includes('Helper')) {
             object.visible = false;
             }
@@ -363,6 +363,7 @@ function kontroller(_scene){
     document.querySelector("#hideHelpers").addEventListener("click", ()=>{hideHelpers(_scene)})
     
     function showHelpers(_scene){
+        console.log("Showing helpers throughout Scene")
         _scene.traverse((object) => {
             if (object.type.includes('Helper')) {
                 
