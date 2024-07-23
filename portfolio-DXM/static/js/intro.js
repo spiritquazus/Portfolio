@@ -203,7 +203,7 @@ function redirBtn(_route){
     handsCont.style.opacity = "1" */
     bodyDOM.style.opacity = "0"  
     setTimeout(()=>{
-        window.location.href = `http://www.w3schools.com`; 
+        window.location.href = `https://spiritquazus.github.io/Portfolio/portfolio-DXM/3js/index.html`; 
     },1200)
 
     
