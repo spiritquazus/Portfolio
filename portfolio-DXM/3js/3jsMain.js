@@ -58,7 +58,7 @@ async function loadAllModels(){
     modelsList.streetModel = streetModel;
 
     console.log("finished 3d model building")
-    animateMain()
+    
 
 }
 loadAllModels()
@@ -100,7 +100,7 @@ function animateMain(){
     requestAnimationFrame(animateMain)
     BGrenderer.render(BGscene, BGcamera);
 }
-
+animateMain()
 
 //KONTROLLER
 
