@@ -1,5 +1,6 @@
-import * as THREE from 'three';
-import { RectAreaLightHelper } from 'three/addons/helpers/RectAreaLightHelper.js';
+import * as THREE from 'three'; 
+import { RectAreaLightHelper } from 'three/addons/helpers/RectAreaLightHelper.js'; 
+
 
 //lights:
 const bulbLight1 = new THREE.PointLight('rgb(255,255,255)', 1, 100)

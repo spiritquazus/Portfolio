@@ -1,24 +1,71 @@
-import * as THREE from 'three';
+import * as THREE from 'three'; 
+
 
 /* const vertexShader = document.getElementById('vertexShader').textContent;
 const fragmentShader = document.getElementById('fragmentShader').textContent; */
 
-import vertexShader from '/gallery/3jsTextures/shaders/vertexShader.glsl'
-import fragmentShader from '/gallery/3jsTextures/shaders/fragmentShader.glsl'
+//import vertexShader from '/portfolio-DXM/public/gallery/3jsTextures/shaders/vertexShader.glsl'
+/* ⚠️import fragmentShader from './3js/gallery/3jsTextures/shaders/fragmentShader.glsl'
 
-import bgCoverFragment from '/gallery/3jsTextures/shaders/bgCoverFragment.glsl'
-import bgCoverVertex from '/gallery/3jsTextures/shaders/bgCoverVertex.glsl'
+import bgCoverFragment from './3js/gallery/3jsTextures/shaders/bgCoverFragment.glsl'
+import bgCoverVertex from './3js/gallery/3jsTextures/shaders/bgCoverVertex.glsl' */
+
+const vertexShader = `
+varying vec2 vertexUV; //vec2(0, 0.24) imported from vertexShader.glsl
+varying vec3 vertexNormal; //defines facing direction of vertex.
+
+void main() {
+    vertexUV = uv;
+    vertexNormal = normal;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 ); //boilerplate!
+    
+}
+`
+
+const fragmentShader = `
+ 
+uniform sampler2D nightCityTex;
+
+varying vec2 vertexUV; //vec2(0, 0.24). Imported from vertexShader.glsl
+varying vec3 vertexNormal; //defines facing direction of vertex. Imported from vertexShader.glsl
 
 
+void main() {
+    float intensity = 1.05 - dot(vertexNormal, vec3(0.0, 0.0, 1.0));
+    vec3 atmosphere = vec3(0.3, 0.6, 1.0) * pow(intensity, 3.5);
+
+    gl_FragColor = vec4(vec3(0.00, 0.00, 0.04) + texture2D(nightCityTex, vertexUV).xyz, 1.0);
+        //vec3(0.05, 0.05, 0.15)
+        //atmosphere
+        
+         
+} `
 
 
+const bgCoverFragment = `
+varying vec3 vertexNormal;
+void main(){
+    float intensity = pow(0.8 - dot(vertexNormal, vec3(0, 0, 1.0)), 2.0); //first float defines actual intensity. 
+    gl_FragColor = vec4(0.3, 0.6, 1.0, 1.0) * intensity;
+}
+`
+
+const bgCoverVertex = `
+varying vec3 vertexNormal; //defines facing direction of vertex.
+
+void main() {
+    vertexNormal = normal;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 ); //boilerplate!
+    
+}
+`
 //==MESH AND SHADERS==
 
 //shaders:
 
 const uniforms = { //for shaders! decides which texture to use as a base
     nightCityTex: {
-        value: new THREE.TextureLoader().load('/gallery/3jsTextures/skylineBGNight.jpg')
+        value: new THREE.TextureLoader().load('../gallery/3jsTextures/skylineBGNight.jpg')
     }
 }
 
@@ -36,7 +83,7 @@ const BGcoverMat = new THREE.ShaderMaterial({
 })
 
 //background Mesh:
-const BGbackgroundMesh = new THREE.TextureLoader().load('/gallery/3jsTextures/tokyoBGNight.jpg') //unused
+const BGbackgroundMesh = new THREE.TextureLoader().load('../gallery/3jsTextures/tokyoBGNight.jpg') //unused
 const BGbackgroundMaterial = new THREE.MeshPhongMaterial({ //unused
     map: BGbackgroundMesh,
     side: THREE.FrontSide,
@@ -73,23 +120,27 @@ glowSimpleContext.fillRect(0,0,512,512)
 function modelInstall(_loaderType, _item, _scene, _obj){
     const gltfLoader = new _loaderType();
     console.log(`model loader: ${_loaderType}`)
-    gltfLoader.load(
-        _item,
-        (gltfScene) => {
-            function _upk(K, def1){return def1 ? (K ? K : [1,1,1]) : (K ? K : [0,0,0])}
-            gltfScene.scene.scale.set(..._upk(_obj.scale, true));
-            gltfScene.scene.position.set(..._upk(_obj.position))
-            gltfScene.scene.rotation.set(..._upk(_obj.rotation))
-            console.log("GLTF loaded successfully:", gltfScene);
-            _scene.add(gltfScene.scene); // Add gltfScene.scene to BGscene
-        },
-        (xhr) => {
-            console.log((xhr.loaded / xhr.total * 100) + `% loaded`);
-        }/* ,
-        (error) => {
-            console.error(`Error loading item: ${error}`);
-        } */
-    );
+    return new Promise((resolve, reject) => {
+        gltfLoader.load(
+            _item,
+            (gltfScene) => {
+                function _upk(K, def1){return def1 ? (K ? K : [1,1,1]) : (K ? K : [0,0,0])}
+                gltfScene.scene.scale.set(..._upk(_obj.scale, true));
+                gltfScene.scene.position.set(..._upk(_obj.position))
+                gltfScene.scene.rotation.set(..._upk(_obj.rotation))
+                console.log("GLTF loaded successfully:", gltfScene);
+                _scene.add(gltfScene.scene); // Add gltfScene.scene to BGscene
+                resolve(gltfScene.scene);
+            },
+            (xhr) => {
+                console.log(`Loading: ${(xhr.loaded / xhr.total * 100)}%`);
+            },
+            (error) => {
+                console.error(`Error loading item: ${error}`);
+                reject(error)
+            } 
+        );
+    })
 }
 
 //autoGenerate

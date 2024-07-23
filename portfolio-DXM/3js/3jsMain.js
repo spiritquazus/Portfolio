@@ -1,7 +1,11 @@
+
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+
+import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
+
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'; 
+
 import { RectAreaLightHelper } from 'three/addons/helpers/RectAreaLightHelper.js';
 
 import { addRandoms, modelInstall, BGbackgroundFull, BGbackgroundFull2 } from './3jsMesh.js'
@@ -15,6 +19,7 @@ function editorMode(_scene){
 }    
 
 window.lightsList = {}
+window.modelsList = {}
 
 //test
 /* console.log(`model loader: ${GLTFLoader}`)
@@ -37,24 +42,48 @@ gltfLoader1.load(
 );  */
 //testend
 
+async function loadAllModels(){
 
-modelInstall(GLTFLoader, '../gallery/3dAssets/streetTokyo/scene.gltf', BGscene, {scale: [1,1,1], position: [0,0,0]})
-modelInstall(GLTFLoader, '../gallery/3dAssets/skylineBack1/scene.gltf', BGscene, {scale: [0.35,0.40,0.35], position: [0,0,-50]})
-modelInstall(GLTFLoader, '../gallery/3dAssets/skylineBack2/scene.gltf', BGscene, {scale: [7.5,7.5,7.95], position: [-20,-2,-30], rotation: [0,280,0]}) 
+    const modelLoadProm = [
+        modelInstall(GLTFLoader, '../gallery/3dAssets/skylineBack1/scene.gltf', BGscene, {scale: [0.35,0.40,0.35], position: [0,0,-50]}),
+        modelInstall(GLTFLoader, '../gallery/3dAssets/skylineBack2/scene.gltf', BGscene, {scale: [7.5,7.5,7.95], position: [-20,-2,-30], rotation: [0,280,0]}), 
+        //etc
+        modelInstall(GLTFLoader, '../gallery/3dAssets/streetTokyo/scene.gltf', BGscene, {scale: [1,1,1], position: [0,0,0]})
+    ]
+
+    const [skyline1, skyline2, streetModel] = await Promise.all(modelLoadProm);
+
+    modelsList.skyline1 = skyline1;
+    modelsList.skyline2 = skyline2;
+    modelsList.streetModel = streetModel;
+
+    console.log("finished 3d model building")
+    animateMain()
+
+}
+loadAllModels()
 
 lightsList.lightMenuWall = 
 createLight("PointLight", BGscene, {lightSetup:['rgb(220,220,220)', 0.1, 20, 3.8], posxyz:[-1, 1.5, 0.3], rotaxyz:[0,0,0], lightH:true, lightHSetup:[]})
 
-lightsList.lightHangingBulb = 
-createLight("PointLight", BGscene, {lightSetup:['rgb(220,220,190)', 0.3, 500, 1.7], posxyz: [0.000,2.800,-0.200], rotaxyz: [0.000,0.000,0.000], lightH:true, lightHSetup:[]})
+lightsList.lightHangingBulb1 = 
+createLight("PointLight", BGscene, {lightSetup:['rgb(220,220,190)', 2.1, 5, 1.9], posxyz: [0.000,2.800,-0.200], rotaxyz: [0.000,0.000,0.000], lightH:true, lightHSetup:[]})
+
+lightsList.lightHangingBulb2 = 
+createLight("PointLight", BGscene, {lightSetup:['rgb(220,220,190)', 2.1, 5, 1.9], posxyz:[0.000,2.800,-3.400], rotaxyz: [0.000,0.000,0.000], lightH:true, lightHSetup:[]})
+
+lightsList.lightHangingBulb3 = 
+createLight("PointLight", BGscene, {lightSetup:['rgb(220,220,190)', 2.1, 5, 1.9], posxyz: [0.000,2.800,-6.800], rotaxyz: [0.000,0.000,0.000], lightH:true, lightHSetup:[]})
+
 
 lightsList.lightShop1Door = 
 createLight("RectAreaLight", BGscene, {lightSetup:['rgb(220,220,190)', 3, 0.7, 2.5], posxyz:[-1.200,0.700,-1.400], rotaxyz:[0.000,-1.600,0.000], lightH:true, lightHSetup:[]})
 
+lightsList.lightShop1window = 
+createLight("PointLight", BGscene, {lightSetup:['rgb(250,250,220)', 4.1, 15, 3.8], posxyz:[-1.100,1.300,-2.700], rotaxyz:[0,0,0], lightH:true, lightHSetup:[]})
+
 lightsList.lightVending1 = 
 createLight("RectAreaLight", BGscene, {lightSetup:['rgb(220,220,190)', 6, 0.7, 2.5], width:0.85, height:1.0, posxyz:[1.250,1.400,0.500], rotaxyz:[0.000,1.600,0.000], lightColor:[0.71,0.71,0.51], lightH:true, lightHSetup:[]})
-
-
 
 
 addRandoms('rgb(255,255,255)', BGscene, 500)
@@ -71,7 +100,6 @@ function animateMain(){
     requestAnimationFrame(animateMain)
     BGrenderer.render(BGscene, BGcamera);
 }
-animateMain()
 
 
 //KONTROLLER

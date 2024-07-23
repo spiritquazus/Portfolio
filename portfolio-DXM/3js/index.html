@@ -1,32 +1,35 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Portfolio-DXM</title>
-    <link href="style.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" type="module"></script>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio-DXM</title>
+  <link href="style.css" rel="stylesheet">
+  <script type="importmap">
+    {
+        "imports": {
+          "three": "https://unpkg.com/three@0.155.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.155.0/examples/jsm/",
+          "dat.gui": "https://unpkg.com/dat.gui@0.7.9/build/dat.gui.module.js"
+        }
+    }
+  </script>
 </head>
-  </head>
-  <body>
-    <canvas id="cMain"></canvas>
-    <front5 class="layer"></front5>
-    <front4 class="layer">
-    </front4>
-    <front3 class="layer"></front3>
-    <front2 class="layer"></front2>
+<body>
+  <canvas id="cMain"></canvas>
+  <front5 class="layer"></front5>
+  <front4 class="layer"></front4>
+  <front3 class="layer"></front3>
+  <front2 class="layer"></front2>
+  <front1 class="layer filterDarken70"></front1>
+  <front0></front0>
+  <canvas id="c1"></canvas>
+  <canvas id="c2"></canvas>
 
-    <front1 class="layer filterDarken70">
-    </front1>
-    <front0></front0>
-    <canvas id="c1"></canvas>
-    <canvas id="c2"></canvas>
-
-
-    <script src="./main.js"></script>
-    <script type="module" src="./3jsScene.js"></script>
-    <script type="module" src="./3jsMesh.js"></script>
-    <script type="module" src="./3jsFX.js"></script>
-    <script type="module" src="./3jsMain.js"> </script>  
-  </body>
+  <!-- Include your JavaScript files as modules -->
+  <script type="module" src="./3jsScene.js"></script>
+  <script type="module" src="./3jsMesh.js"></script>
+  <script type="module" src="./3jsFX.js"></script>
+  <script type="module" src="./3jsMain.js"></script> 
+</body>
 </html>

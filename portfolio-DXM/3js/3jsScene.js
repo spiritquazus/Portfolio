@@ -1,5 +1,16 @@
+// ⚠️ import * as THREE from 'three'; three 
+//⚠️ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'; 
+
+
+/* import * as THREE from 'https://unpkg.com/three@0.166.1/build/three.module.js';
+import { OrbitControls } from 'https://unpkg.com/three@0.166.1/examples/jsm/controls/OrbitControls.js'; */
+
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
+
+
+
+
 
 
 const BGcamera = new THREE.PerspectiveCamera(70, window.innerWidth/window.innerHeight, 0.1, 500);
@@ -11,6 +22,9 @@ const BGrenderer = new THREE.WebGLRenderer({
 })
 BGrenderer.setSize(window.innerWidth, window.innerHeight);
 BGrenderer.render(BGscene, BGcamera);
+
+
+
 
 
 
@@ -65,4 +79,5 @@ gltfLoader.load(
 ); */
 
 
-export {BGrenderer, BGcamera, BGscene}
+
+export {BGrenderer, BGcamera, BGscene} 
