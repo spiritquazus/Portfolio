@@ -11,6 +11,7 @@ const bodyDOM = document.getElementsByTagName("body")[0],
     sideBarIntro = document.getElementById("sideBarIntro"),
     contactIntro = document.getElementById("contactIntro"),
     botBarIntro = document.getElementById("botBarIntro"),
+    cvLinks = Array.from(document.querySelectorAll(".cvLink"))
     rootCSS = document.querySelector(':root')
 
 const langCont = document.getElementById("langCont")
@@ -143,6 +144,7 @@ function contLangShow(_lang){
             chooseMobile.innerText = "Mobile/Static Portfolio"
             choose3d.innerText = "3D Portfolio (You have a decent computer)"
             greetingsMsg.innerHTML = "<p>Portfolio</p><p>Isaac Kim</p>"
+            cvLinks.forEach((link)=>link.onclick=(()=>redirBtnExt('../txt/CV_IKY_fullStack_2024.pdf')))
             break;
 
         case "french":
@@ -151,6 +153,7 @@ function contLangShow(_lang){
             choose3d.innerText = "Portfolio en 3D (Three.js)"
             greetingsMsg.innerHTML = "<p>Portfolio de</p><p>Isaac Kim</p>"
             rootCSS.style.setProperty("--font-primary", "Zen Antique, serif")
+            cvLinks.forEach((link)=>link.onclick=(()=>redirBtnExt('../txt/CV_IKY_fullStack_2024.pdf')))
             introTuneLoad("fr_scnf.mp3")
             contactIntro.innerHTML=`
     <div><img><span>Téléphone: </span><span>+82 10-2515-9789 (Corée du Sud)</span></div>
@@ -165,6 +168,7 @@ function contLangShow(_lang){
             choose3d.innerText = "3D 포트폴리오 링크"
             greetingsMsg.innerHTML = "<p>김이작의</p><p>포트폴리오</p>"
             rootCSS.style.setProperty("--font-primary", "Song Myung, serif")
+            cvLinks.forEach((link)=>link.onclick=(()=>redirBtnExt('../txt/CV_IKY_KR.pdf')))
             introTuneLoad("kr_지하철.mp3")
             contactIntro.innerHTML=`
     <div><img><span>전화: </span><span>010-2515-9789</span></div>
@@ -179,6 +183,7 @@ function contLangShow(_lang){
             choose3d.innerText = "3D ポートフォリオ"
             greetingsMsg.innerHTML = "<p style='font-size: 0.6rem'>キムアイザックの</p><p style='font-size: 1rem'>ポートフォリオ</p>"
             rootCSS.style.setProperty("--font-primary", "Zen Antique, serif")
+            cvLinks.forEach((link)=>link.onclick=(()=>redirBtnExt('../txt/CV_IKY_fullStack_2024.pdf')))
             introTuneLoad("jp_JR東京.mp3")
             contactIntro.innerHTML=`
     <div><img><span>連絡先: </span><span>+82 10-2515-9789</span></div>
