@@ -1,26 +1,60 @@
-const dxmEye = document.getElementById("DXMpart4")
-const dxmEyeSocket = document.getElementById("DXMpart2")
-const dxmEyeBoundaries = document.getElementById("socketBound")
-const dxmEyeLid = document.getElementById("DXMpart3")
+
+const dxmEyeLid = document.getElementById("DXMpart3"), 
+    dxmEye = document.getElementById("DXMpart4"),
+    dxmInteractive = document.getElementById("DXMInteractive"), 
+    dxmEyeBoundaries = document.getElementById("socketBound"),
+    dxmEyeSocket = document.getElementById("DXMpart2")
 
 const bodyDOM = document.getElementsByTagName("body")[0],
     bodyCover = document.getElementById("bodyCover"),
     greetingsMsg = document.getElementById("greetingsMsg"),
+    sideBarIntro = document.getElementById("sideBarIntro"),
+    contactIntro = document.getElementById("contactIntro"),
+    botBarIntro = document.getElementById("botBarIntro"),
     rootCSS = document.querySelector(':root')
 
 const langCont = document.getElementById("langCont")
 const chooseCont = document.getElementById("chooseCont")
 const choose3d = document.getElementById("choose3d")
 const chooseMobile = document.getElementById("chooseMobile")
+const floatPoint = Array.from(document.getElementsByClassName("floatPoint"))
+
+const mQuery = window.matchMedia("(orientation: landscape)");
+if (mQuery.matches + "landscape"){
+
+}
+let introTune = new Audio();
 
 /* const handLeft = document.getElementById("handLeft"), handRight = document.getElementById("handRight"), handsCont = document.getElementById("handsCont") */
 
 dxmEye.style.left = `${dxmEyeBoundaries.getBoundingClientRect().left}px`;
 dxmEye.style.top = `${dxmEyeBoundaries.getBoundingClientRect().top}px`;
+introStartupAnim();
 
-langCont.style.opacity = "1"
+async function introStartupAnim(){
+    langCont.style.opacity = "1"
+    bodyCover.style.opacity="0.9"
+    dxmInteractive.style.opacity = "1"
+    botBarIntro.style.opacity = "1"
+    dxmInteractive.style.transform="translateY(-10vh)"
+    dxmEyeSocket.style.display = "none"
+    dxmEye.style.display = "none"
+    dxmEyeLid.style.display = "flex"
+    sideBarIntro.style.transform="translateX(10vh)"
+    floatPoint.forEach((elem)=>{
+        elem.style.transform="translateX(30vh)"
+    })
+    await new Promise(resolve => setTimeout(resolve, 500))
+        dxmInteractive.style.transition = "transform 0.5s ease-in-out";
+        dxmInteractive.style.transform = "translateY(0vh)";
+    await new Promise(resolve => setTimeout(resolve, 600))
+        dxmEyeSocket.style.display = "flex"
+        dxmEyeLid.style.display = "none"
+        dxmEye.style.display = "flex"
+        dxmEye.style.left = `${dxmEyeBoundaries.getBoundingClientRect().left}px`;
+        dxmEye.style.top = `${dxmEyeBoundaries.getBoundingClientRect().top}px`; 
+}
 
-bodyCover.style.opacity="0.9"
 
 function eyeSpy(e, _elem, _cont){
     const _contRect = _cont.getBoundingClientRect();
@@ -109,31 +143,52 @@ function contLangShow(_lang){
             chooseMobile.innerText = "Mobile/Static Portfolio"
             choose3d.innerText = "3D Portfolio (You have a decent computer)"
             greetingsMsg.innerHTML = "<p>Portfolio</p><p>Isaac Kim</p>"
-            rootCSS.style.setProperty("--font-primary", "Zen Antique, serif")
             break;
+
         case "french":
             bodyDOM.style.backgroundImage = "url(../../gallery/2dElems/bg_louvre.jpg)"
             chooseMobile.innerText = "Portfolio Statique"
             choose3d.innerText = "Portfolio en 3D (Three.js)"
             greetingsMsg.innerHTML = "<p>Portfolio de</p><p>Isaac Kim</p>"
             rootCSS.style.setProperty("--font-primary", "Zen Antique, serif")
+            introTuneLoad("fr_scnf.mp3")
+            contactIntro.innerHTML=`
+    <div><img><span>Téléphone: </span><span>+82 10-2515-9789 (Corée du Sud)</span></div>
+    <div><img><span>Adresse Mail: </span><span>kimisaac010@gmail.com</span></div>
+    <div><img><span>Relocation en France possible</span></div>
+    `
             break;
+
         case "korean":
             bodyDOM.style.backgroundImage = "url(../../gallery/2dElems/bg_seoul.jpg)"
             chooseMobile.innerText = "포트폴리오 링크"
-            choose3d.innerText = "3D 포트폴리오 링크 (성능 주의)"
+            choose3d.innerText = "3D 포트폴리오 링크"
             greetingsMsg.innerHTML = "<p>김이작의</p><p>포트폴리오</p>"
             rootCSS.style.setProperty("--font-primary", "Song Myung, serif")
+            introTuneLoad("kr_지하철.mp3")
+            contactIntro.innerHTML=`
+    <div><img><span>전화: </span><span>010-2515-9789</span></div>
+    <div><img><span>이메일: </span><span>kimisaac010@gmail.com</span></div>
+    <div><img><span>현재 거주지: </span><span>서울시 용산구</span></div>
+    `
             break;
+
         case "japanese":
             bodyDOM.style.backgroundImage = "url(../../gallery/2dElems/bg_tokyo.jpg)"
             chooseMobile.innerText = "ポートフォリオ"
             choose3d.innerText = "3D ポートフォリオ"
-            greetingsMsg.innerHTML = "<p>キムアイザックの</p><p style='font-size: 1.6rem; font-style: bold'>ポートフォリオ</p>"
+            greetingsMsg.innerHTML = "<p style='font-size: 0.6rem'>キムアイザックの</p><p style='font-size: 1rem'>ポートフォリオ</p>"
             rootCSS.style.setProperty("--font-primary", "Zen Antique, serif")
+            introTuneLoad("jp_JR東京.mp3")
+            contactIntro.innerHTML=`
+    <div><img><span>連絡先: </span><span>+82 10-2515-9789</span></div>
+    <div><img><span>メール: </span><span>kimisaac010@gmail.com</span></div>
+    <div><img><span>日本に移住可能</span></div>
+    `
             break;
-        
     };
+    contactIntro.style.transform="translateX(0vh)"
+    
 }
 
 function redirBtn(_route){
@@ -151,4 +206,23 @@ function redirBtn(_route){
 
 function redirBtnExt(_route){
     window.location.href = _route
+}
+
+function introTuneLoad(_url){
+    introTune.src = "../../gallery/SFX/" + _url
+    introTune.volume = "0.3"
+    introTune.onloadedmetadata = function(){
+        introTune.play()
+    }
+    introTune.load()   
+}
+
+
+
+function mediaChange(event) {
+    if (event.matches) {
+        console.log("Landscape mode");
+    } else {
+        console.log("Portrait mode");
+    }
 }
