@@ -1,6 +1,6 @@
 :root{ 
     --font-primary: "Bebas Neue", sans-serif;
-    --lightDarkBG: rgba(0, 0, 5, 1);
+    --lightDarkBG: rgba(0, 0, 5, 0.8);
     --lightDarkPrimary: rgb(0, 0, 5);
     --lightDarkSecondary: rgba(20,20,20,0.8);
     --lightDarkTertiary: rgba(35,35,35,0.9);
@@ -30,19 +30,20 @@ body{
     transition: opacity .5s .5s ease-in;
     color: var(--lightDarkFont);
     font-family: var(--font-primary);
+    position: relative;
 }
 
 #bodyCover{
     border-radius: 2rem;
     background-color: var(--lightDarkBG);
-    backdrop-filter: blur(0.5rem);
+    backdrop-filter: blur(15px);
     z-index: -1;
     position: absolute;
     align-self: center;
     justify-self: center;
     width: 98vw;
     height: 98vh;
-    transition: opacity 3s ease-in;
+    transition: opacity 10s ease-in;
 }
 
 p{

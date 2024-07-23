@@ -34,10 +34,10 @@ introStartupAnim();
 
 async function introStartupAnim(){
     langCont.style.opacity = "1"
-    bodyCover.style.opacity="0.9"
+    
     dxmInteractive.style.opacity = "1"
     botBarIntro.style.opacity = "1"
-    dxmInteractive.style.transform="translateY(-10vh)"
+    dxmInteractive.style.transform="translateY(2vh)"
     dxmEyeSocket.style.display = "none"
     dxmEye.style.display = "none"
     dxmEyeLid.style.display = "flex"
@@ -193,6 +193,7 @@ function contLangShow(_lang){
             break;
     };
     contactIntro.style.transform="translateX(0vh)"
+    bodyCover.style.opacity="0.85" 
     
 }
 
