@@ -1,0 +1,149 @@
+.pagination{
+    border-radius: 1rem;
+    backdrop-filter: blur(15px);
+    background-color: var(--lightDarkTertiary);
+    width: 95vw;
+    height: 90vh;
+    margin: 5vh 2.5vw;
+}
+
+#iky-profile{
+    display: flex;
+    flex-direction: row;
+    margin-top: 1rem;
+}
+
+#photoID{
+    width: 22rem;
+    height: 22rem;
+}
+
+.introSection{
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.5rem;
+}
+
+.dl-navLungo{
+    width: 100%;
+    position: fixed;
+    background-color: var(--lightDarkPrimary);
+    height: 2.2rem;
+    display: grid;
+    grid-template-columns: repeat(100, 1%);
+    grid-template-rows: repeat(3, 33%);
+    z-index: 999
+}
+
+#pf-botNavBar{
+    bottom: 0;
+}
+
+.barEdge-add{
+    position: relative;
+    height: 3rem;
+    background-color: var(--lightDarkPrimary);
+}
+
+.pf-botEdge{
+    grid-column: 40 / 60;
+    grid-row: 1;
+    top: -2rem;
+    clip-path: inset(0 0 1rem 0 round 2rem 2rem 0 0);
+}
+
+.pf-topEdge{
+    grid-column: 1 / 20;
+    grid-row: 4;
+    clip-path: inset(0 0 1rem 0 round 0 0 2rem 0);
+}
+
+.pf-topEdge:nth-of-type(2){
+    position: relative;
+    grid-column: 81 / 100;   
+    clip-path: inset(0 0 1rem 0 round 0 0 0 2rem);
+}
+
+
+.autoSliderCont{
+    display: flex;
+    justify-content: center;
+    width: 200%;
+    height: 25rem;
+    background-color: rgba(25, 25, 25, 0.3);
+    position: absolute;
+    transform: translate(0%, -50%); 
+    /* -- user-select: none;  Prevent image highlighting -- */
+    user-select: none;
+    bottom: 10vh;
+    overflow: hidden;
+    /* left: -50%; */
+}
+
+.sliderCont{
+    height: 100%;
+    background-color: red;
+}
+
+.sliderImg{
+    width: 20rem;   
+    height: 90%;
+    width: 40vmin;
+    height: 56vmin;
+    max-height: 80%;
+    margin: 1rem 2rem;
+    filter: drop-shadow(0 0 25px rgba(10, 10, 10, 0.7));
+    border: 2px rgba(250, 250, 250, 0.7) solid;
+    object-position: 100% center;
+    object-fit: cover;
+    user-select: none;
+}
+
+.sliderTitle{
+    width: 40vmin;
+    z-index: 1;
+    height: 15%;
+    position: relative;
+    margin: 0 auto; 
+    margin-top: -15%;
+    top: 18%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    background-color: rgba(200, 200, 200, 0.4);
+    backdrop-filter: blur(15px);
+
+}
+
+.sliderRecord{
+    position: relative;
+    font-size: 1.5rem;
+    top: -30%;
+    width: 30vmin;
+    margin-left: 5%;
+    background-color: orange;
+    filter: drop-shadow(0 0 2px black);
+    border-radius: 0 5rem 5rem 0;
+    white-space: nowrap;
+}
+
+.sliderRecord > p{
+    padding: 0 1rem;
+}
+
+.sliderRecord p:nth-child(2){
+    font-size: 1rem;
+    color: black;
+}
+
+.sliderRecord p:nth-child(2)::after{
+    content: "";
+    position: absolute;
+    top: 52%;
+    left: 1rem; /* or right: 0; to align to the right */
+    width: 80%; /* Length of the border */
+    border-bottom: 2px solid black; /* Adjust the border thickness and color */
+}

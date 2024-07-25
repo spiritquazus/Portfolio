@@ -129,6 +129,7 @@ function modelInstall(_loaderType, _item, _scene, _obj){
                 gltfScene.scene.position.set(..._upk(_obj.position))
                 gltfScene.scene.rotation.set(..._upk(_obj.rotation))
                 console.log("GLTF loaded successfully:", gltfScene);
+                
                 _scene.add(gltfScene.scene); // Add gltfScene.scene to BGscene
                 resolve(gltfScene.scene);
             },
@@ -142,6 +143,7 @@ function modelInstall(_loaderType, _item, _scene, _obj){
         );
     })
 }
+
 
 //autoGenerate
 

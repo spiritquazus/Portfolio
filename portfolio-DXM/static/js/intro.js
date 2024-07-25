@@ -11,7 +11,8 @@ const bodyDOM = document.getElementsByTagName("body")[0],
     sideBarIntro = document.getElementById("sideBarIntro"),
     contactIntro = document.getElementById("contactIntro"),
     botBarIntro = document.getElementById("botBarIntro"),
-    cvLinks = Array.from(document.querySelectorAll(".cvLink"))
+    cvLinks = Array.from(document.querySelectorAll(".cvLink")),
+    bodyBGFX = document.getElementById("bodyBGFX"),
     rootCSS = document.querySelector(':root')
 
 const langCont = document.getElementById("langCont")
@@ -194,7 +195,7 @@ function contLangShow(_lang){
     };
     contactIntro.style.transform="translateX(0vh)"
     bodyCover.style.opacity="0.85" 
-    
+    bodyBGFX.style.display="flex"
 }
 
 function redirBtn(_route){
