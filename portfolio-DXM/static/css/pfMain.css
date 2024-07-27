@@ -436,6 +436,17 @@
     }
 }
 
+/* @media only screen and (orientation: portrait) {
+    body {
+      transform: rotate(90deg);
+      transform-origin: left top;
+      width: 100vh; 
+      height: 100vw; 
+      overflow: hidden; 
+    }
+  }
+ */
+/* 
 @media (max-width: 1000px) and (orientation: portrait){
     *{
         font-size: 0.9rem;
@@ -476,7 +487,7 @@
     }
     
 }
-
+ */
 #gallerySlider1[data-device='tablet'],
 #gallerySlider1[data-device='mobile'] {
     display: none;
@@ -486,4 +497,89 @@
 .vinyl[data-device='tablet'],
 .vinyl[data-device='mobile'] {
     display: none;
+}
+
+
+.landscape-message {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    backdrop-filter: blur(15px);
+    background-color: var(--lightDarkTertiary);
+    color: var(--lightDarkFont);
+    z-index: 1000;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    font-size: 2rem;
+}
+
+.landscape-message>img{
+    width: 12vh;
+    height: 10vh;
+    aspect-ratio: 1 / 1;
+    position: absolute;
+    right: 5%
+}
+
+.landscape-message>p:nth-child(2){
+    font-size: 4rem;
+    margin: 2rem;
+}
+
+.landscape-message>div{
+    position: relative;
+    top: -20vh;
+    display: flex;
+    justify-content: center;
+    
+}
+
+#ls-turn{
+    width: 30vh;
+    height: 30vh;
+    position: absolute;
+    animation: phoneTurn 1.5s infinite linear;
+}
+
+#ls-phone{
+    margin-top: 7vh;
+    width: 20vh;
+    height: 20vh;
+    position: absolute;
+    animation: phoneTurn 1.5s infinite linear;
+}
+
+@keyframes phoneTurn{
+    0%{
+        opacity: 0
+    }
+    20%{
+        opacity: 1
+    }
+    60%{
+        transform: rotate(90deg)
+    }
+
+    90%{
+        opacity: 1;
+        
+    }
+    100%{
+        opacity: 0;
+        transform: rotate(90deg)
+    }
+}
+
+@media only screen and (orientation: portrait) {
+.landscape-message {
+    display: flex;
+}
+.content {
+    display: none;
+}
 }

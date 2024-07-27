@@ -86,7 +86,7 @@ const gallerySlider1 = document.getElementById('gallerySlider1'),
 sliderCont = Array.from(document.querySelectorAll(".sOpen")),
 sliderVinyls = Array.from(document.querySelectorAll(".vinyl"));
 
-const deviceType = detectDevice();
+let deviceType = detectDevice();
 
 if (gallerySlider1) {
   gallerySlider1.setAttribute('data-device', deviceType);
@@ -124,3 +124,30 @@ document.getElementById("gallerySliderExtra").animate({
     transform: `translate(${-25}%, -50%)`
 }, { duration: 600, fill: "forwards" });
 
+
+function lockOrientation() {
+    if (screen.orientation && screen.orientation.lock) {
+      screen.orientation.lock('landscape').catch(err => {
+        console.error('Orientation lock failed:', err);
+      });
+    } else {
+      console.warn('Orientation lock not supported');
+    }
+  }
+
+function enforceLandscape() {
+    if (window.innerHeight > window.innerWidth) {
+        document.querySelector('.landscape-message').style.display = 'flex';
+        /* document.querySelector('.content').style.display = 'none'; */
+    } else {
+        document.querySelector('.landscape-message').style.display = 'none';
+       /*  document.querySelector('.content').style.display = 'block'; */
+    }
+}
+
+window.addEventListener('resize', enforceLandscape);
+window.addEventListener('orientationchange', enforceLandscape);
+
+// Initial checks
+enforceLandscape();
+lockOrientation();
