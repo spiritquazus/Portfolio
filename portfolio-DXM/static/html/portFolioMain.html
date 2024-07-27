@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../css/pfMain.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Song+Myung&family=Zen+Antique&family=Zen+Antique+Soft&family=Zen+Kaku+Gothic+Antique:wght@300;400;500;700;900&family=Zen+Kaku+Gothic+New:wght@300;400;500;700;900&family=Zen+Kurenaido&family=Zen+Maru+Gothic:wght@300;400;500;700;900&family=Zen+Old+Mincho:wght@400;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Black+Han+Sans&family=Song+Myung&family=Zen+Antique&family=Zen+Antique+Soft&family=Zen+Kaku+Gothic+Antique:wght@300;400;500;700;900&family=Zen+Kaku+Gothic+New:wght@300;400;500;700;900&family=Zen+Kurenaido&family=Zen+Maru+Gothic:wght@300;400;500;700;900&family=Zen+Old+Mincho:wght@400;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
 </head>
 <body>
     <bar id="pf-topNavBar" class="dl-navLungo">
@@ -28,6 +28,30 @@
                 <div><img><span>Email: </span><span>kimisaac010@gmail.com</span></div>
                 <div><img><span>Relocation: </span><span>South Korea / Japan / EU / US</span></div>
             </div>
+            <div id="techStackShow"> 
+                <div id="mainTech" class="gridStats">
+                    <div>Tech Stack</div>
+                    <div></div>
+                    <div><img src="../../gallery/2dElems/logoJS.svg">JavaScript</div>
+                    <div><img src="../../gallery/2dElems/logoReact.svg">React</div>
+                    <div><img src="../../gallery/2dElems/logothreejs.png">Three JS</div>
+                    <div><img src="../../gallery/2dElems/logoPython.svg">Python</div>
+                    <div><img src="../../gallery/2dElems/logoFlask.webp">Flask</div>
+                    <div><img src="../../gallery/2dElems/logoC.svg">C-Language</div>
+                    <div><img src="../../gallery/2dElems/logoSQL.svg">SQL</div>
+                    <div><img src="../../gallery/2dElems/logoCSSHTML.webp">HTML/CSS</div>
+                </div>
+                <div id="addTech" class="gridStats">
+                    <div><p>In Progress</p></div>
+                    <div></div>
+                    <div><img src="../../gallery/2dElems/logoTS.svg">TypeScript</div>
+                    <div><img src="../../gallery/2dElems/logoNodeJs.svg">Node.js</div>
+                    <div><img src="../../gallery/2dElems/logoNextJs.svg">Next.js</div>
+                    <div><img src="../../gallery/2dElems/logoCSharp.svg">C#</div>
+                    <div><img src="../../gallery/2dElems/logoUnity.svg">Unity</div>
+                    <div><img src="../../gallery/2dElems/logoAWS.svg" alt="">AWS</div>
+                </div>
+            </div>
         </div>
         
         
@@ -40,40 +64,74 @@
         
     </div><!-- page 1 end -->
 
+    <div id="gallerySliderExtra">
+        <div class="sliderCont">
+            <img class="vinyl" src="../../gallery/2dElems/blankRec.webp">
+        </div>
+        <div class="sliderCont">
+            <img class="vinyl" src="../../gallery/2dElems/blankRec.webp">
+        </div>
+        <div class="sliderCont">
+            <img class="vinyl" src="../../gallery/2dElems/blankRec.webp">
+        </div>
+        <div class="sliderCont">
+            <img class="vinyl" src="../../gallery/2dElems/blankRec.webp">
+        </div>
+    </div>
+
     <div class="autoSliderCont" id="gallerySlider1">
-        <div class="sliderCont" draggable="false">
+
+        <div class="sliderCont sOpen" draggable="false" data-redir="hogaPage">
             <div class="sliderTitle">HOGA - Productivity Dashboard</div>
-            <img id="img1" class="sliderImg" src="../../gallery/2dElems/hogaTHB1.webp" draggable="false">
+            <div class="imgWrapper">
+                <img id="img1" class="sliderImg" src="../../gallery/2dElems/hogaTHB1.webp" draggable="false">
+                <img id="img1-a" class="sliderSubImg" src="../../gallery/2dElems/albumHOGA.webp" draggable="false">
+            </div>
             <div class="sliderRecord">
                 <p>DXM RECORDS - HOGA TEAM</p>
                 <p>JavaScript, Python, JQuery, Flask, SQL</p>
             </div>
+            
         </div>
-        <div class="sliderCont" draggable="false"><img id="img1" class="sliderImg" src="../../gallery/2dElems/bg_seoul.jpg" draggable="false">
+        <div class="sliderCont sOpen" draggable="false" data-redir="3dPage">
             <div class="sliderTitle">3D Portfolio</div>
-            <img id="img1" class="sliderImg" src="../../gallery/2dElems/hogaTHB1.webp" draggable="false">
+            <div class="imgWrapper">
+                <img id="img2" class="sliderImg" src="../../gallery/2dElems/3dHB.webp" draggable="false">
+                <img id="img2-a" class="sliderSubImg" src="../../gallery/2dElems/album3d.webp" draggable="false">
+            </div>
             <div class="sliderRecord">
                 <p>DXM RECORDS - PROJECT</p>
                 <p>JavaScript, Three JS</p>
             </div>
+            <img class="vinylWIP">
         </div>
-        <div class="sliderCont" draggable="false"><img id="img1" class="sliderImg" src="../../gallery/2dElems/bg_seoul.jpg" draggable="false">
+        <div class="sliderCont sOpen" draggable="false" data-redir="blackPeachPage">
             <div class="sliderTitle">Black Peach - Project Planner App</div>
-            <img id="img1" class="sliderImg" src="../../gallery/2dElems/hogaTHB1.webp" draggable="false">
+            <div class="imgWrapper">
+                <img id="img3" class="sliderImg" src="../../gallery/2dElems/blackPeachHB.webp" draggable="false">
+                <img id="img3-a" class="sliderSubImg" src="../../gallery/2dElems/albumBlackPeach.webp" draggable="false">
+            </div>
             <div class="sliderRecord">
                 <p>DXM RECORDS - PROJECT</p>
-                <p>JavaScript, React, TypeScript</p>
+                <p>JavaScript, React, Node.js</p>
             </div>
+            <img class="vinylWIP">
         </div>
-        <div class="sliderCont" draggable="false"><img id="img1" class="sliderImg" src="../../gallery/2dElems/bg_seoul.jpg" draggable="false">
-            <div class="sliderTitle">Black Peach</div>
-            <img id="img1" class="sliderImg" src="../../gallery/2dElems/hogaTHB1.webp" draggable="false">
+        <div class="sliderCont sOpen" draggable="false" data-redir="radionPage">
+            <div class="sliderTitle">Psychophobia - Web-based Game</div>
+            <div class="imgWrapper">
+                <img id="img3" class="sliderImg" src="../../gallery/2dElems/psyPex.webp" draggable="false">
+                <img id="img3-a" class="sliderSubImg" src="../../gallery/2dElems/albumPsyP.webp" draggable="false">
+            </div>
             <div class="sliderRecord">
                 <p>DXM RECORDS - PROJECT</p>
-                <p>JavaScript, React, TypeScript</p>
+                <p>JavaScript, React, Node.js</p>
             </div>
+            <img class="vinylWIP">
         </div>
+
     </div>
+
     <bar id="pf-botNavBar" class="dl-navLungo">
         <div class="pf-botEdge barEdge-add"></div>
         

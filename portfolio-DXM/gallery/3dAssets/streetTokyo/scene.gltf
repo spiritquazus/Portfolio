@@ -19036,325 +19036,325 @@
   ],
   "images": [
     {
-      "uri": "textures/Props_10_baseColor.png"
+      "uri": "textures/Props_10_baseColor.webp"
     },
     {
-      "uri": "textures/Props_10_metallicRoughness.png"
+      "uri": "textures/Props_10_metallicRoughness.webp"
     },
     {
-      "uri": "textures/Props_10_emissive.png"
+      "uri": "textures/Props_10_emissive.webp"
     },
     {
-      "uri": "textures/Props_10_normal.png"
+      "uri": "textures/Props_10_normal.webp"
     },
     {
-      "uri": "textures/Props_01_baseColor.png"
+      "uri": "textures/Props_01_baseColor.webp"
     },
     {
-      "uri": "textures/Props_01_metallicRoughness.png"
+      "uri": "textures/Props_01_metallicRoughness.webp"
     },
     {
-      "uri": "textures/Props_01_normal.png"
+      "uri": "textures/Props_01_normal.webp"
     },
     {
-      "uri": "textures/Props_02_baseColor.png"
+      "uri": "textures/Props_02_baseColor.webp"
     },
     {
-      "uri": "textures/Props_02_metallicRoughness.png"
+      "uri": "textures/Props_02_metallicRoughness.webp"
     },
     {
-      "uri": "textures/Props_02_normal.png"
+      "uri": "textures/Props_02_normal.webp"
     },
     {
-      "uri": "textures/Props_06_baseColor.png"
+      "uri": "textures/Props_06_baseColor.webp"
     },
     {
-      "uri": "textures/Props_06_metallicRoughness.png"
+      "uri": "textures/Props_06_metallicRoughness.webp"
     },
     {
-      "uri": "textures/Props_06_normal.png"
+      "uri": "textures/Props_06_normal.webp"
     },
     {
-      "uri": "textures/Props_03_baseColor.png"
+      "uri": "textures/Props_03_baseColor.webp"
     },
     {
-      "uri": "textures/Props_03_metallicRoughness.png"
+      "uri": "textures/Props_03_metallicRoughness.webp"
     },
     {
-      "uri": "textures/Props_03_emissive.png"
+      "uri": "textures/Props_03_emissive.webp"
     },
     {
-      "uri": "textures/Props_03_normal.png"
+      "uri": "textures/Props_03_normal.webp"
     },
     {
-      "uri": "textures/Props_05_baseColor.png"
+      "uri": "textures/Props_05_baseColor.webp"
     },
     {
-      "uri": "textures/Props_05_metallicRoughness.png"
+      "uri": "textures/Props_05_metallicRoughness.webp"
     },
     {
-      "uri": "textures/Props_05_emissive.png"
+      "uri": "textures/Props_05_emissive.webp"
     },
     {
-      "uri": "textures/Props_05_normal.png"
+      "uri": "textures/Props_05_normal.webp"
     },
     {
-      "uri": "textures/Build_A_1_baseColor.png"
+      "uri": "textures/Build_A_1_baseColor.webp"
     },
     {
-      "uri": "textures/Build_A_1_metallicRoughness.png"
+      "uri": "textures/Build_A_1_metallicRoughness.webp"
     },
     {
-      "uri": "textures/Build_A_1_normal.png"
+      "uri": "textures/Build_A_1_normal.webp"
     },
     {
-      "uri": "textures/Build_2_baseColor.png"
+      "uri": "textures/Build_2_baseColor.webp"
     },
     {
-      "uri": "textures/Build_2_metallicRoughness.png"
+      "uri": "textures/Build_2_metallicRoughness.webp"
     },
     {
-      "uri": "textures/Build_2_normal.png"
+      "uri": "textures/Build_2_normal.webp"
     },
     {
-      "uri": "textures/Props_09_baseColor.png"
+      "uri": "textures/Props_09_baseColor.webp"
     },
     {
-      "uri": "textures/Props_09_metallicRoughness.png"
+      "uri": "textures/Props_09_metallicRoughness.webp"
     },
     {
-      "uri": "textures/Props_09_normal.png"
+      "uri": "textures/Props_09_normal.webp"
     },
     {
-      "uri": "textures/Build_A_2_baseColor.png"
+      "uri": "textures/Build_A_2_baseColor.webp"
     },
     {
-      "uri": "textures/Build_A_2_metallicRoughness.png"
+      "uri": "textures/Build_A_2_metallicRoughness.webp"
     },
     {
-      "uri": "textures/Build_A_2_normal.png"
+      "uri": "textures/Build_A_2_normal.webp"
     },
     {
-      "uri": "textures/Build_1_baseColor.png"
+      "uri": "textures/Build_1_baseColor.webp"
     },
     {
-      "uri": "textures/Build_1_metallicRoughness.png"
+      "uri": "textures/Build_1_metallicRoughness.webp"
     },
     {
-      "uri": "textures/Build_1_emissive.png"
+      "uri": "textures/Build_1_emissive.webp"
     },
     {
-      "uri": "textures/Build_1_normal.png"
+      "uri": "textures/Build_1_normal.webp"
     },
     {
-      "uri": "textures/Props_08_baseColor.png"
+      "uri": "textures/Props_08_baseColor.webp"
     },
     {
-      "uri": "textures/Props_08_metallicRoughness.png"
+      "uri": "textures/Props_08_metallicRoughness.webp"
     },
     {
-      "uri": "textures/Props_08_emissive.png"
+      "uri": "textures/Props_08_emissive.webp"
     },
     {
-      "uri": "textures/Props_08_normal.png"
+      "uri": "textures/Props_08_normal.webp"
     },
     {
-      "uri": "textures/Build_3_baseColor.png"
+      "uri": "textures/Build_3_baseColor.webp"
     },
     {
-      "uri": "textures/Build_3_metallicRoughness.png"
+      "uri": "textures/Build_3_metallicRoughness.webp"
     },
     {
-      "uri": "textures/Build_3_normal.png"
+      "uri": "textures/Build_3_normal.webp"
     },
     {
-      "uri": "textures/Build_B_1_baseColor.png"
+      "uri": "textures/Build_B_1_baseColor.webp"
     },
     {
-      "uri": "textures/Build_B_1_metallicRoughness.png"
+      "uri": "textures/Build_B_1_metallicRoughness.webp"
     },
     {
-      "uri": "textures/Build_B_1_emissive.png"
+      "uri": "textures/Build_B_1_emissive.webp"
     },
     {
-      "uri": "textures/Build_B_1_normal.png"
+      "uri": "textures/Build_B_1_normal.webp"
     },
     {
-      "uri": "textures/Build_B_2_baseColor.png"
+      "uri": "textures/Build_B_2_baseColor.webp"
     },
     {
-      "uri": "textures/Build_B_2_metallicRoughness.png"
+      "uri": "textures/Build_B_2_metallicRoughness.webp"
     },
     {
-      "uri": "textures/Build_B_2_normal.png"
+      "uri": "textures/Build_B_2_normal.webp"
     },
     {
-      "uri": "textures/Build_C_2_baseColor.png"
+      "uri": "textures/Build_C_2_baseColor.webp"
     },
     {
-      "uri": "textures/Build_C_2_metallicRoughness.png"
+      "uri": "textures/Build_C_2_metallicRoughness.webp"
     },
     {
-      "uri": "textures/Build_C_2_normal.png"
+      "uri": "textures/Build_C_2_normal.webp"
     },
     {
-      "uri": "textures/Build_C_1_baseColor.png"
+      "uri": "textures/Build_C_1_baseColor.webp"
     },
     {
-      "uri": "textures/Build_C_1_metallicRoughness.png"
+      "uri": "textures/Build_C_1_metallicRoughness.webp"
     },
     {
-      "uri": "textures/Build_C_1_normal.png"
+      "uri": "textures/Build_C_1_normal.webp"
     },
     {
-      "uri": "textures/Props_07_baseColor.png"
+      "uri": "textures/Props_07_baseColor.webp"
     },
     {
-      "uri": "textures/Props_07_metallicRoughness.png"
+      "uri": "textures/Props_07_metallicRoughness.webp"
     },
     {
-      "uri": "textures/Props_07_normal.png"
+      "uri": "textures/Props_07_normal.webp"
     },
     {
-      "uri": "textures/Build_D_2_baseColor.png"
+      "uri": "textures/Build_D_2_baseColor.webp"
     },
     {
-      "uri": "textures/Build_D_2_metallicRoughness.png"
+      "uri": "textures/Build_D_2_metallicRoughness.webp"
     },
     {
-      "uri": "textures/Build_D_2_normal.png"
+      "uri": "textures/Build_D_2_normal.webp"
     },
     {
-      "uri": "textures/Build_D_1_baseColor.png"
+      "uri": "textures/Build_D_1_baseColor.webp"
     },
     {
-      "uri": "textures/Build_D_1_metallicRoughness.png"
+      "uri": "textures/Build_D_1_metallicRoughness.webp"
     },
     {
-      "uri": "textures/Build_D_1_normal.png"
+      "uri": "textures/Build_D_1_normal.webp"
     },
     {
-      "uri": "textures/Build_E_baseColor.png"
+      "uri": "textures/Build_E_baseColor.webp"
     },
     {
-      "uri": "textures/Build_E_metallicRoughness.png"
+      "uri": "textures/Build_E_metallicRoughness.webp"
     },
     {
-      "uri": "textures/Build_E_normal.png"
+      "uri": "textures/Build_E_normal.webp"
     },
     {
-      "uri": "textures/Build_4_baseColor.png"
+      "uri": "textures/Build_4_baseColor.webp"
     },
     {
-      "uri": "textures/Build_4_metallicRoughness.png"
+      "uri": "textures/Build_4_metallicRoughness.webp"
     },
     {
-      "uri": "textures/Build_4_normal.png"
+      "uri": "textures/Build_4_normal.webp"
     },
     {
-      "uri": "textures/Build_F_2_baseColor.png"
+      "uri": "textures/Build_F_2_baseColor.webp"
     },
     {
-      "uri": "textures/Build_F_2_metallicRoughness.png"
+      "uri": "textures/Build_F_2_metallicRoughness.webp"
     },
     {
-      "uri": "textures/Build_F_2_normal.png"
+      "uri": "textures/Build_F_2_normal.webp"
     },
     {
-      "uri": "textures/Build_F_1_baseColor.png"
+      "uri": "textures/Build_F_1_baseColor.webp"
     },
     {
-      "uri": "textures/Build_F_1_metallicRoughness.png"
+      "uri": "textures/Build_F_1_metallicRoughness.webp"
     },
     {
-      "uri": "textures/Build_F_1_normal.png"
+      "uri": "textures/Build_F_1_normal.webp"
     },
     {
-      "uri": "textures/Build_G_1_baseColor.png"
+      "uri": "textures/Build_G_1_baseColor.webp"
     },
     {
-      "uri": "textures/Build_G_1_metallicRoughness.png"
+      "uri": "textures/Build_G_1_metallicRoughness.webp"
     },
     {
-      "uri": "textures/Build_G_1_normal.png"
+      "uri": "textures/Build_G_1_normal.webp"
     },
     {
-      "uri": "textures/Props_04_baseColor.png"
+      "uri": "textures/Props_04_baseColor.webp"
     },
     {
-      "uri": "textures/Props_04_metallicRoughness.png"
+      "uri": "textures/Props_04_metallicRoughness.webp"
     },
     {
-      "uri": "textures/Props_04_emissive.png"
+      "uri": "textures/Props_04_emissive.webp"
     },
     {
-      "uri": "textures/Props_04_normal.png"
+      "uri": "textures/Props_04_normal.webp"
     },
     {
-      "uri": "textures/Build_G_2_baseColor.png"
+      "uri": "textures/Build_G_2_baseColor.webp"
     },
     {
-      "uri": "textures/Build_G_2_metallicRoughness.png"
+      "uri": "textures/Build_G_2_metallicRoughness.webp"
     },
     {
-      "uri": "textures/Build_G_2_normal.png"
+      "uri": "textures/Build_G_2_normal.webp"
     },
     {
-      "uri": "textures/Build_H_1_baseColor.png"
+      "uri": "textures/Build_H_1_baseColor.webp"
     },
     {
-      "uri": "textures/Build_H_1_metallicRoughness.png"
+      "uri": "textures/Build_H_1_metallicRoughness.webp"
     },
     {
-      "uri": "textures/Build_H_1_normal.png"
+      "uri": "textures/Build_H_1_normal.webp"
     },
     {
-      "uri": "textures/Build_H_2_baseColor.png"
+      "uri": "textures/Build_H_2_baseColor.webp"
     },
     {
-      "uri": "textures/Build_H_2_metallicRoughness.png"
+      "uri": "textures/Build_H_2_metallicRoughness.webp"
     },
     {
-      "uri": "textures/Build_H_2_normal.png"
+      "uri": "textures/Build_H_2_normal.webp"
     },
     {
-      "uri": "textures/Build_I_baseColor.png"
+      "uri": "textures/Build_I_baseColor.webp"
     },
     {
-      "uri": "textures/Build_I_metallicRoughness.png"
+      "uri": "textures/Build_I_metallicRoughness.webp"
     },
     {
-      "uri": "textures/Build_I_normal.png"
+      "uri": "textures/Build_I_normal.webp"
     },
     {
-      "uri": "textures/Build_J_baseColor.png"
+      "uri": "textures/Build_J_baseColor.webp"
     },
     {
-      "uri": "textures/Build_J_metallicRoughness.png"
+      "uri": "textures/Build_J_metallicRoughness.webp"
     },
     {
-      "uri": "textures/Build_J_normal.png"
+      "uri": "textures/Build_J_normal.webp"
     },
     {
-      "uri": "textures/pole_baseColor.png"
+      "uri": "textures/pole_baseColor.webp"
     },
     {
-      "uri": "textures/pole_metallicRoughness.png"
+      "uri": "textures/pole_metallicRoughness.webp"
     },
     {
-      "uri": "textures/pole_emissive.png"
+      "uri": "textures/pole_emissive.webp"
     },
     {
-      "uri": "textures/pole_normal.png"
+      "uri": "textures/pole_normal.webp"
     },
     {
-      "uri": "textures/ground_baseColor.png"
+      "uri": "textures/ground_baseColor.webp"
     },
     {
-      "uri": "textures/ground_metallicRoughness.png"
+      "uri": "textures/ground_metallicRoughness.webp"
     },
     {
-      "uri": "textures/ground_normal.png"
+      "uri": "textures/ground_normal.webp"
     }
   ],
   "materials": [

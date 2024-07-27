@@ -11,6 +11,7 @@ import { RectAreaLightHelper } from 'three/addons/helpers/RectAreaLightHelper.js
 import { addRandoms, modelInstall, BGbackgroundFull, BGbackgroundFull2 } from './3jsMesh.js'
 import { BGrenderer, BGscene, BGcamera } from './3jsScene.js'
 import { bulbLight1, pointLight1, lightHelper1, ambientLight, lightHelperPoint1, createLight} from './3jsFX.js'
+import { playModelAnim, updateModelAnim } from './3jsAnim.js'
 
 function editorMode(_scene){
     const _fullControls = new OrbitControls(BGcamera, BGrenderer.domElement);
@@ -20,6 +21,10 @@ function editorMode(_scene){
 
 window.lightsList = {}
 window.modelsList = {}
+
+console.log("detecting user machine perf. ", window.performance)
+const availableMemory = (performance.memory.jsHeapSizeLimit - performance.memory.usedJSHeapSize)/1000000000;
+console.log('Available memory for allocation (in bytes):', availableMemory + " GB");
 
 //test
 /* console.log(`model loader: ${GLTFLoader}`)
@@ -48,6 +53,14 @@ async function loadAllModels(){
         modelInstall(GLTFLoader, '../gallery/3dAssets/skylineBack1/scene.gltf', BGscene, {scale: [0.35,0.40,0.35], position: [0,0,-50]}),
         modelInstall(GLTFLoader, '../gallery/3dAssets/skylineBack2/scene.gltf', BGscene, {scale: [7.5,7.5,7.95], position: [-20,-2,-30], rotation: [0,280,0]}), 
         //etc
+        modelInstall(GLTFLoader, '../gallery/3dAssets/kot1/scene.gltf', BGscene, {scale: [0.021,0.021,0.021], position: [-1.01,0.647,0.03], rotation: [0,100,0]})
+        .then(({ model, mixer }) => {
+            console.log('Model and animations loaded successfully.');
+            // Additional setup if needed
+        })
+        .catch(error => {
+            console.error('Error loading model or animations:', error);
+        }),
         modelInstall(GLTFLoader, '../gallery/3dAssets/streetTokyo/scene.gltf', BGscene, {scale: [1,1,1], position: [0,0,0]})
     ]
 
@@ -94,10 +107,16 @@ BGscene.add(BGbackgroundFull)
 BGscene.add(BGbackgroundFull2)
 editorMode(BGscene)
 
+const threeJsClock = new THREE.Clock();
 
 
 function animateMain(){
     requestAnimationFrame(animateMain)
+
+    const deltaTime = threeJsClock.getDelta(); // Get the time elapsed since the last call
+
+    updateModelAnim(deltaTime);
+
     BGrenderer.render(BGscene, BGcamera);
 }
 animateMain()
