@@ -82,9 +82,9 @@ function gFloatAssign(_container){
     _container.dataset.prevPercentage = 0;
 }
 
+
 const gallerySlider1 = document.getElementById('gallerySlider1'),
 sliderCont = Array.from(document.querySelectorAll(".sOpen")),
-sliderVinyls = Array.from(document.querySelectorAll(".vinyl"));
 
 const deviceType = detectDevice();
 
@@ -124,3 +124,6 @@ document.getElementById("gallerySliderExtra").animate({
     transform: `translate(${-25}%, -50%)`
 }, { duration: 600, fill: "forwards" });
 
+
+const gallerySlider1 = document.getElementById("gallerySlider1")
+gFloatAssign(gallerySlider1)
