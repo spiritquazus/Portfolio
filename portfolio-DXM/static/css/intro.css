@@ -323,6 +323,7 @@ p{
     margin: 0.2% 0.5% 0;
     display: inline-block;
     text-align: center;
+    font-family: "Bebas Neue", sans-serif;
 }
 
 #botBarIntro > div > :nth-child(11){
@@ -377,6 +378,57 @@ button:hover{
 #sideBarIntro > img:hover {
     filter: drop-shadow(0 0 3px white);
     transition: filter 0.2s;
+}
+
+#bodyBGFX{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    position: absolute;
+    z-index: -1;
+    justify-content: space-between;
+    display: none;
+}
+
+.arrDir{
+    width: 100%;
+    height: 20%;
+    margin: 0;
+    opacity: 0.12;
+}
+
+.arrowFwrd{
+    width: 10%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    animation: scroll-top 3s linear infinite;  
+}
+
+@keyframes scroll-top{
+    0%{
+        transform: translateY(0%);
+    }
+    100%{
+        transform: translateY(-100%);
+    }
+}
+
+.arrowBkwrd{
+    width: 10%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    animation: scroll-bot 3s linear infinite;  
+}
+
+@keyframes scroll-bot{
+    0%{
+        transform: translateY(0%) rotate(180deg);
+    }
+    100%{
+        transform: translateY(100%) rotate(180deg);
+    }
 }
 
 /* #handsCont{
@@ -528,6 +580,8 @@ button:hover{
         max-height: 25vh;
         transform: translateY(-120vh);
         top: 20vh;
+        grid-row: 1;
+        grid-column: 1;
     }
     #chooseCont > button{
         font-size: 0.8rem;
@@ -591,6 +645,8 @@ button:hover{
         max-height: 32vh;
         transform: translateY(-40vh);
         top: 10vh;
+        grid-row: 1;
+        grid-column: 1;
     }
     #chooseCont > button{
         font-size: 0.8rem;
