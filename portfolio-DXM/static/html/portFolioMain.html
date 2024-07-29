@@ -21,26 +21,110 @@
         <p>Please rotate your device.</p>
         <img src="../../gallery/2dElems/DXMoops.webp">
     </div>
+    
     <bar id="pf-topNavBar" class="dl-navLungo">
         <div class="pf-topEdge barEdge-add"></div>
-        <div class="pf-topEdge barEdge-add"></div>
+        <button class="dl-icon" id="ctr-sound"></button>
+        <button class="dl-icon" id="ctr-comment"></button>
+        <button class="dl-icon" id="ctr-performance"></button>
+        <button class="dl-icon" id="ctr-movePageBk"></button>
+        <button class="dl-icon" id="ctr-movePageFr"></button>
     </bar>
+
+    <button id="btn-contact" class="dl-navBtn">Contact</button>
+
+    <button id="btn-about" class="dl-navBtn">About</button>
+
+    <button id="btn-navigation" class="dl-navBtn">Navigation</button>
+
+    <button id="btn-hamburger" class="dl-navBtn"></button>
+
+    <div id="DXM-nest">
+        <div id="DXM-sideDec"></div>
+        <div id="DXM-smolCont">
+            <div id="DXM-smolMn" class="smolClass"></div>
+            <div id="DXM-smol1" class="smol-eye smolClass" style="background-image: url(../../gallery/2dElems/dxmSmol1.webp);"></div>
+            <div id="DXM-smol2" class="smol-eye smolClass" style="background-image: url(../../gallery/2dElems/dxmSmol2.webp);"></div>
+            <div id="DXM-smol3" class="smol-eye smolClass" style="background-image: url(../../gallery/2dElems/dxmSmol3.webp);"></div>
+            <div id="DXM-smol4" class="smol-eye smolClass" style="background-image: url(../../gallery/2dElems/dxmSmol4.webp);"></div>
+        </div>
+        <div id="DXM-speech">
+            <div id="speechText" style="opacity:0;">Welcome to my portfolio!</div>
+        </div>
+
+    </div>
+<!--     <bar id="pf-botNavBar" class="dl-navLungo">
+        <div class="pf-botEdge barEdge-add"></div>
+        
+        <div></div>
+    </bar> -->
+
     <div id="pf-page1" class="pagination">
+
+        <!-- DECORUM -->
+        
+        <div id="style-stripeCont">
+            <div class="triangularTop"></div>
+            <div class="parallelogram"></div>
+            <div class="parallelogram"></div>
+            <div class="parallelogram"></div>
+            <div class="parallelogram"></div>
+            <div class="parallelogram"></div>
+            <div class="parallelogram"></div>
+            <div class="parallelogram"></div>
+            <div class="triangularBot"></div>
+        </div>
+
+        <div class="style-lineVert style-lineBase"></div>
+        <div class="style-lineVertDotted style-lineBase"></div>
+        <div class="style-lineVertDotted style-lineBase" style="animation:none; transform:translateY(0); grid-column: 19;"></div>
+        <div class="style-lineHor style-lineBase"></div>
+        <div class="style-lineHorDotted style-lineBase"></div>
+        <div class="style-lineHorDotted style-lineBase" style="grid-row: 10 / span 1; "></div>
+        <div class="style-lineHorDotted style-lineBase" style="grid-row: 4 / span 1; animation:none; transform:translateX(0); border-bottom: none; border-top: dashed 1px"></div>
+        
+
+        <div class="style-lineCross" style="grid-row: 4 / span 1; grid-column:  2/ span 1;"></div>
+        <div class="style-lineCross" style="grid-row: 4 / span 1; grid-column:  3/ span 1;"></div>
+        <div class="style-lineCross" style="grid-row: 2 / span 1; grid-column:  19/ span 1;"></div>
+        <div class="style-lineCross" style="grid-row: 17 / span 1; grid-column:  19/ span 1;"></div>
+
+        <div class="style-decoText" style="grid-row: 1 / span 1; grid-column:  7/ span 3; justify-content: flex-start;"><span>Font Families and Layout - "Brutalisme Nouveau"</span></div>
+        <div class="style-decoText" style="grid-row: 1 / span 1; grid-column:  10/ span 3;"><span>Typographer Style - 20 Set Grid - Gap 0.5</span></div>
+
+        <img src="" id="styleQuote">
+        <!-- DECORUM END-->
+
+        <img src="../../gallery/2dElems/photoIKStylized.webp" id="photoID" alt="">
+
+        
+        
+        <float id="introMsg">
+            <span id="greetingsF">Hello, I am</span>
+            <div><span id="HL-Isaac" style="opacity: 0">Isaac </span><span>Kim</span></div>
+            <span><span>&lt;</span>Full Stack <span>Dev</span><span>&gt;</span></span>
+        </float>
+
+        <float class="rightMostText">
+            <span class="sideText">DXM Dev-Portfolio</span>
+        </float>
+
+        <float class="rightMostText">
+            <span class="sideText">All Rights Reserved</span>
+        </float>
+
+        <div class="leftBlockText1">
+            <span class="blockText">Born and educated in France, I currently reside in Seoul with a permanent resident visa (F-4). I am fluent in four languages: French, English, Korean, and Japanese, which allows me to connect with diverse cultures and communities. My passion for cooking, designing, and creating is complemented by my enthusiasm for debugging and solving complex problems in computer science. I thrive on learning new skills and staying updated with the latest technologies. My multicultural background and diverse experiences provide a unique perspective.</span>
+        </div>
+
+        <div class="leftBlockText2">
+            <span class="blockText">As a Full Stack Engineer, I have a comprehensive background in various programming languages and frameworks, including JavaScript, Python, and SQL. My professional experience spans roles such as Sales Project Manager at eMoldino and Associate Consultant at Robert Walters Korea. I have a solid foundation in tools like Git, Visual Studio Code, and Salesforce. My technical skills, combined with a strong business acumen from my international business education, make me a versatile and proficient engineer.</span>
+        </div>
+        
         <div id="iky-profile">
-            <img src="../../gallery/2dElems/photoIK.webp" id="photoID" alt="">
-            <div class="introSection">
-                <span>Nationality: French</span>
-                <span>Location: Seoul, South Korea</span>
-                <span>Birthdate: 1994/05/12</span>
-                <span>Education: Master's Degree</span>
-                <br/>
-                <div><img><span>Contact: </span><span>+82 10-2515-9789</span></div>
-                <div><img><span>Email: </span><span>kimisaac010@gmail.com</span></div>
-                <div><img><span>Relocation: </span><span>South Korea / Japan / EU / US</span></div>
-            </div>
             <div id="techStackShow"> 
                 <div id="mainTech" class="gridStats">
-                    <div>Tech Stack</div>
+                    <div><p>Tech Stack</p></div>
                     <div></div>
                     <div><img src="../../gallery/2dElems/logoJS.svg">JavaScript</div>
                     <div><img src="../../gallery/2dElems/logoReact.svg">React</div>
@@ -61,6 +145,17 @@
                     <div><img src="../../gallery/2dElems/logoUnity.svg">Unity</div>
                     <div><img src="../../gallery/2dElems/logoAWS.svg" alt="">AWS</div>
                 </div>
+                
+<!--                 <div class="introSection">
+                    <span>Name: Isaac Kim</span>
+                    <span>Nationality: French</span>
+                    <span>Location: Seoul, South Korea</span>
+                    <span>Birthdate: 1994/05/12</span>
+                    <span>Education: Master's Degree</span>
+                    <br/>
+                    <div><img><span>Contact: </span><span>+82 10-2515-9789</span></div>
+                    <div><img><span>Email: </span><span>kimisaac010@gmail.com</span></div>
+                </div> -->
             </div>
         </div>
         
@@ -74,7 +169,11 @@
         
     </div><!-- page 1 end -->
 
-    <div id="gallerySliderExtra">
+    <div id="pf-page2" class="pagination">
+        
+    </div><!-- page 1 end -->
+
+<!--     <div id="gallerySliderExtra">
         <div class="sliderCont">
             <img class="vinyl" src="../../gallery/2dElems/blankRec.webp">
         </div>
@@ -141,12 +240,8 @@
         </div>
 
     </div>
-
-    <bar id="pf-botNavBar" class="dl-navLungo">
-        <div class="pf-botEdge barEdge-add"></div>
-        
-        <div></div>
-    </bar>
+ -->
+    
 
     <script src="../js/pfMain.js"></script>
 </body>

@@ -1,17 +1,114 @@
+@font-face {
+    font-family: 'Geist'; 
+    src: url('../../gallery/fonts/Geist-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Geist'; 
+    src: url('../../gallery/fonts/Geist-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Geist'; 
+    src: url('../../gallery/fonts/Geist-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Geist'; 
+    src: url('../../gallery/fonts/Geist-Regular.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Geist'; 
+    src: url('../../gallery/fonts/Geist-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Geist'; 
+    src: url('../../gallery/fonts/Geist-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Anderson'; 
+    src: url('../../gallery/fonts/AndersonGrotesk-Black.otf') format('opentype');
+    font-weight: 900;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Anderson'; 
+    src: url('../../gallery/fonts/AndersonGrotesk.otf') format('opentype');
+    font-weight: 500;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Anderson'; 
+    src: url('../../gallery/fonts/AndersonGrotesk-Ultrabold.otf') format('opentype');
+    font-weight: 800;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Anderson'; 
+    src: url('../../gallery/fonts/AndersonGrotesk-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Anderson'; 
+    src: url('../../gallery/fonts/AndersonGrotesk-Light.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@import url('https://cdn.jsdelivr.net/gh/spoqa/spoqa-han-sans/css/SpoqaHanSansNeo.css');
+@import url('https://cdn.jsdelivr.net/npm/typeface-nanum-square@1.1.0/nanumsquare.min.css');
+
 :root{ 
     --font-primary: "Bebas Neue", "Roboto", sans-serif;
-    --font-secondary: "Roboto", sans-serif;
+    --font-secondary: "Geist", "Roboto", sans-serif;
+    --font-tertiary: "Anderson", "Roboto", sans-serif;
+    --front-primary-kor: "Spoqa Han Sans Neo", sans-serif;
+    --font-secondary-kor: 'Nanum Square', sans-serif;
+    /* --font-tertiary:  */
+    --font-logo: calc(9vh*1.618);
+    --font-title: 9vh;
+    --font-M1: calc(9vh/1.618);
+    --font-M2: calc(9vh/1.618/1.618);
+    --font-M3: calc(9vh/1.618/1.618/1.618);
+    --font-S1: calc(9vh/1.618/1.618/1.618/1.618);
+    --font-S2: calc(9vh/1.618/1.618/1.618/1.618/1.618);
     --lightDarkBG: rgba(0, 0, 5, 0.8);
-    --lightDarkPrimary: rgb(0, 0, 5);
+    --lightDarkPrimary: var(--colorObsidian);
     --lightDarkSecondary: rgba(20,20,20,0.8);
     --lightDarkTertiary: rgba(35,35,35,0.9);
-    --lightDarkFont: white;
+    --lightDarkFont: var(--colorPureWhite);
+    --lightDarkFontSub: var(--colorAsbestos);
     --lightDarkBlur: blur(0.5rem);
     --lightDarkBorder: rgba(250,250,250,0.4);
-    --lightDarkShadow: drop-shadow(0 0 5px rgba(220,220,220,0.7))
+    --lightDarkShadow: drop-shadow(0 0 5px rgba(220,220,220,0.7));
     --device-type: 'unknown';
-
+    
+    --colorVentaBlack: black;
+    --colorObsidian: #0b1215;
+    --colorNight: #0c0c0c;
+    --colorMidnight: #0d0219;
+    --gradientNightMix: linear-gradient(0deg, rgba(10,10,10,0.3) 0%, var(--colorNight) 39%, var(--colorObsidian) 100%);
+    --colorPureWhite: white;
+    --colorBone: #F9F6EE;
+    --colorAsbestos: #F1F1F1;
+    --colorMoonRock: #DDDDDD;
+    --colorDullGrey: #ABABAB;
+    --colorGreyGlass: rgba(150, 150, 150, 0.5)
 }
+
+
+
 
 html{
     overflow: hidden;
@@ -78,15 +175,15 @@ p{
 
 @keyframes DXM-float{
     0%{
-        transform: translateY(0.5vh);
+        transform: translateY(0.5vmin);
     }
 
     50%{
-        transform: translateY(-1vh);
+        transform: translateY(-0.5vmin);
     }
 
     100%{
-        transform: translateY(0.5vh);
+        transform: translateY(0.5vmin);
     }
 
 }

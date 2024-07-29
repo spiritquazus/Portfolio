@@ -1,3 +1,23 @@
+let deviceType = detectDevice();
+let typingInterval;
+let typingIntervalBis;
+
+
+const translatorObj = {
+    triviaPrev: 0,
+
+    "greetings": "Nice to meet you, I am",
+
+    "dxmTrivia0": "The decorative texts around the screen may seem like fluff, but they actually either represent stylistic choices or the credits.",
+    "dxmTrivia1": 'The primary font used is "Bebas Neue", then "Geist" and "Anderson Grotesk".',
+    "dxmTrivia2": "You can click on the hamburger menu, located in the top-right of the screen, to access additional settings.",
+    "dxmTrivia3": "I'd recommend turning sound on for a more immersive experience during your browsing of this portfolio.",
+    "dxmTrivia4": "This website was designed with vanilla JavaScript, with no frameworks or libraries other than my owns.",
+    "dxmTrivia5": "Interestingly, I've never lived or even visited a mainly English-speaking country before. Not even the United Kingdoms!",
+
+    "dxmSpeech1": "Welcome to my portfolio! Additional explanations will be written here. Click on me (the triangle staring at you) for some extra info."
+}
+
 function detectDevice() {
     const userAgent = navigator.userAgent || navigator.vendor || window.opera;
     let deviceType = 'unknown';
@@ -25,7 +45,7 @@ function detectDevice() {
     return deviceType;
 }
 
- 
+ /* 
 
 console.log("DXM: gFloat activated. Have fun! Original work by Hyperplexed and Camille")
 
@@ -82,11 +102,9 @@ function gFloatAssign(_container){
     _container.dataset.prevPercentage = 0;
 }
 
-const gallerySlider1 = document.getElementById('gallerySlider1'),
-sliderCont = Array.from(document.querySelectorAll(".sOpen")),
-sliderVinyls = Array.from(document.querySelectorAll(".vinyl"));
 
-let deviceType = detectDevice();
+
+
 
 if (gallerySlider1) {
   gallerySlider1.setAttribute('data-device', deviceType);
@@ -94,11 +112,6 @@ if (gallerySlider1) {
 }
 
 gFloatAssign(gallerySlider1)
-
-
-document.documentElement.style.setProperty('--device-type', deviceType);
-console.log(`Visitor type: ${deviceType}.`);
-
 
 
 sliderCont.forEach(((elem, i)=>{
@@ -115,7 +128,6 @@ sliderCont.forEach(((elem, i)=>{
     }
 }));
 
-
 gallerySlider1.animate({
     transform: `translate(${-25}%, -50%)`
 }, { duration: 600, fill: "forwards" });
@@ -123,6 +135,21 @@ gallerySlider1.animate({
 document.getElementById("gallerySliderExtra").animate({
     transform: `translate(${-25}%, -50%)`
 }, { duration: 600, fill: "forwards" });
+
+
+ */
+
+const gallerySlider1 = document.getElementById('gallerySlider1'),
+sliderCont = Array.from(document.querySelectorAll(".sOpen")),
+sliderVinyls = Array.from(document.querySelectorAll(".vinyl")),
+greetingsF = document.getElementById("greetingsF"),
+page1 = document.getElementById("pf-page1"),
+speechText = document.getElementById("speechText"),
+dxmIcon = document.getElementById("DXM-nest")
+;
+
+document.documentElement.style.setProperty('--device-type', deviceType);
+console.log(`Visitor type: ${deviceType}.`);
 
 
 function lockOrientation() {
@@ -151,3 +178,129 @@ window.addEventListener('orientationchange', enforceLandscape);
 // Initial checks
 enforceLandscape();
 lockOrientation();
+
+
+let scrollTimeout;
+document.addEventListener("wheel", (event)=>{
+    event.preventDefault()
+    if (scrollTimeout) clearTimeout(scrollTimeout);
+    window.scrollTo({left: window.scrollX + event.deltaY*15, behavior: "smooth"})
+
+    scrollTimeout = setTimeout(() => {
+        pageSnap();
+    }, 600);
+
+}, { passive: false})
+
+function pageSnap() {
+    const pageWidth = window.innerWidth; 
+    const currentScrollX = window.scrollX;
+    const nearestPage = Math.round(currentScrollX / pageWidth);
+
+    window.scrollTo({
+        left: nearestPage * pageWidth,
+        behavior: 'smooth'
+    });
+}
+
+function greetingsChange(){
+    
+    const _translate = setInterval(()=>{
+        console.log("triggering greetings")
+        if (greetingsArr.length > 1){
+            const _rand = Math.floor(Math.random()*greetingsArr.length)
+            greetingsF.innerText = greetingsArr[_rand]
+            greetingsArr.splice(_rand, 1)
+        } else {
+            greetingsF.innerText = translatorObj.greetings
+            clearInterval(_translate)
+        }
+    }, 200)
+}
+greetingsChange()
+
+let greetingsArr = ["Hello", "Nice to see you!", "Welcome", "Bonjour", "Bonsoir", "Bienvenue", "Guten Tag", "Willkommen", "Hola", "Bienvenido", "こんにちは", "おはようございます", "ようこそ", "안녕하세요", "환영합니다", "Ciao", "Olá", "Olá, tudo bem?", "Merhaba", "Salam", "שלום", "Здравствуй", "Привет", "안녕하십니까", "Tere", "Hola, ¿qué tal?", "Sawasdee", "Hej", "Hej, hur mår du?", "Hi there", "Welcome", "Hey there", "Cześć", "Hallo, wie geht's?", "Aloha", "Hei", "Helo", "Xin Chào", "Ola"]
+
+function typographer(){
+    for (i = 0; i<20; i++){
+        console.log("!!creating line")
+        const _line = document.createElement("div")
+        _line.classList.add("style-lineHorFull")
+        _line.classList.add("style-lineBase")
+        _line.style.gridRow = `${i} / span 1`
+        page1.appendChild(_line)
+
+        const _lineVert = document.createElement("div")
+        _lineVert.classList.add("style-lineVertFull")
+        _lineVert.classList.add("style-lineBase")
+        _lineVert.style.gridColumn = `${i} / span 1`
+        page1.appendChild(_lineVert)
+    }
+}
+
+function typeScroll(_text){
+    const _arr = _text.innerText.split("")
+    _text.innerText = ""
+    let i = 0
+    const typeInt = setInterval(()=>{
+        _text.innerText += _arr[i]
+        i++
+        if (i>=_arr.length){
+            clearInterval(typeInt)
+        }
+    }, 150) 
+    
+}
+
+function typeScroll(_text, _typeInterval, _newText, noClear) {
+    if (typingInterval){
+        clearInterval(typingInterval)
+    }
+    const _arr = _newText?_newText:_text.innerText
+    const characters = _arr.split("")
+    _text.innerText = ""
+    _text.style.opacity = 1;
+    let index = 0
+    _typeInterval = _typeInterval?_typeInterval:150
+
+    
+
+    const typeChar = () => {
+        
+        if (index < characters.length) {
+            _text.innerText += characters[index]
+            index++;
+        } else {
+            clearInterval(typingInterval)
+            clearInterval(typingIntervalBis)
+        }
+    };
+
+    if (noClear){
+        typingIntervalBis = setInterval(typeChar, _typeInterval);
+    } else {
+        typingInterval = setInterval(typeChar, _typeInterval);
+    }
+    
+
+}
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+   
+    typographer()
+    typeScroll(document.querySelector("#HL-Isaac"), 250, "", true)
+    typeScroll(speechText, 15, translatorObj["dxmSpeech1"])
+
+    dxmIcon.addEventListener(("click"), ()=>{
+        let _rand = Math.floor(Math.random()*6)
+        while (_rand == translatorObj.triviaPrev){
+            _rand = Math.floor(Math.random()*6)
+        }
+        translatorObj.triviaPrev = _rand
+        typeScroll(speechText, 15, translatorObj[`dxmTrivia${_rand}`])
+    })
+    
+})
+
+
