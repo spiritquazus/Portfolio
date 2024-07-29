@@ -271,8 +271,11 @@ function typeScroll(_text, _typeInterval, _newText, noClear) {
             _text.innerText += characters[index]
             index++;
         } else {
-            clearInterval(typingInterval)
-            clearInterval(typingIntervalBis)
+            if (noClear){
+                clearInterval(typingIntervalBis)
+            } else {
+                clearInterval(typingInterval)
+            }
         }
     };
 
