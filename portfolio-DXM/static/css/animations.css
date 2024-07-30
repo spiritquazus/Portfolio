@@ -261,6 +261,37 @@
     }
 
     100%{
-        
+
     }
+}
+
+
+/* Spawner Classes */
+
+.greetingsAnim{
+    transform: translate(50%, -200%) scale3d(5, 5, 1) !important;
+}
+
+.leftRightAnim{
+    transform: translateX(-20vh);
+    opacity: 0;
+}
+
+.rightLeftAnim{
+    transform: translateX(20vh);
+    opacity: 0;
+}
+
+.topBottomAnim{
+    transform: translateY(-35vh);
+    opacity: 0;
+}
+
+.bottomTopAnim{
+    transform: translateY(35vh);
+    opacity: 0;
+}
+
+.opacityAnim{
+    opacity: 0;
 }

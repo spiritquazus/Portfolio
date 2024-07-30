@@ -140,18 +140,22 @@ document.getElementById("gallerySliderExtra").animate({
  */
 
 const gallerySlider1 = document.getElementById('gallerySlider1'),
-sliderCont = Array.from(document.querySelectorAll(".sOpen")),
-sliderVinyls = Array.from(document.querySelectorAll(".vinyl")),
-greetingsF = document.getElementById("greetingsF"),
-page1 = document.getElementById("pf-page1"),
-speechText = document.getElementById("speechText"),
-dxmIcon = document.getElementById("DXM-nest"),
-sideBar = document.getElementById("pf-sideBar"),
-btnHam = document.getElementById("btn-hamburger"),
-btnHamIn = document.getElementById("nav-close-button"),
-DXMsmolEye = document.getElementById("DXM-smol1"),
-DXMsmolBlink = document.getElementById("DXM-smol2"),
-DXMsmolPupil = document.getElementById("DXM-smol3")
+    sliderCont = Array.from(document.querySelectorAll(".sOpen")),
+    sliderVinyls = Array.from(document.querySelectorAll(".vinyl")),
+    greetingsF = document.getElementById("greetingsF"),
+    page1 = document.getElementById("pf-page1"),
+    speechText = document.getElementById("speechText"),
+    dxmIcon = document.getElementById("DXM-nest"),
+    sideBar = document.getElementById("pf-sideBar"),
+    btnHam = document.getElementById("btn-hamburger"),
+    btnHamIn = document.getElementById("nav-close-button"),
+    DXMsmolEye = document.getElementById("DXM-smol1"),
+    DXMsmolBlink = document.getElementById("DXM-smol2"),
+    DXMsmolPupil = document.getElementById("DXM-smol3"),
+    blockTexts = Array.from(document.getElementsByClassName("blockText")),
+    sideTexts = Array.from(document.getElementsByClassName("sideText")),
+    styleQuotes = Array.from(document.getElementsByClassName("styleQuote")),
+    photoID = document.getElementById("photoID")
 ;
 
 document.documentElement.style.setProperty('--device-type', deviceType);
@@ -228,23 +232,6 @@ greetingsChange()
 
 let greetingsArr = ["Hello", "Nice to see you!", "Welcome", "Bonjour", "Bienvenue", "Guten Tag", "Willkommen", "Bienvenido", "こんにちは", "おはようございます", "ようこそ", "안녕하세요", "환영합니다", "Ciao", "Olá", "Merhaba", "Salam", "שלום", "Здравствуй", "Привет", "안녕하십니까", "Tere", "Sawasdee", "Hej", "Welcome", "Cześć", "Aloha", "Hei", "Helo", "Xin Chào", "Ola"]
 
-function typographer(){
-    for (i = 0; i<20; i++){
-        console.log("!!creating line")
-        const _line = document.createElement("div")
-        _line.classList.add("style-lineHorFull")
-        _line.classList.add("style-lineBase")
-        _line.style.gridRow = `${i} / span 1`
-        page1.appendChild(_line)
-
-        const _lineVert = document.createElement("div")
-        _lineVert.classList.add("style-lineVertFull")
-        _lineVert.classList.add("style-lineBase")
-        _lineVert.style.gridColumn = `${i} / span 1`
-        page1.appendChild(_lineVert)
-    }
-}
-
 function typeScroll(_text){
     const _arr = _text.innerText.split("")
     _text.innerText = ""
@@ -259,7 +246,29 @@ function typeScroll(_text){
     
 }
 
-async function typeScroll(_text, _typeInterval, _newText, noClear) {
+function spawnElem(_elem, _direction){ //removes translate that moves them out of screen with opacity 0
+    console.log("TRIGGERING SPAWNELEM", _elem)
+    switch(_direction){
+        case "top":
+            _elem.classList.toggle("topBottomAnim")
+            break;
+        case "bottom":
+            _elem.classList.toggle("bottomTopAnim")
+            break;
+        case "left":
+            console.log("REMOVING LEFTRIGHT")
+            _elem.classList.toggle("leftRightAnim")
+            break;
+        case "right":
+            _elem.classList.toggle("rightLeftAnim")
+            break; 
+        case "opacity":
+            _elem.classList.toggle("opacityAnim")
+            break;
+    }
+}
+
+/* async function typeScroll(_text, _typeInterval, _newText, noClear) {
     return new Promise((resolve) => {
         if (typingInterval){
             clearInterval(typingInterval)
@@ -294,7 +303,9 @@ async function typeScroll(_text, _typeInterval, _newText, noClear) {
             typingInterval = setInterval(typeChar, _typeInterval);
         }
     })
-}
+} */
+
+
 
 document.addEventListener("DOMContentLoaded", async ()=>{
     
@@ -305,48 +316,95 @@ document.addEventListener("DOMContentLoaded", async ()=>{
         sideBar.classList.toggle("nav-sidebar-toggle")
     })
     
-    setTimeout(()=>{
-        typeScroll(document.querySelector("#HL-Isaac"), 250, "", true)
-        document.getElementById("HL-Kim").style.opacity = "1"
+    setTimeout(async ()=>{
+
+        document.getElementById("HL-Kim").style.opacity = "1"  
+        await typeScroll(document.querySelector("#HL-Isaac"), 250, "", true)
+        await typographer() //line stuff
+        blockTexts.forEach((elem)=>spawnElem(elem, "left"))
+        sideTexts.forEach((elem)=>spawnElem(elem, "right"))
+        spawnElem(styleQuotes[0], "right")
+        spawnElem(styleQuotes[1], "left")
+
+        spawnElem(dxmIcon, "bottom")
+        spawnElem(photoID, "opacity")
+        typeScroll(speechText, 15, translatorObj["dxmSpeech1"])
+        eyeBlink(DXMsmolEye, DXMsmolBlink, DXMsmolPupil)
+        dxmIcon.addEventListener(("click"), ()=>{
+            let _rand = Math.floor(Math.random()*6)
+            while (_rand == translatorObj.triviaPrev){
+                _rand = Math.floor(Math.random()*6)
+            }
+            translatorObj.triviaPrev = _rand
+            typeScroll(speechText, 15, translatorObj[`dxmTrivia${_rand}`])
+        })    
+
     }, 4000)
     
-    typographer() //line stuff
-    eyeBlink(DXMsmolEye, DXMsmolBlink, DXMsmolPupil)
-    
-    dxmIcon.addEventListener(("click"), ()=>{
-        let _rand = Math.floor(Math.random()*6)
-        while (_rand == translatorObj.triviaPrev){
-            _rand = Math.floor(Math.random()*6)
-        }
-        translatorObj.triviaPrev = _rand
-        typeScroll(speechText, 15, translatorObj[`dxmTrivia${_rand}`])
-    })
-    
+ 
 })
 
 
 
 
 
-async ()=>{
-    await resolveAfter2Seconds();
-    await typeScroll(speechText, 15, translatorObj["dxmSpeech1"])
-}
+/* await typeScroll(speechText, 15, translatorObj["dxmSpeech1"]) */
 
-function resolveAfter2Seconds() {
+  
+async function typographer(){
+    return new Promise((resolve)=>{
+        for (i = 0; i<20; i++){
+            console.log("!!creating line")
+            const _line = document.createElement("div")
+            _line.classList.add("style-lineHorFull")
+            _line.classList.add("style-lineBase")
+            _line.style.gridRow = `${i} / span 1`
+            page1.appendChild(_line)
+
+            const _lineVert = document.createElement("div")
+            _lineVert.classList.add("style-lineVertFull")
+            _lineVert.classList.add("style-lineBase")
+            _lineVert.style.gridColumn = `${i} / span 1`
+            page1.appendChild(_lineVert)
+        }
+        setTimeout(resolve,5000)
+    })
+}
+  
+async function typeScroll(_text, _typeInterval, _newText, noClear) {
     return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve('resolved');
-      }, 2000);
+        if (typingInterval) {
+            clearInterval(typingInterval);
+        }
+        if (typingIntervalBis) {
+            clearInterval(typingIntervalBis);
+        }
+        const _arr = _newText ? _newText : _text.innerText;
+        const characters = _arr.split("");
+        _text.innerText = "";
+        _text.style.opacity = 1;
+        let index = 0;
+        _typeInterval = _typeInterval ? _typeInterval : 150;
+
+        const typeChar = () => {
+            if (index < characters.length) {
+                _text.innerText += characters[index];
+                index++;
+            } else {
+                if (noClear) {
+                    clearInterval(typingIntervalBis);
+                } else {
+                    clearInterval(typingInterval);
+                }
+                resolve();
+            }
+        };
+
+        if (noClear) {
+            typingIntervalBis = setInterval(typeChar, _typeInterval);
+        } else {
+            typingInterval = setInterval(typeChar, _typeInterval);      
+        }
+        
     });
-  }
-  
-  async function asyncCall() {
-    console.log('calling');
-    const result = await resolveAfter2Seconds();
-    console.log(result);
-    // Expected output: "resolved"
-  }
-  
-  asyncCall();
-  
+}
