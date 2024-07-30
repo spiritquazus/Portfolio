@@ -1,0 +1,266 @@
+
+@keyframes spin360{
+    0%{
+        transform: rotate(0deg);
+        
+    }
+
+    100%{
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes eyeSide{
+    0%, 50%{
+        transform: translateX(0)
+    }
+
+    56%, 60%{
+        transform: translateX(-5%)
+    }
+
+    60%, 70%{
+        transform: translateX(-5%)
+    }
+
+    76%, 96%{
+        transform: translate(5%, 2%)
+    }
+
+    98%, 100%{
+        transform: translateX(0)
+    }
+}
+
+@keyframes hammerStrike{
+    0%, 40%{
+        transform: rotate(0deg);
+    }
+
+    40%, 52%{
+        transform: rotate(-95deg);
+    }
+
+    52%, 64%{
+        transform: rotate(-112deg);
+    }
+
+    68%{
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes transpose{
+    0%, 25%{
+        opacity: 1
+    }
+
+    30%, 60%{
+        opacity: 0
+    }
+
+    65%, 100%{
+        opacity: 1
+    }
+}
+
+@keyframes transposeBk{
+    0%, 25%{
+        opacity: 0
+    }
+
+    30%, 60%{
+        opacity: 1
+    }
+
+    65%, 100%{
+        opacity: 0
+    }
+}
+
+@keyframes BGTransit{
+    100% {
+        background: var(--gradientNightMix);
+      }
+}
+
+@keyframes phoneTurn{
+    0%{
+        opacity: 0
+    }
+    20%{
+        opacity: 1
+    }
+    60%{
+        transform: rotate(90deg)
+    }
+
+    90%{
+        opacity: 1;
+        
+    }
+    100%{
+        opacity: 0;
+        transform: rotate(90deg)
+    }
+}
+
+@keyframes lineHorAnim{
+    60%, 90%{
+        transform: translateX(0)
+    }
+    95%, 100%{
+        transform: translateX(-150vw);
+    }
+}
+
+@keyframes lineVertAnim{
+    60%, 90%{
+        transform: translateY(0)
+    }
+    97%, 100%{
+        transform: translateY(-150vh);
+    } 
+}
+
+
+@keyframes floatFX4 {
+    0% {
+        transform: translate(5%, -9%) rotate(25deg);
+    }
+    50% {
+        transform: translate(-20%, 10%) rotate(25deg);
+    }
+    100% {
+        transform: translate(5%, -9%) rotate(25deg);
+    }
+}
+
+@keyframes floatFX5 {
+    0% {
+        transform: translate(3%, -5%) rotate(45deg);
+    }
+    50% {
+        transform: translate(-7%, 5%) rotate(45deg);
+    }
+    100% {
+        transform: translate(3%, -5%) rotate(45deg);
+    }
+}
+
+@keyframes floatFX6 {
+    0% {
+        transform: translate(15%, -8%) rotate(86deg);
+    }
+    50% {
+        transform: translate(-8%, 10%) rotate(86deg);
+    }
+    100% {
+        transform: translate(15%, -8%) rotate(86deg);
+    }
+}
+
+
+@keyframes floatFX1 {
+    0% {
+        transform: translate(-20%, -10%) rotate(-45deg);
+    }
+    50% {
+        transform: translate(5%, 5%) rotate(-45deg);
+    }
+    100% {
+        transform: translate(-20%, -10%) rotate(-45deg);
+    }
+}
+
+@keyframes floatFX2 {
+    0% {
+        transform: translate(-5%, -5%) rotate(-25deg);
+    }
+    50% {
+        transform: translate(5%, 5%) rotate(-25deg);
+    }
+    100% {
+        transform: translate(-5%, -5%) rotate(-25deg);
+    }
+}
+
+@keyframes floatFX3 {
+    0% {
+        transform: translate(-10%, -10%) rotate(-86deg);
+    }
+    50% {
+        transform: translate(8%, 10%) rotate(-86deg);
+    }
+    100% {
+        transform: translate(-10%, -10%) rotate(-86deg);
+    }
+}
+
+@keyframes scroll-bot{
+    0%{
+        transform: translateY(0%) rotate(180deg);
+    }
+    100%{
+        transform: translateY(100%) rotate(180deg);
+    }
+}
+
+@keyframes scroll-top{
+    0%{
+        transform: translateY(0%);
+    }
+    100%{
+        transform: translateY(-100%);
+    }
+}
+
+
+@keyframes DXM-float{
+    0%{
+        transform: translateY(0.5vmin);
+    }
+
+    50%{
+        transform: translateY(-0.5vmin);
+    }
+
+    100%{
+        transform: translateY(0.5vmin);
+    }
+
+}
+
+@keyframes scroll-Right{
+    0%{
+        transform: translateX(-20%);
+    }
+
+    100%{
+        transform: translateX(-120%)
+    }
+}
+
+@keyframes diagonalTravel{
+    0%, 10%{
+        transform: translate(0, 0);
+    }
+
+    30%, 50%{
+        transform: translate(-19%, -10%);
+    }
+
+    68%, 87%{
+        transform: translate(25%, 22%)
+    }
+}
+
+@keyframes greetingsAnimateIntro{
+    0%{
+
+    }
+
+    100%{
+        
+    }
+}

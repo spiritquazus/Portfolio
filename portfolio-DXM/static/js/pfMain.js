@@ -145,7 +145,13 @@ sliderVinyls = Array.from(document.querySelectorAll(".vinyl")),
 greetingsF = document.getElementById("greetingsF"),
 page1 = document.getElementById("pf-page1"),
 speechText = document.getElementById("speechText"),
-dxmIcon = document.getElementById("DXM-nest")
+dxmIcon = document.getElementById("DXM-nest"),
+sideBar = document.getElementById("pf-sideBar"),
+btnHam = document.getElementById("btn-hamburger"),
+btnHamIn = document.getElementById("nav-close-button"),
+DXMsmolEye = document.getElementById("DXM-smol1"),
+DXMsmolBlink = document.getElementById("DXM-smol2"),
+DXMsmolPupil = document.getElementById("DXM-smol3")
 ;
 
 document.documentElement.style.setProperty('--device-type', deviceType);
@@ -204,9 +210,10 @@ function pageSnap() {
 }
 
 function greetingsChange(){
-    
+    greetingsF.classList.toggle("greetingsAnim")
     const _translate = setInterval(()=>{
         console.log("triggering greetings")
+        
         if (greetingsArr.length > 1){
             const _rand = Math.floor(Math.random()*greetingsArr.length)
             greetingsF.innerText = greetingsArr[_rand]
@@ -219,7 +226,7 @@ function greetingsChange(){
 }
 greetingsChange()
 
-let greetingsArr = ["Hello", "Nice to see you!", "Welcome", "Bonjour", "Bonsoir", "Bienvenue", "Guten Tag", "Willkommen", "Hola", "Bienvenido", "こんにちは", "おはようございます", "ようこそ", "안녕하세요", "환영합니다", "Ciao", "Olá", "Olá, tudo bem?", "Merhaba", "Salam", "שלום", "Здравствуй", "Привет", "안녕하십니까", "Tere", "Hola, ¿qué tal?", "Sawasdee", "Hej", "Hej, hur mår du?", "Hi there", "Welcome", "Hey there", "Cześć", "Hallo, wie geht's?", "Aloha", "Hei", "Helo", "Xin Chào", "Ola"]
+let greetingsArr = ["Hello", "Nice to see you!", "Welcome", "Bonjour", "Bienvenue", "Guten Tag", "Willkommen", "Bienvenido", "こんにちは", "おはようございます", "ようこそ", "안녕하세요", "환영합니다", "Ciao", "Olá", "Merhaba", "Salam", "שלום", "Здравствуй", "Привет", "안녕하십니까", "Tere", "Sawasdee", "Hej", "Welcome", "Cześć", "Aloha", "Hei", "Helo", "Xin Chào", "Ola"]
 
 function typographer(){
     for (i = 0; i<20; i++){
@@ -252,49 +259,60 @@ function typeScroll(_text){
     
 }
 
-function typeScroll(_text, _typeInterval, _newText, noClear) {
-    if (typingInterval){
-        clearInterval(typingInterval)
-    }
-    const _arr = _newText?_newText:_text.innerText
-    const characters = _arr.split("")
-    _text.innerText = ""
-    _text.style.opacity = 1;
-    let index = 0
-    _typeInterval = _typeInterval?_typeInterval:150
-
-    
-
-    const typeChar = () => {
-        
-        if (index < characters.length) {
-            _text.innerText += characters[index]
-            index++;
-        } else {
-            if (noClear){
-                clearInterval(typingIntervalBis)
-            } else {
-                clearInterval(typingInterval)
-            }
+async function typeScroll(_text, _typeInterval, _newText, noClear) {
+    return new Promise((resolve) => {
+        if (typingInterval){
+            clearInterval(typingInterval)
         }
-    };
+        const _arr = _newText?_newText:_text.innerText
+        const characters = _arr.split("")
+        _text.innerText = ""
+        _text.style.opacity = 1;
+        let index = 0
+        _typeInterval = _typeInterval?_typeInterval:150
 
-    if (noClear){
-        typingIntervalBis = setInterval(typeChar, _typeInterval);
-    } else {
-        typingInterval = setInterval(typeChar, _typeInterval);
-    }
-    
+        
+        const typeChar = () => {
+            
+            
+            if (index < characters.length) {
+                _text.innerText += characters[index]
+                index++;
+            } else {
+                if (noClear){
+                    clearInterval(typingIntervalBis)
+                } else {
+                    clearInterval(typingInterval)
+                }
+                resolve()
+            }
+        };
 
+        if (noClear){
+            typingIntervalBis = setInterval(typeChar, _typeInterval);
+        } else {
+            typingInterval = setInterval(typeChar, _typeInterval);
+        }
+    })
 }
 
-document.addEventListener("DOMContentLoaded",()=>{
-
-   
-    typographer()
-    typeScroll(document.querySelector("#HL-Isaac"), 250, "", true)
-    typeScroll(speechText, 15, translatorObj["dxmSpeech1"])
-
+document.addEventListener("DOMContentLoaded", async ()=>{
+    
+    btnHam.addEventListener("click", ()=>{
+        sideBar.classList.toggle("nav-sidebar-toggle")
+    })
+    btnHamIn.addEventListener("click", ()=>{
+        sideBar.classList.toggle("nav-sidebar-toggle")
+    })
+    
+    setTimeout(()=>{
+        typeScroll(document.querySelector("#HL-Isaac"), 250, "", true)
+        document.getElementById("HL-Kim").style.opacity = "1"
+    }, 4000)
+    
+    typographer() //line stuff
+    eyeBlink(DXMsmolEye, DXMsmolBlink, DXMsmolPupil)
+    
     dxmIcon.addEventListener(("click"), ()=>{
         let _rand = Math.floor(Math.random()*6)
         while (_rand == translatorObj.triviaPrev){
@@ -307,3 +325,28 @@ document.addEventListener("DOMContentLoaded",()=>{
 })
 
 
+
+
+
+async ()=>{
+    await resolveAfter2Seconds();
+    await typeScroll(speechText, 15, translatorObj["dxmSpeech1"])
+}
+
+function resolveAfter2Seconds() {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve('resolved');
+      }, 2000);
+    });
+  }
+  
+  async function asyncCall() {
+    console.log('calling');
+    const result = await resolveAfter2Seconds();
+    console.log(result);
+    // Expected output: "resolved"
+  }
+  
+  asyncCall();
+  

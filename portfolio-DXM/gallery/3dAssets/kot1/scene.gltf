@@ -7842,13 +7842,13 @@
   ],
   "images": [
     {
-      "uri": "textures/Material_81_baseColor.png"
+      "uri": "textures/Material_81_baseColor.webp"
     },
     {
-      "uri": "textures/Material_105_baseColor.png"
+      "uri": "textures/Material_105_baseColor.webp"
     },
     {
-      "uri": "textures/Material_93_baseColor.png"
+      "uri": "textures/Material_93_baseColor.webp"
     }
   ],
   "materials": [

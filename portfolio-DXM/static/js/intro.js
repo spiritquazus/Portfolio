@@ -87,26 +87,6 @@ function eyeSpy(e, _elem, _cont){
 
 }
 
-function eyeBlink(_mainCont, _mainContAfter, _elem, _cont){
-    let _localVar;
-    let _intervalMil = 2500
-    _localVar = setInterval(()=>{
-        _localVar?clearInterval(_localVar):_localVar
-        _localVar = setInterval(()=>{
-            _mainCont.style.display = "none"
-            _elem.style.display = "none"
-            _mainContAfter.style.display = "flex"
-            _intervalMil = Math.floor(Math.random()*(8000 - 3500))+3500
-            setTimeout(()=>{
-                _mainCont.style.display = "flex"
-                _elem.style.display = "flex"
-                _elem.style.left = `${_cont.getBoundingClientRect().left}px`;
-                _elem.style.top = `${_cont.getBoundingClientRect().top}px`;
-                _mainContAfter.style.display = "none"
-            },300)          
-        }, _intervalMil)
-    }, _intervalMil)
-}
 
 function activeEye(_elem, _cont, _mainCont, _mainContAfter){
     document.addEventListener("mousemove",(event)=>eyeSpy(event,_elem,_cont))

@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="../css/styling.css">
+    <link rel="stylesheet" href="../css/animations.css">
     <link rel="stylesheet" href="../css/intro.css">
     <link rel="stylesheet" href="../css/pfMain.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Black+Han+Sans&family=Song+Myung&family=Zen+Antique&family=Zen+Antique+Soft&family=Zen+Kaku+Gothic+Antique:wght@300;400;500;700;900&family=Zen+Kaku+Gothic+New:wght@300;400;500;700;900&family=Zen+Kurenaido&family=Zen+Maru+Gothic:wght@300;400;500;700;900&family=Zen+Old+Mincho:wght@400;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Floating windows (FIXED) -->
     <div class="landscape-message">
         <div>
             <img src="../../gallery/2dElems/phoneTurn.webp" id="ls-turn">
@@ -19,11 +22,10 @@
         <p>Sorry!</p>
         <p>This page is not available in portrait.</p>
         <p>Please rotate your device.</p>
-        <img src="../../gallery/2dElems/DXMoops.webp">
+        <img src="../../gallery/2dElems/DXMoops.webp"> 
     </div>
     
     <bar id="pf-topNavBar" class="dl-navLungo">
-        <div class="pf-topEdge barEdge-add"></div>
         <button class="dl-icon" id="ctr-sound"></button>
         <button class="dl-icon" id="ctr-comment"></button>
         <button class="dl-icon" id="ctr-performance"></button>
@@ -31,28 +33,75 @@
         <button class="dl-icon" id="ctr-movePageFr"></button>
     </bar>
 
+    <div class="hangingText"><span>Context Menu</span></div>
+
     <button id="btn-contact" class="dl-navBtn">Contact</button>
-
+    <button id="btn-navigation" class="dl-navBtn">Map</button>
     <button id="btn-about" class="dl-navBtn">About</button>
-
-    <button id="btn-navigation" class="dl-navBtn">Navigation</button>
 
     <button id="btn-hamburger" class="dl-navBtn"></button>
 
+    <div id="pf-sideBar" class="nav-sidebar-toggle">
+        <special id="nav-close-button"></special>
+        <div id="sideBar-title"> <span style="width: 50%">Side</span><span style="color:red;">Menu</span> </div>
+        <div class="style-nav-lineHor" style="grid-row: 1 / span 2"></div>
+        <div style="display: block; border-top: 1px dashed var(--colorDullGrey)"></div>
+
+        <div class="style-nav-border" style="grid-row: 3;"><span>Partition "Bone" #F9F6EE</span></div>
+        <div class="style-nav-lineHor"></div>
+        <p style="grid-row: 3;">Navigation</p>
+        <img src="../../gallery/2dElems/iconLang.svg" style="grid-row: 4;">
+        <button>Language Selection</button>
+        <img src="../../gallery/2dElems/iconDXMpio.webp" style="grid-row: 5;">
+        <button>Introduction Page</button>
+        <img src="../../gallery/2dElems/iconCV.svg" style="grid-row: 6;">
+        <button>Profile Page</button>
+        <img src="../../gallery/2dElems/iconProj.svg" style="grid-row: 7;">
+        <button>Project 1 - HOGA</button>
+        <img src="../../gallery/2dElems/iconProj.svg" style="grid-row: 8;">
+        <button>Project 2 - 3D Portfolio</button>
+        <img src="../../gallery/2dElems/iconProj.svg" style="grid-row: 9;">
+        <button>Project 3 - Black Peach</button>
+        <img src="../../gallery/2dElems/iconProj.svg" style="grid-row: 10;">
+        <button>Project 4 - Psychophobia</button>
+
+        <div class="style-nav-border" style="grid-row: 11;"><span>Partition "Bone" #F9F6EE</span></div>
+        <div class="style-nav-lineHor" style="grid-row: 12 / span 5"></div>
+        <p style="grid-row: 11;">Settings</p>
+        <img src="../../gallery/2dElems/iconPerf.svg" style="grid-row: 12">
+        <button>Performance Mode</button>
+        <img src="../../gallery/2dElems/iconScreen.svg" style="grid-row: 13;">
+        <button>Full Screen/Windowed</button>
+        <img src="../../gallery/2dElems/iconSound1.svg" style="grid-row: 14;">
+        <button>Sound</button>
+        <img src="../../gallery/2dElems/iconMusic.svg" style="grid-row: 15;">
+        <button>Music</button>
+        <img src="../../gallery/2dElems/iconLight.svg" style="grid-row: 16;">
+        <button>Day/Night Mode</button>
+
+        <div class="style-nav-borderArrows"><p>SUBGRID</p><span>100vh</span></div>
+    </div>
+
     <div id="DXM-nest">
         <div id="DXM-sideDec"></div>
-        <div id="DXM-smolCont">
+        <div id="DXM-smolCont" style="width: 80%">
             <div id="DXM-smolMn" class="smolClass"></div>
-            <div id="DXM-smol1" class="smol-eye smolClass" style="background-image: url(../../gallery/2dElems/dxmSmol1.webp);"></div>
-            <div id="DXM-smol2" class="smol-eye smolClass" style="background-image: url(../../gallery/2dElems/dxmSmol2.webp);"></div>
-            <div id="DXM-smol3" class="smol-eye smolClass" style="background-image: url(../../gallery/2dElems/dxmSmol3.webp);"></div>
-            <div id="DXM-smol4" class="smol-eye smolClass" style="background-image: url(../../gallery/2dElems/dxmSmol4.webp);"></div>
+            <div id="DXM-smol1" class="smol-eye smolClass" style="background-image: url(../../gallery/2dElems/dxmSmol1.webp);">
+                <div id="DXM-smol3" class="smol-eye smolClass" style="background-image: url(../../gallery/2dElems/dxmSmol3.webp);"></div>
+                <div id="DXM-smol4" class="smol-eye smolClass" style="background-image: url(../../gallery/2dElems/dxmSmol4.webp);"></div>
+            </div>
+            <div id="DXM-smol2" class="smol-eye smolClass" style="background-image: url(../../gallery/2dElems/dxmSmol2.webp); display: none">
+                
+            </div>
         </div>
         <div id="DXM-speech">
             <div id="speechText" style="opacity:0;">Welcome to my portfolio!</div>
         </div>
 
     </div>
+
+    <!-- Floating windows END -->
+
 <!--     <bar id="pf-botNavBar" class="dl-navLungo">
         <div class="pf-botEdge barEdge-add"></div>
         
@@ -79,10 +128,11 @@
         <div class="style-lineVertDotted style-lineBase"></div>
         <div class="style-lineVertDotted style-lineBase" style="animation:none; transform:translateY(0); grid-column: 19;"></div>
         <div class="style-lineHor style-lineBase"></div>
+        <div class="style-lineHor style-lineBase" style="grid-row: 10 / span 1; grid-column: 1 / span 5"></div>
+        <div class="style-lineHor style-lineBase" style="grid-row: 11 / span 1; grid-column: 1 / span 5"></div>
         <div class="style-lineHorDotted style-lineBase"></div>
         <div class="style-lineHorDotted style-lineBase" style="grid-row: 10 / span 1; "></div>
         <div class="style-lineHorDotted style-lineBase" style="grid-row: 4 / span 1; animation:none; transform:translateX(0); border-bottom: none; border-top: dashed 1px"></div>
-        
 
         <div class="style-lineCross" style="grid-row: 4 / span 1; grid-column:  2/ span 1;"></div>
         <div class="style-lineCross" style="grid-row: 4 / span 1; grid-column:  3/ span 1;"></div>
@@ -92,16 +142,32 @@
         <div class="style-decoText" style="grid-row: 1 / span 1; grid-column:  7/ span 3; justify-content: flex-start;"><span>Font Families and Layout - "Brutalisme Nouveau"</span></div>
         <div class="style-decoText" style="grid-row: 1 / span 1; grid-column:  10/ span 3;"><span>Typographer Style - 20 Set Grid - Gap 0.5</span></div>
 
-        <img src="" id="styleQuote">
-        <!-- DECORUM END-->
+        <div class="style-decoText" style="grid-row: 17 / span 2; grid-column:  16/ span 2; justify-content: flex-start; align-items: flex-start; flex-direction: column; border-left: 1px solid var(--colorBone)">
+            <p style="font-size:var(--font-M3);">Project Annex:</p>
+            <p>&#8226; HOGA - Productivity App</p>
+            <p>&#8226; DXM 3D Portfolio</p>
+            <p>&#8226; Black Peach - Project Tracker</p>
+            <p>&#8226; Psychophobia - Game</p>
+        </div>
 
-        <img src="../../gallery/2dElems/photoIKStylized.webp" id="photoID" alt="">
+
+
+        <img src="../../gallery/2dElems/quotesStylistic1.webp" id="styleQuote">
+        <img src="../../gallery/2dElems/quotesStylistic2.webp" id="styleQuote" style="grid-row: 13 / span 2; grid-column: 14 / span 1">
+        <!-- DECORUM END-->
+        <div id="photoID">
+            <img src="../../gallery/2dElems/photoIKStylized.webp" alt="">    
+            <img src="../../gallery/2dElems/silverBall.gif" id="ball3d">
+            <img src="../../gallery/2dElems/viceCityEye.png" id="eye3d">
+            
+        </div>
+        
 
         
         
         <float id="introMsg">
-            <span id="greetingsF">Hello, I am</span>
-            <div><span id="HL-Isaac" style="opacity: 0">Isaac </span><span>Kim</span></div>
+            <span id="greetingsF" class="greetingsAnim">Hello, I am</span>
+            <div><span id="HL-Isaac" style="opacity: 0">Isaac </span><span id="HL-Kim" style="opacity:0">Kim</span></div>
             <span><span>&lt;</span>Full Stack <span>Dev</span><span>&gt;</span></span>
         </float>
 
@@ -114,7 +180,7 @@
         </float>
 
         <div class="leftBlockText1">
-            <span class="blockText">Born and educated in France, I currently reside in Seoul with a permanent resident visa (F-4). I am fluent in four languages: French, English, Korean, and Japanese, which allows me to connect with diverse cultures and communities. My passion for cooking, designing, and creating is complemented by my enthusiasm for debugging and solving complex problems in computer science. I thrive on learning new skills and staying updated with the latest technologies. My multicultural background and diverse experiences provide a unique perspective.</span>
+            <span class="blockText">Born and educated in France, I currently reside in Seoul with a permanent resident visa (F-4). I am fluent in four languages: French, English, Korean, and Japanese, which allows me to connect with diverse cultures and communities. My passion for cooking, designing, and creating is complemented by my enthusiasm for debugging and solving complex problems in computer science. I thrive on learning new skills and staying updated with the latest technologies. My multicultural background and experiences provide a unique perspective.</span>
         </div>
 
         <div class="leftBlockText2">
@@ -242,7 +308,7 @@
     </div>
  -->
     
-
+    <script src="../js/preStack.js"></script>
     <script src="../js/pfMain.js"></script>
 </body>
 </html>

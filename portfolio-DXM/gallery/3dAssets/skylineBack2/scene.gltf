@@ -10493,25 +10493,25 @@
   ],
   "images": [
     {
-      "uri": "textures/material_baseColor.jpeg"
+      "uri": "textures/material_baseColor.webp"
     },
     {
-      "uri": "textures/material_metallicRoughness.png"
+      "uri": "textures/material_metallicRoughness.webp"
     },
     {
-      "uri": "textures/material_emissive.jpeg"
+      "uri": "textures/material_emissive.webp"
     },
     {
-      "uri": "textures/logos_baseColor.png"
+      "uri": "textures/logos_baseColor.webp"
     },
     {
-      "uri": "textures/logos_emissive.jpeg"
+      "uri": "textures/logos_emissive.webp"
     },
     {
-      "uri": "textures/material_3_emissive.jpeg"
+      "uri": "textures/material_3_emissive.webp"
     },
     {
-      "uri": "textures/.003_baseColor.png"
+      "uri": "textures/003_baseColor.webp"
     }
   ],
   "materials": [

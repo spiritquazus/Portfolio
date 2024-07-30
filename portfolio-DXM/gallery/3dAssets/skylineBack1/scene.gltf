@@ -171,19 +171,19 @@
   ],
   "images": [
     {
-      "uri": "textures/Background_Night_Buildings_baseColor.png"
+      "uri": "textures/Background_Night_Buildings_baseColor.webp"
     },
     {
-      "uri": "textures/Background_Night_Buildings_metallicRoughness.png"
+      "uri": "textures/Background_Night_Buildings_metallicRoughness.webp"
     },
     {
-      "uri": "textures/Background_Night_Buildings_emissive.png"
+      "uri": "textures/Background_Night_Buildings_emissive.webp"
     },
     {
-      "uri": "textures/Background_Night_Buildings_normal.png"
+      "uri": "textures/Background_Night_Buildings_normal.webp"
     },
     {
-      "uri": "textures/Background_Night_Buildings_clearcoat.png"
+      "uri": "textures/Background_Night_Buildings_clearcoat.webp"
     }
   ],
   "materials": [

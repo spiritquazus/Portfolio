@@ -1,111 +1,3 @@
-@font-face {
-    font-family: 'Geist'; 
-    src: url('../../gallery/fonts/Geist-Black.ttf') format('truetype');
-    font-weight: 900;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'Geist'; 
-    src: url('../../gallery/fonts/Geist-Bold.ttf') format('truetype');
-    font-weight: 700;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'Geist'; 
-    src: url('../../gallery/fonts/Geist-Light.ttf') format('truetype');
-    font-weight: 300;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'Geist'; 
-    src: url('../../gallery/fonts/Geist-Regular.ttf') format('truetype');
-    font-weight: 500;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'Geist'; 
-    src: url('../../gallery/fonts/Geist-Black.ttf') format('truetype');
-    font-weight: 900;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'Geist'; 
-    src: url('../../gallery/fonts/Geist-Bold.ttf') format('truetype');
-    font-weight: 700;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Anderson'; 
-    src: url('../../gallery/fonts/AndersonGrotesk-Black.otf') format('opentype');
-    font-weight: 900;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'Anderson'; 
-    src: url('../../gallery/fonts/AndersonGrotesk.otf') format('opentype');
-    font-weight: 500;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'Anderson'; 
-    src: url('../../gallery/fonts/AndersonGrotesk-Ultrabold.otf') format('opentype');
-    font-weight: 800;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'Anderson'; 
-    src: url('../../gallery/fonts/AndersonGrotesk-Bold.otf') format('opentype');
-    font-weight: 700;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'Anderson'; 
-    src: url('../../gallery/fonts/AndersonGrotesk-Light.otf') format('opentype');
-    font-weight: 300;
-    font-style: normal;
-}
-
-@import url('https://cdn.jsdelivr.net/gh/spoqa/spoqa-han-sans/css/SpoqaHanSansNeo.css');
-@import url('https://cdn.jsdelivr.net/npm/typeface-nanum-square@1.1.0/nanumsquare.min.css');
-
-:root{ 
-    --font-primary: "Bebas Neue", "Roboto", sans-serif;
-    --font-secondary: "Geist", "Roboto", sans-serif;
-    --font-tertiary: "Anderson", "Roboto", sans-serif;
-    --front-primary-kor: "Spoqa Han Sans Neo", sans-serif;
-    --font-secondary-kor: 'Nanum Square', sans-serif;
-    /* --font-tertiary:  */
-    --font-logo: calc(9vh*1.618);
-    --font-title: 9vh;
-    --font-M1: calc(9vh/1.618);
-    --font-M2: calc(9vh/1.618/1.618);
-    --font-M3: calc(9vh/1.618/1.618/1.618);
-    --font-S1: calc(9vh/1.618/1.618/1.618/1.618);
-    --font-S2: calc(9vh/1.618/1.618/1.618/1.618/1.618);
-    --lightDarkBG: rgba(0, 0, 5, 0.8);
-    --lightDarkPrimary: var(--colorObsidian);
-    --lightDarkSecondary: rgba(20,20,20,0.8);
-    --lightDarkTertiary: rgba(35,35,35,0.9);
-    --lightDarkFont: var(--colorPureWhite);
-    --lightDarkFontSub: var(--colorAsbestos);
-    --lightDarkBlur: blur(0.5rem);
-    --lightDarkBorder: rgba(250,250,250,0.4);
-    --lightDarkShadow: drop-shadow(0 0 5px rgba(220,220,220,0.7));
-    --device-type: 'unknown';
-    
-    --colorVentaBlack: black;
-    --colorObsidian: #0b1215;
-    --colorNight: #0c0c0c;
-    --colorMidnight: #0d0219;
-    --gradientNightMix: linear-gradient(0deg, rgba(10,10,10,0.3) 0%, var(--colorNight) 39%, var(--colorObsidian) 100%);
-    --colorPureWhite: white;
-    --colorBone: #F9F6EE;
-    --colorAsbestos: #F1F1F1;
-    --colorMoonRock: #DDDDDD;
-    --colorDullGrey: #ABABAB;
-    --colorGreyGlass: rgba(150, 150, 150, 0.5)
-}
 
 
 
@@ -171,21 +63,6 @@ p{
     opacity: 0.5;
     transform: translateY(-40vh);
     animation: DXM-float 5s 2s ease-in-out infinite;
-}
-
-@keyframes DXM-float{
-    0%{
-        transform: translateY(0.5vmin);
-    }
-
-    50%{
-        transform: translateY(-0.5vmin);
-    }
-
-    100%{
-        transform: translateY(0.5vmin);
-    }
-
 }
 
 #DXMpart4{
@@ -430,16 +307,6 @@ p{
     width: 5%
 }
 
-@keyframes scroll-Right{
-    0%{
-        transform: translateX(-20%);
-    }
-
-    100%{
-        transform: translateX(-120%)
-    }
-}
-
 button:hover{
     text-shadow: 0 0 2px black;
     filter: drop-shadow(0 0 5px white);
@@ -505,14 +372,6 @@ button:hover{
     animation: scroll-top 3s linear infinite;  
 }
 
-@keyframes scroll-top{
-    0%{
-        transform: translateY(0%);
-    }
-    100%{
-        transform: translateY(-100%);
-    }
-}
 
 .arrowBkwrd{
     width: 10%;
@@ -520,15 +379,6 @@ button:hover{
     display: flex;
     flex-wrap: wrap;
     animation: scroll-bot 3s linear infinite;  
-}
-
-@keyframes scroll-bot{
-    0%{
-        transform: translateY(0%) rotate(180deg);
-    }
-    100%{
-        transform: translateY(100%) rotate(180deg);
-    }
 }
 
 /* #handsCont{
@@ -582,42 +432,6 @@ button:hover{
     animation: floatFX3 3.5s 0.4s ease-in-out infinite;
 }
 
-@keyframes floatFX1 {
-    0% {
-        transform: translate(-20%, -10%) rotate(-45deg);
-    }
-    50% {
-        transform: translate(5%, 5%) rotate(-45deg);
-    }
-    100% {
-        transform: translate(-20%, -10%) rotate(-45deg);
-    }
-}
-
-@keyframes floatFX2 {
-    0% {
-        transform: translate(-5%, -5%) rotate(-25deg);
-    }
-    50% {
-        transform: translate(5%, 5%) rotate(-25deg);
-    }
-    100% {
-        transform: translate(-5%, -5%) rotate(-25deg);
-    }
-}
-
-@keyframes floatFX3 {
-    0% {
-        transform: translate(-10%, -10%) rotate(-86deg);
-    }
-    50% {
-        transform: translate(8%, 10%) rotate(-86deg);
-    }
-    100% {
-        transform: translate(-10%, -10%) rotate(-86deg);
-    }
-}
-
 .S4{
     animation: floatFX4 5s 0.5s ease-in-out infinite;
 
@@ -632,42 +446,6 @@ button:hover{
     animation: floatFX6 3.9s ease-in-out infinite;
 
 } 
-
-@keyframes floatFX4 {
-    0% {
-        transform: translate(5%, -9%) rotate(25deg);
-    }
-    50% {
-        transform: translate(-20%, 10%) rotate(25deg);
-    }
-    100% {
-        transform: translate(5%, -9%) rotate(25deg);
-    }
-}
-
-@keyframes floatFX5 {
-    0% {
-        transform: translate(3%, -5%) rotate(45deg);
-    }
-    50% {
-        transform: translate(-7%, 5%) rotate(45deg);
-    }
-    100% {
-        transform: translate(3%, -5%) rotate(45deg);
-    }
-}
-
-@keyframes floatFX6 {
-    0% {
-        transform: translate(15%, -8%) rotate(86deg);
-    }
-    50% {
-        transform: translate(-8%, 10%) rotate(86deg);
-    }
-    100% {
-        transform: translate(15%, -8%) rotate(86deg);
-    }
-}
 
 
 @media (max-width: 1000px) and (orientation: portrait){
