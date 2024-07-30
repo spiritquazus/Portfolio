@@ -155,7 +155,9 @@ const gallerySlider1 = document.getElementById('gallerySlider1'),
     blockTexts = Array.from(document.getElementsByClassName("blockText")),
     sideTexts = Array.from(document.getElementsByClassName("sideText")),
     styleQuotes = Array.from(document.getElementsByClassName("styleQuote")),
-    photoID = document.getElementById("photoID")
+    navBtns = Array.from(document.getElementsByClassName("dl-navBtn")),
+    photoID = document.getElementById("photoID"),
+    titleID = document.getElementById("HL-title")
 ;
 
 document.documentElement.style.setProperty('--device-type', deviceType);
@@ -320,9 +322,13 @@ document.addEventListener("DOMContentLoaded", async ()=>{
 
         document.getElementById("HL-Kim").style.opacity = "1"  
         await typeScroll(document.querySelector("#HL-Isaac"), 250, "", true)
+        await typeScroll(titleID, 100, "", true)
         await typographer() //line stuff
+        
+        
         blockTexts.forEach((elem)=>spawnElem(elem, "left"))
         sideTexts.forEach((elem)=>spawnElem(elem, "right"))
+        navBtns.forEach((elem)=>spawnElem(elem, "top"))
         spawnElem(styleQuotes[0], "right")
         spawnElem(styleQuotes[1], "left")
 

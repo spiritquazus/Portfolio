@@ -157,3 +157,7 @@
     --colorGreyGlass: rgba(124, 133, 139, 0.5);
     --colorPaleNimbus: #B1A09A;
 }
+
+body{
+    user-select: none; 
+}

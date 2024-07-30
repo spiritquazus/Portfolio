@@ -265,6 +265,15 @@
     }
 }
 
+@keyframes blinkEffect{
+    0%, 59.9%{
+        opacity: 1
+    }
+    60%, 100%{
+        opacity: 0
+    }
+}
+
 
 /* Spawner Classes */
 

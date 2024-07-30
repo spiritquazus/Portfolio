@@ -245,7 +245,7 @@ button{
     top: calc(1vh);
     height: 5.0833vh;
     width: 5vw;
-    transition: transform 0.3s linear;
+    transition: all 0.8s linear;
     background-color: rgba(0,0,0,0);
     backdrop-filter: blur(15px);
     z-index: 1;
@@ -1018,6 +1018,10 @@ button{
     font-size: var(--font-S1);
     line-height: calc(5vh*1.618);
     
+}
+
+.style-typeBar{
+    animation: blinkEffect 2s linear infinite;
 }
 
 #nav-close-button{
