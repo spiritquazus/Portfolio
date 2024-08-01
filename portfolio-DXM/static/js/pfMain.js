@@ -1,22 +1,18 @@
 let deviceType = detectDevice();
 let typingInterval;
 let typingIntervalBis;
+let portraitMode = true;
+let performanceMode = false;
+let chatterMode = true;
+let soundLevel = true;
+let isMouseDown = false;
+let holdTimeout;
+const totalPg = Array.from(document.getElementsByClassName("pagination")).length
+console.log("num of pages detected, ", totalPg)
+window.userCurrentPage = 0;
 
 
-const translatorObj = {
-    triviaPrev: 0,
 
-    "greetings": "Nice to meet you, I am",
-
-    "dxmTrivia0": "The decorative texts around the screen may seem like fluff, but they actually either represent stylistic choices or the credits.",
-    "dxmTrivia1": 'The primary font used is "Bebas Neue", then "Geist" and "Anderson Grotesk".',
-    "dxmTrivia2": "You can click on the hamburger menu, located in the top-right of the screen, to access additional settings.",
-    "dxmTrivia3": "I'd recommend turning sound on for a more immersive experience during your browsing of this portfolio.",
-    "dxmTrivia4": "This website was designed with vanilla JavaScript, with no frameworks or libraries other than my owns.",
-    "dxmTrivia5": "Interestingly, I've never lived or even visited a mainly English-speaking country before. Not even the United Kingdoms!",
-
-    "dxmSpeech1": "Welcome to my portfolio! Additional explanations will be written here. Click on me (the triangle staring at you) for some extra info."
-}
 
 function detectDevice() {
     const userAgent = navigator.userAgent || navigator.vendor || window.opera;
@@ -139,27 +135,6 @@ document.getElementById("gallerySliderExtra").animate({
 
  */
 
-const gallerySlider1 = document.getElementById('gallerySlider1'),
-    sliderCont = Array.from(document.querySelectorAll(".sOpen")),
-    sliderVinyls = Array.from(document.querySelectorAll(".vinyl")),
-    greetingsF = document.getElementById("greetingsF"),
-    page1 = document.getElementById("pf-page1"),
-    speechText = document.getElementById("speechText"),
-    dxmIcon = document.getElementById("DXM-nest"),
-    sideBar = document.getElementById("pf-sideBar"),
-    btnHam = document.getElementById("btn-hamburger"),
-    btnHamIn = document.getElementById("nav-close-button"),
-    DXMsmolEye = document.getElementById("DXM-smol1"),
-    DXMsmolBlink = document.getElementById("DXM-smol2"),
-    DXMsmolPupil = document.getElementById("DXM-smol3"),
-    blockTexts = Array.from(document.getElementsByClassName("blockText")),
-    sideTexts = Array.from(document.getElementsByClassName("sideText")),
-    styleQuotes = Array.from(document.getElementsByClassName("styleQuote")),
-    navBtns = Array.from(document.getElementsByClassName("dl-navBtn")),
-    photoID = document.getElementById("photoID"),
-    titleID = document.getElementById("HL-title")
-;
-
 document.documentElement.style.setProperty('--device-type', deviceType);
 console.log(`Visitor type: ${deviceType}.`);
 
@@ -168,6 +143,7 @@ function lockOrientation() {
     if (screen.orientation && screen.orientation.lock) {
       screen.orientation.lock('landscape').catch(err => {
         console.error('Orientation lock failed:', err);
+        
       });
     } else {
       console.warn('Orientation lock not supported');
@@ -176,44 +152,122 @@ function lockOrientation() {
 
 function enforceLandscape() {
     if (window.innerHeight > window.innerWidth) {
-        document.querySelector('.landscape-message').style.display = 'flex';
+        document.querySelector('.landscape-message').style.display = 'grid';
+        typeScroll(speechText, 15, translatorObj["dxmSpeech2"])
+        portraitMode = true
         /* document.querySelector('.content').style.display = 'none'; */
     } else {
         document.querySelector('.landscape-message').style.display = 'none';
+        portraitMode = false
        /*  document.querySelector('.content').style.display = 'block'; */
     }
 }
 
+async function awaitRotation(){
+    return new Promise((resolve) => {
+        const checkRotation = () => {
+            if (!portraitMode) {
+                resolve();
+                console.log("Portrait Mode: ", portraitMode)
+            } else {
+                requestAnimationFrame(checkRotation);
+            }
+        };
+        checkRotation();
+    });
+}
+
 window.addEventListener('resize', enforceLandscape);
 window.addEventListener('orientationchange', enforceLandscape);
+document.addEventListener('visibilitychange', function() {
+    playingBGM.volume = document.visibilityState === "visible" ? 0.3 : 0;
+});
 
 // Initial checks
 enforceLandscape();
 lockOrientation();
 
 
+//testing
+//window width: 1920
+
 let scrollTimeout;
 document.addEventListener("wheel", (event)=>{
-    event.preventDefault()
+    /* event.preventDefault() */
     if (scrollTimeout) clearTimeout(scrollTimeout);
-    window.scrollTo({left: window.scrollX + event.deltaY*15, behavior: "smooth"})
-
+    pageContainer.scrollBy({
+        /* left: event.deltaY > 0 ? window.innerWidth : -window.innerWidth, */
+        left: event.deltaY > 0 ? pfPage1.clientWidth: -pfPage1.clientWidth,
+        behavior: 'smooth'
+    });
+    
     scrollTimeout = setTimeout(() => {
-        pageSnap();
-    }, 600);
+        userCurrentPage =  Math.round(pageContainer.scrollLeft / pfPage1.clientWidth)
+        console.log("user current page: ", userCurrentPage)
+        console.log("current scrollX: ", pageContainer.scrollLeft)
+    }, 500); 
+    
 
 }, { passive: false})
 
-function pageSnap() {
-    const pageWidth = window.innerWidth; 
-    const currentScrollX = window.scrollX;
-    const nearestPage = Math.round(currentScrollX / pageWidth);
 
-    window.scrollTo({
-        left: nearestPage * pageWidth,
+
+
+pageContainer.addEventListener("scroll", (event) => {
+    if (holdTimeout) clearTimeout(holdTimeout);
+    userCurrentPage = Math.round(pageContainer.scrollLeft / pfPage1.clientWidth);
+    moveBG()
+    const checkScrollEnd = () => {
+        holdTimeout = setTimeout(() => {
+            if (!isMouseDown) {
+                
+                pageSnap();
+            } else {
+                // Keep checking if mouse is down
+                requestAnimationFrame(checkScrollEnd);
+            }
+        }, 400);
+    };
+
+    checkScrollEnd();
+}, { passive: false });
+
+pageContainer.addEventListener('mousedown', () => {
+    isMouseDown = true;
+});
+
+window.addEventListener('mouseup', () => {
+    isMouseDown = false;
+});
+
+function moveBG(){
+    document.body.style.backgroundPosition = `${Math.max(0,100-(pageContainer.scrollLeft / (pageContainer.offsetWidth * totalPg) * 100))}%, bottom`
+/*     console.log("current at BG %: ", Math.max(0,100-(pageContainer.scrollLeft / pageContainer.offsetWidth * 100))) 
+    console.log("WHAT IS SCROLL LEFT AND OFFSETWIDTH RESPECTIVELY: ", pageContainer.scrollLeft, pageContainer.offsetWidth) */
+}
+
+function pageSnap() {
+    /* console.log("snapping to px value: ", userCurrentPage*pfPage1.clientWidth) */
+    
+    pageContainer.scrollTo({
+        left: userCurrentPage*pfPage1.clientWidth,
         behavior: 'smooth'
     });
+    
+    //activate page funcs ⚠️
+    switch (userCurrentPage){
+        case 1:
+            
+            break;
+    }
 }
+
+function photoScroll(event, _elem){
+    _elem.style.backgroundPosition = `${Math.max(0, ((event.clientX/window.innerWidth)*100/1.2))}% ${Math.max(0, ((event.clientY/window.innerHeight)*100/1.2))}%` 
+}
+
+document.addEventListener("mousemove", (event)=>{photoScroll(event, carouselImg2)}) 
+
 
 function greetingsChange(){
     greetingsF.classList.toggle("greetingsAnim")
@@ -228,25 +282,18 @@ function greetingsChange(){
             greetingsF.innerText = translatorObj.greetings
             clearInterval(_translate)
         }
-    }, 200)
+    }, 120)
 }
-greetingsChange()
 
-let greetingsArr = ["Hello", "Nice to see you!", "Welcome", "Bonjour", "Bienvenue", "Guten Tag", "Willkommen", "Bienvenido", "こんにちは", "おはようございます", "ようこそ", "안녕하세요", "환영합니다", "Ciao", "Olá", "Merhaba", "Salam", "שלום", "Здравствуй", "Привет", "안녕하십니까", "Tere", "Sawasdee", "Hej", "Welcome", "Cześć", "Aloha", "Hei", "Helo", "Xin Chào", "Ola"]
 
-function typeScroll(_text){
-    const _arr = _text.innerText.split("")
-    _text.innerText = ""
-    let i = 0
-    const typeInt = setInterval(()=>{
-        _text.innerText += _arr[i]
-        i++
-        if (i>=_arr.length){
-            clearInterval(typeInt)
-        }
-    }, 150) 
-    
-}
+let greetingsArr = ["Welcome", "Bonjour", "Bienvenue", "Guten Tag", "Willkommen", "Bienvenido", "こんにちは", "おはようございます", "ようこそ", "안녕하세요", "환영합니다", "Salam", "שלום", "Здравствуй", "Привет", "Hej", "Welcome", "Cześć", "Hei"]
+
+ctrPerf.addEventListener("click", togglePerfMode)
+btnSidePerf.addEventListener("click", togglePerfMode)
+ctrComments.addEventListener("click", toggleChatterMode)
+ctrSound.addEventListener("click", toggleSounds)
+btnSideSound.addEventListener("click", toggleSounds)
+
 
 function spawnElem(_elem, _direction){ //removes translate that moves them out of screen with opacity 0
     console.log("TRIGGERING SPAWNELEM", _elem)
@@ -268,45 +315,71 @@ function spawnElem(_elem, _direction){ //removes translate that moves them out o
             _elem.classList.toggle("opacityAnim")
             break;
     }
+
+}
+function toggleSounds(){
+    if (soundLevel){
+        allSounds.forEach((sfxType)=>{
+            sfxType.pause();
+            sfxType.volume = 0;
+        })
+        ctrSound.classList.toggle("filter-activated", true)
+        btnSideSound.classList.toggle("filter-underlineLight", true)
+        toggleIcon(btnSideSound, true)
+        btnSideSound.previousElementSibling.src = "../../gallery/2dElems/iconSound2.svg"
+        soundLevel = false
+    } else {
+        allSounds.forEach((sfxType)=>{
+            sfxType.volume = 1;
+        })
+        playingBGM.volume = 0.3
+        playingBGM.play()
+        ctrSound.classList.toggle("filter-activated", false)
+        btnSideSound.classList.toggle("filter-underlineLight", false)
+        toggleIcon(btnSideSound, false)
+        btnSideSound.previousElementSibling.src = "../../gallery/2dElems/iconSound1.svg"
+        soundLevel = true
+    }
 }
 
-/* async function typeScroll(_text, _typeInterval, _newText, noClear) {
-    return new Promise((resolve) => {
-        if (typingInterval){
-            clearInterval(typingInterval)
+function toggleChatterMode(){
+    if (chatterMode){
+        DXMspeech.style.display = "none"
+        ctrComments.classList.toggle("filter-activated", true)
+        chatterMode = false;
+    } else {
+        DXMspeech.style.display = "flex"
+        ctrComments.classList.toggle("filter-activated", false)
+        chatterMode = true;
+    }
+}
+
+
+function togglePerfMode(){
+    if(!performanceMode){
+        Array.from(document.querySelectorAll(".performance-tag")).forEach((elem)=>{elem.style.display = "none"})
+        if (soundLevel){
+            toggleSounds()
         }
-        const _arr = _newText?_newText:_text.innerText
-        const characters = _arr.split("")
-        _text.innerText = ""
-        _text.style.opacity = 1;
-        let index = 0
-        _typeInterval = _typeInterval?_typeInterval:150
+        DXMsmolCont.style.animation = "none"
+        ctrPerf.classList.toggle("filter-activated", true)
+        btnSidePerf.classList.toggle("filter-underlineLight", true)
+        toggleIcon(btnSidePerf, true)
+        performanceMode = true;
+    } else {
+        Array.from(document.querySelectorAll(".performance-tag")).forEach((elem)=>{elem.style.display = "block"})
 
-        
-        const typeChar = () => {
-            
-            
-            if (index < characters.length) {
-                _text.innerText += characters[index]
-                index++;
-            } else {
-                if (noClear){
-                    clearInterval(typingIntervalBis)
-                } else {
-                    clearInterval(typingInterval)
-                }
-                resolve()
-            }
-        };
+        DXMsmolCont.style.animation = "DXM-float 5s infinite ease-in-out"
+        ctrPerf.classList.toggle("filter-activated", false)
+        btnSidePerf.classList.toggle("filter-underlineLight", false)
+        toggleIcon(btnSidePerf, false)
+        performanceMode = false
+    } 
+}
 
-        if (noClear){
-            typingIntervalBis = setInterval(typeChar, _typeInterval);
-        } else {
-            typingInterval = setInterval(typeChar, _typeInterval);
-        }
-    })
-} */
-
+function toggleIcon(_elem, _bool){
+    _elem.previousElementSibling.classList.toggle("filter-normalBright", _bool)
+}
 
 
 document.addEventListener("DOMContentLoaded", async ()=>{
@@ -317,12 +390,16 @@ document.addEventListener("DOMContentLoaded", async ()=>{
     btnHamIn.addEventListener("click", ()=>{
         sideBar.classList.toggle("nav-sidebar-toggle")
     })
-    
-    setTimeout(async ()=>{
 
+    await awaitRotation()
+    console.log("rotation solved.")
+    greetingsChange()
+    setTimeout(async ()=>{
+        
+        
         document.getElementById("HL-Kim").style.opacity = "1"  
-        await typeScroll(document.querySelector("#HL-Isaac"), 250, "", true)
-        await typeScroll(titleID, 100, "", true)
+        await typeScroll(document.querySelector("#HL-Isaac"), 200, "", true, "keyb2.aac")
+        typeScroll(titleID, 180, "", true, "keyb2.aac")
         await typographer() //line stuff
         
         
@@ -336,6 +413,9 @@ document.addEventListener("DOMContentLoaded", async ()=>{
         spawnElem(photoID, "opacity")
         typeScroll(speechText, 15, translatorObj["dxmSpeech1"])
         eyeBlink(DXMsmolEye, DXMsmolBlink, DXMsmolPupil)
+
+        playSFX(playingBGM, "Daisuke - El Huervo.aac")
+
         dxmIcon.addEventListener(("click"), ()=>{
             let _rand = Math.floor(Math.random()*6)
             while (_rand == translatorObj.triviaPrev){
@@ -377,7 +457,7 @@ async function typographer(){
     })
 }
   
-async function typeScroll(_text, _typeInterval, _newText, noClear) {
+async function typeScroll(_text, _typeInterval, _newText, noClear, _SFX) {
     return new Promise((resolve) => {
         if (typingInterval) {
             clearInterval(typingInterval);
@@ -385,6 +465,7 @@ async function typeScroll(_text, _typeInterval, _newText, noClear) {
         if (typingIntervalBis) {
             clearInterval(typingIntervalBis);
         }
+        
         const _arr = _newText ? _newText : _text.innerText;
         const characters = _arr.split("");
         _text.innerText = "";
@@ -394,6 +475,9 @@ async function typeScroll(_text, _typeInterval, _newText, noClear) {
 
         const typeChar = () => {
             if (index < characters.length) {
+                if(_SFX){
+                    characters[index]==" "?playSFX(playSFXcinematic, "keyb3.aac"):playSFX(playSFXcinematic, _SFX);
+                }        
                 _text.innerText += characters[index];
                 index++;
             } else {

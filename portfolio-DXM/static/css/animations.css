@@ -106,19 +106,19 @@
 }
 
 @keyframes lineHorAnim{
-    60%, 90%{
+    30%, 85%{
         transform: translateX(0)
     }
-    95%, 100%{
+    98%, 100%{
         transform: translateX(-150vw);
     }
 }
 
 @keyframes lineVertAnim{
-    60%, 90%{
+    30%, 85%{
         transform: translateY(0)
     }
-    97%, 100%{
+    98%, 100%{
         transform: translateY(-150vh);
     } 
 }
@@ -274,11 +274,17 @@
     }
 }
 
+@keyframes pulseEffect{
+    50%{
+        opacity: 0.3
+    }
+}
+
 
 /* Spawner Classes */
 
 .greetingsAnim{
-    transform: translate(50%, -200%) scale3d(5, 5, 1) !important;
+    transform: translate(50%, -150%) scale3d(6, 6, 2) !important;
 }
 
 .leftRightAnim{

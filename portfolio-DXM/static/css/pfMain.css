@@ -1,16 +1,20 @@
 
-body{
-    width: 100vw;
-    
-}
+/* body{
+    width: 100vw;   
+} */
 
 body{
     background-image: url("../../gallery/2dElems/008c.webp");
+    background-position: 100%, bottom;
     background-size: cover;
-    background-position: center;
     display: flex;
     flex-direction: row;
-    overflow-x: auto;
+    overflow-x: auto; 
+    overflow-y: hidden; 
+    max-height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
 }
 
 body>span{
@@ -26,12 +30,22 @@ button{
     color: var(--colorBone)
 }
 
+#pageContainer{
+    width: 300vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
 .pagination{
-    backdrop-filter: blur(15px);
+    backdrop-filter: blur(5px);
     /* background-color: var(--colorMidnight); */
     background: var(--colorVentaBlack);
     padding-top: 2vh;
-    max-width: 100vw;
+    width: 100vw;
+    min-width: 100vw;
     height: 100vh;
     display: grid;
     animation: BGTransit 5s 15s forwards linear;
@@ -45,13 +59,6 @@ button{
     /* CALCULATING LEFT GRIDS: left: calc(2vh + 0.5vh +  4.8vh??)*/
 }
 
-#iky-profile{
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    margin-top: 1rem;
-    width: 100%
-}
 
 
 
@@ -119,12 +126,10 @@ button{
     text-align: justify;
     position: relative;
     height: var(--font-M2);
-    transition: all 4s ease-in; 
+    transition: all 2.3s ease-in; 
     
     z-index: 5;
 }
-
-
 
 #introMsg>div{
     font-size: var(--font-logo);
@@ -387,112 +392,7 @@ button{
 }
 
 
-.autoSliderCont{
-    display: flex;
-    justify-content: center;
-    width: 200vw;
-    height: 30%;
-    /* background-color: rgba(25, 25, 25, 0.3); */
-    position: absolute;
-    transform: translate(0%, -50%); 
-    /* -- user-select: none;  Prevent image highlighting -- */
-    user-select: none;
-    bottom: -10vh;
-    overflow: hidden;
-    /* left: -50%; */
-}
 
-#gallerySliderExtra{
-    display: flex;
-    justify-content: center;
-    width: 200vw;
-    height: 20rem;
-    position: absolute;
-    transform: translate(0%, -50%); 
-    user-select: none;
-    bottom: 0vh;
-}
-
-.sliderCont{
-    height: 100%;
-    margin: 0.2rem 0;
-    width: 12%;
-    /* background-color: red; */
-}
-
-.sliderImg{
-    width: 40vmin;
-    max-width: 70%;
-    /* height: 56vmin; */
-    max-height: 100%;
-    margin: 1rem 2rem;
-    filter: drop-shadow(0 0 25px rgba(10, 10, 10, 0.7));
-    border: 2px rgba(250, 250, 250, 0.7) solid;
-    object-position: 100% center;
-    object-fit: cover;
-    user-select: none;
-    aspect-ratio: 1 / 1;
-}
-
-.sliderImg:hover{
-    filter: drop-shadow(0 0 30px white);
-}
-
-.sliderTitle{
-    width: 40vmin; 
-    max-width: 70%;
-    z-index: 1;
-    height: 20%;
-    position: relative;
-    margin: 0 2rem;
-    border: 2px solid rgba(250, 250, 250, 0.2);
-    margin-top: -5%;
-    top: 21%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    font-size: 1.5rem;
-    background-color: rgba(200, 200, 200, 0.4);
-    backdrop-filter: blur(15px);
-    
-}
-
-.sliderRecord{
-    position: relative;
-    font-size: 1.5rem;
-    top: -30%;
-    width: 30vmin;
-    margin-left: 5%;
-    background-color: orange;
-    filter: drop-shadow(0 0 2px black);
-    border-radius: 0 5rem 5rem 0;
-    white-space: nowrap;
-}
-
-.sliderRecord > p{
-    padding: 0 1rem;
-}
-
-.sliderRecord p:nth-child(2){
-    font-size: 1rem;
-    color: black;
-}
-
-.sliderRecord p:nth-child(2)::after{
-    content: "";
-    position: absolute;
-    top: 52%;
-    left: 1rem; /* or right: 0; to align to the right */
-    width: 80%; /* Length of the border */
-    border-bottom: 2px solid black; /* Adjust the border thickness and color */
-}
-
-.imgWrapper{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    overflow: hidden;
-}
 
 /* .sliderSubImg{
      
@@ -511,23 +411,6 @@ button{
     
 } */
 
-.sliderSubImg{
-    position: absolute;
-    animation: transpose 10s infinite linear;
-    top: 0;
-    width: 40vmin;
-    max-width: 70%;
-    max-height: 100%;
-    margin: 1rem 2rem;
-    filter: drop-shadow(0 0 25px rgba(10, 10, 10, 0.7));
-    object-position: 100% center;
-    object-fit: contain;
-    user-select: none;
-    pointer-events: none;
-    top: 0;
-    left: 0;
-    display: none; /* ⚠️ */
-}
 
 .vinyl{
     z-index: 0;
@@ -547,121 +430,6 @@ button{
     top: -10vh;
     animation: spin360 5s infinite ease-in-out;
     
-}
-
-#techStackShow{
-    width: 80%;
-    margin-left: 1rem;
-    display: flex;
-    overflow: hidden;
-}
-
-#mainTech::after{
-    content: "";
-    position: absolute;
-    z-index: -2;
-    opacity: 0.1;
-    width: 12rem;
-    height: 12rem;
-    margin: 2.5rem;
-    filter: blur(4px);
-    background-image: url("../../gallery/2dElems/gears.webp");
-    background-size: contain;
-    animation: spin360 15s infinite linear;
-}
-
-#mainTech::before{
-    content: "";
-    position: absolute;
-    z-index: -2;
-    opacity: 0.1;
-    width: 6rem;
-    height: 6rem;
-    margin: 12rem;
-    filter: blur(4px);
-    background-image: url("../../gallery/2dElems/gears.webp");
-    background-size: contain;
-    animation: spin360 8s infinite linear;
-}
-
-
-#addTech::after{
-    content: "";
-    position: absolute;
-    z-index: -2;
-    opacity: 0.1;
-    width: 12rem;
-    height: 12rem;
-    margin: 9rem 6rem 0rem; 
-    filter: blur(4px);
-    background-image: url("../../gallery/2dElems/anvil.webp");
-    background-repeat: no-repeat;
-    background-size: contain;
-}
-
-#addTech::before{
-    content: "";
-    position: absolute;
-    z-index: -2;
-    opacity: 0.1;
-    width: 15rem;
-    height: 15rem;
-    margin: 0rem;
-    filter: blur(4px);
-    background-image: url("../../gallery/2dElems/hammerAnim.webp");
-    background-repeat: no-repeat;
-    background-size: contain;
-    animation: hammerStrike 2.7s infinite ease-in;
-}
-
-
-.gridStats{
-    display: grid;
-    grid-template-columns: repeat(2, 10rem); /* Create 2 equal columns */
-    grid-template-rows: auto; /* Adjust row height automatically */
-    gap: 0.2rem; /* Adjust gap between items if needed */
-    width: 60%;
-    max-width: 22rem;
-    margin: 1rem;
-    max-height: 110%;
-    min-height: 18rem;
-    border: solid var(--lightDarkFont) 2px;
-    /* filter: drop-shadow(0px 0px 1px var(--lightDarkFont)); */
-    backdrop-filter: blur(3px);
-    padding: 0.4rem;
-    border-radius: 0.5rem;
-    overflow: hidden;
-}
-
-.gridStats>div:nth-child(1) {
-    font-size: 1.7rem;
-    display: flex;
-    justify-content: center;
-    position: absolute;
-    top: 2%;
-    border-bottom: 2px solid var(--lightDarkFont);
-    display: flex;
-    justify-content: center;
-    font-size: 2.1rem;
-    
-}
-
-.gridStats > div{
-    
-    font-size: 1.5rem;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding-left: 1rem;
-}
-
-.gridStats > div > img{
-    max-width: 2.5rem;
-    max-height: 2.5rem;
-    object-fit: contain;
-    overflow: hidden;
-    margin-right: 1rem;
-    filter: drop-shadow(0px 0px 1px grey)
 }
 
 .style-decoText{
@@ -697,7 +465,7 @@ button{
 .style-lineHorDotted{
     border-bottom: dashed 1px;
     grid-row: 7 / span 1;
-    grid-column: 1;
+    grid-column: 1 / span 19;
     transform: translateX(100vw);
     animation: lineHorAnim 9.5s 4s ease-out forwards;
 }
@@ -706,14 +474,14 @@ button{
     border-left: solid 1px var(--colorGreyGlass);
     border-right: solid 1px var(--colorGreyGlass);
     transform: translateY(100vh);
-    animation: lineVertAnim 7.5s 1s ease-in-out forwards;
+    animation: lineVertAnim 6.1s 2.5s ease-in-out forwards;
 }
 
 .style-lineHorFull{
     border-bottom: solid 1px var(--colorGreyGlass);
     border-top: solid 1px var(--colorGreyGlass);
     transform: translateX(100vw);
-    animation: lineHorAnim 7.5s 1s ease-out forwards;
+    animation: lineHorAnim 6.1s 2.5s ease-out forwards;
 }
 
 
@@ -739,7 +507,7 @@ button{
 
 .style-lineHor{
     position: absolute;
-    grid-row: 2;
+    grid-row: 2 / span 1;
     grid-column: 7 / span 13;
     width: 100%;
     height: 100%;
@@ -798,11 +566,17 @@ button{
 #DXM-speech{
     width: 400%;
     height: 100%;
-    
     backdrop-filter: blur(5px);
     position: absolute;
     border: 1px solid var(--colorBone);
     left: calc((0.5vh * 3 +  5vw * 3));
+}
+
+#DXM-speech-deco{
+    position: absolute;
+    font-family: var(--font-tertiary);
+    font-size: var(--font-S1);
+    top: -1.5vh
 }
 
 #speechText{
@@ -962,9 +736,12 @@ button{
 #pf-sideBar>img{
     position: absolute;
     grid-column: 1 / span 1;
-    height: 5vh;
-    width: calc(2.5vw);
+    height: calc(5vh*0.7);
+    width: calc(2.5vw*0.7);
+    margin: calc(5vh*0.15) calc(2.5vw*0.15);
     filter: sepia(1) saturate(0.1) brightness(0.3);
+    object-position: 50% 50%;
+    object-fit: scale-down;
 }
 
 
@@ -1101,6 +878,9 @@ button{
     #DXM-nest {
         width: calc(5.0833vh*2 + 0.5vh)
     }
+    #btn-hamburger{
+        left: 0.5vh;
+    }
 }
 
 @media (max-width: 1400px){
@@ -1145,13 +925,7 @@ button{
         
     }
 
-    #addTech{
-        opacity: 0;
-        animation: transposeBk 20s infinite ease-in-out
-    }
-    #mainTech{
-        animation: transpose 20s infinite ease-in-out
-    }
+    
     .sliderSubImg{
         display: none;
     }
@@ -1255,28 +1029,47 @@ button{
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    font-size: 2rem;
+    gap: 0.5vh;
+    grid-template-columns: repeat(auto-fill, 5%);
+    grid-template-rows: repeat(auto-fill, 5%);
+    font-size: var(--font-M1);
 }
 
 .landscape-message>img{
-    width: 12vh;
-    height: 10vh;
-    aspect-ratio: 1 / 1;
-    position: absolute;
-    right: 5%
+    grid-row: 7 / span 2;
+    grid-column: 3 / span 5;
+    height: 100%;
+    aspect-ratio: 1 / 1.2;
+    position: relative;
 }
 
 .landscape-message>p:nth-child(2){
-    font-size: 4rem;
-    margin: 2rem;
+    grid-row: 9 / span 1;
+    grid-column: 6 / span 7;
+    font-size: var(--font-title);
+    font-family: var(--font-poster);
+    font-weight: 900;
+    text-align: center;
 }
 
 .landscape-message>div{
+    grid-row: 3 / span 1;
+    grid-column: 7 / span 5;
     position: relative;
-    top: -20vh;
     display: flex;
     justify-content: center;
-    
+}
+
+.landscape-message>p:nth-child(3){
+    grid-row: 11 / span 1;
+    grid-column: 2 / span 15;
+    font-size: var(--font-M2);
+}
+
+.landscape-message>p:nth-child(4){
+    grid-row: 12 / span 1;
+    grid-column: 2 / span 15;
+    font-size: var(--font-M2);
 }
 
 #ls-turn{

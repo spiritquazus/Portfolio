@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../css/animations.css">
     <link rel="stylesheet" href="../css/intro.css">
     <link rel="stylesheet" href="../css/pfMain.css">
+    <link rel="stylesheet" href="../css/pfPage2.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Black+Han+Sans&family=Song+Myung&family=Zen+Antique&family=Zen+Antique+Soft&family=Zen+Kaku+Gothic+Antique:wght@300;400;500;700;900&family=Zen+Kaku+Gothic+New:wght@300;400;500;700;900&family=Zen+Kurenaido&family=Zen+Maru+Gothic:wght@300;400;500;700;900&family=Zen+Old+Mincho:wght@400;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
@@ -22,7 +23,15 @@
         <p>Sorry!</p>
         <p>This page is not available in portrait.</p>
         <p>Please rotate your device.</p>
-        <img src="../../gallery/2dElems/DXMoops.webp"> 
+        <!-- <img src="../../gallery/2dElems/DXMoops.webp">  -->
+        <div class="style-lineVertDotted style-lineBase" style="animation: none; transform: translateY(0); grid-column: 17 / span 1; grid-row: 1 / span 20"></div>
+        <div class="style-decoText" style="grid-row: 2 / span 1; grid-column:  2/ span 5;"><span style="font-size:var(--font-S1)">Alerte Type 202 - Format</span></div>
+        <float class="rightMostText" style="grid-column: 17">
+            <span class="sideText rightLeftAnim">All Rights Reserved</span>
+        </float>
+        <div class="style-lineHor style-lineBase" style=" grid-column: 1 / span 20"></div>
+        <div class="style-lineHor style-lineBase" style=" grid-column: 1 / span 20; grid-row: 9 / span 1"></div>
+        <div class="style-lineHor style-lineBase" style=" grid-column: 1 / span 20; grid-row: 10 / span 1"></div>
     </div>
     
     <bar id="pf-topNavBar" class="dl-navLungo">
@@ -69,11 +78,11 @@
         <div class="style-nav-lineHor" style="grid-row: 12 / span 5"></div>
         <p style="grid-row: 11;">Settings</p>
         <img src="../../gallery/2dElems/iconPerf.svg" style="grid-row: 12">
-        <button>Performance Mode</button>
+        <button id="side-btn-perf">Performance Mode</button>
         <img src="../../gallery/2dElems/iconScreen.svg" style="grid-row: 13;">
         <button>Full Screen/Windowed</button>
         <img src="../../gallery/2dElems/iconSound1.svg" style="grid-row: 14;">
-        <button>Sound</button>
+        <button id="side-btn-sound">Sound</button>
         <img src="../../gallery/2dElems/iconMusic.svg" style="grid-row: 15;">
         <button>Music</button>
         <img src="../../gallery/2dElems/iconLight.svg" style="grid-row: 16;">
@@ -96,6 +105,7 @@
         </div>
         <div id="DXM-speech">
             <div id="speechText" style="opacity:0;">Welcome to my portfolio!</div>
+            <div id="DXM-speech-deco">Deus Ex Machina - Auris est aditus ad cor.</div>
         </div>
 
     </div>
@@ -107,137 +117,257 @@
         
         <div></div>
     </bar> -->
+    <div id="pageContainer">
+        <div id="pf-page1" class="pagination">
 
-    <div id="pf-page1" class="pagination">
-
-        <!-- DECORUM -->
-        
-        <div id="style-stripeCont">
-            <div class="triangularTop"></div>
-            <div class="parallelogram"></div>
-            <div class="parallelogram"></div>
-            <div class="parallelogram"></div>
-            <div class="parallelogram"></div>
-            <div class="parallelogram"></div>
-            <div class="parallelogram"></div>
-            <div class="parallelogram"></div>
-            <div class="triangularBot"></div>
-        </div>
-
-        <div class="style-lineVert style-lineBase"></div>
-        <div class="style-lineVertDotted style-lineBase"></div>
-        <div class="style-lineVertDotted style-lineBase" style="animation:none; transform:translateY(0); grid-column: 19;"></div>
-        <div class="style-lineHor style-lineBase"></div>
-        <div class="style-lineHor style-lineBase" style="grid-row: 10 / span 1; grid-column: 1 / span 5"></div>
-        <div class="style-lineHor style-lineBase" style="grid-row: 11 / span 1; grid-column: 1 / span 5"></div>
-        <div class="style-lineHorDotted style-lineBase"></div>
-        <div class="style-lineHorDotted style-lineBase" style="grid-row: 10 / span 1; "></div>
-        <div class="style-lineHorDotted style-lineBase" style="grid-row: 4 / span 1; animation:none; transform:translateX(0); border-bottom: none; border-top: dashed 1px"></div>
-
-        <div class="style-lineCross" style="grid-row: 4 / span 1; grid-column:  2/ span 1;"></div>
-        <div class="style-lineCross" style="grid-row: 4 / span 1; grid-column:  3/ span 1;"></div>
-        <div class="style-lineCross" style="grid-row: 2 / span 1; grid-column:  19/ span 1;"></div>
-        <div class="style-lineCross" style="grid-row: 17 / span 1; grid-column:  19/ span 1;"></div>
-
-        <div class="style-decoText" style="grid-row: 1 / span 1; grid-column:  7/ span 3; justify-content: flex-start;"><span>Font Families and Layout - "Brutalisme Nouveau"</span></div>
-        <div class="style-decoText" style="grid-row: 1 / span 1; grid-column:  10/ span 3;"><span>Typographer Style - 20 Set Grid - Gap 0.5</span></div>
-
-        <div class="style-decoText" style="grid-row: 17 / span 2; grid-column:  16/ span 2; justify-content: flex-start; align-items: flex-start; flex-direction: column; border-left: 1px solid var(--colorBone)">
-            <p style="font-size:var(--font-M3);">Project Annex:</p>
-            <p>&#8226; HOGA - Productivity App</p>
-            <p>&#8226; DXM 3D Portfolio</p>
-            <p>&#8226; Black Peach - Project Tracker</p>
-            <p>&#8226; Psychophobia - Game</p>
-        </div>
-
-
-
-        <img src="../../gallery/2dElems/quotesStylistic1.webp" class="styleQuote rightLeftAnim">
-        <img src="../../gallery/2dElems/quotesStylistic2.webp" class="styleQuote leftRightAnim" style="grid-row: 13 / span 2; grid-column: 14 / span 1">
-        <!-- DECORUM END-->
-        <div id="photoID" class="opacityAnim">
-            <img src="../../gallery/2dElems/photoIKStylized.webp" alt="">    
-            <img src="../../gallery/2dElems/silverBall.gif" id="ball3d">
-            <img src="../../gallery/2dElems/viceCityEye.png" id="eye3d">
+            <!-- DECORUM -->
             
-        </div>
-        
-
-        
-        
-        <float id="introMsg">
-            <span id="greetingsF" class="greetingsAnim">Hello, I am</span>
-            <div><span id="HL-Isaac" style="opacity: 0">Isaac </span><span id="HL-Kim" style="opacity:0">Kim</span></div>
-            <span><span id="HL-title" style="opacity: 0; white-space: pre-wrap;">&lt; Full Stack Dev &gt;</span><span class="style-typeBar">_</span></span>
-        </float>
-
-        <float class="rightMostText">
-            <span class="sideText rightLeftAnim">DXM Dev-Portfolio</span>
-        </float>
-
-        <float class="rightMostText">
-            <span class="sideText rightLeftAnim">All Rights Reserved</span>
-        </float>
-
-        <div class="leftBlockText1">
-            <span class="blockText leftRightAnim">Born and educated in France, I currently reside in Seoul with a permanent resident visa (F-4). I am fluent in four languages: French, English, Korean, and Japanese, which allows me to connect with diverse cultures and communities. My passion for cooking, designing, and creating is complemented by my enthusiasm for debugging and solving complex problems in computer science. I thrive on learning new skills and staying updated with the latest technologies. My multicultural background and experiences provide a unique perspective.</span>
-        </div>
-
-        <div class="leftBlockText2">
-            <span class="blockText leftRightAnim" style=" transition: all 0.7s 0.1s ease-in;">As a Full Stack Engineer, I have a comprehensive background in various programming languages and frameworks, including JavaScript, Python, and SQL. My professional experience spans roles such as Sales Project Manager at eMoldino and Associate Consultant at Robert Walters Korea. I have a solid foundation in tools like Git, Visual Studio Code, and Salesforce. My technical skills, combined with a strong business acumen from my international business education, make me a versatile and proficient engineer.</span>
-        </div>
-        
-        <div id="iky-profile">
-            <div id="techStackShow"> 
-                <div id="mainTech" class="gridStats">
-                    <div><p>Tech Stack</p></div>
-                    <div></div>
-                    <div><img src="../../gallery/2dElems/logoJS.svg">JavaScript</div>
-                    <div><img src="../../gallery/2dElems/logoReact.svg">React</div>
-                    <div><img src="../../gallery/2dElems/logothreejs.png">Three JS</div>
-                    <div><img src="../../gallery/2dElems/logoPython.svg">Python</div>
-                    <div><img src="../../gallery/2dElems/logoFlask.webp">Flask</div>
-                    <div><img src="../../gallery/2dElems/logoC.svg">C-Language</div>
-                    <div><img src="../../gallery/2dElems/logoSQL.svg">SQL</div>
-                    <div><img src="../../gallery/2dElems/logoCSSHTML.webp">HTML/CSS</div>
-                </div>
-                <div id="addTech" class="gridStats">
-                    <div><p>In Progress</p></div>
-                    <div></div>
-                    <div><img src="../../gallery/2dElems/logoTS.svg">TypeScript</div>
-                    <div><img src="../../gallery/2dElems/logoNodeJs.svg">Node.js</div>
-                    <div><img src="../../gallery/2dElems/logoNextJs.svg">Next.js</div>
-                    <div><img src="../../gallery/2dElems/logoCSharp.svg">C#</div>
-                    <div><img src="../../gallery/2dElems/logoUnity.svg">Unity</div>
-                    <div><img src="../../gallery/2dElems/logoAWS.svg" alt="">AWS</div>
-                </div>
-                
-<!--                 <div class="introSection">
-                    <span>Name: Isaac Kim</span>
-                    <span>Nationality: French</span>
-                    <span>Location: Seoul, South Korea</span>
-                    <span>Birthdate: 1994/05/12</span>
-                    <span>Education: Master's Degree</span>
-                    <br/>
-                    <div><img><span>Contact: </span><span>+82 10-2515-9789</span></div>
-                    <div><img><span>Email: </span><span>kimisaac010@gmail.com</span></div>
-                </div> -->
+            <div id="style-stripeCont">
+                <div class="triangularTop"></div>
+                <div class="parallelogram"></div>
+                <div class="parallelogram"></div>
+                <div class="parallelogram"></div>
+                <div class="parallelogram"></div>
+                <div class="parallelogram"></div>
+                <div class="parallelogram"></div>
+                <div class="parallelogram"></div>
+                <div class="triangularBot"></div>
             </div>
-        </div>
-        
-        
-        <div>
-            <p></p>
-            <p></p>
-            <p></p>
-            <p></p>
-        </div>
-        
-    </div><!-- page 1 end -->
 
-    <div id="pf-page2" class="pagination">
-        
-    </div><!-- page 1 end -->
+            <div class="style-lineVert style-lineBase"></div>
+            <div class="style-lineVertDotted style-lineBase"></div>
+            <div class="style-lineVertDotted style-lineBase" style="animation:none; transform:translateY(0); grid-column: 19;"></div>
+            <div class="style-lineHor style-lineBase"></div>
+            <div class="style-lineHor style-lineBase" style="grid-row: 10 / span 1; grid-column: 1 / span 5"></div>
+            <div class="style-lineHor style-lineBase" style="grid-row: 11 / span 1; grid-column: 1 / span 5"></div>
+            <div class="style-lineHorDotted style-lineBase"></div>
+            <div class="style-lineHorDotted style-lineBase" style="grid-row: 10 / span 1; "></div>
+            <div class="style-lineHorDotted style-lineBase" style="grid-row: 4 / span 1; animation:none; transform:translateX(0); border-bottom: none; border-top: dashed 1px"></div>
+
+            <div class="style-lineCross" style="grid-row: 4 / span 1; grid-column:  2/ span 1;"></div>
+            <div class="style-lineCross" style="grid-row: 4 / span 1; grid-column:  3/ span 1;"></div>
+            <div class="style-lineCross" style="grid-row: 2 / span 1; grid-column:  19/ span 1;"></div>
+            <div class="style-lineCross" style="grid-row: 17 / span 1; grid-column:  19/ span 1;"></div>
+
+            <div class="style-decoText" style="grid-row: 1 / span 1; grid-column:  7/ span 3; justify-content: flex-start;"><span>Font Families and Layout - "Brutalisme Nouveau"</span></div>
+            <div class="style-decoText" style="grid-row: 1 / span 1; grid-column:  10/ span 3;"><span>Typographer Style - 20 Set Grid - Gap 0.5</span></div>
+
+            <div class="style-decoText" style="grid-row: 17 / span 2; grid-column:  16/ span 2; justify-content: flex-start; align-items: flex-start; flex-direction: column; border-left: 1px solid var(--colorBone)">
+                <p style="font-size:var(--font-M3);">Project Annex:</p>
+                <p>&#8226;HOGA - Productivity App</p>
+                <p>&#8226;DXM 3D Portfolio</p>
+                <p>&#8226;Black Peach - Project Tracker</p>
+                <p>&#8226;Psychophobia - Game</p>
+            </div>
+
+
+
+            <img src="../../gallery/2dElems/quotesStylistic1.webp" class="styleQuote rightLeftAnim">
+            <img src="../../gallery/2dElems/quotesStylistic2.webp" class="styleQuote leftRightAnim" style="grid-row: 13 / span 2; grid-column: 14 / span 1">
+            <!-- DECORUM END-->
+            <div id="photoID" class="opacityAnim">
+                <img src="../../gallery/2dElems/photoIKStylized.webp" alt="">    
+                <img src="../../gallery/2dElems/silverBall.gif" id="ball3d" class="performance-tag">
+                <img src="../../gallery/2dElems/viceCityEye.png" id="eye3d" class="performance-tag">
+                
+            </div>
+            
+
+            
+            
+            <float id="introMsg">
+                <span id="greetingsF" class="greetingsAnim">Hello, I am</span>
+                <div><span id="HL-Isaac" style="opacity: 0">Isaac </span><span id="HL-Kim" style="opacity:0">Kim</span></div>
+                <span><span id="HL-title" style="opacity: 0; white-space: pre-wrap;">&lt; Full Stack Dev &gt;</span><span class="style-typeBar">_</span></span>
+            </float>
+
+            <float class="rightMostText">
+                <span class="sideText rightLeftAnim">DXM Dev-Portfolio</span>
+            </float>
+
+            <float class="rightMostText">
+                <span class="sideText rightLeftAnim">All Rights Reserved</span>
+            </float>
+
+            <div class="leftBlockText1">
+                <span class="blockText leftRightAnim">Born and educated in France, I currently reside in Seoul with a permanent resident visa (F-4). I am fluent in four languages: French, English, Korean, and Japanese, which allows me to connect with diverse cultures and communities. My passion for cooking, designing, and creating is complemented by my enthusiasm for debugging and solving complex problems in computer science. I thrive on learning new skills and staying updated with the latest technologies. My multicultural background and experiences provide a unique perspective.</span>
+            </div>
+
+            <div class="leftBlockText2">
+                <span class="blockText leftRightAnim" style=" transition: all 0.7s 0.1s ease-in;">As a Full Stack Engineer, I have a comprehensive background in various programming languages and frameworks, including JavaScript, Python, and SQL. My professional experience spans roles such as Sales Project Manager at eMoldino and Associate Consultant at Robert Walters Korea. I have a solid foundation in tools like Git, Visual Studio Code, and Salesforce. My technical skills, combined with a strong business acumen from my international business education, make me a versatile and proficient engineer.</span>
+            </div>
+            
+            
+            
+            
+            <div>
+                <p></p>
+                <p></p>
+                <p></p>
+                <p></p>
+            </div>
+            
+        </div><!-- page 1 end -->
+
+        <div id="pf-page2" class="pagination"><!-- page 2 -->
+            <!-- DECORUM -->
+                <div class="style-lineVertDotted style-lineBase" style="animation:none; transform:translateY(0); grid-column: 19;"></div>
+                <div class="style-lineHor style-lineBase" style=" grid-column: 3 / span 20"></div>
+                <div class="style-lineVert style-lineBase" style=" grid-column: 4 / span 1; grid-row: 4 / span 15;"></div>
+                <div class="style-lineVert style-lineBase" style=" grid-column: 11 / span 1; grid-row: 4 / span 15; border: none; border-right: 1px solid var(--colorBone)"></div>
+                <div class="style-lineVert style-lineBase" style=" grid-column: 15 / span 1; grid-row: 8 / span 9; border-color: var(--colorMoonGlass);"></div>
+                <!-- <div id="brut1"><div id="brut1pic"></div></div> -->
+                <div class="style-decoText" style="grid-row: 1 / span 1; grid-column:  2/ span 3;"><span>"pf-page2" - Introduction</span></div>
+                <div class="style-decoText" style="grid-row: 1 / span 1; grid-column:  10/ span 3;"><span>Typographer Style - 20 Set Grid - Gap 0.5</span></div>
+                <div class="style-lineHorDotted style-lineBase" style="grid-row: 4 / span 1; animation:none; transform:translateX(0); border-bottom: none; border-top: dashed 1px"></div>
+            <!-- DECORUM END -->
+
+            <div id="p2-title">
+                <p class="style-capFirstLetter">CURRICULUM VITAE</p>
+                <p>Resume - English</p>
+            </div>
+
+            <div id="p2-dlPrintCV">
+                <img src="../../gallery/2dElems/resumeGitQR.webp" alt="QRcode">
+                <button>Download<img src="../../gallery/2dElems/iconDL.svg" alt=""></button>
+                <button>Print CV<img src="../../gallery/2dElems/iconPrint.svg" alt=""></button>
+            </div>
+
+            <div id="iky-profile">
+                <div id="techStackShow"> 
+                    <div id="mainTech" class="gridStats">
+                        <div><p>Tech Stack</p></div>
+                        <div></div>
+                        <div><img src="../../gallery/2dElems/logoJS.svg">JavaScript</div>
+                        <div><img src="../../gallery/2dElems/logoReact.svg">React</div>
+                        <div><img src="../../gallery/2dElems/logothreejs.png">Three JS</div>
+                        <div><img src="../../gallery/2dElems/logoPython.svg">Python</div>
+                        <div><img src="../../gallery/2dElems/logoFlask.webp">Flask</div>
+                        <div><img src="../../gallery/2dElems/logoC.svg">C-Language</div>
+                        <div><img src="../../gallery/2dElems/logoSQL.svg">SQL</div>
+                        <div><img src="../../gallery/2dElems/logoCSSHTML.webp">HTML/CSS</div>
+                    </div>
+                    <div id="addTech" class="gridStats">
+                        <div><p>In Progress</p></div>
+                        <div></div>
+                        <div><img src="../../gallery/2dElems/logoTS.svg">TypeScript</div>
+                        <div><img src="../../gallery/2dElems/logoNodeJs.svg">Node.js</div>
+                        <div><img src="../../gallery/2dElems/logoNextJs.svg">Next.js</div>
+                        <div><img src="../../gallery/2dElems/logoCSharp.svg">C#</div>
+                        <div><img src="../../gallery/2dElems/logoUnity.svg">Unity</div>
+                        <div><img src="../../gallery/2dElems/logoAWS.svg" alt="">AWS</div>
+                    </div>  
+                </div>
+            </div>
+
+            
+            
+
+        </div><!-- page 2 end -->
+
+
+        <div id="pf-page3" class="pagination"><!-- page 3 -->
+
+            <div id="projectsDesc">
+                <p id="projectsSumTitle"></p>
+                <span id="projectsSumDesc"></span>
+                <ul id="projectsSumList">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul> 
+            </div>
+
+            <div id="projectCarousel">
+                <div class="container-carrossel">
+                    <div class="carrossel">
+
+                        <div class="carrossel-item">
+                            <div class="sliderCont sOpen" draggable="false" data-redir="hoga" data-bgSetup="HOGAbrowser.webp">
+                                <div class="sliderTitle">HOGA - Productivity App</div>
+                                <div class="imgWrapper">
+                                    <div id="img1" class="sliderImg" style="background-image: url('../../gallery/2dElems/hogaTHB1.webp');"></div>
+                                    <img id="img1-a" class="sliderSubImg" src="../../gallery/2dElems/albumHOGA.webp" draggable="false">
+                                </div>
+                                <div class="sliderRecord">
+                                    <p>HOGA RECORDS - Wcoding TEAM</p>
+                                    <p>JavaScript, Python, JQuery, Flask, SQL</p>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+
+                        <div class="carrossel-item">
+                            <div class="sliderCont sOpen" draggable="false" data-redir="3dPort" data-bgSetup="3dHB.webp">
+                                <div class="sliderTitle">3D Portfolio</div>
+                                <div class="imgWrapper">
+                                    <!-- <img id="img2" class="sliderImg" src="../../gallery/2dElems/3dHB.webp" draggable="false"> -->
+                                    <div id="img2" class="sliderImg" style="background-image: url('../../gallery/2dElems/3dHB.webp');"></div>
+                                    <img id="img2-a" class="sliderSubImg" src="../../gallery/2dElems/album3d.webp" draggable="false">
+                                </div>
+                                <div class="sliderRecord">
+                                    <p>DXM RECORDS - PROJECT</p>
+                                    <p>JavaScript, Three JS</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+
+                        <div class="carrossel-item">
+                            <div class="sliderCont sOpen" draggable="false" data-redir="blackPeach" data-bgSetup="blackPeachHB.webp">
+                                <div class="sliderTitle">Black Peach - Project Planner App</div>
+                                <div class="imgWrapper">
+                                    <div id="img3" class="sliderImg" style="background-image: url('../../gallery/2dElems/blackPeachHB.webp');"></div>
+                                    <img id="img3-a" class="sliderSubImg" src="../../gallery/2dElems/albumBlackPeach.webp" draggable="false">
+                                </div>
+                                <div class="sliderRecord">
+                                    <p>DXM RECORDS - PROJECT</p>
+                                    <p>JavaScript, React, Node.js</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+
+                        <div class="carrossel-item">
+                            <div class="sliderCont sOpen" draggable="false" data-redir="psyP" data-bgSetup="alterna1.webp">
+                                <div class="sliderTitle">Psychophobia - Web-based Game</div>
+                                <div class="imgWrapper">
+                                    <div id="img4" class="sliderImg" style="background-image: url('../../gallery/2dElems/psyPex.webp');"></div>
+                                    <img id="img4-a" class="sliderSubImg" src="../../gallery/2dElems/brutalistCover.webp" draggable="false">
+                                    <img id="img4-b" class="sliderSubImg" src="../../gallery/2dElems/brutalistCoverBis.webp" draggable="false">
+                                </div>
+                                <div class="sliderRecord">
+                                    <p>DXM RECORDS - PROJECT</p>
+                                    <p>JavaScript, React, Node.js</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carrossel-flip"></div>
+                        <div class="carrossel-flip"></div>
+                        <div class="carrossel-flip"></div>
+                        <div class="carrossel-flip"></div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div id="carouselBGsetup"></div>
+
+
+
+
+
+
+
+
+
+        </div>
+
+    
+
+    </div><!-- page container end -->
 
 <!--     <div id="gallerySliderExtra">
         <div class="sliderCont">
@@ -307,8 +437,10 @@
 
     </div>
  -->
-    
+    <script src="../js/DOM.js"></script>
     <script src="../js/preStack.js"></script>
-    <script src="../js/pfMain.js"></script>
+    <script src="../js/3dCarousel.js"></script>
+    <script src="../js/pfMain.js"></script> 
+    <script src="../js/pfPage2.js"></script> 
 </body>
 </html>

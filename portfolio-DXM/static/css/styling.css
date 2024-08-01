@@ -110,6 +110,13 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'RollandinEmilie'; 
+    src: url('../../gallery/fonts/RollandinEmilie.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
 
 @import url('https://cdn.jsdelivr.net/gh/spoqa/spoqa-han-sans/css/SpoqaHanSansNeo.css');
 @import url('https://cdn.jsdelivr.net/npm/typeface-nanum-square@1.1.0/nanumsquare.min.css');
@@ -117,15 +124,16 @@
 :root{ 
     --font-signature: "Bird House", sans-serif;
     --font-poster: "Avantgarde", sans-serif;
+    --font-posterBis: "RollandinEmilie", "Avantgarde", sans-serif;
 
-    --font-primary: "Bebas Neue", "Roboto", sans-serif;
+    --font-primary: "Bebas Neue", "Alegre Sans", sans-serif;
     --font-primaryBis: "Alegre Sans", sans-serif;
     --font-secondary: "Geist", "Roboto", sans-serif;
     --font-tertiary: "Anderson", "Roboto", sans-serif;
     
     --front-primary-kor: "Spoqa Han Sans Neo", sans-serif;
     --font-secondary-kor: 'Nanum Square', sans-serif;
-    /* --font-tertiary:  */
+
     --font-logo: calc(9vh*1.618);
     --font-title: 9vh;
     --font-M1: calc(9vh/1.618);
@@ -137,27 +145,56 @@
     --lightDarkPrimary: var(--colorObsidian);
     --lightDarkSecondary: rgba(20,20,20,0.8);
     --lightDarkTertiary: rgba(35,35,35,0.9);
+    --lightDarkContrary: var(--colorBone: #F9F6EE);
     --lightDarkFont: var(--colorPureWhite);
     --lightDarkFontSub: var(--colorAsbestos);
     --lightDarkBlur: blur(0.5rem);
     --lightDarkBorder: rgba(250,250,250,0.4);
-    --lightDarkShadow: drop-shadow(0 0 5px rgba(220,220,220,0.7));
+    --lightDarkShadow: drop-shadow(0px 0px 4px var(--colorBone));
+    --lightDarkGradient: var(--gradientPearlMix);
     --device-type: 'unknown';
     
     --colorVentaBlack: black;
     --colorObsidian: #0b1215;
     --colorNight: #0c0c0c;
     --colorMidnight: #0d0219;
-    --gradientNightMix: linear-gradient(0deg, rgba(10,10,10,0.3) 0%, var(--colorNight) 39%, var(--colorObsidian) 100%);
+    --gradientNightMix: linear-gradient(0deg, rgba(10,10,10,0.3) 0%, var(--colorNight) 49%, var(--colorObsidian) 100%);
     --colorPureWhite: white;
     --colorBone: #F9F6EE;
-    --colorAsbestos: #F1F1F1;
+    --colorAsbestos: #e0d5cf;
     --colorMoonGlass: #616e8165;
     --colorDullGrey: #ABABAB;
     --colorGreyGlass: rgba(124, 133, 139, 0.5);
     --colorPaleNimbus: #B1A09A;
+    --gradientPearlMix: radial-gradient(circle, rgba(238,174,202,0) 0%, var(--colorPureWhite) 48%, var(--colorAsbestos) 100%);
 }
 
 body{
-    user-select: none; 
+    /* user-select: none;  */
+}
+
+
+/* FILTERS */
+
+.filter-invert{
+    filter: invert(100%) !important;
+}
+
+.filter-backBlur{
+    backdrop-filter: blur(15px) !important;
+}
+
+.filter-activated{
+    filter: invert(100%);
+    background-color: var(--lightDarkBG) !important; 
+}
+
+.filter-underlineLight{
+    filter: var(--lightDarkShadow) !important;
+    text-decoration: underline 2px var(--colorDullGrey) !important;
+    color: var(--colorPureWhite);
+}
+
+.filter-normalBright{
+    filter: saturate(0.2) brightness(1) !important;
 }
