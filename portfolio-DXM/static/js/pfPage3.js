@@ -79,6 +79,7 @@ function roundVal(value, multiple) {
 
 function renderProjSummary(_elem){
     if (currentProjSum != _elem.dataset.redir){
+        playSFX(playSFXcinematic, "stamp2.aac");
         currentProjSum = _elem.dataset.redir
         projSumTitle.innerText=translatorObj[`${_elem.dataset.redir}SumTitle`]
         projSumDesc.innerText =translatorObj[`${_elem.dataset.redir}SumDesc`]
@@ -87,7 +88,27 @@ function renderProjSummary(_elem){
         p3SubGrid.style.transform = "translateX(calc(15vw + 1.5vh))"
         projectsSummary.style.opacity = "1"
         projectsSummary.style.width = "150%"
-        playSFX(playSFXcinematic, "stamp2.aac");
+        let redirSpecial;
+        switch (_elem.dataset.redir) {
+            case "3dPort":
+                redirSpecial = () => { redirBtnExt(urlSetup.ext3d, true) };
+                break;
+            case "hoga":
+                redirSpecial = () => { redirBtnExt(urlSetup.extHoga, true) };
+                break;
+            case "psyP":
+                redirSpecial = () => { redirBtnExt(urlSetup.extPsychoPhobia, true) };
+                break;
+            case "blackPeach":
+                redirSpecial = () => { alert("Sorry, this project is still in preparation!") };
+                break;
+        }
+        // Ensure that redirSpecial is a function before assigning it to onclick
+        if (typeof redirSpecial === "function") {
+            projSumRedir.onclick = redirSpecial;
+        } else {
+            console.error("redirSpecial is not a function");
+        }
         setTimeout(()=>{
             carouselBGsetup.style.backgroundImage = `url(../../gallery/2dElems/${_elem.dataset.bgsetup})`
             carouselBGsetup.style.opacity = "0.8"

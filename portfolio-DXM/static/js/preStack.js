@@ -11,8 +11,12 @@ function redirBtn(_route){
     
 }
 
-function redirBtnExt(_route){
-    window.location.href = _route
+function redirBtnExt(_route, _new){
+    if (_new){
+        window.open(_route, '_blank')
+    } else {
+        window.location.href = _route
+    } 
 }
 
 function eyeBlink(_mainCont, _mainContAfter, _elem, _cont){
@@ -180,5 +184,7 @@ const translatorObj = {
 }
 
 const urlSetup = {
-    "extHoga": "",
+    "extHoga": "https://spiritquazus.github.io/hoga-Prod/website/templates/index.html",
+    "ext3d": "https://spiritquazus.github.io/Portfolio/portfolio-DXM/3js/index.html",
+    "extPsychoPhobia": "https://github.com/spiritquazus/psyP-Teknika",
 }

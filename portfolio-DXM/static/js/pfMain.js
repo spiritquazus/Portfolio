@@ -180,9 +180,9 @@ async function awaitRotation(){
 
 window.addEventListener('resize', enforceLandscape);
 window.addEventListener('orientationchange', enforceLandscape);
-document.addEventListener('visibilitychange', function() {
+/* document.addEventListener('visibilitychange', function() {
     playingBGM.volume = document.visibilityState === "visible" ? 0.3 : 0;
-});
+}); */
 
 // Initial checks
 enforceLandscape();
