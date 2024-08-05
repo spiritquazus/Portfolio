@@ -79,6 +79,7 @@ function roundVal(value, multiple) {
 
 function renderProjSummary(_elem){
     if (currentProjSum != _elem.dataset.redir){
+        setTimeout((hideLines("pf3 subgrid main")), 3000)
         playSFX(playSFXcinematic, "stamp2.aac");
         currentProjSum = _elem.dataset.redir
         projSumTitle.innerText=translatorObj[`${_elem.dataset.redir}SumTitle`]
@@ -141,5 +142,5 @@ spawnLines({count:13, lineVerLen: 17, lineVerStart: 1, start: 1, page: p3SubGrid
 spawnLines({count:1, lineVerLen: 17, lineVerStart: 1, start: 13, page: p3SubGrid, opposite: true, color: "var(--colorMoonGlass)", series: "pf3 subgrid main"})
 
 
-setTimeout((hideLines("pf3 subgrid main")), 15000)
+
 

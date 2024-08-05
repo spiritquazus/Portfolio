@@ -118,8 +118,9 @@ function spawnLines(_obj){
 }
 
 function hideLines(_series){
+    console.log("removing line series: ", _series)
     spawnedLines[_series].forEach((line)=>{
-        line.style.display = "none"
+        line.style.opacity = "0"
     })
 }
 
