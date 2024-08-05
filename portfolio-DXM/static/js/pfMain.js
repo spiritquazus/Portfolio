@@ -4,6 +4,7 @@ let typingIntervalBis;
 let portraitMode = true;
 let performanceMode = false;
 let chatterMode = true;
+let fullScreenMode = false;
 let soundLevel = true;
 let isMouseDown = false;
 let holdTimeout;
@@ -192,25 +193,34 @@ lockOrientation();
 //window width: 1920
 
 let scrollTimeout;
-document.addEventListener("wheel", (event)=>{
+document.addEventListener("wheel", (event)=>{pageSwitch(event)
     /* event.preventDefault() */
-    if (scrollTimeout) clearTimeout(scrollTimeout);
-    pageContainer.scrollBy({
-        /* left: event.deltaY > 0 ? window.innerWidth : -window.innerWidth, */
-        left: event.deltaY > 0 ? pfPage1.clientWidth: -pfPage1.clientWidth,
-        behavior: 'smooth'
-    });
-    
-    scrollTimeout = setTimeout(() => {
-        userCurrentPage =  Math.round(pageContainer.scrollLeft / pfPage1.clientWidth)
-        console.log("user current page: ", userCurrentPage)
-        console.log("current scrollX: ", pageContainer.scrollLeft)
-    }, 500); 
-    
+    }, { passive: false})
 
-}, { passive: false})
+function pageSwitch(event, _dir){
+    if (carMouseDown == false){
+        if (scrollTimeout) clearTimeout(scrollTimeout);
+        let leftVal;
 
+        if (_dir){
+            leftVal = pfPage1.clientWidth * _dir
+        } else {
+            leftVal = event.deltaY > 0 ? pfPage1.clientWidth: -pfPage1.clientWidth
+        }
 
+        pageContainer.scrollBy({
+            left: leftVal,
+            behavior: 'smooth'
+        });
+        
+        scrollTimeout = setTimeout(() => {
+            userCurrentPage =  Math.round(pageContainer.scrollLeft / pfPage1.clientWidth)
+            onPageChk()
+            console.log("user current page: ", userCurrentPage)
+            console.log("current scrollX: ", pageContainer.scrollLeft)
+        }, 500);   
+    }
+}
 
 
 pageContainer.addEventListener("scroll", (event) => {
@@ -231,6 +241,31 @@ pageContainer.addEventListener("scroll", (event) => {
 
     checkScrollEnd();
 }, { passive: false });
+
+function onPageChk(){
+    //activate page funcs ⚠️
+    switch (userCurrentPage){
+        case 0:
+            pageMovBtn[0].style.display="none"
+            break;
+        case 1:
+            typeScroll(speechText, 15, translatorObj["dxmSpeech5"])
+            break;
+        case 2: //portfolio project page
+            
+            loadPPortGalleryLimit()
+            typeScroll(speechText, 15, translatorObj["dxmSpeech4"])
+            break;
+    }
+    if (userCurrentPage != 0){
+        pageMovBtn[0].style.display="flex"
+    } 
+    if (userCurrentPage == totalPg-1){
+        pageMovBtn[1].style.display="none"
+    } else {
+        pageMovBtn[1].style.display="flex"
+    }
+}
 
 pageContainer.addEventListener('mousedown', () => {
     isMouseDown = true;
@@ -254,13 +289,10 @@ function pageSnap() {
         behavior: 'smooth'
     });
     
-    //activate page funcs ⚠️
-    switch (userCurrentPage){
-        case 1:
-            
-            break;
-    }
+    
 }
+
+
 
 function photoScroll(event, _elem){
     _elem.style.backgroundPosition = `${Math.max(0, ((event.clientX/window.innerWidth)*100/1.2))}% ${Math.max(0, ((event.clientY/window.innerHeight)*100/1.2))}%` 
@@ -293,10 +325,10 @@ btnSidePerf.addEventListener("click", togglePerfMode)
 ctrComments.addEventListener("click", toggleChatterMode)
 ctrSound.addEventListener("click", toggleSounds)
 btnSideSound.addEventListener("click", toggleSounds)
+btnSideScreen.addEventListener("click", toggleFullScreen)
 
 
 function spawnElem(_elem, _direction){ //removes translate that moves them out of screen with opacity 0
-    console.log("TRIGGERING SPAWNELEM", _elem)
     switch(_direction){
         case "top":
             _elem.classList.toggle("topBottomAnim")
@@ -305,7 +337,6 @@ function spawnElem(_elem, _direction){ //removes translate that moves them out o
             _elem.classList.toggle("bottomTopAnim")
             break;
         case "left":
-            console.log("REMOVING LEFTRIGHT")
             _elem.classList.toggle("leftRightAnim")
             break;
         case "right":
@@ -327,17 +358,24 @@ function toggleSounds(){
         btnSideSound.classList.toggle("filter-underlineLight", true)
         toggleIcon(btnSideSound, true)
         btnSideSound.previousElementSibling.src = "../../gallery/2dElems/iconSound2.svg"
+        ctrSound.style.backgroundImage = "url(../../gallery/2dElems/iconSound2.svg)"
         soundLevel = false
     } else {
         allSounds.forEach((sfxType)=>{
             sfxType.volume = 1;
         })
         playingBGM.volume = 0.3
-        playingBGM.play()
+        try {
+            playingBGM.play()
+        } catch {
+            console.log("No user interaction yet, sound will not play.")
+        }
         ctrSound.classList.toggle("filter-activated", false)
         btnSideSound.classList.toggle("filter-underlineLight", false)
         toggleIcon(btnSideSound, false)
+        playSFX(playSFXReact, "uiTap1.aac");
         btnSideSound.previousElementSibling.src = "../../gallery/2dElems/iconSound1.svg"
+        ctrSound.style.backgroundImage = "url(../../gallery/2dElems/iconSound1.svg)"
         soundLevel = true
     }
 }
@@ -351,6 +389,7 @@ function toggleChatterMode(){
         DXMspeech.style.display = "flex"
         ctrComments.classList.toggle("filter-activated", false)
         chatterMode = true;
+        playSFX(playSFXReact, "uiTap1.aac");
     }
 }
 
@@ -377,12 +416,28 @@ function togglePerfMode(){
     } 
 }
 
+function toggleFullScreen(){
+    if (!fullScreenMode){
+        openFullscreen()
+        fullScreenMode = true;
+        btnSideScreen.classList.toggle("filter-underlineLight", true)
+        toggleIcon(btnSideScreen, true)
+    } else {
+        closeFullscreen()
+        fullScreenMode = false;
+        btnSideScreen.classList.toggle("filter-underlineLight", false)
+        toggleIcon(btnSideScreen, false)
+    }
+}
+
 function toggleIcon(_elem, _bool){
     _elem.previousElementSibling.classList.toggle("filter-normalBright", _bool)
 }
 
 
 document.addEventListener("DOMContentLoaded", async ()=>{
+
+    //first load
     
     btnHam.addEventListener("click", ()=>{
         sideBar.classList.toggle("nav-sidebar-toggle")
@@ -431,16 +486,53 @@ document.addEventListener("DOMContentLoaded", async ()=>{
 })
 
 
+function loadP2(){
+
+}
+
+const loadPPortGalleryLimit = funcLimiter(loadPPortGallery, 1, "animation")
+async function loadPPortGallery(){
+    initEvents();
+    p3RightLeftAnim.forEach((elem)=>{
+        elem.classList.toggle("rightLeftAnim")
+    })
+    await new Promise(resolve => setTimeout(resolve, 300));
+    elemCascade(p3MassText, 0, 450)
+    await new Promise(resolve => setTimeout(resolve, 3200));
+    p3RightLeftAnim.forEach((elem)=>{
+        elem.classList.toggle("rightLeftAnim")
+    })
+    p3SubGrid.classList.toggle("topBottomAnim")
+}
+
 
 
 
 /* await typeScroll(speechText, 15, translatorObj["dxmSpeech1"]) */
 
+async function elemCascade(_arr, _index, _time, _fUpFunc, _fUpArgs){ //async recursive
+    if (_arr[_index] != undefined){
+        _arr[_index].style.display = "flex";
+        playSFX(playSFXcinematic, "camerShutter.aac");
+        await new Promise(resolve => setTimeout(resolve, _time));
+        elemCascade(_arr, _index+1, _time)
+    } else {
+        setTimeout(()=>{
+            _arr.forEach((elem)=>{
+                elem.classList.toggle("rightLeftAnim")
+            })
+            if (_fUpFunc){
+                _fUpFunc(..._fUpArgs)
+            }
+            //resolve()
+        }, _time * 2.4)
+    }
+}
+
   
 async function typographer(){
     return new Promise((resolve)=>{
         for (i = 0; i<20; i++){
-            console.log("!!creating line")
             const _line = document.createElement("div")
             _line.classList.add("style-lineHorFull")
             _line.classList.add("style-lineBase")
@@ -458,43 +550,48 @@ async function typographer(){
 }
   
 async function typeScroll(_text, _typeInterval, _newText, noClear, _SFX) {
-    return new Promise((resolve) => {
-        if (typingInterval) {
-            clearInterval(typingInterval);
-        }
-        if (typingIntervalBis) {
-            clearInterval(typingIntervalBis);
-        }
-        
-        const _arr = _newText ? _newText : _text.innerText;
-        const characters = _arr.split("");
-        _text.innerText = "";
-        _text.style.opacity = 1;
-        let index = 0;
-        _typeInterval = _typeInterval ? _typeInterval : 150;
-
-        const typeChar = () => {
-            if (index < characters.length) {
-                if(_SFX){
-                    characters[index]==" "?playSFX(playSFXcinematic, "keyb3.aac"):playSFX(playSFXcinematic, _SFX);
-                }        
-                _text.innerText += characters[index];
-                index++;
-            } else {
-                if (noClear) {
-                    clearInterval(typingIntervalBis);
-                } else {
-                    clearInterval(typingInterval);
-                }
-                resolve();
+    try {
+        return new Promise((resolve) => {
+            if (typingInterval) {
+                clearInterval(typingInterval);
             }
-        };
-
-        if (noClear) {
-            typingIntervalBis = setInterval(typeChar, _typeInterval);
-        } else {
-            typingInterval = setInterval(typeChar, _typeInterval);      
-        }
-        
-    });
+            if (typingIntervalBis) {
+                clearInterval(typingIntervalBis);
+            }
+            
+            const _arr = _newText ? _newText : _text.innerText;
+            const characters = _arr.split("");
+            _text.innerText = "";
+            _text.style.opacity = 1;
+            let index = 0;
+            _typeInterval = _typeInterval ? _typeInterval : 150;
+    
+            const typeChar = () => {
+                if (index < characters.length) {
+                    if(_SFX){
+                        characters[index]==" "?playSFX(playSFXcinematic, "keyb3.aac"):playSFX(playSFXcinematic, _SFX);
+                    }        
+                    _text.innerText += characters[index];
+                    index++;
+                } else {
+                    if (noClear) {
+                        clearInterval(typingIntervalBis);
+                    } else {
+                        clearInterval(typingInterval);
+                    }
+                    resolve();
+                }
+            };
+    
+            if (noClear) {
+                typingIntervalBis = setInterval(typeChar, _typeInterval);
+            } else {
+                typingInterval = setInterval(typeChar, _typeInterval);      
+            }
+            
+        });
+    } catch(error){
+        console.log("typeScroll func did not run. See error: ", error)
+    }
+    
 }

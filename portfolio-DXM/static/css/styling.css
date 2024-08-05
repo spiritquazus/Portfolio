@@ -142,10 +142,10 @@
     --font-S1: calc(9vh/1.618/1.618/1.618/1.618);
     --font-S2: calc(9vh/1.618/1.618/1.618/1.618/1.618);
     --lightDarkBG: rgba(0, 0, 5, 0.8);
-    --lightDarkPrimary: var(--colorObsidian);
-    --lightDarkSecondary: rgba(20,20,20,0.8);
-    --lightDarkTertiary: rgba(35,35,35,0.9);
-    --lightDarkContrary: var(--colorBone: #F9F6EE);
+    --lightDarkPrimary: var(--colorVentaBlack);
+    --lightDarkSecondary: var(--colorNight);
+    --lightDarkTertiary: var(--colorMidnight);
+    --lightDarkContrary: var(--colorBone);
     --lightDarkFont: var(--colorPureWhite);
     --lightDarkFontSub: var(--colorAsbestos);
     --lightDarkBlur: blur(0.5rem);

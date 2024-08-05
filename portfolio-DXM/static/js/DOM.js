@@ -1,5 +1,7 @@
 const pageContainer = document.getElementById("pageContainer"),
-    pfPage1 = document.getElementById("pf-page1")
+    pfPage1 = document.getElementById("pf-page1"),
+    pfPage2 = document.getElementById("pf-page2"),
+    pfPage3 = document.getElementById("pf-page3")
 ;
 
 //page 1/main
@@ -31,7 +33,9 @@ const gallerySlider1 = document.getElementById('gallerySlider1'),
     ctrComments = document.getElementById("ctr-comment"),
     ctrPerf = document.getElementById("ctr-performance"),
     btnSidePerf = document.getElementById("side-btn-perf"),
-    btnSideSound = document.getElementById("side-btn-sound")
+    btnSideSound = document.getElementById("side-btn-sound"),
+    btnSideScreen = document.getElementById("side-btn-screen"),
+    pageMovBtn = Array.from(document.getElementsByClassName("pageMovBtn"))
 ;
 
 //page 2
@@ -43,3 +47,13 @@ const brut1pic = document.getElementById("brut1pic"),
     projSumDesc = document.getElementById('projectsSumDesc')
     projSumList = document.getElementById('projectsSumList')
 ;
+
+const p3MassText = Array.from(document.getElementsByClassName("p3-massText")),
+    p3SubGrid = document.getElementById("p3-subGrid"),
+    p3FocalArrows = Array.from(p3SubGrid.getElementsByClassName("style-arrowFocal")),
+    p3RightLeftAnim = Array.from(pfPage3.getElementsByClassName("rightLeftAnim")),
+    carouselBtns = Array.from(document.getElementsByClassName("carouselBtn")),
+    projSumRedir = document.getElementById("projSumRedir")
+;
+
+

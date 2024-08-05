@@ -5,6 +5,9 @@ const containercarrossel = carContainer.querySelector(".container-carrossel");
 const carrossel = carContainer.querySelector(".carrossel");
 const carrosselItems = carrossel.querySelectorAll(".carrossel-item");
 const carrosselFlip = carrossel.querySelectorAll(".carrossel-flip")
+let carroselRotaY;
+let carroselPrevRotaY;
+let carouselUpdtID;
 
 // startVal
 let carMouseDown = false;
@@ -14,7 +17,6 @@ let lastMoveTo = 0;
 let moveTo = 0;
 
 const createcarrossel = () => {
-    console.log("CREATECARROUSEL WAS CALLED")
   const carrosselProps = onResize();
   const length = carrosselItems.length; // length array
   const degress = 360 / length; // degree setup
@@ -23,28 +25,26 @@ const createcarrossel = () => {
 
   const fov = calculateFov(carrosselProps);
   const height = calculateHeight(tz);
-
-  carContainer.style.width = tz * 2 + gap * length + "px";
-  carContainer.style.height = height + "px";
+  
+  carContainer.style.width = tz * 2 + gap * length + (window.innerWidth < 1000?-50:50) + "px";
+  carContainer.style.height = height + (window.innerWidth < 1000?-50:50) + "px";
 
   carrosselItems.forEach((item, i) => {
     const degressByItem = degress * i + "deg";
     item.style.setProperty("--rotatey", degressByItem);
     item.style.setProperty("--tz", tz + "px");
+    item.firstElementChild.dataset.permaid = degress * i;
   });
 
   carrosselFlip.forEach((item, i) => {
     const degressByItem = degress * i + "deg";
     const angleCheck = degress*i>=180?true:false;
-    console.log("ANGLECHECK FOR THIS ITEM: ", angleCheck, item)
-
     item.style.setProperty("--rotatey", degressByItem) 
     /* item.style.setProperty("--tz", ((i%2===0?tz:0 )- 2)*(angleCheck?-1:1)  + "px")  */
     item.style.setProperty("--tz", ((i%2===0?tz:0 )- 2)*(angleCheck?1:-1)  + "px") 
     item.style.left = (`${(i%2===0?0:tz - 1)*(angleCheck?1:-1)}px`)
 /*    item.style.setProperty("--tz", (tz-tz*i) + "px") 
     item.style.left = (`${(tz*i)}px`) */
-    console.log("FLIP ITEM? ", item)
   });
 };
 
@@ -95,11 +95,13 @@ const getPosX = (x) => {
   lastMousePos = currentMousePos;
 };
 
-const update = () => {
+const update = () => { //constant runner. start or pause at will
+  cancelAnimationFrame(carouselUpdtID)
   lastMoveTo = lerp(moveTo, lastMoveTo, 0.05);
   carrossel.style.setProperty("--rotatey", lastMoveTo + "deg");
-
-  requestAnimationFrame(update);
+  carrossel.style.transform = `rotateY(${lastMoveTo}deg)`
+  carouselUpdtID = requestAnimationFrame(update);
+  console.log("running update")
 };
 
 const onResize = () => {
@@ -113,6 +115,13 @@ const onResize = () => {
 
   return carrosselProps;
 };
+
+
+containercarrossel.addEventListener("mouseover", ()=>{
+  carrossel.classList.toggle("carrosselAutoRotate", false)
+  /* carrossel.style.setProperty("--rotatey", lastMoveTo + "deg"); */
+})
+/* containercarrossel.addEventListener("mouseout", ()=>{carrossel.classList.toggle("carrosselAutoRotate", true)})   */
 
 const initEvents = () => {
   // mouseVer
@@ -132,11 +141,18 @@ const initEvents = () => {
   );
 
   // touchVer
-  carrossel.addEventListener("touchstart", () => {
+  function handleTouchMove(event) {
+    event.preventDefault();
+    console.log('Touch move on special element');
+    // Your custom logic for touch move
+  }
+  carrossel.addEventListener('touchmove', handleTouchMove, { passive: false });
+
+  carrossel.addEventListener("touchstart", (event) => {
     carMouseDown = true;
     carrossel.style.cursor = "grabbing";
   });
-  carrossel.addEventListener("touchend", () => {
+  carrossel.addEventListener("touchend", (event) => {
     carMouseDown = false;
     carrossel.style.cursor = "grab";
   });
@@ -145,10 +161,12 @@ const initEvents = () => {
     (e) => carMouseDown && getPosX(e.touches[0].clientX)
   );
 
-  /* window.addEventListener("resize", createcarrossel); */
+  window.addEventListener("resize", createcarrossel); 
 
   update();
   createcarrossel();
 };
 
-initEvents();
+
+
+//event.preventDefault();

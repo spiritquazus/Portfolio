@@ -1,31 +1,15 @@
 
 
-function renderProjSummary(_dataset){
-    projSumTitle.innerText=translatorObj[`${_dataset}SumTitle`]
-    projSumDesc.innerText =translatorObj[`${_dataset}SumDesc`]
-    projSumList.innerHTML = translatorObj[`${_dataset}SumList`]
-}
 
 
-/* sliderCont.dataset.redir */
 
-sliderCont.forEach((_elem)=>{
-    _elem.addEventListener("click", ()=>{
-        /* console.log("!! CURRENT _ELEM FOR SLIDER: ", _elem) */
-        renderProjSummary(_elem.dataset.redir)
 
-        setTimeout(()=>{
-            carouselBGsetup.style.backgroundImage = `url(../../gallery/2dElems/${_elem.dataset.bgsetup})`
-            carouselBGsetup.style.opacity = "0.8"
-        }, 400)
-        _elem.addEventListener("mouseout", ()=>{
-            setTimeout(()=>{
-                carouselBGsetup.style.backgroundImage = "none"
-                carouselBGsetup.style.opacity = "0"
-            }, 100)
-        })
-    })
-})
+spawnLines({count:14, lineHorLen: 8, lineHorStart: 3, start: 4, page: pfPage2, color: "var(--colorMoonGlass)", series: "pf2 horizontals"})
+spawnLines({count:8, lineVerLen: 13, lineVerStart: 4, start: 3, opposite:true, page: pfPage2, color: "var(--colorMoonGlass)", series: "pf2 verticals"})
+
+
+
+/* spawnLines({count:10, lineHorLen: 8, lineHorStart: 3, start: 3}) */
 
 /* carrosselItems.forEach((item)=>{
     item.addEventListener("click", ()=>{

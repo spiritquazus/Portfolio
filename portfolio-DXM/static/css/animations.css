@@ -290,23 +290,28 @@
 .leftRightAnim{
     transform: translateX(-20vh);
     opacity: 0;
+    pointer-events: none;
 }
 
 .rightLeftAnim{
     transform: translateX(20vh);
     opacity: 0;
+    pointer-events: none;
 }
 
 .topBottomAnim{
     transform: translateY(-35vh);
     opacity: 0;
+    pointer-events: none;
 }
 
 .bottomTopAnim{
     transform: translateY(35vh);
     opacity: 0;
+    pointer-events: none;
 }
 
 .opacityAnim{
     opacity: 0;
+    pointer-events: none;
 }

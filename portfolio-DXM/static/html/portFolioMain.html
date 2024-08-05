@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/intro.css">
     <link rel="stylesheet" href="../css/pfMain.css">
     <link rel="stylesheet" href="../css/pfPage2.css">
+    <link rel="stylesheet" href="../css/pfPage3.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Black+Han+Sans&family=Song+Myung&family=Zen+Antique&family=Zen+Antique+Soft&family=Zen+Kaku+Gothic+Antique:wght@300;400;500;700;900&family=Zen+Kaku+Gothic+New:wght@300;400;500;700;900&family=Zen+Kurenaido&family=Zen+Maru+Gothic:wght@300;400;500;700;900&family=Zen+Old+Mincho:wght@400;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
@@ -39,10 +40,13 @@
         <button class="dl-icon" id="ctr-comment"></button>
         <button class="dl-icon" id="ctr-performance"></button>
         <button class="dl-icon" id="ctr-movePageBk"></button>
-        <button class="dl-icon" id="ctr-movePageFr"></button>
     </bar>
 
     <div class="hangingText"><span>Context Menu</span></div>
+
+    
+    <button class="pageMovBtn dl-navBtn topBottomAnim" onclick="pageSwitch(false, -1)" style="display: none;">PREV.</button>
+    <button class="pageMovBtn dl-navBtn topBottomAnim" onclick="pageSwitch(false, 1)">NXT.</button>
 
     <button id="btn-contact" class="dl-navBtn topBottomAnim">Contact</button>
     <button id="btn-navigation" class="dl-navBtn topBottomAnim">Map</button>
@@ -80,7 +84,7 @@
         <img src="../../gallery/2dElems/iconPerf.svg" style="grid-row: 12">
         <button id="side-btn-perf">Performance Mode</button>
         <img src="../../gallery/2dElems/iconScreen.svg" style="grid-row: 13;">
-        <button>Full Screen/Windowed</button>
+        <button id="side-btn-screen">Full Screen/Windowed</button>
         <img src="../../gallery/2dElems/iconSound1.svg" style="grid-row: 14;">
         <button id="side-btn-sound">Sound</button>
         <img src="../../gallery/2dElems/iconMusic.svg" style="grid-row: 15;">
@@ -121,6 +125,8 @@
         <div id="pf-page1" class="pagination">
 
             <!-- DECORUM -->
+
+            
             
             <div id="style-stripeCont">
                 <div class="triangularTop"></div>
@@ -136,10 +142,10 @@
 
             <div class="style-lineVert style-lineBase"></div>
             <div class="style-lineVertDotted style-lineBase"></div>
-            <div class="style-lineVertDotted style-lineBase" style="animation:none; transform:translateY(0); grid-column: 19;"></div>
+            <div class="style-lineVertDotted style-lineBase" style="animation:none; transform:translateY(0); grid-column: 19; ; grid-row: 1 / span 20"></div>
             <div class="style-lineHor style-lineBase"></div>
-            <div class="style-lineHor style-lineBase" style="grid-row: 10 / span 1; grid-column: 1 / span 5"></div>
-            <div class="style-lineHor style-lineBase" style="grid-row: 11 / span 1; grid-column: 1 / span 5"></div>
+            <div class="style-lineHor style-lineBase" style="grid-row: 10 / span 1; grid-column: 1 / span 5; border-color: var(--colorMoonGlass);"></div>
+            <div class="style-lineHor style-lineBase" style="grid-row: 11 / span 1; grid-column: 1 / span 5; border-color: var(--colorMoonGlass);"></div>
             <div class="style-lineHorDotted style-lineBase"></div>
             <div class="style-lineHorDotted style-lineBase" style="grid-row: 10 / span 1; "></div>
             <div class="style-lineHorDotted style-lineBase" style="grid-row: 4 / span 1; animation:none; transform:translateX(0); border-bottom: none; border-top: dashed 1px"></div>
@@ -160,11 +166,13 @@
                 <p>&#8226;Psychophobia - Game</p>
             </div>
 
-
+            <div class="style-tagMap" style="grid-row: 4; grid-column: 17">C-17</div>
 
             <img src="../../gallery/2dElems/quotesStylistic1.webp" class="styleQuote rightLeftAnim">
             <img src="../../gallery/2dElems/quotesStylistic2.webp" class="styleQuote leftRightAnim" style="grid-row: 13 / span 2; grid-column: 14 / span 1">
+
             <!-- DECORUM END-->
+
             <div id="photoID" class="opacityAnim">
                 <img src="../../gallery/2dElems/photoIKStylized.webp" alt="">    
                 <img src="../../gallery/2dElems/silverBall.gif" id="ball3d" class="performance-tag">
@@ -211,20 +219,103 @@
 
         <div id="pf-page2" class="pagination"><!-- page 2 -->
             <!-- DECORUM -->
-                <div class="style-lineVertDotted style-lineBase" style="animation:none; transform:translateY(0); grid-column: 19;"></div>
-                <div class="style-lineHor style-lineBase" style=" grid-column: 3 / span 20"></div>
-                <div class="style-lineVert style-lineBase" style=" grid-column: 4 / span 1; grid-row: 4 / span 15;"></div>
-                <div class="style-lineVert style-lineBase" style=" grid-column: 11 / span 1; grid-row: 4 / span 15; border: none; border-right: 1px solid var(--colorBone)"></div>
-                <div class="style-lineVert style-lineBase" style=" grid-column: 15 / span 1; grid-row: 8 / span 9; border-color: var(--colorMoonGlass);"></div>
-                <!-- <div id="brut1"><div id="brut1pic"></div></div> -->
-                <div class="style-decoText" style="grid-row: 1 / span 1; grid-column:  2/ span 3;"><span>"pf-page2" - Introduction</span></div>
-                <div class="style-decoText" style="grid-row: 1 / span 1; grid-column:  10/ span 3;"><span>Typographer Style - 20 Set Grid - Gap 0.5</span></div>
-                <div class="style-lineHorDotted style-lineBase" style="grid-row: 4 / span 1; animation:none; transform:translateX(0); border-bottom: none; border-top: dashed 1px"></div>
+            <div class="style-lineVertDotted style-lineBase" style="animation:none; transform:translateY(0); grid-column: 19; grid-row: 1 / span 20"></div>
+            <div class="style-lineHor style-lineBase" style=" grid-column: 3 / span 20"></div>
+            <div class="style-lineVert style-lineBase" style=" grid-column: 3 / span 1; grid-row: 4 / span 15;"></div>
+            <div class="style-lineVert style-lineBase" style=" grid-column: 15 / span 1; grid-row: 1 / span 18;"></div>
+            <div class="style-lineVert style-lineBase" style=" grid-column: 10 / span 1; grid-row: 4 / span 15; border: none; border-right: 1px solid var(--colorBone)"></div>
+
+<!--                 <div class="style-lineVert style-lineBase" style=" grid-column: 5 / span 1; grid-row: 4 / span 9; border-color: var(--colorMoonGlass);"></div>
+            <div class="style-lineVert style-lineBase" style=" grid-column: 6 / span 1; grid-row: 4 / span 9; border-color: var(--colorMoonGlass);"></div>
+            <div class="style-lineVert style-lineBase" style=" grid-column: 7 / span 1; grid-row: 4 / span 9; border-color: var(--colorMoonGlass);"></div>
+            <div class="style-lineVert style-lineBase" style=" grid-column: 15 / span 1; grid-row: 8 / span 9; border-color: var(--colorMoonGlass);"></div>
+            <div class="style-lineVert style-lineBase" style=" grid-column: 15 / span 1; grid-row: 8 / span 9; border-color: var(--colorMoonGlass);"></div>
+            <div class="style-lineVert style-lineBase" style=" grid-column: 15 / span 1; grid-row: 8 / span 9; border-color: var(--colorMoonGlass);"></div> -->
+            
+            <!-- <div id="brut1"><div id="brut1pic"></div></div> -->
+            <div class="style-decoText" style="grid-row: 1 / span 1; grid-column:  4 / span 2; justify-content: center;"><span>Technical Page 2 - Introduction</span></div>
+            <div class="style-decoText" style="grid-row: 1 / span 1; grid-column:  10/ span 3;"><span>Typographer Style - 20 Set Grid - Gap 0.5</span></div>
+            <div class="style-lineHorDotted style-lineBase" style="grid-row: 4 / span 1; animation:none; transform:translateX(0); border-bottom: none; border-top: dashed 1px"></div>
+
+            <div class="sideTextMassive" style="grid-row: 8; grid-column: 3">FRONT</div>
+            <div class="sideTextMassive" style="grid-row: 12; grid-column: 3">BACK</div>
+
+            <div class="style-tagMap" style="grid-row: 4; grid-column: 5">FE</div>
+            <div class="style-tagMap" style="grid-row: 9; grid-column: 5">BE</div>
+            <div class="style-tagMap" style="grid-row: 9; grid-column: 10">EN</div>
+            <div class="style-tagMap" style="grid-row: 4; grid-column: 10">Misc</div>
+
+            <div class="style-lineCross" style="grid-row: 2 / span 1; grid-column:  15 / span 1;"></div>
+            <div class="style-lineCross" style="grid-row: 4 / span 1; grid-column:  15 / span 1;"></div>
             <!-- DECORUM END -->
 
             <div id="p2-title">
-                <p class="style-capFirstLetter">CURRICULUM VITAE</p>
-                <p>Resume - English</p>
+                <p class="style-capFirstLetter">Technical Skills</p>
+                <p>Subsets Breakdown</p>
+            </div>
+
+            <div id="p2-section1" class="munitorium" style="grid-row: 4 / span 5 ; grid-column: 3 / span 4;">
+                <p>Front-end</p>
+                <ul>
+                    <li>Web Design</li>
+                    <li>App Development</li>
+                    <li>API Creation/Setup</li>
+                    <li>Front-end Algorithm</li>
+                    <li>UI/UX Design/Programming</li>
+                    <li>Image Creation and Edit</li>
+                    <li>3D Modelling/Texturing</li>
+                </ul>
+            </div>
+
+            <div id="p2-section2" class="munitorium" style="grid-row: 9 / span 5 ; grid-column: 3 / span 3;">
+                <p>Back-end</p>
+                <ul>
+                    <li>Server Creation</li>
+                    <li>Database Creation (SQL)</li>
+                    <li>API Creation/Setup</li>
+                    <li>DB to Back-end Setup</li>
+                    <li>Authentification Logic</li>
+                </ul>
+            </div>
+
+            
+<!-- 
+            <div id="p2-section3" class="munitorium" style="grid-row: 10 / span 6; grid-column: 12 / span 4;">
+                <p>Additional Tools</p>
+                <ul>
+                    <li>Git/Github</li>
+                    <li>VSCode</li>
+                    <li>MariaDB</li>
+                    <li>Vercel</li>
+                    <li>Figma</li>
+                    <li>Photoshop</li>
+                    <li>Blender</li>
+                    <li>Audacity</li>
+                    <li>Obsidian</li>
+                </ul>
+            </div>
+ -->
+            <div id="p2-section4" class="munitorium" style="grid-row: 4 / span 5 ; grid-column: 7 / span 4;">
+                <p>Other Skills</p>
+                <ul>
+                    <li>Full Stack Architecture Design</li>
+                    <li>Library/Portable Func. Creation</li>
+                    <li>Project Management</li>
+                    <li>A-to-Z App Creation</li>
+                    <li>Business Development</li>
+                    <li>Translation</li>
+                </ul>
+            </div>
+
+            <div id="p2-section4" class="munitorium" style="grid-row: 9 / span 5 ; grid-column: 7 / span 4;">
+                <p>Languages</p>
+                <ul>
+                    <li>French Native</li>
+                    <li>English Native</li>
+                    <li>Korean Fluent</li>
+                    <li>Japanese Business Fluent</li>
+                    <li>Russian in Training</li>
+                </ul>
             </div>
 
             <div id="p2-dlPrintCV">
@@ -233,8 +324,8 @@
                 <button>Print CV<img src="../../gallery/2dElems/iconPrint.svg" alt=""></button>
             </div>
 
-            <div id="iky-profile">
-                <div id="techStackShow"> 
+
+                <div class="techStackShow"> 
                     <div id="mainTech" class="gridStats">
                         <div><p>Tech Stack</p></div>
                         <div></div>
@@ -247,6 +338,8 @@
                         <div><img src="../../gallery/2dElems/logoSQL.svg">SQL</div>
                         <div><img src="../../gallery/2dElems/logoCSSHTML.webp">HTML/CSS</div>
                     </div>
+                </div>
+                <div class="techStackShow" style="grid-row: 10 / span 6; grid-column: 11 / span 4;"> 
                     <div id="addTech" class="gridStats">
                         <div><p>In Progress</p></div>
                         <div></div>
@@ -258,102 +351,138 @@
                         <div><img src="../../gallery/2dElems/logoAWS.svg" alt="">AWS</div>
                     </div>  
                 </div>
-            </div>
+                
 
             
             
 
         </div><!-- page 2 end -->
 
-
+        
         <div id="pf-page3" class="pagination"><!-- page 3 -->
 
-            <div id="projectsDesc">
+            <!-- DECORUM -->
+            <div class="style-lineHor style-lineBase" style=" grid-column: 3 / span 20"></div>
+            <div class="style-decoText" style="grid-row: 1 / span 1; grid-column:  4 / span 2; justify-content: center;"><span>Technical Page 3 - Portfolio Gallery</span></div>
+            <div class="style-lineCross" style="grid-row: 4 / span 1; grid-column:  1/ span 1;"></div>
+            <div class="style-lineCross" style="grid-row: 9 / span 1; grid-column:  1/ span 1;"></div>
+            <div class="style-lineCross" style="grid-row: 14 / span 1; grid-column:  1/ span 1;"></div>
+            <!-- DECORUM END -->
+
+            <div class="subGrid" id="projectsDesc">
                 <p id="projectsSumTitle"></p>
                 <span id="projectsSumDesc"></span>
-                <ul id="projectsSumList">
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                </ul> 
+                <ul id="projectsSumList"></ul> 
+                <button id="projSumRedir">&lt; Project Page &gt;</button>
+                <div class="style-lineHorDotted style-lineBase" style="grid-row: 8 / span 1;  animation:none; transform:translateX(0); border-bottom: none; border-top: dashed 1px var(--colorMoonGlass)"></div>
+                <div class="style-lineHorDotted style-lineBase" style="grid-row:13 / span 1;  animation:none; transform:translateX(0); border-bottom: none; border-top: dashed 1px var(--colorMoonGlass)"></div>
+                <div class="style-lineHorDotted style-lineBase" style="grid-row:3 / span 1;  animation:none; transform:translateX(0); border-bottom: none; border-top: dashed 1px var(--colorMoonGlass)"></div>
+                <div class="style-lineVertDotted style-lineBase" style="animation: none; transform: translateY(0); grid-column: 6 / span 1; grid-row: 1 / span 18; border-left: dashed 1px var(--colorMoonGlass)"></div>
+                <div class="style-lineVertDotted style-lineBase" style="animation: none; transform: translateY(0); grid-column: 2 / span 1; grid-row: 1 / span 18; border-left: dashed 1px var(--colorMoonGlass)"></div>
             </div>
 
-            <div id="projectCarousel">
-                <div class="container-carrossel">
-                    <div class="carrossel">
+            <div class="subGrid topBottomAnim" id="p3-subGrid"> <!-- subGrid start -->
 
-                        <div class="carrossel-item">
-                            <div class="sliderCont sOpen" draggable="false" data-redir="hoga" data-bgSetup="HOGAbrowser.webp">
-                                <div class="sliderTitle">HOGA - Productivity App</div>
-                                <div class="imgWrapper">
-                                    <div id="img1" class="sliderImg" style="background-image: url('../../gallery/2dElems/hogaTHB1.webp');"></div>
-                                    <img id="img1-a" class="sliderSubImg" src="../../gallery/2dElems/albumHOGA.webp" draggable="false">
-                                </div>
-                                <div class="sliderRecord">
-                                    <p>HOGA RECORDS - Wcoding TEAM</p>
-                                    <p>JavaScript, Python, JQuery, Flask, SQL</p>
-                                </div>
-                                
-                            </div>
-                        </div>
-                        
+                <div class="style-tagMap" style="grid-row: 2; grid-column: 13">2.5D</div>
+                <div class="style-arrowFocal" style="grid-row: 15 / span 1; grid-column: 1; transform: rotate(0deg); opacity: 0;"></div>
+                <div class="style-arrowFocal" style="opacity: 0;"></div>
+                <div class="style-arrowFocal" style="grid-row: 15 / span 1; grid-column: 13; transform: rotate(270deg); justify-content: flex-end; align-items: flex-end; left:2.5vw; opacity: 0;"></div>
+                <div class="style-arrowFocal" style="grid-column: 13; transform: rotate(180deg); justify-content: flex-end; align-items: flex-end; left:2.5vw; opacity: 0;"></div>
 
-                        <div class="carrossel-item">
-                            <div class="sliderCont sOpen" draggable="false" data-redir="3dPort" data-bgSetup="3dHB.webp">
-                                <div class="sliderTitle">3D Portfolio</div>
-                                <div class="imgWrapper">
-                                    <!-- <img id="img2" class="sliderImg" src="../../gallery/2dElems/3dHB.webp" draggable="false"> -->
-                                    <div id="img2" class="sliderImg" style="background-image: url('../../gallery/2dElems/3dHB.webp');"></div>
-                                    <img id="img2-a" class="sliderSubImg" src="../../gallery/2dElems/album3d.webp" draggable="false">
-                                </div>
-                                <div class="sliderRecord">
-                                    <p>DXM RECORDS - PROJECT</p>
-                                    <p>JavaScript, Three JS</p>
+
+                <div id="projectCarousel">
+                    <div class="container-carrossel">
+                        <div class="carrossel carrosselAutoRotate">
+    
+                            <div class="carrossel-item">
+                                <div class="sliderCont sOpen" draggable="false" data-redir="hoga" data-bgSetup="HOGAbrowser.webp">
+                                    <div class="sliderTitle">HOGA - Productivity App</div>
+                                    <div class="imgWrapper">
+                                        <div id="img1" class="sliderImg" style="background-image: url('../../gallery/2dElems/hogaTHB1.webp');"></div>
+                                        <img id="img1-a" class="sliderSubImg" src="../../gallery/2dElems/albumHOGA.webp" draggable="false">
+                                    </div>
+                                    <div class="sliderRecord">
+                                        <p>HOGA RECORDS - Wcoding TEAM</p>
+                                        <p>JavaScript, Python, JQuery, Flask, SQL</p>
+                                    </div>
+                                    
                                 </div>
                             </div>
-                        </div>
-                        
-
-                        <div class="carrossel-item">
-                            <div class="sliderCont sOpen" draggable="false" data-redir="blackPeach" data-bgSetup="blackPeachHB.webp">
-                                <div class="sliderTitle">Black Peach - Project Planner App</div>
-                                <div class="imgWrapper">
-                                    <div id="img3" class="sliderImg" style="background-image: url('../../gallery/2dElems/blackPeachHB.webp');"></div>
-                                    <img id="img3-a" class="sliderSubImg" src="../../gallery/2dElems/albumBlackPeach.webp" draggable="false">
-                                </div>
-                                <div class="sliderRecord">
-                                    <p>DXM RECORDS - PROJECT</p>
-                                    <p>JavaScript, React, Node.js</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-
-                        <div class="carrossel-item">
-                            <div class="sliderCont sOpen" draggable="false" data-redir="psyP" data-bgSetup="alterna1.webp">
-                                <div class="sliderTitle">Psychophobia - Web-based Game</div>
-                                <div class="imgWrapper">
-                                    <div id="img4" class="sliderImg" style="background-image: url('../../gallery/2dElems/psyPex.webp');"></div>
-                                    <img id="img4-a" class="sliderSubImg" src="../../gallery/2dElems/brutalistCover.webp" draggable="false">
-                                    <img id="img4-b" class="sliderSubImg" src="../../gallery/2dElems/brutalistCoverBis.webp" draggable="false">
-                                </div>
-                                <div class="sliderRecord">
-                                    <p>DXM RECORDS - PROJECT</p>
-                                    <p>JavaScript, React, Node.js</p>
+                            
+    
+                            <div class="carrossel-item">
+                                <div class="sliderCont sOpen" draggable="false" data-redir="3dPort" data-bgSetup="3dHB.webp">
+                                    <div class="sliderTitle">3D Portfolio</div>
+                                    <div class="imgWrapper">
+                                        <!-- <img id="img2" class="sliderImg" src="../../gallery/2dElems/3dHB.webp" draggable="false"> -->
+                                        <div id="img2" class="sliderImg" style="background-image: url('../../gallery/2dElems/3dHB.webp');"></div>
+                                        <img id="img2-a" class="sliderSubImg" src="../../gallery/2dElems/album3d.webp" draggable="false">
+                                    </div>
+                                    <div class="sliderRecord">
+                                        <p>DXM RECORDS - PROJECT</p>
+                                        <p>JavaScript, Three JS</p>
+                                    </div>
                                 </div>
                             </div>
+                            
+    
+                            <div class="carrossel-item">
+                                <div class="sliderCont sOpen" draggable="false" data-redir="blackPeach" data-bgSetup="blackPeachHB.webp">
+                                    <div class="sliderTitle">Black Peach - Project Planner App</div>
+                                    <div class="imgWrapper">
+                                        <div id="img3" class="sliderImg" style="background-image: url('../../gallery/2dElems/blackPeachHB.webp');"></div>
+                                        <img id="img3-a" class="sliderSubImg" src="../../gallery/2dElems/albumBlackPeach.webp" draggable="false">
+                                    </div>
+                                    <div class="sliderRecord">
+                                        <p>DXM RECORDS - PROJECT</p>
+                                        <p>JavaScript, React, Node.js</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+    
+                            <div class="carrossel-item">
+                                <div class="sliderCont sOpen" draggable="false" data-redir="psyP" data-bgSetup="alterna1.webp">
+                                    <div class="sliderTitle">Psychophobia - Web-based Game</div>
+                                    <div class="imgWrapper">
+                                        <div id="img4" class="sliderImg" style="background-image: url('../../gallery/2dElems/psyPex.webp');"></div>
+                                        <img id="img4-a" class="sliderSubImg" src="../../gallery/2dElems/brutalistCover.webp" draggable="false">
+                                        <img id="img4-b" class="sliderSubImg" src="../../gallery/2dElems/brutalistCoverBis.webp" draggable="false">
+                                    </div>
+                                    <div class="sliderRecord">
+                                        <p>DXM RECORDS - PROJECT</p>
+                                        <p>JavaScript, React, Node.js</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carrossel-flip"></div>
+                            <div class="carrossel-flip"></div>
+                            <div class="carrossel-flip"></div>
+                            <div class="carrossel-flip"></div>
+    
                         </div>
-                        <div class="carrossel-flip"></div>
-                        <div class="carrossel-flip"></div>
-                        <div class="carrossel-flip"></div>
-                        <div class="carrossel-flip"></div>
-
                     </div>
                 </div>
-            </div>
+    
+                <button class="carouselBtn"></button>
+                <button class="carouselBtn"></button>
+                <div id="carouselBGsetup"></div>
 
-            <div id="carouselBGsetup"></div>
+            </div> <!-- subGrid end -->
+
+            <div class="p3-massText"><p>Challenge.</p></div>
+            <div class="p3-massText" style="grid-row: 5 / span 2"><p>Organize.</p></div>
+            <div class="p3-massText" style="grid-row: 8 / span 2"><p>Execute.</p></div>
+            <div class="p3-massText" style="grid-row: 11 / span 2"><p>Accomplish.</p></div>
+
+            <div class="style-lineHor style-lineBase rightLeftAnim" style="grid-row: 4 / span 1; grid-column: 12 / span 8;"></div>
+            <div class="style-lineHor style-lineBase rightLeftAnim" style="grid-row: 5 / span 1; grid-column: 12 / span 8;"></div>
+            <div class="style-lineHor style-lineBase rightLeftAnim" style="grid-row: 7 / span 1; grid-column: 12 / span 8;"></div>
+            <div class="style-lineHor style-lineBase rightLeftAnim" style="grid-row: 8 / span 1; grid-column: 12 / span 8;"></div>
+            <div class="style-lineHor style-lineBase rightLeftAnim" style="grid-row: 10 / span 1; grid-column: 12 / span 8;"></div>
+            <div class="style-lineHor style-lineBase rightLeftAnim" style="grid-row: 11 / span 1; grid-column: 12 / span 8;"></div>
+            <div class="style-lineHor style-lineBase rightLeftAnim" style="grid-row: 13 / span 1; grid-column: 12 / span 8;"></div>
+            <!-- <div class="style-lineHorDotted style-lineBase" style="animation: none;"></div> -->
 
 
 
@@ -366,6 +495,8 @@
         </div>
 
     
+
+
 
     </div><!-- page container end -->
 
@@ -442,5 +573,6 @@
     <script src="../js/3dCarousel.js"></script>
     <script src="../js/pfMain.js"></script> 
     <script src="../js/pfPage2.js"></script> 
+    <script src="../js/pfPage3.js"></script> 
 </body>
 </html>

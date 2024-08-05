@@ -178,22 +178,7 @@ function contLangShow(_lang){
     bodyBGFX.style.display="flex"
 }
 
-function redirBtn(_route){
-    chooseCont.style.transform = "scale3d(0, 0.9, 0.4)";
-/*     handLeft.style.transform = "translateX(52vw)"
-    handRight.style.transform = "translateX(-52vw)"
-    handsCont.style.opacity = "1" */
-    bodyDOM.style.opacity = "0"  
-    setTimeout(()=>{
-        window.location.href = _route; 
-    },1200)
 
-    
-}
-
-function redirBtnExt(_route){
-    window.location.href = _route
-}
 
 function introTuneLoad(_url){
     introTune.src = "../../gallery/SFX/" + _url
