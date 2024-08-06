@@ -459,7 +459,7 @@ button{
     height: 100%;
     position: absolute;
     font-size: var(--font-S1);
-    font-family: var(--font-tertiary);
+    font-family: var(--font-3);
     font-weight: 700;
     text-align: justify;
     box-sizing: border-box;
@@ -607,7 +607,7 @@ button{
 
 #DXM-speech-deco{
     position: absolute;
-    font-family: var(--font-tertiary);
+    font-family: var(--font-3);
     font-size: var(--font-S1);
     top: -1.5vh
 }
