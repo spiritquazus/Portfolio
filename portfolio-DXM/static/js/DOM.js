@@ -53,7 +53,8 @@ const p3MassText = Array.from(document.getElementsByClassName("p3-massText")),
     p3FocalArrows = Array.from(p3SubGrid.getElementsByClassName("style-arrowFocal")),
     p3RightLeftAnim = Array.from(pfPage3.getElementsByClassName("rightLeftAnim")),
     carouselBtns = Array.from(document.getElementsByClassName("carouselBtn")),
-    projSumRedir = document.getElementById("projSumRedir")
+    projSumRedir = document.getElementById("projSumRedir"),
+    sliderTitles = Array.from(document.getElementsByClassName("sliderTitle"))
 ;
 
 

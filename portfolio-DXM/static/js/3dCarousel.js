@@ -26,8 +26,8 @@ const createcarrossel = () => {
   const fov = calculateFov(carrosselProps);
   const height = calculateHeight(tz);
   
-  carContainer.style.width = tz * 2 + gap * length + (window.innerWidth < 1000?-50:50) + "px";
-  carContainer.style.height = height + (window.innerWidth < 1000?-50:50) + "px";
+  carContainer.style.width = tz * 2 + gap * length + (window.innerWidth < 1000?60:70) + "px";
+  carContainer.style.height = height + (window.innerWidth < 1000?75:70) + "px";
 
   carrosselItems.forEach((item, i) => {
     const degressByItem = degress * i + "deg";

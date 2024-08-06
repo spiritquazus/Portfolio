@@ -27,8 +27,9 @@
     width: calc(100%);
     font-size: var(--font-M3);
     font-family: var(--font-tertiary);
-    grid-row: 3 / span 3;
+    grid-row: 3 / span 5;
     grid-column: 2 / span 4;
+    overflow-y: auto;
 }
 
 #projectsSumList{
@@ -37,7 +38,7 @@
     padding: 0;
     font-size: var(--font-M3);
     font-family: var(--font-tertiary);
-    grid-row: 8 / span 4;
+    grid-row: 8 / span 5;
     grid-column: 2 / span 4;
 }
 

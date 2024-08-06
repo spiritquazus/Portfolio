@@ -124,6 +124,40 @@ function hideLines(_series){
     })
 }
 
+function cooltipCraft(_target, _cooltipText, _obj){
+    let cooltipShell = document.createElement("div")
+    cooltipShell.className = 'cooltipShell'
+    cooltipShell.style.opacity = '0'
+    cooltipShell.style.pointerEvents = 'none'
+    
+    let cooltipCont = document.createElement("div")
+    cooltipCont.innerHTML = `${_cooltipText}`
+    cooltipCont.className = 'cooltipCont'
+    cooltipShell.appendChild(cooltipCont)
+
+    //additional styling:
+    cooltipCont.style.color = _obj.fontColor?_obj.fontColor:'white'
+    cooltipCont.style.fontSize = _obj.fontSize?_obj.fontSize:'1.15rem'
+    cooltipCont.style.fontStyle = _obj.fontStyle?_obj.fontStyle:''
+    cooltipCont.style.backgroundColor = _obj.contColor?_obj.contColor:'rgba(50,50,50,0.5)'
+    //cooltipCont.style.filter = "drop-shadow(" + _obj.shadow?_obj.shadow:'0 0 0.5rem rgba(40,40,40,0.3)' + ")"
+    cooltipShell.style.transition = _obj.transit?_obj.transit:'opacity 0.2s 0.1s ease-in-out'
+
+    document.querySelector("body").appendChild(cooltipShell)
+
+    _target.addEventListener("mouseover", (e)=>{
+            cooltipShell.style.opacity = '1'
+            cooltipShell.style.top = e.clientY + 'px'
+            cooltipShell.style.left = e.clientX/2 + 'px'
+    })
+
+    _target.addEventListener("mouseout", ()=>{
+        cooltipShell.style.opacity = '0'
+})
+}
+
+/* cooltipCraft(document.getElementById("button1"), "HELLO!", {color:"grey"}) */
+
 function openFullscreen() {
   if (allScreen.requestFullscreen) {
     allScreen.requestFullscreen();
@@ -171,7 +205,7 @@ const translatorObj = {
     "hogaSumList": "<li>Moveable and resizable, powerful widgets</li><li>Integrated API for Spotify, Youtube, Gemini, Calendar, and more</li><li>Robust customizable timer, break and alarm system</li><li>User-based music and themes</li>",
 
     "blackPeachSumTitle": "WIP: Black Peach",
-    "blackPeachSumDesc": "Black Peach is an upcoming project management app, designed to be used both by individuals and corporate. Users can organize their subjects by project-basis, with different structures including linear timeline, tree, or zettelkasten. This multi-structural approach would allow Black Peach to be used for various purposes, including fitness, long-term projects, academic course progress, work day planning...etc",
+    "blackPeachSumDesc": "Black Peach is an upcoming project management app, designed to be used both by individuals and corporate. Users can organize their subjects by project-basis, with different structures including linear timeline, tree, or zettelkasten. This multi-structural approach would allow Black Peach to be used for various purposes, such as projects or work day planning.",
     "blackPeachSumList": "<li>Project completion tracker</li><li>Deadline setup and timeline tracker</li><li>Weekly, daily, hourly progress meter</li><li>Alarms and alerts</li>",
 
     "3dPortSumTitle": "WIP: Portfolio (3D)",
@@ -182,6 +216,55 @@ const translatorObj = {
     "psyPSumDesc": "Based on the world of the movie STALKER by Andrei Tarkovsky and the subsequent, Psychophobia is a fan-project entirely made on JavaScript. I've started this game from scratch in April 2024, back when I just started learning coding. The purpose being to practice my first language (JS/HTML/CSS) and get familiar with new concepts by integrating them into this project as I learn them.",
     "psyPSumList": "<li>Inventory, level and equipment system</li><li>Randomized loot and crafting system</li><li>Asynchronous combat system</li><li>Multiple factions with reputation systems</li><li>Roguelite approach for replayability and gameplay diversity</li>",
 
+    "tooltip1": "Performance Mode",
+    "tooltip2": "Toggle Chatter",
+    "tooltip3": "Mute/Allow Sound",
+
+    "p1BlockText1": "Born and educated in France, I currently reside in Seoul with a permanent resident visa (F-4). I am fluent in four languages: French, English, Korean, and Japanese, which allows me to connect with diverse cultures and communities. My passion for cooking, designing, and creating is complemented by my enthusiasm for debugging and solving complex problems in computer science. I thrive on learning new skills and staying updated with the latest technologies. My multicultural background and experiences provide a unique perspective.",
+    "p1BlockText2": "As a Full Stack Engineer, I have a comprehensive background in various programming languages and frameworks, including JavaScript, Python, and SQL. My professional experience spans roles such as Sales Project Manager at eMoldino and Associate Consultant at Robert Walters Korea. I have a solid foundation in tools like Git, Visual Studio Code, and Salesforce. My technical skills, combined with a strong business acumen from my international business education, make me a versatile and proficient engineer.",
+    "p1IntroMsg": `<span id="greetingsF" class="greetingsAnim">Hello, I am</span>
+    <div><span id="HL-Isaac" style="opacity: 0">Isaac </span><span id="HL-Kim" style="opacity:0">Kim</span></div>
+    <span><span id="HL-title" style="opacity: 0; white-space: pre-wrap;">&lt; Full Stack Dev &gt;</span><span class="style-typeBar">_</span></span>`,
+
+    "p2Title": `<p class="style-capFirstLetter">Technical Skills</p>
+    <p>Subsets Breakdown</p>`,
+    "p2Section1": `<p>Front-end</p>
+    <ul>
+        <li>Web Design</li>
+        <li>App Development</li>
+        <li>API Creation/Setup</li>
+        <li>Front-end Algorithm</li>
+        <li>UI/UX Design/Programming</li>
+        <li>Image Creation and Edit</li>
+        <li>3D Modelling/Texturing</li>
+    </ul>`,
+    "p2Section2": `<p>Back-end</p>
+    <ul>
+        <li>Server Creation</li>
+        <li>Database Creation (SQL)</li>
+        <li>API Creation/Setup</li>
+        <li>DB to Back-end Setup</li>
+        <li>Authentification Logic</li>
+    </ul>`,
+    "p2Section3": `<p>Other Skills</p>
+    <ul>
+        <li>Full Stack Architecture Design</li>
+        <li>Library/Portable Func. Creation</li>
+        <li>Project Management</li>
+        <li>A-to-Z App Creation</li>
+        <li>Business Development</li>
+        <li>Translation</li>
+    </ul>`,
+    "p2Section4": `<p>Languages</p>
+    <ul>
+        <li>French Native</li>
+        <li>English Native</li>
+        <li>Korean Fluent</li>
+        <li>Japanese Business Fluent</li>
+        <li>Russian in Training</li>
+    </ul>`
+
+    
 }
 
 const urlSetup = {

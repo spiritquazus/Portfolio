@@ -15,6 +15,12 @@ body{
     width: 100vw;
     margin: 0;
     padding: 0;
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
+}
+
+body::-webkit-scrollbar {
+    display: none
 }
 
 body>span{
@@ -38,6 +44,10 @@ button{
     flex-direction: row;
     overflow-x: scroll;
     overflow-y: hidden;
+}
+
+#pageContainer::-webkit-scrollbar{
+    display: none;
 }
 
 .pagination{
@@ -592,6 +602,7 @@ button{
     position: absolute;
     border: 1px solid var(--colorBone);
     left: calc((0.5vh * 3 +  5vw * 3));
+    transition: all 0.4s linear;
 }
 
 #DXM-speech-deco{
@@ -620,8 +631,46 @@ button{
     grid-row: 17;
     border-top: 3px white solid;
     border-bottom: 3px white solid;
-    
 }
+
+.nav-dropDown{
+    height: calc(10vh + 1vh);
+    width: calc(15vw + 1.5vh);
+    position: fixed;
+    transition: all 0.3s linear;
+    backdrop-filter: blur(15px);
+    z-index: 999;
+    display: grid;
+    grid-template-columns: 1;
+    grid-template-rows: repeat(auto-fill, 5vh); 
+    grid-auto-rows: min-content; 
+    gap: 0.5vh; 
+    border-left: 1px solid var(--colorMoonGlass);
+}
+
+.nav-dropDown>p{
+    display: flex;
+    font-family: var(--font-secondary);
+    justify-content: flex-start;
+    align-items: flex-end;
+    margin-left: 0.5vh;
+    flex-direction: row;
+    width: calc(100% - 0.5vh);
+    border-bottom: 1px var(--colorBone) solid;
+}
+
+.nav-dropDown>p>a{
+    font-size: var(--font-M3);
+    margin-left: 1.5vh;
+    color: var(--colorAsbestos);
+    text-decoration: none;
+}
+
+.style-collapsed{
+    opacity: 0;
+    pointer-events: none; 
+}
+
 .parallelogram{
 	width: 1.5vmin;
     

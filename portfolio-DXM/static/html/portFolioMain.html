@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Isaac's Portfolio</title>
+    <link rel="icon" href="../../gallery/2dElems/favIcon.webp" type="image/webp">
     <link rel="stylesheet" href="../css/styling.css">
+    <link rel="stylesheet" href="../css/toolkit.css">
     <link rel="stylesheet" href="../css/animations.css">
     <link rel="stylesheet" href="../css/intro.css">
     <link rel="stylesheet" href="../css/pfMain.css">
@@ -42,16 +44,25 @@
         <button class="dl-icon" id="ctr-movePageBk"></button>
     </bar>
 
-    <div class="hangingText"><span>Context Menu</span></div>
+    
 
     
     <button class="pageMovBtn dl-navBtn topBottomAnim" onclick="pageSwitch(false, -1)" style="display: none;">PREV.</button>
     <button class="pageMovBtn dl-navBtn topBottomAnim" onclick="pageSwitch(false, 1)">NXT.</button>
 
     <button id="btn-contact" class="dl-navBtn topBottomAnim">Contact</button>
+    <div class="nav-dropDown style-collapsed" style="left: calc(2vh + 5vw* 15 + 0.5vh* 15); top: calc(5vh + 1vh)">
+        <p style="grid-row: 1 / span 1;">Phone: (+82) 10 2515 9789</p>
+        <p style="grid-row: 2 / span 1;">Email: kimisaac010@gmail.com</p>
+    </div>
     <button id="btn-navigation" class="dl-navBtn topBottomAnim">Map</button>
+    <div class="nav-dropDown style-collapsed" style="left: calc(2vh + 5vw* 15 + 0.5vh* 15); top: calc(5vh + 1vh)">
+        <p>Github: <a href="https://github.com/spiritquazus" target="_blank" rel="noopener noreferrer">&lt; link &gt;</a></p>
+        <p>Linkedin: <a href="https://www.linkedin.com/in/isaac-kimrw/" target="_blank" rel="noopener noreferrer">&lt; link &gt;</a></p>
+    </div>
     <button id="btn-about" class="dl-navBtn topBottomAnim">About</button>
-
+    <div class="nav-dropDown style-collapsed" style="left: calc(2vh + 5vw* 15 + 0.5vh* 15); top: calc(5vh + 1vh)">
+    </div>
     <button id="btn-hamburger" class="dl-navBtn topBottomAnim"></button>
 
     <div id="pf-sideBar" class="nav-sidebar-toggle">
@@ -126,7 +137,7 @@
 
             <!-- DECORUM -->
 
-            
+            <div class="hangingText"><span>Context Menu</span></div>
             
             <div id="style-stripeCont">
                 <div class="triangularTop"></div>
@@ -295,7 +306,7 @@
                 </ul>
             </div>
  -->
-            <div id="p2-section4" class="munitorium" style="grid-row: 4 / span 5 ; grid-column: 7 / span 4;">
+            <div id="p2-section3" class="munitorium" style="grid-row: 4 / span 5 ; grid-column: 7 / span 4;">
                 <p>Other Skills</p>
                 <ul>
                     <li>Full Stack Architecture Design</li>
@@ -317,11 +328,12 @@
                     <li>Russian in Training</li>
                 </ul>
             </div>
+            
 
             <div id="p2-dlPrintCV">
                 <img src="../../gallery/2dElems/resumeGitQR.webp" alt="QRcode">
-                <button>Download<img src="../../gallery/2dElems/iconDL.svg" alt=""></button>
-                <button>Print CV<img src="../../gallery/2dElems/iconPrint.svg" alt=""></button>
+                <button>Download<img src="../../gallery/2dElems/iconDL.svg" alt="" id="p2-dlBtnCV"></button>
+                <button>Print CV<img src="../../gallery/2dElems/iconPrint.svg" alt="" id="p2-printBtnCV"></button>
             </div>
 
 

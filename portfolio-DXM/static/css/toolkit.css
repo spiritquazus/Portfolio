@@ -1,0 +1,16 @@
+.cooltipShell{
+    position: absolute;
+    display: flex;
+    z-index: 999;
+}
+
+.cooltipCont{
+    background-color: var(--colorMoonGlass);
+    backdrop-filter: blur(5px);
+    border-radius: 0.1rem;
+    filter: drop-shadow(2px 2px 2px var(--colorMoonGlass));
+    font-family: var(--font-secondary);
+    font-size: var(--font-M3);
+    display: flex;
+    padding: 0.5rem;
+}
