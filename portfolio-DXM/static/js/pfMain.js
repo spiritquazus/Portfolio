@@ -194,36 +194,36 @@ lockOrientation();
 
 let scrollTimeout;
 
+function pageSwitch(event, _dir){
+    if (carMouseDown == false){
+        if (scrollTimeout) clearTimeout(scrollTimeout);
+        let leftVal;
+
+        if (_dir){
+            leftVal = pfPage1.clientWidth * _dir
+        } else {
+            leftVal = event.deltaY > 0 ? pfPage1.clientWidth: -pfPage1.clientWidth
+        }
+
+        pageContainer.scrollBy({
+            left: leftVal,
+            behavior: 'smooth'
+        });
+        
+        scrollTimeout = setTimeout(() => {
+            userCurrentPage =  Math.round(pageContainer.scrollLeft / pfPage1.clientWidth)
+            
+            console.log("user current page: ", userCurrentPage)
+            console.log("current scrollX: ", pageContainer.scrollLeft)
+        }, 500);   
+    }
+}
+
 function enableScroll(){
 
     document.addEventListener("wheel", (event)=>{pageSwitch(event)
         /* event.preventDefault() */
         }, { passive: false})
-
-    function pageSwitch(event, _dir){
-        if (carMouseDown == false){
-            if (scrollTimeout) clearTimeout(scrollTimeout);
-            let leftVal;
-
-            if (_dir){
-                leftVal = pfPage1.clientWidth * _dir
-            } else {
-                leftVal = event.deltaY > 0 ? pfPage1.clientWidth: -pfPage1.clientWidth
-            }
-
-            pageContainer.scrollBy({
-                left: leftVal,
-                behavior: 'smooth'
-            });
-            
-            scrollTimeout = setTimeout(() => {
-                userCurrentPage =  Math.round(pageContainer.scrollLeft / pfPage1.clientWidth)
-                onPageChk()
-                console.log("user current page: ", userCurrentPage)
-                console.log("current scrollX: ", pageContainer.scrollLeft)
-            }, 500);   
-        }
-    }
 
 
     pageContainer.addEventListener("scroll", (event) => {
@@ -290,7 +290,7 @@ function moveBG(){
 
 function pageSnap() {
     /* console.log("snapping to px value: ", userCurrentPage*pfPage1.clientWidth) */
-    
+    onPageChk()
     pageContainer.scrollTo({
         left: userCurrentPage*pfPage1.clientWidth,
         behavior: 'smooth'
@@ -326,8 +326,12 @@ function photoScroll(event, _elem){
     _elem.style.backgroundPosition = `${Math.max(0, ((event.clientX/window.innerWidth)*100/1.2))}% ${Math.max(0, ((event.clientY/window.innerHeight)*100/1.2))}%` 
 }
 
-document.addEventListener("mousemove", (event)=>{photoScroll(event, carouselImg2)}) 
 
+
+document.addEventListener("mousemove", (event)=>{photoScroll(event, carouselImg1)}) 
+document.addEventListener("mousemove", (event)=>{photoScroll(event, carouselImg2)}) 
+document.addEventListener("mousemove", (event)=>{photoScroll(event, carouselImg3)}) 
+document.addEventListener("mousemove", (event)=>{photoScroll(event, carouselImg4)}) 
 
 function greetingsChange(){
     greetingsF.classList.toggle("greetingsAnim")
@@ -339,7 +343,7 @@ function greetingsChange(){
             greetingsF.innerText = greetingsArr[_rand]
             greetingsArr.splice(_rand, 1)
         } else {
-            greetingsF.innerText = translatorObj.greetings
+            greetingsF.innerText = translatorObj.greetings1
             clearInterval(_translate)
         }
     }, 120)
@@ -470,6 +474,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
 
     //first load
     
+
     btnHam.addEventListener("click", ()=>{
         sideBar.classList.toggle("nav-sidebar-toggle")
     })
@@ -477,6 +482,8 @@ document.addEventListener("DOMContentLoaded", async ()=>{
         sideBar.classList.toggle("nav-sidebar-toggle")
     })
 
+    console.log("first load")
+    userSetLang();
     await awaitRotation()
     console.log("rotation solved.")
     greetingsChange()

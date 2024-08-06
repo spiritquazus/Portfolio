@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="../css/pfPage3.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Black+Han+Sans&family=Song+Myung&family=Zen+Antique&family=Zen+Antique+Soft&family=Zen+Kaku+Gothic+Antique:wght@300;400;500;700;900&family=Zen+Kaku+Gothic+New:wght@300;400;500;700;900&family=Zen+Kurenaido&family=Zen+Maru+Gothic:wght@300;400;500;700;900&family=Zen+Old+Mincho:wght@400;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Nanum+Gothic+Coding&family=Black+Han+Sans&family=Song+Myung&family=Zen+Antique&family=Zen+Antique+Soft&family=Zen+Kaku+Gothic+Antique:wght@300;400;500;700;900&family=Zen+Kaku+Gothic+New:wght@300;400;500;700;900&family=Zen+Kurenaido&family=Zen+Maru+Gothic:wght@300;400;500;700;900&family=Zen+Old+Mincho:wght@400;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Floating windows (FIXED) -->
@@ -23,9 +23,9 @@
             <img src="../../gallery/2dElems/phoneTurn.webp" id="ls-turn">
             <img src="../../gallery/2dElems/phone.webp" id="ls-phone">
         </div>
-        <p>Sorry!</p>
-        <p>This page is not available in portrait.</p>
-        <p>Please rotate your device.</p>
+        <p class="ls-msg">Sorry!</p>
+        <p class="ls-msg">This page is not available in portrait.</p>
+        <p class="ls-msg">Please rotate your device.</p>
         <!-- <img src="../../gallery/2dElems/DXMoops.webp">  -->
         <div class="style-lineVertDotted style-lineBase" style="animation: none; transform: translateY(0); grid-column: 17 / span 1; grid-row: 1 / span 20"></div>
         <div class="style-decoText" style="grid-row: 2 / span 1; grid-column:  2/ span 5;"><span style="font-size:var(--font-S1)">Alerte Type 202 - Format</span></div>
@@ -51,17 +51,17 @@
     <button class="pageMovBtn dl-navBtn topBottomAnim" onclick="pageSwitch(false, 1)">NXT.</button>
 
     <button id="btn-contact" class="dl-navBtn topBottomAnim">Contact</button>
-    <div class="nav-dropDown style-collapsed" style="left: calc(2vh + 5vw* 15 + 0.5vh* 15); top: calc(5vh + 1vh)">
+    <div class="nav-dropDown style-collapsed" style="left: calc(2vh + 5vw* 15 + 0.5vh* 15); top: calc(5vh + 1.5vh)">
         <p style="grid-row: 1 / span 1;">Phone: (+82) 10 2515 9789</p>
         <p style="grid-row: 2 / span 1;">Email: kimisaac010@gmail.com</p>
     </div>
     <button id="btn-navigation" class="dl-navBtn topBottomAnim">Map</button>
-    <div class="nav-dropDown style-collapsed" style="left: calc(2vh + 5vw* 15 + 0.5vh* 15); top: calc(5vh + 1vh)">
-        <p>Github: <a href="https://github.com/spiritquazus" target="_blank" rel="noopener noreferrer">&lt; link &gt;</a></p>
-        <p>Linkedin: <a href="https://www.linkedin.com/in/isaac-kimrw/" target="_blank" rel="noopener noreferrer">&lt; link &gt;</a></p>
+    <div class="nav-dropDown style-collapsed" style="left: calc(2vh + 5vw* 15 + 0.5vh* 15); top: calc(5vh + 1.5vh)">
+        <p>Github: <a href="https://github.com/spiritquazus" target="_blank" rel="noopener noreferrer">&lt; Link &gt;</a></p>
+        <p>Linkedin: <a href="https://www.linkedin.com/in/isaac-kimrw/" target="_blank" rel="noopener noreferrer">&lt; Link &gt;</a></p>
     </div>
     <button id="btn-about" class="dl-navBtn topBottomAnim">About</button>
-    <div class="nav-dropDown style-collapsed" style="left: calc(2vh + 5vw* 15 + 0.5vh* 15); top: calc(5vh + 1vh)">
+    <div class="nav-dropDown style-collapsed" style="left: calc(2vh + 5vw* 15 + 0.5vh* 15); top: calc(5vh + 1.5vh)">
     </div>
     <button id="btn-hamburger" class="dl-navBtn topBottomAnim"></button>
 
@@ -332,8 +332,8 @@
 
             <div id="p2-dlPrintCV">
                 <img src="../../gallery/2dElems/resumeGitQR.webp" alt="QRcode">
-                <button>Download<img src="../../gallery/2dElems/iconDL.svg" alt="" id="p2-dlBtnCV"></button>
-                <button>Print CV<img src="../../gallery/2dElems/iconPrint.svg" alt="" id="p2-printBtnCV"></button>
+                <!-- <button>Download<img src="../../gallery/2dElems/iconDL.svg" alt="" id="p2-dlBtnCV"></button>
+                <button>Print CV<img src="../../gallery/2dElems/iconPrint.svg" alt="" id="p2-printBtnCV"></button> 🚧 -->
             </div>
 
 
@@ -375,7 +375,7 @@
 
             <!-- DECORUM -->
             <div class="style-lineHor style-lineBase" style=" grid-column: 3 / span 20"></div>
-            <div class="style-decoText" style="grid-row: 1 / span 1; grid-column:  4 / span 2; justify-content: center;"><span>Technical Page 3 - Portfolio Gallery</span></div>
+            <div class="style-decoText" style="grid-row: 1 / span 1; grid-column:  4 / span 2; justify-content: center;"><span>Technical Page 3 - Gallery</span></div>
             <div class="style-lineCross" style="grid-row: 4 / span 1; grid-column:  1/ span 1;"></div>
             <div class="style-lineCross" style="grid-row: 9 / span 1; grid-column:  1/ span 1;"></div>
             <div class="style-lineCross" style="grid-row: 14 / span 1; grid-column:  1/ span 1;"></div>

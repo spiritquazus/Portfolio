@@ -19,6 +19,70 @@ function redirBtnExt(_route, _new){
     } 
 }
 
+function userLangPref(language) {
+    localStorage.setItem("language", language);
+    window.location.href = `https\://spiritquazus.github.io/Portfolio/portfolio-DXM//static/html/portFolioMain.html?language=${language}`
+    //https\://spiritquazus.github.io/Portfolio/portfolio-DXM//static/html/portFolioMain.html
+}
+  
+
+function getQueryParams() {
+    
+    const params = {};
+        window.location.search.substring(1).split("&").forEach(param => {
+            const [key, value] = param.split("=");
+            params[key] = decodeURIComponent(value);
+    });
+    return params;
+}
+
+
+function cssVarSwitch(_oldVal, _newVal){
+    
+    const newValVar = getComputedStyle(document.documentElement).getPropertyValue(_newVal).trim();
+    rootDOM.style.setProperty(_oldVal, newValVar)
+}
+
+
+
+
+function userSetLang() {
+    const params = getQueryParams();
+    const language = params["language"]
+    console.log("retrieving language from params: ", params)
+    if (language) {
+        localStorage.setItem("language", language);
+
+        console.log(`Language set to ${language}`);
+
+        switch(language){
+            case "kor":
+                console.log("switching fonts.")
+                cssVarSwitch("--font-secondary", "--font-secondary-kor")
+                cssVarSwitch("--font-tertiary", "--font-tertiary-kor")
+                break;
+        }
+        translatorObj = langLoader[language];
+        lsMsgs.forEach((elem, index)=>elem.innerText = translatorObj["lsWarn" + index])
+        pageMovBtn[0].innerText = translatorObj.pagePrev
+        pageMovBtn[1].innerText = translatorObj.pageNxt
+        /* introMsg.innerHTML = translatorObj.p1IntroMsg */
+        blockTexts[0].innerText = translatorObj.p1BlockText1
+        blockTexts[1].innerText = translatorObj.p1BlockText2
+        p2Title.innerHTML = translatorObj.p2Title
+        p2Section1.innerHTML = translatorObj.p2Section1
+        p2Section2.innerHTML = translatorObj.p2Section2
+        p2Section3.innerHTML = translatorObj.p2Section3
+        p2Section4.innerHTML = translatorObj.p2Section4
+        mainTech.firstElementChild.innerHTML = translatorObj.mainTech
+        addTech.firstElementChild.innerHTML = translatorObj.addTech
+        projSumRedir.innerText = translatorObj.p3ProjLink
+
+    }
+}
+
+
+
 function eyeBlink(_mainCont, _mainContAfter, _elem, _cont){
     let _localVar;
     let _intervalMil = 2500
@@ -180,11 +244,19 @@ function closeFullscreen() {
 
 
 
-const translatorObj = {
+let translatorObj = {
     triviaPrev: 0,
     lang: "eng",
 
-    "greetings": "Nice to meet you, I am",
+    "greetings1": "Nice to meet you, I am",
+    "greetings2": "< Full Stack Dev >",
+
+    "pagePrev": "Prev.",
+    "pageNxt": "Nxt.",
+
+    "lsWarn1": "Sorry!",
+    "lsWarn2": "This website is not available in portrait mode!",
+    "lsWarn3": "Please turn your device to landscape mode.",
 
     "dxmTrivia0": "The decorative texts around the screen may seem like fluff, but they actually either represent stylistic choices or the credits.",
     "dxmTrivia1": 'The primary font used is "Bebas Neue", then "Geist" and "Anderson Grotesk".',
@@ -222,9 +294,6 @@ const translatorObj = {
 
     "p1BlockText1": "Born and educated in France, I currently reside in Seoul with a permanent resident visa (F-4). I am fluent in four languages: French, English, Korean, and Japanese, which allows me to connect with diverse cultures and communities. My passion for cooking, designing, and creating is complemented by my enthusiasm for debugging and solving complex problems in computer science. I thrive on learning new skills and staying updated with the latest technologies. My multicultural background and experiences provide a unique perspective.",
     "p1BlockText2": "As a Full Stack Engineer, I have a comprehensive background in various programming languages and frameworks, including JavaScript, Python, and SQL. My professional experience spans roles such as Sales Project Manager at eMoldino and Associate Consultant at Robert Walters Korea. I have a solid foundation in tools like Git, Visual Studio Code, and Salesforce. My technical skills, combined with a strong business acumen from my international business education, make me a versatile and proficient engineer.",
-    "p1IntroMsg": `<span id="greetingsF" class="greetingsAnim">Hello, I am</span>
-    <div><span id="HL-Isaac" style="opacity: 0">Isaac </span><span id="HL-Kim" style="opacity:0">Kim</span></div>
-    <span><span id="HL-title" style="opacity: 0; white-space: pre-wrap;">&lt; Full Stack Dev &gt;</span><span class="style-typeBar">_</span></span>`,
 
     "p2Title": `<p class="style-capFirstLetter">Technical Skills</p>
     <p>Subsets Breakdown</p>`,
@@ -262,7 +331,116 @@ const translatorObj = {
         <li>Korean Fluent</li>
         <li>Japanese Business Fluent</li>
         <li>Russian in Training</li>
-    </ul>`
+    </ul>`,
+
+    "p2Title1": "Tech Stack",
+    "p2Title2": "In Progress",
+
+    "mainTech": "<div><p>Tech Stack</p></div>",
+    "addTech": "<div><p>In Progress</p></div>",
+
+    "p3ProjLink": "Project Page",
+
+}
+
+const langLoader = {
+
+    kor: {
+
+    triviaPrev: 0,
+    lang: "kor",
+
+    "greetings1": "Nice to meet you, I am",
+    "greetings2": "< Full Stack Dev >",
+
+    "pagePrev": "이전",
+    "pageNxt": "다음",
+
+    "lsWarn1": "죄송합니다.",
+    "lsWarn2": "이 웹사이트는 세로 모드에서 방문할 수 없습니다.",
+    "lsWarn3": "장치를 가로 모드로 전환해 주세요.",
+
+    "dxmTrivia0": "저는 프랑스 교포입니다. F-4 재외동포 비자를 보유하고 있으며 현재 서울에 거주 중입니다.",
+    "dxmTrivia1": '주로 사용된 글꼴은 "Bebas Neue", "Source Han Serif K"와 "Nanum Square"입니다.',
+    "dxmTrivia2": "화면 오른쪽 상단에 위치한 메뉴를 클릭하여 추가 설정에 접근 가능합니다.",
+    "dxmTrivia3": "본 포트폴리오를 둘러보시는 동안 몰입감 있는 경험을 위해 소리를 켜는 것을 추천합니다.",
+    "dxmTrivia4": "본 웹사이트는 JavaScript만을 사용하여 제작되었습니다.",
+    "dxmTrivia5": "저는 영어권 국가에 거주하거나 방문해본 적이 없습니다.",
+    "dxmTrivia6": "배경 음악: El Huervo - Daisuke",
+
+    "dxmSpeech1": "김이작의 포트폴리오에 오신 것을 환영합니다! 추가 설명은 여기에 작성될 것입니다. 저(눈이 달린 삼각)를 클릭해주시면 추가 정보도 공유드립니다.",
+    "dxmSpeech2": "죄송합니다. 웹사이트는 세로 모드에서도 기술적으로 작동하지만, 그다지 예쁘지 않습니다. 원활한 관람을 위해 가로 모드를 추천합니다.",
+    "dxmSpeech3": "HOGA 라는 프로젝트는 저희 마지막 부트캠프 평가를 위해 준비된 단체 프로젝트였습니다. 발표가 끝난 후에도 작업을 진행하여 완성한 상태입니다.",
+    "dxmSpeech4": "화살표를 클릭하거나 객체를 드래그하여 저의 프로젝트를 탐색해보시길 바랍니다. 프로젝트 커버를 클릭해주시면 상세 정보를 확인할 수 있습니다.",
+    "dxmSpeech5": "혹여 이력서를 다운로드 받고 싶은 경우, 옆에 보이시는 QR 코드를 스캔해주시면 됩니다.",
+
+    "hogaSumTitle": "HOGA",
+    "hogaSumDesc": "HOGA는 맞춤화 시스템을 갖춘 웹 기반 생산성 대시보드로, 직관적이고 사용하기 쉬운 UI를 제공하며 시간 관리 효율성과 좋은 작업/학습 습관을 촉진하도록 설계되었습니다. 대시보드는 사용자가 집중 세션을 위해 일반적으로 접근하는 모든 필요한 도구와 '미니 앱'을 제공합니다.",
+    "hogaSumList": "<li>이동 가능하고 크기 조절이 가능한 강력한 위젯</li><li>Spotify, Youtube, Gemini, Calendar 등과 통합된 API</li><li>강력한 맞춤형 타이머, 휴식 및 알람 시스템</li><li>사용자 기반 음악 및 테마</li>",
+
+    "blackPeachSumTitle": "준비 중: Black Peach",
+    "blackPeachSumDesc": "Black Peach는 개인과 기업 모두가 사용할 수 있도록 설계된 프로젝트 관리 앱입니다. 사용자는 선형 타임라인, 트리 또는 제텔카스텐 등 다양한 구조를 통해 주제를 프로젝트 기반으로 조직할 수 있습니다. 이 다중 구조 접근 방식은 Black Peach가 프로젝트나 작업 계획 등 다양한 용도로 사용 가능합니다.",
+    "blackPeachSumList": "<li>프로젝트 완료 추적기</li><li>마감일 설정 및 타임라인 추적기</li><li>주간, 일일, 시간별 진행률 측정기</li><li>알람 및 경고</li>",
+
+    "3dPortSumTitle": "준비 중: 포트폴리오 (3D)",
+    "3dPortSumDesc": "현재 보고 있는 포트폴리오의 3D 렌더링 버전으로, 모바일과 데스크톱 뷰를 모두 지원하도록 설계되었습니다. 두 번째 포트폴리오를 만드는 주요 목표는 3D 렌더링, 설정 및 웹-앱 통합을 통해 자바스크립트의 범위를 더욱 확장하는 것이었습니다. Three JS로 제작되었습니다.",
+    "3dPortSumList": "<li>360도 카메라 이동</li><li>인터랙티브 씬 및 객체</li><li>낮/밤 시스템</li>",
+
+    "psyPSumTitle": "준비 중: Psychophobia",
+    "psyPSumDesc": "Andrei Tarkovsky 감독의 영화 STALKER와 그 후속작의 세계를 기반으로 한 Psychophobia는 자바스크립트로 완전히 제작된 팬 프로젝트입니다. 저는 이 게임을 2024년 4월, 코딩을 막 배우기 시작했을 때 처음 시작했습니다. 이 프로젝트를 통해 JS/HTML/CSS의 첫 번째 언어를 연습하고 새로운 개념을 배울 때 응용하는 것을 목표로 하고 있습니다.",
+    "psyPSumList": "<li>인벤토리, 레벨 및 장비 시스템</li><li>무작위 전리품 및 제작 시스템</li><li>비동기 전투 시스템</li><li>평판 시스템이 있는 여러 진영</li><li>재플레이성 및 게임플레이 다양성을 위한 로그라이트 접근</li>",
+
+    "tooltip1": "절약 모드",
+    "tooltip2": "채팅 전환",
+    "tooltip3": "소리 음소거/허용",
+
+    "p1BlockText1": "프랑스에서 태어나 교육을 받았고, 현재 서울에 영주권(F-4)으로 거주하고 있습니다. 저는 프랑스어, 영어, 한국어, 일본어를 유창하게 구사하여 다양한 문화 및 커뮤니티에 적응하였습니다. 요리, 디자인, 창작에 대한 열정 및 복잡한 문제를 디버깅하고 해결하고자 하는 인내심이 있으며, 새로운 기능을 배우고 활용하는 것에 흥미를 느낍니다. 저의 다문화 배경과 경험은 독특한 시각으로 이어집니다.",
+    "p1BlockText2": "풀 스택 엔지니어로서, JavaScript, Python, SQL 등 다양한 프로그래밍 언어와 프레임워크에 대한 포괄적인 배경을 가지고 있습니다. 제 직무 경험은 eMoldino의 영업 프로젝트 매니저와 Robert Walters Korea의 어소시에이트 컨설턴트 역할이 있습니다. Git, Visual Studio Code, Salesforce와 같은 도구에 대한 탄탄한 기초를 가지고 있습니다. 제 기술적 능력과 국제 비즈니스 교육에서 얻은 강력한 비즈니스 감각이 결합되어 다재다능하고 능숙한 엔지니어로서 활동합니다.",
+
+
+    "p2Title": `<p class="style-capFirstLetter">스킬</p>
+    <p>하위 항목 분석</p>`,
+    "p2Section1": `<p>프론트엔드</p>
+    <ul>
+        <li>웹 디자인</li>
+        <li>앱 개발</li>
+        <li>API 생성/설정</li>
+        <li>프론트엔드 알고리즘</li>
+        <li>UI/UX 디자인/프로그래밍</li>
+        <li>이미지 생성 및 편집</li>
+        <li>3D 모델링/텍스처링</li>
+    </ul>`,
+    "p2Section2": `<p>백엔드</p>
+    <ul>
+        <li>서버 생성</li>
+        <li>데이터베이스 생성 (SQL)</li>
+        <li>API 생성/설정</li>
+        <li>DB와 백엔드 설정</li>
+        <li>인증 및 로그인 로직</li>
+    </ul>`,
+    "p2Section3": `<p>기타 스킬</p>
+    <ul>
+        <li>풀 스택 아키텍처 디자인</li>
+        <li>라이브러리/포터블 기능 생성</li>
+        <li>프로젝트 관리</li>
+        <li>A-to-Z 앱 생성</li>
+        <li>비즈니스 개발</li>
+        <li>번역</li>
+    </ul>`,
+    "p2Section4": `<p>언어</p>
+    <ul>
+        <li>프랑스어 원어민</li>
+        <li>영어 원어민</li>
+        <li>한국어 유창함/원어민</li>
+        <li>일본어 유창함</li>
+        <li>러시아어 공부 중</li>
+    </ul>`,
+
+    "mainTech": "<div><p>기술 스택</p></div>",
+    "addTech": "<div><p>진행 중</p></div>",
+
+    "p3ProjLink": "< 프로젝트 페이지로 >",
+    }
 
     
 }

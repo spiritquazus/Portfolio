@@ -113,7 +113,7 @@
     line-height: calc(11.5vh); 
     font-size: calc(var(--font-title) + 6.3vh);
     font-weight: 600;
-    font-family: var(--font-secondary);
+    font-family: var(--font-2);
     letter-spacing: 0.5vw;
     transition: all 0.35s ease-out;
     pointer-events: none;

@@ -67,6 +67,25 @@
 }
 
 @font-face {
+    font-family: 'SourceHanSerifK'; 
+    src: url('../../gallery/fonts/SourceHanSerifK-Regular.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'SourceHanSerifK'; 
+    src: url('../../gallery/fonts/SourceHanSerifK-Bold.otf') format('opentype');
+    font-weight: 600;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'SourceHanSerifK'; 
+    src: url('../../gallery/fonts/SourceHanSerifK-SemiBold.otf') format('opentype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
     font-family: 'Alegre Sans'; 
     src: url('../../gallery/fonts/AlegreSans-Regular.ttf') format('truetype');
     font-weight: 400;
@@ -110,29 +129,26 @@
     font-style: normal;
 }
 
-@font-face {
-    font-family: 'RollandinEmilie'; 
-    src: url('../../gallery/fonts/RollandinEmilie.ttf') format('truetype');
-    font-weight: 400;
-    font-style: normal;
-}
-
 
 @import url('https://cdn.jsdelivr.net/gh/spoqa/spoqa-han-sans/css/SpoqaHanSansNeo.css');
 @import url('https://cdn.jsdelivr.net/npm/typeface-nanum-square@1.1.0/nanumsquare.min.css');
 
 :root{ 
+
+    --font-1: "Bebas Neue", "Alegre Sans", sans-serif;
+    --font-2: "Geist", "Roboto", sans-serif;  
+    --font-3: "Anderson", "Roboto", sans-serif;
+
     --font-signature: "Bird House", sans-serif;
     --font-poster: "Avantgarde", sans-serif;
-    --font-posterBis: "RollandinEmilie", "Avantgarde", sans-serif;
 
-    --font-primary: "Bebas Neue", "Alegre Sans", sans-serif;
+    --font-primary: var(--font-1);
     --font-primaryBis: "Alegre Sans", sans-serif;
-    --font-secondary: "Geist", "Roboto", sans-serif;
-    --font-tertiary: "Anderson", "Roboto", sans-serif;
+    --font-secondary: var(--font-2);
+    --font-tertiary: var(--font-3);
     
-    --front-primary-kor: "Spoqa Han Sans Neo", sans-serif;
-    --font-secondary-kor: 'Nanum Square', sans-serif;
+    --font-secondary-kor: "SourceHanSerifK", sans-serif;
+    --font-tertiary-kor: "SourceHanSerifK", sans-serif;
 
     --font-logo: calc(9vh*1.618);
     --font-title: 9vh;
