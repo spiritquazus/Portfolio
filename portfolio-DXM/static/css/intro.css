@@ -4,6 +4,7 @@
 
 html{
     overflow: hidden;
+    pointer-events: none;
 }
 
 body{
@@ -23,19 +24,25 @@ body{
     color: var(--lightDarkFont);
     font-family: var(--font-primary);
     position: relative;
+    pointer-events: none;
 }
 
 #bodyCover{
-    border-radius: 2rem;
+    border-radius: 0.5rem;
     background-color: var(--lightDarkBG);
     backdrop-filter: blur(15px);
     z-index: -1;
     position: absolute;
     align-self: center;
     justify-self: center;
-    width: 98vw;
-    height: 98vh;
+    width: 95vw;
+    height: 95vh;
     transition: opacity 10s ease-in;
+    display: grid;
+    gap: 0.5vh;
+    grid-template-columns: repeat(auto-fill, 2vw);
+    grid-template-rows: 1fr repeat(40, 2vh) 1fr;
+    pointer-events: all;
 }
 
 p{
@@ -52,13 +59,16 @@ p{
 
 #DXMInteractive{
     position: relative;
-    grid-row: 7;
-    grid-column: 13;
-    width: 20rem;
-    height: 20rem;
-    max-width: 90vw;
-    max-height: 40vh;
+    grid-row: 10;
+    grid-column: 18 / -18;
     place-self: center;
+    width: 16vw;
+    height: 16vw;
+    
+    min-width: 20vh;
+    min-height: 20vh;
+    aspect-ratio: 1 / 1;
+    /* place-self: center; */
     transition: all 0.5s cubic-bezier(0.33, 0, 0.67, 1.5);
     opacity: 0.5;
     transform: translateY(-40vh);
@@ -67,8 +77,11 @@ p{
 
 #DXMpart4{
     position: absolute;
-    width: 5rem;
-    height: 5rem;
+    width: 4vw;
+    height: 4vw;
+    min-width: 5vh;
+    min-height: 5vh;
+    aspect-ratio: 1 / 1;
 }
 
 #socketBound{
@@ -93,6 +106,7 @@ p{
     transition: opacity 0.5s ease-in-out;
     position: relative;
     opacity: 0;
+    pointer-events: all;
 }
 
 .flagVis{
@@ -172,10 +186,12 @@ p{
     color: var(--lightDarkFont);
     font-family:  var(--font-primary);
     /* position: absolute; */
-    width: 15rem;
-    height: 1.3rem;
-    font-size: 1.2rem;
-    margin-left: 1.5rem;
+    grid-column: 3 / span 3;
+    grid-row: 3 / span 3;
+    min-width: 15rem;
+    min-height: 1.3rem;
+    font-size: var(--font-M2);
+    position: relative;
 }
 
 .floatPoint{
@@ -186,19 +202,23 @@ p{
 
 #contactIntro{
     display: flex;
-    flex-direction: column;
     align-items: flex-end;
+   flex-direction: column;
     position: relative;
-    grid-column: 20;
-    grid-row: 2;
-    width: 25rem;
-    font-size: 1.1rem;
+    width: 100%;
+    height: 100%;
+    font-size: var(--font-M3);
+    font-family: var(--font-secondary);
+    grid-row: 3 / span 5;
+    grid-column: -10 / span 9;
     transition: transform 1s 0.1s ease-in-out;
-    transform: translateX(40vh);
+    /* transform: translateX(40vh); */
 }
 
 #contactIntro > div {
-    margin-right: 0.5rem;
+    position: relative;
+    white-space: nowrap;
+    box-sizing: border-box;
 }
 
 #threeJSInfo{
@@ -208,8 +228,8 @@ p{
     width: 15rem;
     height: 1.3rem;
     font-size: 1.2rem;
-    grid-row: 21;
-    grid-column: 2;
+    grid-row: 32;
+    grid-column: 2 / span 3;
 }
 
 #threeJSInfo > p:nth-child(2){
@@ -241,7 +261,7 @@ p{
     /* background-color: red; */
     justify-content: space-evenly;
     transition: all 0.4s 0.2s ease-in;
-    
+    pointer-events: all;
 }
 
 #chooseCont > button{
@@ -260,29 +280,22 @@ p{
     transition: opacity 0.2s ease-in;
 }
 
-#topBarIntro{
-    grid-column: 2 / 25;
-    display: flex;
-    justify-content: space-between;
-}
-
-#topBarIntro > div{
-    margin-top: 1rem;
-}
 
 #botBarIntro{
     display: flex;
     position: relative;
-    top: 90%;
     color: var(--lightDarkFont);
     flex-wrap: nowrap;
     overflow: hidden;
     width: 100%;
-    justify-self: center;
-    border-top: 0.2rem solid var(--lightDarkFont);
-    border-bottom: 0.2rem solid var(--lightDarkFont);
+    height: 100%;
+    place-self: center;
+    border-top: 3px solid var(--lightDarkFont);
+    border-bottom: 3px solid var(--lightDarkFont);
     opacity: 0;
     transition: opacity 1.3s linear; 
+    grid-column: 1 / -1;
+    grid-row: 36 / span 3;
 }
 
 #botBarIntro > div {
@@ -315,19 +328,16 @@ button:hover{
 }
 
 #sideBarIntro{
-    grid-column: 1;
+    grid-column: 1 / span 5;
+    grid-row: 1 / -1;
+    margin: 2vmin;
     position: fixed;
-    left: -10vh;
-    width: 10%;
-    max-width: 5rem;
     /* background-color: red; */
-    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     flex-wrap: wrap;
-    margin: 3vh 1vw;
     transition: transform 1s 0.3s ease-in;
 }
 
@@ -453,13 +463,13 @@ button:hover{
         overflow: hidden;
     }
     #DXMInteractive{
-        position: absolute;
+/*         position: absolute;
         max-width: 50vw;
         max-height: 25vh;
         transform: translateY(-120vh);
         top: 20vh;
         grid-row: 1;
-        grid-column: 1;
+        grid-column: 1; */
     }
     #chooseCont > button{
         font-size: 0.8rem;
@@ -468,25 +478,18 @@ button:hover{
     #chooseCont{
         grid-row: 18;
     }
-    #DXMpart4{
-        position: absolute;
-        width: 2.5rem;
-        height: 2.5rem;
-    }
     #sideBarIntro{
-        max-width: 100vw;
-        width: 100vw;
-        height: 4rem;
-        grid-row: 22;
-        position: relative;
         flex-direction: row;
         justify-content: center;
-        align-items: center;
+        grid-row: -10;
+        grid-column: 1 / -1;
+        margin: 0;
+        width: 100%;
     }
     #sideBarIntro > img {
         min-width: 4vh;
         min-height: 4vh;
-        margin: 0 2rem;
+
     }
     #botBarIntro{
         display: flex;
@@ -500,31 +503,25 @@ button:hover{
         display: none;
     }
     #contactIntro{
-        margin: 0.3rem 0;
-        margin-left: -3.5rem;  
-        font-size: 0.7rem;
-        grid-column: 18;
-        width: 15rem;
-        align-items: flex-start;
-        justify-self: flex-end;
+       font-size: var(--font-S1);
     }
     #greetingsMsg > p:nth-child(2){
         font-size: 1.5rem;
     }
 }
 
-@media (max-width: 950px) and (orientation: landscape){
+@media (max-width: 1200px) and (orientation: landscape){
     html, body{
         overflow: hidden;
     }
     #DXMInteractive{
-        position: absolute;
+/*         position: absolute;
         max-width: 23vw;
         max-height: 32vh;
         transform: translateY(-40vh);
         top: 10vh;
         grid-row: 1;
-        grid-column: 1;
+        grid-column: 1; */
     }
     #chooseCont > button{
         font-size: 0.8rem;
@@ -533,20 +530,13 @@ button:hover{
     #chooseCont{
         grid-row: 16;
     }
-    #DXMpart4{
-        position: absolute;
-        width: 7%;
-        height: 7%;
-    }
     #sideBarIntro{
-        max-width: 100vw;
-        width: 100vw;
-        height: 4rem;
-        grid-row: 19;
-        position: relative;
         flex-direction: row;
         justify-content: center;
-        align-items: center;
+        grid-row: -12;
+        grid-column: 1 / -1;
+        margin: 0;
+        width: 100%;
     }
     #sideBarIntro > img {
         width: 3vh;

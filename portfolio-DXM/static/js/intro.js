@@ -42,7 +42,7 @@ async function introStartupAnim(){
     dxmEyeSocket.style.display = "none"
     dxmEye.style.display = "none"
     dxmEyeLid.style.display = "flex"
-    sideBarIntro.style.transform="translateX(10vh)"
+    sideBarIntro.style.transform="translateX(0vh)"
     floatPoint.forEach((elem)=>{
         elem.style.transform="translateX(30vh)"
     })
@@ -147,7 +147,7 @@ function contLangShow(_lang){
         case "korean":
             bodyDOM.style.backgroundImage = "url(../../gallery/2dElems/bg_seoul.jpg)"
             chooseMobile.innerText = "포트폴리오 링크"
-            chooseMobile.onClick = () => userLangPref("kor");
+            chooseMobile.onclick = () => userLangPref("kor");
             choose3d.innerText = "3D 포트폴리오 링크"
             greetingsMsg.innerHTML = "<p>김이작의</p><p>포트폴리오</p>"
             rootCSS.style.setProperty("--font-primary", "Song Myung, serif")
@@ -175,7 +175,7 @@ function contLangShow(_lang){
     `
             break;
     };
-    contactIntro.style.transform="translateX(0vh)"
+    contactIntro.style.transform="translateX(0vh), scaleX(-1)"
     bodyCover.style.opacity="0.85" 
     bodyBGFX.style.display="flex"
 }

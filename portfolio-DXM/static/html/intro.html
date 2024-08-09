@@ -15,7 +15,21 @@
 </head>
 <body>
     
-    <div id="bodyCover">
+    <div id="bodyCover"> <!-- Body cover start -->
+        <div id="greetingsMsg" class="floatPoint">
+            <p>Portfolio</p>
+            <p>Isaac Kim</p>
+        </div>
+        <div id="contactIntro">
+            <div><img><span>Contact: </span><span>+82 10-2515-9789</span></div>
+            <div><img><span>Email: </span><span>kimisaac010@gmail.com</span></div>
+            <div><img><span>Relocation: </span><span>South Korea / Japan / EU / US</span></div>
+        </div> 
+        <div id="sideBarIntro">
+            <img src="../../gallery/2dElems/inIcon.svg" onclick="redirBtnExt('https\://www.linkedin.com/in/isaac-kimrw/')">
+            <img src="../../gallery/2dElems/githubSymbol.svg" onclick="redirBtnExt('https\://github.com/spiritquazus')">
+            <img src="../../gallery/2dElems/cvSymbol.svg" class="cvLink">
+        </div>
         <div id="bodyBGFX">
             <div class="arrowFwrd">
                 <img src="../../gallery/2dElems/arrDir.svg" alt="" class="arrDir">
@@ -42,6 +56,21 @@
                 <img src="../../gallery/2dElems/arrDir.svg" alt="" class="arrDir">
             </div>
         </div>
+        <header id="DXMInteractive">
+            <img id="DXMpart1" src="../../gallery/2dElems/DXMpart1.webp" class="composite">
+            <img id="DXMpart2" src="../../gallery/2dElems/DXMpart2.webp" class="composite">
+            <img id="DXMpart3" src="../../gallery/2dElems/DXMpart3.webp" style="display:none" class="composite">
+            <div id="socketBound" class=""></div>
+            <div id="DXMaura" class="composite">
+                <div class="lineUp lineShort S1" style="transform: rotate(-25deg);top: -38%;left: -14%;"></div>
+                <div class="lineUp lineLong S2" style="transform: rotate(-45deg); top: -25%;left: -25%"></div>
+                <div class="lineUp lineShort S3" style="transform: rotate(-86deg);top: -1%;left: -27%;"></div>
+    
+                <div class="lineUp lineShort S4" style="transform: rotate(25deg);top: -38%;right: -14%;"></div>
+                <div class="lineUp lineLong S5" style="transform: rotate(45deg);top: -25%;right: -25%;"></div>
+                <div class="lineUp lineShort S6" style="transform: rotate(86deg);top: -1%;right: -27%;"></div>
+            </div>
+        </header>
         <div id="botBarIntro">
             <div>
                 <span>C</span>
@@ -67,22 +96,12 @@
                 <span>SQL</span>
             </div>
         </div>
-    </div>
-    <header id="DXMInteractive">
-        <img id="DXMpart1" src="../../gallery/2dElems/DXMpart1.webp" class="composite">
-        <img id="DXMpart2" src="../../gallery/2dElems/DXMpart2.webp" class="composite">
-        <img id="DXMpart3" src="../../gallery/2dElems/DXMpart3.webp" style="display:none" class="composite">
-        <div id="socketBound" class=""></div>
-        <div id="DXMaura" class="composite">
-            <div class="lineUp lineShort S1" style="transform: rotate(-25deg);top: -38%;left: -14%;"></div>
-            <div class="lineUp lineLong S2" style="transform: rotate(-45deg); top: -25%;left: -25%"></div>
-            <div class="lineUp lineShort S3" style="transform: rotate(-86deg);top: -1%;left: -27%;"></div>
-
-            <div class="lineUp lineShort S4" style="transform: rotate(25deg);top: -38%;right: -14%;"></div>
-            <div class="lineUp lineLong S5" style="transform: rotate(45deg);top: -25%;right: -25%;"></div>
-            <div class="lineUp lineShort S6" style="transform: rotate(86deg);top: -1%;right: -27%;"></div>
-        </div>
-    </header>
+        <float id="threeJSInfo">
+            <p>Powered by: <img src="../../gallery/2dElems/threejs_logo.webp" id="threeJSLogo"></p>
+            <p>DXM-dev</p>
+        </float>
+    </div> <!-- Body cover end -->
+    
         <img id="DXMpart4" src="../../gallery/2dElems/DXMpart4.webp" class="composite">
         
     <div id="langCont">
@@ -93,29 +112,12 @@
     </div>
     <div id="chooseCont" style="display:none">
         <button id="choose3d" class="wipMark" style="opacity:0" onclick="redirBtn(`https\://spiritquazus.github.io/Portfolio/portfolio-DXM/3js/index.html`)"></button>
-        <button id="chooseMobile" class="wipMark" style="opacity:0" onclick="userLangPref('')"></button>
+        <button id="chooseMobile" class="wipMark" style="opacity:0"></button>
         
     </div>
-    <div id="topBarIntro">
-        <div id="greetingsMsg" class="floatPoint">
-            <p>Portfolio</p>
-            <p>Isaac Kim</p>
-        </div>
-        <div id="contactIntro">
-            <div><img><span>Contact: </span><span>+82 10-2515-9789</span></div>
-            <div><img><span>Email: </span><span>kimisaac010@gmail.com</span></div>
-            <div><img><span>Relocation: </span><span>South Korea / Japan / EU / US</span></div>
-        </div>
-    </div>   
-    <div id="sideBarIntro">
-        <img src="../../gallery/2dElems/inIcon.svg" onclick="redirBtnExt('https\://www.linkedin.com/in/isaac-kimrw/')">
-        <img src="../../gallery/2dElems/githubSymbol.svg" onclick="redirBtnExt('https\://github.com/spiritquazus')">
-        <img src="../../gallery/2dElems/cvSymbol.svg" class="cvLink">
-    </div>
-    <float id="threeJSInfo" class="floatPoint">
-        <p>Powered by: <img src="../../gallery/2dElems/threejs_logo.webp" id="threeJSLogo"></p>
-        <p>DXM-dev</p>
-    </float>
+    
+    
+    
 <!--     <div id="handsCont" >
         <img src="../../gallery/2dElems/DXMhandsL.webp" id="handLeft" class="handsAnim">
         <img src="../../gallery/2dElems/DXMhandsR.webp" id="handRight" class="handsAnim">
@@ -123,6 +125,5 @@
     <script src="../js/DOM.js"></script>
     <script src="../js/preStack.js"></script>
     <script src="../js/intro.js"></script>
-    <script src="../js/pfPage2.js"></script>
 </body>
 </html>
