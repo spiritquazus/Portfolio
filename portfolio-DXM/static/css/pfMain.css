@@ -11,7 +11,7 @@ body{
     flex-direction: row;
     overflow-x: auto; 
     overflow-y: hidden; 
-    max-height: 100vh;
+    max-height: calc(100vh - env(safe-area-inset-bottom));
     width: 100vw;
     margin: 0;
     padding: 0;
@@ -39,10 +39,10 @@ button{
 #pageContainer{
     width: 300vw;
     max-width: 300vw;
-    height: 100vh;
+    height: calc(100vh - env(safe-area-inset-bottom));
     display: flex;
     flex-direction: row;
-    overflow-x: scroll;
+    overflow-x: hidden;
     overflow-y: hidden;
 }
 
@@ -57,7 +57,7 @@ button{
     padding-top: 2vh;
     width: 100vw;
     min-width: 100vw;
-    height: 100vh;
+    /* height: 100vh; */
     display: grid;
     animation: BGTransit 5s 15s forwards linear;
 /*     grid-template-rows: repeat(auto-fill, 1%);
@@ -70,6 +70,7 @@ button{
     overflow-y: hidden;
     /* CALCULATING TOP GRIDS: top: calc(1vh + 0.5vh + 5.0833vh); 1vh PADDING ALWAYS + 0.5vh PER GAP + 5.0833vh PER GRID */
     /* CALCULATING LEFT GRIDS: left: calc(2vh + 0.5vh +  4.8vh??)*/
+    height: calc(100vh - env(safe-area-inset-bottom)); /* account for mobile viewers UI */
 }
 
 .subGrid{

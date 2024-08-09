@@ -506,6 +506,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
         spawnElem(photoID, "opacity")
         typeScroll(speechText, 15, translatorObj["dxmSpeech1"])
         eyeBlink(DXMsmolEye, DXMsmolBlink, DXMsmolPupil)
+        pageContainer.style.overflowX = "scroll"
         enableScroll()
         playSFX(playingBGM, "Daisuke - El Huervo.aac")
 

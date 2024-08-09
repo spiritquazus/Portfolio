@@ -123,6 +123,7 @@ function contLangShow(_lang){
         case "english":           
             bodyDOM.style.backgroundImage = "url(../../gallery/2dElems/bg_london.jpg)"
             chooseMobile.innerText = "Mobile/Static Portfolio"
+            chooseMobile.onClick = () => userLangPref("");
             choose3d.innerText = "3D Portfolio (You have a decent computer)"
             greetingsMsg.innerHTML = "<p>Portfolio</p><p>Isaac Kim</p>"
             cvLinks.forEach((link)=>link.onclick=(()=>redirBtnExt('../txt/CV_IKY_fullStack_2024.pdf')))
@@ -146,6 +147,7 @@ function contLangShow(_lang){
         case "korean":
             bodyDOM.style.backgroundImage = "url(../../gallery/2dElems/bg_seoul.jpg)"
             chooseMobile.innerText = "포트폴리오 링크"
+            chooseMobile.onClick = () => userLangPref("kor");
             choose3d.innerText = "3D 포트폴리오 링크"
             greetingsMsg.innerHTML = "<p>김이작의</p><p>포트폴리오</p>"
             rootCSS.style.setProperty("--font-primary", "Song Myung, serif")

@@ -254,9 +254,9 @@ let translatorObj = {
     "pagePrev": "Prev.",
     "pageNxt": "Nxt.",
 
-    "lsWarn1": "Sorry!",
-    "lsWarn2": "This website is not available in portrait mode!",
-    "lsWarn3": "Please turn your device to landscape mode.",
+    "lsWarn0": "Sorry!",
+    "lsWarn1": "This website is not available in portrait mode!",
+    "lsWarn2": "Please turn your device to landscape mode.",
 
     "dxmTrivia0": "The decorative texts around the screen may seem like fluff, but they actually either represent stylistic choices or the credits.",
     "dxmTrivia1": 'The primary font used is "Bebas Neue", then "Geist" and "Anderson Grotesk".',
@@ -356,9 +356,9 @@ const langLoader = {
     "pagePrev": "이전",
     "pageNxt": "다음",
 
-    "lsWarn1": "죄송합니다.",
-    "lsWarn2": "이 웹사이트는 세로 모드에서 방문할 수 없습니다.",
-    "lsWarn3": "장치를 가로 모드로 전환해 주세요.",
+    "lsWarn0": "죄송합니다.",
+    "lsWarn1": "이 웹사이트는 세로 모드에서 방문할 수 없습니다.",
+    "lsWarn2": "장치를 가로 모드로 전환해 주세요.",
 
     "dxmTrivia0": "저는 프랑스 교포입니다. F-4 재외동포 비자를 보유하고 있으며 현재 서울에 거주 중입니다.",
     "dxmTrivia1": '주로 사용된 글꼴은 "Bebas Neue", "Source Han Serif K"와 "Nanum Square"입니다.',
