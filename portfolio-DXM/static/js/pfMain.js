@@ -504,6 +504,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
 
         spawnElem(dxmIcon, "bottom")
         spawnElem(photoID, "opacity")
+        mainPfBtn.forEach((elem)=>spawnElem(elem, "top"))
         typeScroll(speechText, 15, translatorObj["dxmSpeech1"])
         eyeBlink(DXMsmolEye, DXMsmolBlink, DXMsmolPupil)
         pageContainer.style.overflowX = "scroll"

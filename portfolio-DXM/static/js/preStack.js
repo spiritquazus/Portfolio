@@ -77,6 +77,8 @@ function userSetLang() {
         mainTech.firstElementChild.innerHTML = translatorObj.mainTech
         addTech.firstElementChild.innerHTML = translatorObj.addTech
         projSumRedir.innerText = translatorObj.p3ProjLink
+        mainPfBtn[0].innerText = translatorObj.p1Btn0
+        mainPfBtn[1].innerText = translatorObj.p1Btn1
 
     }
 }
@@ -254,6 +256,9 @@ let translatorObj = {
     "pagePrev": "Prev.",
     "pageNxt": "Nxt.",
 
+    "p1Btn0": "< Portfolio >",
+    "p1Btn1": "< Skills >",
+
     "lsWarn0": "Sorry!",
     "lsWarn1": "This website is not available in portrait mode!",
     "lsWarn2": "Please turn your device to landscape mode.",
@@ -355,6 +360,9 @@ const langLoader = {
 
     "pagePrev": "이전",
     "pageNxt": "다음",
+
+    "p1Btn0": "< 포트폴리오 >",
+    "p1Btn1": "< 이력서 >",
 
     "lsWarn0": "죄송합니다.",
     "lsWarn1": "이 웹사이트는 세로 모드에서 방문할 수 없습니다.",

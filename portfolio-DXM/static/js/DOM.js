@@ -2,7 +2,14 @@ const pageContainer = document.getElementById("pageContainer"),
     rootDOM = document.querySelector(":root"),
     pfPage1 = document.getElementById("pf-page1"),
     pfPage2 = document.getElementById("pf-page2"),
-    pfPage3 = document.getElementById("pf-page3")
+    pfPage3 = document.getElementById("pf-page3"),
+    animElems = [
+        ...document.getElementsByClassName("topBottomAnim"),
+        ...document.getElementsByClassName("bottomTopAnim"),
+        ...document.getElementsByClassName("rightLeftAnim"),
+        ...document.getElementsByClassName("leftRightAnim"),
+        ...document.getElementsByClassName("opacityAnim")
+    ]
 ;
 
 //page 1/main
@@ -38,7 +45,8 @@ const gallerySlider1 = document.getElementById('gallerySlider1'),
     btnSideScreen = document.getElementById("side-btn-screen"),
     pageMovBtn = Array.from(document.getElementsByClassName("pageMovBtn")),
     lsMsgs = Array.from(document.getElementsByClassName("ls-msg")),
-    introMsg = document.getElementById("introMsg")
+    introMsg = document.getElementById("introMsg"),
+    mainPfBtn = Array.from(document.getElementsByClassName("main-pf-btn"))
 ;
 
 //page 2

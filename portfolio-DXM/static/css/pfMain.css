@@ -17,6 +17,7 @@ body{
     padding: 0;
     -ms-overflow-style: none; 
     scrollbar-width: none; 
+    pointer-events: all;
 }
 
 body::-webkit-scrollbar {
@@ -83,6 +84,25 @@ button{
     grid-template-columns: repeat(auto-fill, 5vw);
     gap: calc(0.5vh);
     padding: calc(0.5vh * 2) calc(0.5vh * 4);
+}
+
+.main-pf-btn{
+    position: relative;
+    grid-column: 16 / span 2;
+    grid-row: 9;
+    border: 3px var(--colorPureWhite) solid;
+    background: rgba(0,0,0,0);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--font-secondary);
+    font-size: var(--font-M3);
+    transition: all 0.9s ease-in-out;
+}
+
+#main-btn-skills{
+    grid-row: 10;
 }
 
 
@@ -904,8 +924,8 @@ button{
     width: 50%;
     height: calc(100% + 0.5vh);
     transform: rotate(90deg);
-    grid-row: 1 / span 1;
-    grid-column: 1/ span 1;
+    grid-row: 2 / span 1;
+    grid-column: 2/ span 1;
 
 }
 
@@ -1078,11 +1098,21 @@ button{
 }
 
 @media (max-width: 1250px){
+    #photoID>img:first-child{
+        grid-row: 4 / span 16
+    }
     #style-stripeCont{
         display: none;
     }
     #DXM-nest {
         width: calc(5.0833vh*2 + 0.5vh)
+    }
+    .main-pf-btn{
+        grid-row: 5 / span 1;
+        grid-column: 15 / span 3;
+    }
+    #main-btn-skills{
+        grid-row: 6 / span 1;
     }
     /* #btn-hamburger{
         left: 0.5vh;
@@ -1095,6 +1125,7 @@ button{
     .blockText{
         font-size: calc(1.2vw);   
     }
+    
 }
 
 /* @media only screen and (orientation: portrait) {
