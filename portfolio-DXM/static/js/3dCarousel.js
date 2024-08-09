@@ -101,7 +101,6 @@ const update = () => { //constant runner. start or pause at will
   carrossel.style.setProperty("--rotatey", lastMoveTo + "deg");
   carrossel.style.transform = `rotateY(${lastMoveTo}deg)`
   carouselUpdtID = requestAnimationFrame(update);
-  console.log("running update")
 };
 
 const onResize = () => {

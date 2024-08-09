@@ -1,3 +1,14 @@
+function handleLowMemory() {
+    if (navigator.deviceMemory && navigator.deviceMemory < 2) { //2GB mark
+        console.warn('Low memory detected. Switching to performance mode.');
+        togglePerfMode();
+    }
+}
+
+handleLowMemory();
+
+
+
 function redirBtn(_route){
     chooseCont.style.transform = "scale3d(0, 0.9, 0.4)";
 /*     handLeft.style.transform = "translateX(52vw)"
@@ -122,13 +133,17 @@ function playSFX(_type, _url){
     _type.pause()
     _type.currentTime = 0
     _type.src = `../../gallery/SFX/${_url}`
-    console.log("new sound played: ", _url)
     _type.onloadedmetadata = function(){
-        try {
-            _type.play()
-        } catch {
-            console.log("No user interaction yet, sound will not play.")
-        }
+    
+        _type.play().catch((error) => {
+            if (error.name === 'NotAllowedError') {
+                console.log('User interaction is required to play audio.');
+                // Provide feedback to the user or prompt them to interact
+            } else {
+                console.error('An unexpected error occurred:', error);
+            }
+        });
+       
     }
     _type.load()   
 }

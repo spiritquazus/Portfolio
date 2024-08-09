@@ -143,7 +143,7 @@ console.log(`Visitor type: ${deviceType}.`);
 function lockOrientation() {
     if (screen.orientation && screen.orientation.lock) {
       screen.orientation.lock('landscape').catch(err => {
-        console.error('Orientation lock failed:', err);
+        console.warn('Orientation lock failed:', err);
         
       });
     } else {
@@ -336,7 +336,6 @@ document.addEventListener("mousemove", (event)=>{photoScroll(event, carouselImg4
 function greetingsChange(){
     greetingsF.classList.toggle("greetingsAnim")
     const _translate = setInterval(()=>{
-        console.log("triggering greetings")
         
         if (greetingsArr.length > 1){
             const _rand = Math.floor(Math.random()*greetingsArr.length)
@@ -590,6 +589,7 @@ async function typographer(){
 }
   
 async function typeScroll(_text, _typeInterval, _newText, noClear, _SFX) {
+    if (performanceMode) return;
     try {
         return new Promise((resolve) => {
             if (typingInterval) {
@@ -605,7 +605,7 @@ async function typeScroll(_text, _typeInterval, _newText, noClear, _SFX) {
             _text.style.opacity = 1;
             let index = 0;
             _typeInterval = _typeInterval ? _typeInterval : 150;
-    
+            
             const typeChar = () => {
                 if (index < characters.length) {
                     if(_SFX){
