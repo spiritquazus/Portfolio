@@ -47,7 +47,7 @@ gltfLoader1.load(
 );  */
 //testend
 
-async function loadAllModels(){
+/* async function loadAllModels(){
 
     const modelLoadProm = [
         modelInstall(GLTFLoader, '../gallery/3dAssets/skylineBack1/scene.gltf', BGscene, {scale: [0.35,0.40,0.35], position: [0,0,-50]}),
@@ -74,8 +74,23 @@ async function loadAllModels(){
     
 
 }
-loadAllModels()
+loadAllModels() //⚠️back-up for old style */
 
+modelInstall(GLTFLoader, '../gallery/3dAssets/suburbsBG/suburbs_wip1.gltf', BGscene, {scale: [0.1,0.1,0.1], position: [2.8,-2.2,-3.45], rotation: [0,-180,0]}),
+modelInstall(GLTFLoader, '../gallery/3dAssets/yourRoom/BasemenrRoomFixed_2exp.gltf', BGscene, {scale: [0.2,0.2,0.2], position: [0,0,0], rotation: [0,180,0]}),
+
+lightsList.lightAmbient = 
+createLight("AmbientLight", BGscene, {lightSetup:['rgb(30,20,115)', 0.23, 5, 1.9]})
+
+
+
+
+
+
+lightsList.lightBGcity1 = 
+createLight("PointLight", BGscene, {lightSetup:['rgb(220,220,190)', 2.1, 5, 1.9], posxyz: [0.000,2.800,-0.200], rotaxyz: [0.000,0.000,0.000], lightH:true, lightHSetup:[]})
+
+/* 
 lightsList.lightMenuWall = 
 createLight("PointLight", BGscene, {lightSetup:['rgb(220,220,220)', 0.1, 20, 3.8], posxyz:[-1, 1.5, 0.3], rotaxyz:[0,0,0], lightH:true, lightHSetup:[]})
 
@@ -97,7 +112,7 @@ createLight("PointLight", BGscene, {lightSetup:['rgb(250,250,220)', 4.1, 15, 3.8
 
 lightsList.lightVending1 = 
 createLight("RectAreaLight", BGscene, {lightSetup:['rgb(220,220,190)', 6, 0.7, 2.5], width:0.85, height:1.0, posxyz:[1.250,1.400,0.500], rotaxyz:[0.000,1.600,0.000], lightColor:[0.71,0.71,0.51], lightH:true, lightHSetup:[]})
-
+ //⚠️back-up for old style */
 
 addRandoms('rgb(255,255,255)', BGscene, 500)
 /* BGscene.add(ambientLight)
@@ -293,10 +308,15 @@ function kontroller(_scene){
         light.innerHTML = `<button class="kontrolSelectBtn">${key}</button>` 
         kontrolLightsList.appendChild(light)
         light.addEventListener("click",()=>{
-            console.log("changing chosenLight to: ", lightsList[key][0],)
-            chosenLight = lightsList[key][0]
-            chosenKey = key
-            console.log("WHAT IS lightsList[key][0], ", lightsList[key][0])
+            if (lightsList[key].type == "AmbientLight"){
+                chosenLight = lightsList[key]
+                chosenKey = key
+                console.log("changing chosenLight to: ", lightsList[key],)
+            } else {
+                chosenLight = lightsList[key][0]
+                chosenKey = key
+                console.log("changing chosenLight to: ", lightsList[key][0],)
+            }
             updateChosenLightData()
             
         })
@@ -308,23 +328,32 @@ function kontroller(_scene){
         }) */
 
 
+        if (lightsList[key][0] && lightsList[key][0]["rotation"] != undefined){
+            const lightRotation = document.createElement("li")
+            lightRotation.innerHTML = `ROTATION: x:${lightsList[key][0]["rotation"].x}, y:${lightsList[key][0]["rotation"].y}, z:${lightsList[key][0]["rotation"].z}`
+            light.appendChild(lightRotation)
+        }
+        if (lightsList[key][0] && lightsList[key][0]["position"] != undefined){
+            const lightPosition = document.createElement("li")
+            lightPosition.innerHTML = `POSITION: x:${lightsList[key][0]["position"].x}, y:${lightsList[key][0]["position"].y}, z:${lightsList[key][0]["rotation"].z}`
+            light.appendChild(lightPosition)
+            console.log(Object.values(lightsList[key][0]))
+        }
+        
 
-        const lightRotation = document.createElement("li")
-        lightRotation.innerHTML = `ROTATION: x:${lightsList[key][0]["rotation"].x}, y:${lightsList[key][0]["rotation"].y}, z:${lightsList[key][0]["rotation"].z}`
-        light.appendChild(lightRotation)
-
-        const lightPosition = document.createElement("li")
-        lightPosition.innerHTML = `POSITION: x:${lightsList[key][0]["position"].x}, y:${lightsList[key][0]["position"].y}, z:${lightsList[key][0]["rotation"].z}`
-        light.appendChild(lightPosition)
-
-        console.log(Object.values(lightsList[key][0]))
+        
         
     })
 
     function updateChosenLightData(){
         document.querySelector("#chosenLightName").innerHTML = chosenKey
-        document.querySelector("#lightPositionXYZ").innerHTML= `X: ${chosenLight.position.x} Y: ${chosenLight.position.y} Z: ${chosenLight.position.z}`
-        document.querySelector("#lightRotationXYZ").innerHTML= `X: ${chosenLight.rotation.x} Y: ${chosenLight.rotation.y} Z: ${chosenLight.rotation.z}`
+
+        if (chosenLight.type != "AmbientLight"){
+            console.log("chosen light type detected: ", chosenLight.type)
+            document.querySelector("#lightPositionXYZ").innerHTML= `X: ${chosenLight.position.x} Y: ${chosenLight.position.y} Z: ${chosenLight.position.z}`
+            document.querySelector("#lightRotationXYZ").innerHTML= `X: ${chosenLight.rotation.x} Y: ${chosenLight.rotation.y} Z: ${chosenLight.rotation.z}`
+        }
+        
         lightSettingsColor.style.backgroundColor = `rgb(${chosenLight.color.r*255},${chosenLight.color.g*255},${chosenLight.color.b*255})`
         document.querySelector("#lightOption2").innerHTML = `Intensity: ${chosenLight.intensity}` //options 2
         if (chosenLight.type == "HemisphereLight"){

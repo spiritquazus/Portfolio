@@ -401,15 +401,15 @@ const langLoader = {
     "hogaSumDesc": "HOGA는 맞춤화 시스템을 갖춘 웹 기반 생산성 대시보드로, 직관적이고 사용하기 쉬운 UI를 제공하며 시간 관리 효율성과 좋은 작업/학습 습관을 촉진하도록 설계되었습니다. 대시보드는 사용자가 집중 세션을 위해 일반적으로 접근하는 모든 필요한 도구와 '미니 앱'을 제공합니다.",
     "hogaSumList": "<li>이동 가능하고 크기 조절이 가능한 강력한 위젯</li><li>Spotify, Youtube, Gemini, Calendar 등과 통합된 API</li><li>강력한 맞춤형 타이머, 휴식 및 알람 시스템</li><li>사용자 기반 음악 및 테마</li>",
 
-    "blackPeachSumTitle": "준비 중: Black Peach",
+    "blackPeachSumTitle": "Black Peach",
     "blackPeachSumDesc": "Black Peach는 개인과 기업 모두가 사용할 수 있도록 설계된 프로젝트 관리 앱입니다. 사용자는 선형 타임라인, 트리 또는 제텔카스텐 등 다양한 구조를 통해 주제를 프로젝트 기반으로 조직할 수 있습니다. 이 다중 구조 접근 방식은 Black Peach가 프로젝트나 작업 계획 등 다양한 용도로 사용 가능합니다.",
     "blackPeachSumList": "<li>프로젝트 완료 추적기</li><li>마감일 설정 및 타임라인 추적기</li><li>주간, 일일, 시간별 진행률 측정기</li><li>알람 및 경고</li>",
 
-    "3dPortSumTitle": "준비 중: 포트폴리오 (3D)",
+    "3dPortSumTitle": "포트폴리오 (3D)",
     "3dPortSumDesc": "현재 보고 있는 포트폴리오의 3D 렌더링 버전으로, 모바일과 데스크톱 뷰를 모두 지원하도록 설계되었습니다. 두 번째 포트폴리오를 만드는 주요 목표는 3D 렌더링, 설정 및 웹-앱 통합을 통해 자바스크립트의 범위를 더욱 확장하는 것이었습니다. Three JS로 제작되었습니다.",
     "3dPortSumList": "<li>360도 카메라 이동</li><li>인터랙티브 씬 및 객체</li><li>낮/밤 시스템</li>",
 
-    "psyPSumTitle": "준비 중: Psychophobia",
+    "psyPSumTitle": "Psychophobia",
     "psyPSumDesc": "Andrei Tarkovsky 감독의 영화 STALKER와 그 후속작의 세계를 기반으로 한 Psychophobia는 자바스크립트로 완전히 제작된 팬 프로젝트입니다. 저는 이 게임을 2024년 4월, 코딩을 막 배우기 시작했을 때 처음 시작했습니다. 이 프로젝트를 통해 JS/HTML/CSS의 첫 번째 언어를 연습하고 새로운 개념을 배울 때 응용하는 것을 목표로 하고 있습니다.",
     "psyPSumList": "<li>인벤토리, 레벨 및 장비 시스템</li><li>무작위 전리품 및 제작 시스템</li><li>비동기 전투 시스템</li><li>평판 시스템이 있는 여러 진영</li><li>재플레이성 및 게임플레이 다양성을 위한 로그라이트 접근</li>",
 

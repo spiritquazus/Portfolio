@@ -57,8 +57,8 @@ function createLight(_lightType, _scene, _obj){
             return null; 
     }
 
-    newLight.position.set(..._obj.posxyz)
-    newLight.rotation.set(..._obj.rotaxyz)
+    if(_obj.posxyz)newLight.position.set(..._obj.posxyz)
+    if(_obj.rotaxyz)newLight.rotation.set(..._obj.rotaxyz)
     _lightType=="HemisphereLight"?console.log("NOTREADYET"):_obj.lightColor?newLight.color.set(..._obj.lightColor):console.log(_lightType, " No light color detected. resorting to default")
     _obj.intensity?newLight.intensity.set(_obj.intensity):console.log(_lightType, " No light intensity detected. resorting to default")
 

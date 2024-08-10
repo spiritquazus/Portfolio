@@ -14,7 +14,8 @@ import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 
 
 const BGcamera = new THREE.PerspectiveCamera(70, window.innerWidth/window.innerHeight, 0.1, 500);
-BGcamera.position.setZ(0.5);
+BGcamera.position.setZ(0);
+BGcamera.position.setY(0.5);
 
 const BGscene = new THREE.Scene(); //container 
 const BGrenderer = new THREE.WebGLRenderer({

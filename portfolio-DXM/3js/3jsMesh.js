@@ -65,7 +65,7 @@ void main() {
 
 const uniforms = { //for shaders! decides which texture to use as a base
     nightCityTex: {
-        value: new THREE.TextureLoader().load('../gallery/3jsTextures/skylineBGNight.jpg')
+        value: new THREE.TextureLoader().load('../gallery/3jsTextures/skylineBGNight.webp')
     }
 }
 
@@ -88,11 +88,37 @@ const BGbackgroundMaterial = new THREE.MeshPhongMaterial({ //unused
     map: BGbackgroundMesh,
     side: THREE.FrontSide,
 })
-const BGbackgroundGeo = new THREE.PlaneGeometry(window.innerWidth, window.innerHeight);
+
+
+
+const BGbackgroundGeo = new THREE.PlaneGeometry(2700, window.innerHeight, 50);
+/* const BGbackgroundGeo = new THREE.PlaneGeometry(window.innerWidth, window.innerHeight, 50); //need to change so its not related to window width or height... terrible idea */
 const BGbackgroundFull = new THREE.Mesh(BGbackgroundGeo, BGshaderMat)
-BGbackgroundFull.position.set(0, 60, -200)
-BGbackgroundFull.rotation.set(-10*Math.PI/180, 0, 0)
-BGbackgroundFull.scale.set(0.5, 0.5, 0.2)
+
+BGbackgroundFull.position.set(20, 5.5, -25)
+/* BGbackgroundFull.rotation.set(-10*Math.PI/180, 0, 0) */
+BGbackgroundFull.scale.set(0.03, 0.03, 0.017)
+BGbackgroundFull.rotation.set(0, -0.5, 0)
+
+
+
+
+
+// Modify vertices to create a single crescent shape
+const vertices = BGbackgroundGeo.attributes.position.array;
+const curveStrength = -0.0011; // Adjust this for more or less curvature
+
+for (let i = 0; i < vertices.length; i += 3) {
+    const x = vertices[i];
+    const z = vertices[i + 2];
+
+    // Apply a curve that affects the entire width of the plane in one direction
+    vertices[i + 2] = z - (x * x * curveStrength);
+}
+
+BGbackgroundGeo.attributes.position.needsUpdate = true;
+
+
 
 //background Mesh 2:
 const BGbackgroundGeo2 = new THREE.PlaneGeometry(window.innerWidth, window.innerHeight);
@@ -114,6 +140,11 @@ glowSimpleContext.fillRect(0,0,512,512)
 
 //==FUNCTIONS==
 
+//radians converter:
+function degreesToRadians(degrees) {
+    return degrees * (Math.PI / 180);
+}
+
 //GLTF:
 
 //modelInstall(GLTFLoader, '../gallery/3dAssets/streetTokyo/scene.gltf', {scale: [1,1,1], position: [2,0,0]})
@@ -127,7 +158,17 @@ function modelInstall(_loaderType, _item, _scene, _obj){
                 function _upk(K, def1){return def1 ? (K ? K : [1,1,1]) : (K ? K : [0,0,0])}
                 gltfScene.scene.scale.set(..._upk(_obj.scale, true));
                 gltfScene.scene.position.set(..._upk(_obj.position))
-                gltfScene.scene.rotation.set(..._upk(_obj.rotation))
+                /* gltfScene.scene.rotation.set(..._upk(_obj.rotation)) */
+
+                const [rotX, rotY, rotZ] = _upk(_obj.rotation);
+
+                // Convert degrees to radians
+                const x = degreesToRadians(rotX);
+                const y = degreesToRadians(rotY);
+                const z = degreesToRadians(rotZ);
+
+                // Set rotation in radians
+                gltfScene.scene.rotation.set(x, y, z);
 
                 console.log("GLTF loaded successfully:", gltfScene);
                 
