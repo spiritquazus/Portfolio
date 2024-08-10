@@ -55,13 +55,15 @@ function createLight(_lightType, _scene, _obj){
         default:
             console.error(`Light type "${_lightType}" not recognized.`);
             return null; 
-    }
+    } 
 
     if(_obj.posxyz)newLight.position.set(..._obj.posxyz)
     if(_obj.rotaxyz)newLight.rotation.set(..._obj.rotaxyz)
     _lightType=="HemisphereLight"?console.log("NOTREADYET"):_obj.lightColor?newLight.color.set(..._obj.lightColor):console.log(_lightType, " No light color detected. resorting to default")
-    _obj.intensity?newLight.intensity.set(_obj.intensity):console.log(_lightType, " No light intensity detected. resorting to default")
 
+    _obj.intensity?newLight.intensity=_obj.intensity:console.log(_lightType, " No light intensity detected. resorting to default")
+    _obj.distance?newLight.distance=_obj.distance:console.log(_lightType, " No light distance detected. resorting to default")
+    _obj.decay?newLight.decay=_obj.decay:console.log(_lightType, " No light decay detected. resorting to default")
     
     console.log(`Adding light ${newLight} to scene`)
     _scene.add(newLight)

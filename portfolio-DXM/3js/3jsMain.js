@@ -80,15 +80,31 @@ modelInstall(GLTFLoader, '../gallery/3dAssets/suburbsBG/suburbs_wip1.gltf', BGsc
 modelInstall(GLTFLoader, '../gallery/3dAssets/yourRoom/BasemenrRoomFixed_2exp.gltf', BGscene, {scale: [0.2,0.2,0.2], position: [0,0,0], rotation: [0,180,0]}),
 
 lightsList.lightAmbient = 
-createLight("AmbientLight", BGscene, {lightSetup:['rgb(30,20,115)', 0.23, 5, 1.9]})
+createLight("AmbientLight", BGscene, {lightSetup:['rgb(30,20,115)', 0.03, 3, 1.9]})
+
+lightsList.lightBGcityFront = 
+createLight("PointLight", BGscene, {lightSetup:['rgb(220,220,190)', 0.5, 9, 0.2], intensity: 0.15, distance: 8.4, posxyz:[0.000,1.200,-10.200], rotaxyz: [0.000,0.000,0.000], lightH:true, lightHSetup:[]})
+
+lightsList.lightBGcityRight = 
+createLight("PointLight", BGscene, {lightSetup:['rgb(220,220,190)', 0.5, 9, 0.2], intensity: 0.11, distance: 7, posxyz:[6.000,0.000,-1.500], rotaxyz:[0.000,0.000,0.000], lightH:true, lightHSetup:[]})
+
+lightsList.pointLight전등 = 
+createLight("PointLight", BGscene, {lightSetup:['rgb(220,220,190)', 0.5, 9, 0.2], intensity: 0.45, distance: 0.6, posxyz:[-0.100,0.300,-0.100], rotaxyz:[0.000,0.600,0.000], lightH:true, lightHSetup:[]})
+
+lightsList.pointLight등 = 
+createLight("PointLight", BGscene, {lightSetup:['rgb(255,255,255)', 0.5, 9, 0.2], intensity: 0.45, distance: 0.6, posxyz:[0.250,0.350,-0.400], rotaxyz:[-0.050,0.600,0.000], lightH:true, lightHSetup:[]})
+
+lightsList.rectLightパスコン1 = 
+createLight("RectAreaLight", BGscene, {lightSetup:['rgb(183,229,250)', 3, 0.7, 2.5], posxyz:[0.035,0.255,0.255],  rotaxyz:[-0.000,0.070,0.000], width:0.15, height: 0.09, lightH:true, lightHSetup:[]})
+
+lightsList.rectLightパスコン2 = 
+createLight("RectAreaLight", BGscene, {lightSetup:['rgb(183,229,250)', 3, 0.7, 2.5], posxyz:[-0.125,0.255,0.255],  rotaxyz:[0.000,-0.100,0.000], width:0.15, height: 0.09, lightH:true, lightHSetup:[]})
+
+lightsList.pointLightReact = 
+createLight("PointLight", BGscene, {lightSetup:['rgb(77,255,255)', 0.5, 9, 0.2], intensity:0.39, distance:0.2, posxyz:[0.120,0.380,0.230],  rotaxyz:[-0.100,0.600,0.000], lightH:true, lightHSetup:[]})
 
 
 
-
-
-
-lightsList.lightBGcity1 = 
-createLight("PointLight", BGscene, {lightSetup:['rgb(220,220,190)', 2.1, 5, 1.9], posxyz: [0.000,2.800,-0.200], rotaxyz: [0.000,0.000,0.000], lightH:true, lightHSetup:[]})
 
 /* 
 lightsList.lightMenuWall = 
@@ -159,26 +175,26 @@ function kontroller(_scene){
             <input id="kontrolIncrement" type="text" value="0.1" style="width: 2rem">
             <br/>
             <br/>
-            <div>Current XYZ position: <span id="lightPositionXYZ"></span></div>
+            <div>Current XYZ position: <span id="lightPositionXYZ" class="kontrolDenom"></span></div>
             <div><button id="posXplus">posXplus</button> <button id="posYplus">posYplus</button> <button id="posZplus">posZplus</button></div>
             <div><button id="posXminus">posXminus</button> <button id="posYminus">posYminus</button> <button id="posZminus">posZminus</button></div>
             <br/>
-            <div>Current XYZ Rotation: <span id="lightRotationXYZ"></span></div>
+            <div>Current XYZ Rotation: <span id="lightRotationXYZ" class="kontrolDenom"></span></div>
             <div><button id="rotaXplus">rotaXplus</button> <button id="rotaYplus">rotaYplus</button> <button id="rotaZplus">rotaZplus</button></div>
             <div><button id="rotaXminus">rotaXminus</button> <button id="rotaYminus">rotaYminus</button> <button id="rotaZminus">rotaZminus</button></div>
             <br/>
 
-            <div>Lights Settings <span id="lightSettingsAAA"></span>:</div>
+            <div>Lights Settings <span id="lightSettingsAAA" class="kontrolDenom"></span>:</div>
             <div style="display: flex">Color/skyColor<span id="lightOption1"></span><div id=lightSettingsColor></div></div>
             <div><button id="lightsRedPlus">Red+</button><button id="lightsRedMinus">Red-</button><button id="lightsGreenPlus">Green+</button><button id="lightsGreenMinus">Green-</button><button id="lightsBluePlus">Blue+</button><button id="lightsBlueMinus">Blue-</button></div>
             
-            <div>Intensity/groundcolor - <span id="lightOption2"></span></div>
+            <div>Intensity/groundcolor - <span id="lightOption2" class="kontrolDenom"></span></div>
             <div><button id="lightOption2Plus">+</button><button id="lightOption2Minus">-</button></div>
             
-            <div>Width/distance/skyIntensity - <span id="lightOption3"></span></div>
+            <div>Width/distance/skyIntensity - <span id="lightOption3" class="kontrolDenom"></span></div>
             <div><button id="lightOption3Plus">+</button><button id="lightOption3Minus">-</button></div>
             
-            <div>Height/angle/decay - <span id="lightOption4"></span></div>
+            <div>Height/angle/decay - <span id="lightOption4" class="kontrolDenom"></span></div>
             <div><button id="lightOption4Plus">+</button><button id="lightOption4Minus">-</button></div>
             <br/>
             <button id="saveChanges"> SAVE! (copies to clipboard) </button>
@@ -217,6 +233,7 @@ function kontroller(_scene){
 
     }
 
+    
     document.querySelector("#posXplus").addEventListener("click", ()=>{changeValueLoc("position", "x")})
     document.querySelector("#posYplus").addEventListener("click", ()=>{changeValueLoc("position", "y")})  
     document.querySelector("#posZplus").addEventListener("click", ()=>{changeValueLoc("position", "z")})  
@@ -327,6 +344,8 @@ function kontroller(_scene){
             light.appendChild(lightStat)
         }) */
 
+        
+
 
         if (lightsList[key][0] && lightsList[key][0]["rotation"] != undefined){
             const lightRotation = document.createElement("li")
@@ -350,25 +369,25 @@ function kontroller(_scene){
 
         if (chosenLight.type != "AmbientLight"){
             console.log("chosen light type detected: ", chosenLight.type)
-            document.querySelector("#lightPositionXYZ").innerHTML= `X: ${chosenLight.position.x} Y: ${chosenLight.position.y} Z: ${chosenLight.position.z}`
-            document.querySelector("#lightRotationXYZ").innerHTML= `X: ${chosenLight.rotation.x} Y: ${chosenLight.rotation.y} Z: ${chosenLight.rotation.z}`
+            document.querySelector("#lightPositionXYZ").innerHTML= `X: ${fixInt(chosenLight.position.x)} Y: ${fixInt(chosenLight.position.y)} Z: ${fixInt(chosenLight.position.z)}`
+            document.querySelector("#lightRotationXYZ").innerHTML= `X: ${fixInt(chosenLight.rotation.x)} Y: ${fixInt(chosenLight.rotation.y)} Z: ${fixInt(chosenLight.rotation.z)}`
         }
         
         lightSettingsColor.style.backgroundColor = `rgb(${chosenLight.color.r*255},${chosenLight.color.g*255},${chosenLight.color.b*255})`
         document.querySelector("#lightOption2").innerHTML = `Intensity: ${chosenLight.intensity}` //options 2
         if (chosenLight.type == "HemisphereLight"){
-            document.querySelector("#lightOption2").innerHTML = `groundColor: ${chosenLight.intensity}`
+            document.querySelector("#lightOption2").innerHTML = `groundColor: ${fixInt(chosenLight.intensity)}`
         }
         switch (chosenLight.type){ //options 3
             case "RectAreaLight": 
-                document.querySelector("#lightOption3").innerHTML = `Width: ${chosenLight.width}`
+                document.querySelector("#lightOption3").innerHTML = `Width: ${fixInt(chosenLight.width)}`
                 break;
             case "PointLight":
             case "SpotLight":
-                document.querySelector("#lightOption3").innerHTML = `Distance: ${chosenLight.distance}`
+                document.querySelector("#lightOption3").innerHTML = `Distance: ${fixInt(chosenLight.distance)}`
                 break;
             case "HemisphereLight":
-                document.querySelector("#lightOption3").innerHTML = `Intensity: ${chosenLight.intensity}`
+                document.querySelector("#lightOption3").innerHTML = `Intensity: ${fixInt(chosenLight.intensity)}`
                 break;
             default:
                 document.querySelector("#lightOption3").innerHTML = "N/A" //nothing.
@@ -376,13 +395,13 @@ function kontroller(_scene){
         }
         switch (chosenLight.type){ //options 4
             case "RectAreaLight": 
-                document.querySelector("#lightOption4").innerHTML = `Height: ${chosenLight.height}`
+                document.querySelector("#lightOption4").innerHTML = `Height: ${fixInt(chosenLight.height)}`
                 break;
             case "SpotLight":
-                document.querySelector("#lightOption4").innerHTML = `Angle: ${chosenLight.angle}`
+                document.querySelector("#lightOption4").innerHTML = `Angle: ${fixInt(chosenLight.angle)}`
                 break;
             case "PointLight":
-                document.querySelector("#lightOption4").innerHTML = `Decay: ${chosenLight.decay}`
+                document.querySelector("#lightOption4").innerHTML = `Decay: ${fixInt(chosenLight.decay)}`
                 break;
             default:
                 document.querySelector("#lightOption4").innerHTML = "N/A" //nothing.
@@ -390,9 +409,13 @@ function kontroller(_scene){
         }
     }
 
+    function fixInt(_int){
+        return parseFloat(_int.toFixed(4))
+    }
+    
     function copyPasteLightSetup(){
-        console.log("!!COPYPASTE WHAT IS CHOSENLIGHT.TYPE, ", chosenLight.type)
-        let option1 = `color:${chosenLight.color.r},${chosenLight.color.g},${chosenLight.color.b}`
+
+        let option1 = `color:${chosenLight.color.r*255},${chosenLight.color.g*255},${chosenLight.color.b*255}`
         let option2 = `intensity:${chosenLight.intensity}`
         let option3 
         let option4
@@ -418,8 +441,8 @@ function kontroller(_scene){
         }
 
         navigator.clipboard.writeText(`
-        posxyz:[${chosenLight.position.x.toFixed(3)},${chosenLight.position.y.toFixed(3)},${chosenLight.position.z.toFixed(3)}], 
-        rotaxyz:[${chosenLight.rotation.x.toFixed(3)},${chosenLight.rotation.y.toFixed(3)},${chosenLight.rotation.z.toFixed(3)}],
+        posxyz:[${chosenLight.position.x.toFixed(4)},${chosenLight.position.y.toFixed(4)},${chosenLight.position.z.toFixed(4)}], 
+        rotaxyz:[${chosenLight.rotation.x.toFixed(4)},${chosenLight.rotation.y.toFixed(4)},${chosenLight.rotation.z.toFixed(4)}],
         ${option1}, 
         ${option2}, 
         ${option3}, 
