@@ -89,10 +89,14 @@ lightsList.lightBGcityRight =
 createLight("PointLight", BGscene, {lightSetup:['rgb(220,220,190)', 0.5, 9, 0.2], intensity: 0.11, distance: 7, posxyz:[6.000,0.000,-1.500], rotaxyz:[0.000,0.000,0.000], lightH:true, lightHSetup:[]})
 
 lightsList.pointLight전등 = 
-createLight("PointLight", BGscene, {lightSetup:['rgb(220,220,190)', 0.5, 9, 0.2], intensity: 0.45, distance: 0.6, posxyz:[-0.100,0.300,-0.100], rotaxyz:[0.000,0.600,0.000], lightH:true, lightHSetup:[]})
+createLight("PointLight", BGscene, {lightSetup:['rgb(220,220,190)', 0.5, 9, 0.2], intensity:0.75, distance: 0.4, decay:2.8, posxyz:[-0.100,0.300,-0.100], rotaxyz:[0.000,0.600,0.000], lightH:true, lightHSetup:[]})
 
 lightsList.pointLight등 = 
 createLight("PointLight", BGscene, {lightSetup:['rgb(255,255,255)', 0.5, 9, 0.2], intensity: 0.45, distance: 0.6, posxyz:[0.250,0.350,-0.400], rotaxyz:[-0.050,0.600,0.000], lightH:true, lightHSetup:[]})
+
+
+lightsList.pointLight작은등 = 
+createLight("PointLight", BGscene, {lightSetup:['rgb(240,185,110)', 0.5, 9, 0.2], intensity: 0.2, distance: 0.4, decay: 1, posxyz:[-0.3050,0.0900,-0.4850], rotaxyz:[-0.0500,0.5700,0.0000], lightH:true, lightHSetup:[]})
 
 lightsList.rectLightパスコン1 = 
 createLight("RectAreaLight", BGscene, {lightSetup:['rgb(183,229,250)', 3, 0.7, 2.5], posxyz:[0.035,0.255,0.255],  rotaxyz:[-0.000,0.070,0.000], width:0.15, height: 0.09, lightH:true, lightHSetup:[]})
@@ -102,6 +106,9 @@ createLight("RectAreaLight", BGscene, {lightSetup:['rgb(183,229,250)', 3, 0.7, 2
 
 lightsList.pointLightReact = 
 createLight("PointLight", BGscene, {lightSetup:['rgb(77,255,255)', 0.5, 9, 0.2], intensity:0.39, distance:0.2, posxyz:[0.120,0.380,0.230],  rotaxyz:[-0.100,0.600,0.000], lightH:true, lightHSetup:[]})
+
+
+
 
 
 
@@ -281,6 +288,9 @@ function kontroller(_scene){
     document.querySelector("#lightOption4Plus").addEventListener("click", ()=>{changeValueLoc(null, "angle")})  
     document.querySelector("#lightOption4Minus").addEventListener("click", ()=>{changeValueLoc(null, "angle", true)})  
 
+    document.querySelector("#lightOption4Plus").addEventListener("click", ()=>{changeValueLoc(null, "decay")})  
+    document.querySelector("#lightOption4Minus").addEventListener("click", ()=>{changeValueLoc(null, "decay", true)})  
+
     document.querySelector("#saveChanges").addEventListener("click", ()=>{copyPasteLightSetup()})
     //   `posxyz[${chosenLight.position.x.toFixed(3)},${chosenLight.position.y.toFixed(3)},${chosenLight.position.z.toFixed(3)}], rotaxyz[${chosenLight.rotation.x.toFixed(3)},${chosenLight.rotation.y.toFixed(3)},${chosenLight.rotation.z.toFixed(3)}]`
 
@@ -427,16 +437,16 @@ function kontroller(_scene){
                 option4 = null;
                 break;
             case "RectAreaLight":
-                option3 = `Width:${chosenLight.width}`
-                option4 = `Height:${chosenLight.height}`
+                option3 = `width:${chosenLight.width}`
+                option4 = `height:${chosenLight.height}`
                 break
             case "SpotLight":
-                option3 = `Distance:${chosenLight.distance}`
-                option4 = `Angle:${chosenLight.angle}`
+                option3 = `distance:${chosenLight.distance}`
+                option4 = `angle:${chosenLight.angle}`
                 break;
             case "PointLight":
-                option3 = `Distance:${chosenLight.distance}`
-                option4 = `Decay:${chosenLight.decay}`
+                option3 = `distance:${chosenLight.distance}`
+                option4 = `decay:${chosenLight.decay}`
                 break;
         }
 

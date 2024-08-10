@@ -16,35 +16,36 @@ const ambientLight = new THREE.AmbientLight("rgb(255,255,255)",0.05)
 function createLight(_lightType, _scene, _obj){
     let newLight;
     let newLightHelper;
+    if (_obj.distance)_obj.lightHSetup = _obj.distance
     switch (_lightType) {
         case 'PointLight':
             newLight = new THREE.PointLight(..._obj.lightSetup); 
             if (_obj.lightH){
-                newLightHelper = new THREE.PointLightHelper(newLight, ..._obj.lightHSetup) //(color, intensity, decay...)
+                newLightHelper = new THREE.PointLightHelper(newLight, _obj.lightHSetup) //(color, intensity, decay...)
             }
             break;
         case 'SpotLight':
             newLight = new THREE.SpotLight(..._obj.lightSetup); 
             if (_obj.lightH){
-                newLightHelper = new THREE.SpotLightHelper(newLight, ..._obj.lightHSetup)
+                newLightHelper = new THREE.SpotLightHelper(newLight, _obj.lightHSetup)
             }
             break;
         case 'DirectionalLight':
             newLight = new THREE.DirectionalLight(..._obj.lightSetup);
             if (_obj.lightH){
-                newLightHelper = new THREE.DirectionalLightHelper(newLight, ..._obj.lightHSetup)
+                newLightHelper = new THREE.DirectionalLightHelper(newLight, _obj.lightHSetup)
             }
             break;
         case 'HemisphereLight':
             newLight = new THREE.HemisphereLight(..._obj.lightSetup); 
             if (_obj.lightH){
-                newLightHelper = new THREE.HemisphereLightHelper(newLight, ..._obj.lightHSetup)
+                newLightHelper = new THREE.HemisphereLightHelper(newLight, _obj.lightHSetup)
             }
             break;
         case 'RectAreaLight':
             newLight = new THREE.RectAreaLight(..._obj.lightSetup); 
             if (_obj.lightH){
-                newLightHelper = new RectAreaLightHelper(newLight, ..._obj.lightHSetup)
+                newLightHelper = new RectAreaLightHelper(newLight, _obj.lightHSetup)
             }
             _obj.width?newLight.width = _obj.width:console.log(_lightType, " No light width detected. resorting to default")
             _obj.height?newLight.height = _obj.height:console.log(_lightType, " No light height detected. resorting to default")
@@ -64,6 +65,7 @@ function createLight(_lightType, _scene, _obj){
     _obj.intensity?newLight.intensity=_obj.intensity:console.log(_lightType, " No light intensity detected. resorting to default")
     _obj.distance?newLight.distance=_obj.distance:console.log(_lightType, " No light distance detected. resorting to default")
     _obj.decay?newLight.decay=_obj.decay:console.log(_lightType, " No light decay detected. resorting to default")
+    
     
     console.log(`Adding light ${newLight} to scene`)
     _scene.add(newLight)
