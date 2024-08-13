@@ -127,3 +127,16 @@ button {
   display: flex;
   flex-direction: row;
 }
+
+#kontrolCamerasUI{
+  display: flex;
+  flex-direction: column;
+  columns: 20rem 2;
+  flex-wrap: wrap;
+  max-height: 70vh;
+  max-width: 40vw;
+  background-color: rgba(220,220,220,0.5);
+  border-radius: 20px;
+  backdrop-filter: blur(15px);
+  padding: 10px;
+}

@@ -89,6 +89,21 @@ const BGbackgroundMaterial = new THREE.MeshPhongMaterial({ //unused
     side: THREE.FrontSide,
 })
 
+//touchArea:
+function createTouchSphere(_scene, _obj){
+    const touchMaterial = new THREE.MeshBasicMaterial({ color: _obj.color?_obj.color:0x00ff00 });
+    const touchArea = new THREE.SphereGeometry(0.2);
+    const touchSphere = new THREE.Mesh(touchArea, touchMaterial);
+    touchSphere.scale.set(..._obj.scalexyz)
+    touchSphere.position.set(..._obj.posxyz)
+    touchSphere.name = _obj.name;
+    touchSphere.raycastable = true;
+    console.log("created new touchSphere: ", touchSphere)
+    _scene.add(touchSphere)
+    return touchSphere
+}
+
+
 
 
 const BGbackgroundGeo = new THREE.PlaneGeometry(2700, window.innerHeight, 50);
@@ -220,4 +235,4 @@ function addRandoms(_color, _scene, _loop){
     }
 }
 
-export {addRandoms, modelInstall, BGbackgroundFull, BGbackgroundFull2};
+export {addRandoms, modelInstall, BGbackgroundFull, BGbackgroundFull2, createTouchSphere};

@@ -6,21 +6,45 @@ import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'; 
 
+
+
 import { RectAreaLightHelper } from 'three/addons/helpers/RectAreaLightHelper.js';
 
-import { addRandoms, modelInstall, BGbackgroundFull, BGbackgroundFull2 } from './3jsMesh.js'
-import { BGrenderer, BGscene, BGcamera } from './3jsScene.js'
+import { addRandoms, modelInstall, BGbackgroundFull, BGbackgroundFull2, createTouchSphere } from './3jsMesh.js'
+import { BGrenderer, BGscene, BGcamera, raycaster, pointer} from './3jsScene.js'
 import { bulbLight1, pointLight1, lightHelper1, ambientLight, lightHelperPoint1, createLight} from './3jsFX.js'
 import { playModelAnim, updateModelAnim } from './3jsAnim.js'
 
-function editorMode(_scene){
-    const _fullControls = new OrbitControls(BGcamera, BGrenderer.domElement);
+const cMain = document.getElementById("cMain")
+let targetHelper;
+function editorMode(_scene) {
+    _fullControls.enabled = true;
+    _fullControls.enableDamping = true; // Inertia damping
+    _fullControls.dampingFactor = 0.25;
+   /*  _fullControls.enableZoom = false; // Disable zooming */
+    _fullControls.enablePan = false; // Disable panning
+    /* _fullControls.target.set(-0.11, 0.4, -0.084); // Initial target position */
+    /* _fullControls.target.set(-0.0150,0.2550,0.20905); //vanilla settings */
+    _fullControls.minDistance = 0.0;
+    _fullControls.maxDistance = 0.05;
+     /* _fullControls.minPolarAngle = Math.PI/ 3  */
+    /* _fullControls.maxPolarAngle = Math.PI/ 10 */
+    const targetGeometry = new THREE.SphereGeometry(0.05, 32, 32); // Small sphere
+    const targetMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 }); // Red color
+    targetHelper = new THREE.Mesh(targetGeometry, targetMaterial);
+    targetHelper.position.copy(_fullControls.target);
+
     const _gridHelper = new THREE.GridHelper();
-    _scene.add(_gridHelper)
-}    
+    _scene.add(_gridHelper);
+    _scene.add(targetHelper);
+}
 
 window.lightsList = {}
 window.modelsList = {}
+window.camerasList = {}
+let raycastList = {}
+let _fullControls = new OrbitControls(BGcamera, BGrenderer.domElement);
+_fullControls.enabled = false
 
 console.log("detecting user machine perf. ", window.performance)
 const availableMemory = (performance.memory.jsHeapSizeLimit - performance.memory.usedJSHeapSize)/1000000000;
@@ -76,24 +100,25 @@ gltfLoader1.load(
 }
 loadAllModels() //⚠️back-up for old style */
 
+camerasList.BGcamera = BGcamera
+
 modelInstall(GLTFLoader, '../gallery/3dAssets/suburbsBG/suburbs_wip1.gltf', BGscene, {scale: [0.1,0.1,0.1], position: [2.8,-2.2,-3.45], rotation: [0,-180,0]}),
 modelInstall(GLTFLoader, '../gallery/3dAssets/yourRoom/BasemenrRoomFixed_2exp.gltf', BGscene, {scale: [0.2,0.2,0.2], position: [0,0,0], rotation: [0,180,0]}),
 
 lightsList.lightAmbient = 
-createLight("AmbientLight", BGscene, {lightSetup:['rgb(30,20,115)', 0.03, 3, 1.9]})
+createLight("AmbientLight", BGscene, {lightSetup:['rgb(37,38,84)', 0.03, 3, 1.9], intensity: 1.43})
 
-lightsList.lightBGcityFront = 
+/* lightsList.lightBGcityFront = 
 createLight("PointLight", BGscene, {lightSetup:['rgb(220,220,190)', 0.5, 9, 0.2], intensity: 0.15, distance: 8.4, posxyz:[0.000,1.200,-10.200], rotaxyz: [0.000,0.000,0.000], lightH:true, lightHSetup:[]})
 
 lightsList.lightBGcityRight = 
 createLight("PointLight", BGscene, {lightSetup:['rgb(220,220,190)', 0.5, 9, 0.2], intensity: 0.11, distance: 7, posxyz:[6.000,0.000,-1.500], rotaxyz:[0.000,0.000,0.000], lightH:true, lightHSetup:[]})
-
+ */
 lightsList.pointLight전등 = 
-createLight("PointLight", BGscene, {lightSetup:['rgb(220,220,190)', 0.5, 9, 0.2], intensity:0.75, distance: 0.4, decay:2.8, posxyz:[-0.100,0.300,-0.100], rotaxyz:[0.000,0.600,0.000], lightH:true, lightHSetup:[]})
+createLight("PointLight", BGscene, {lightSetup:['rgb(220,220,190)', 0.5, 9, 0.2], intensity:0.75, distance: 0.4, decay:2.8, posxyz:[-0.0500,0.3000,-0.1000], rotaxyz:[0.000,0.600,0.000], lightH:true, lightHSetup:[]})
 
 lightsList.pointLight등 = 
-createLight("PointLight", BGscene, {lightSetup:['rgb(255,255,255)', 0.5, 9, 0.2], intensity: 0.45, distance: 0.6, posxyz:[0.250,0.350,-0.400], rotaxyz:[-0.050,0.600,0.000], lightH:true, lightHSetup:[]})
-
+createLight("PointLight", BGscene, {lightSetup:['rgb(255,255,255)', 0.5, 9, 0.2], intensity: 0.55, distance: 0.5, decay: 1.5, posxyz:[0.250,0.350,-0.400], rotaxyz:[-0.050,0.600,0.000], lightH:true, lightHSetup:[]})
 
 lightsList.pointLight작은등 = 
 createLight("PointLight", BGscene, {lightSetup:['rgb(240,185,110)', 0.5, 9, 0.2], intensity: 0.2, distance: 0.4, decay: 1, posxyz:[-0.3050,0.0900,-0.4850], rotaxyz:[-0.0500,0.5700,0.0000], lightH:true, lightHSetup:[]})
@@ -104,14 +129,25 @@ createLight("RectAreaLight", BGscene, {lightSetup:['rgb(183,229,250)', 3, 0.7, 2
 lightsList.rectLightパスコン2 = 
 createLight("RectAreaLight", BGscene, {lightSetup:['rgb(183,229,250)', 3, 0.7, 2.5], posxyz:[-0.125,0.255,0.255],  rotaxyz:[0.000,-0.100,0.000], width:0.15, height: 0.09, lightH:true, lightHSetup:[]})
 
+lightsList.pointLightパスコン赤い = 
+createLight("PointLight", BGscene, {lightSetup:['rgb(250,20,20)', 0.5, 9, 0.2], intensity: 0.1, distance: 0.25, decay: 0.7, posxyz:[-0.3550,0.0400,0.2150], rotaxyz:[0.1500,0.5700,0.0000], lightH:true, lightHSetup:[]})
+
 lightsList.pointLightReact = 
 createLight("PointLight", BGscene, {lightSetup:['rgb(77,255,255)', 0.5, 9, 0.2], intensity:0.39, distance:0.2, posxyz:[0.120,0.380,0.230],  rotaxyz:[-0.100,0.600,0.000], lightH:true, lightHSetup:[]})
 
+lightsList.rectLightKanpan7ElevenNorth = 
+createLight("RectAreaLight", BGscene, {lightSetup:['rgb(250,250,250)', 3, 0.7, 2.5], posxyz:[0.0750,-1.0500,-3.5450], intensity: 0.5, rotaxyz:[0.0000,6.2500,0.0000], width:0.65, height: 0.26, lightH:true, lightHSetup:[]})
+
+lightsList.rectLightKanpan7ElevenEast = 
+createLight("RectAreaLight", BGscene, {lightSetup:['rgb(250,250,250)', 3, 0.7, 2.5], posxyz:[6.5750,0.3550,-1.4450], intensity: 0.5, rotaxyz:[0.0000,-1.5500,0.0000], width:0.65, height: 0.26, lightH:true, lightHSetup:[]})
+
+lightsList.rectLight새로간판 = 
+createLight("RectAreaLight", BGscene, {lightSetup:['rgb(250,250,250)', 3, 0.7, 2.5], posxyz:[-2.6250,1.4500,-8.5450],  intensity: 1, rotaxyz:[-2.6000,3.1500,0.0000], width:1.15, height: 0.26, lightH:true, lightHSetup:[]})
 
 
 
-
-
+raycastList.spawnCV = 
+createTouchSphere(BGscene, {posxyz:[-0.0150,0.2550,0.20905], scalexyz:[1.2,0.6,0.3], name:"spawnCV"})
 
 /* 
 lightsList.lightMenuWall = 
@@ -148,16 +184,69 @@ editorMode(BGscene)
 const threeJsClock = new THREE.Clock();
 
 
+
+
+
+let intersects
 function animateMain(){
-    requestAnimationFrame(animateMain)
+   
+    // update the picking ray with the camera and pointer position
+	raycaster.setFromCamera( pointer, BGcamera );
+    // calculate objects intersecting the picking ray
+    intersects = raycaster.intersectObjects(Object.values(raycastList));
+/* 
+     console.log("check interesects: ", intersects) //well of course it doesnt exist ytet  */
 
-    const deltaTime = threeJsClock.getDelta(); // Get the time elapsed since the last call
-
+ 	
+ 
+    //get the time elapsed since the last call
+    const deltaTime = threeJsClock.getDelta(); 
+    //updates animation according to next move
     updateModelAnim(deltaTime);
-
+    
     BGrenderer.render(BGscene, BGcamera);
+    requestAnimationFrame(animateMain)
 }
 animateMain()
+
+
+BGrenderer.domElement.addEventListener("click", raycastClick)
+BGrenderer.domElement.addEventListener("mousemove", raycastHover)
+
+function raycastClick(){
+    if (intersects[0]){
+        const currentMesh = intersects[0].object
+        currentMesh.material.color.set( "rgb(255, 0, 0)" ); 
+        currentMesh.clicked = true
+        switch (currentMesh.name){
+            case "spawnCV":
+                //do shit
+                break;
+            case "spawnProjects":
+                //do shit
+                break;
+            case "spawnContact":
+                //do shit
+                break;
+        }
+    }
+}
+
+function raycastHover(){
+    console.log("using raycastHover!")
+    if (intersects[0]){
+        const currentMesh = intersects[0].object
+        currentMesh.material.color.set( "rgb(0, 0, 255)" );
+        currentMesh.hovered = true
+    } else {
+        Object.values(raycastList).forEach((obj)=>{
+            obj.hovered = false
+            obj.clicked = false
+            obj.material.color.set( "rgb(0, 255, 0)" )
+        })
+    }
+    
+}
 
 //KONTROLLER
 
@@ -165,6 +254,10 @@ function kontroller(_scene){
     let chosenLight = {};
     let chosenKey;
     let chosenMesh;
+    let chosenCamera;
+
+    let currentMode = null
+    
     let chosenIncrement = 0.1;
     const kontrolBox = document.createElement("div")
     kontrolBox.id = "kontrolBoxCont"
@@ -173,13 +266,14 @@ function kontroller(_scene){
     <div id="kontrolBox">KONTROLBOX
         <button id="kontrolLightsBtn">Lights</button>
         <button id="kontrolMeshesBtn">Meshes</button>
+        <button id="kontrolCamerasBtn">Cameras</button>
         <button id="closeKontrolsBtn">X</button>
     </div>
     <div id="kontrolLightsUI" class="kontrolTab">
         <div id="kontrolLightsChosen"><h1>Kontrol Lights</h1><h3 id="chosenLightName"></h3>
             <br/>
             <span>Increment:</span>
-            <input id="kontrolIncrement" type="text" value="0.1" style="width: 2rem">
+            <input id="kontrolIncrementLight" type="text" value="0.1" style="width: 2rem">
             <br/>
             <br/>
             <div>Current XYZ position: <span id="lightPositionXYZ" class="kontrolDenom"></span></div>
@@ -219,20 +313,75 @@ function kontroller(_scene){
     </div>
     <div id="kontrolMeshesUI" class="kontrolTab">kontrolMeshesUI
     </div>
+    <div id="kontrolCamerasUI" class="kontrolTab">kontrolCameraUI
+        <div id="kontrolCameraOptions">
+            <p id=chosenCameraName></p>
+            <br/>
+            <span>Increment:</span>
+            <input id="kontrolIncrementCamera" type="text" value="0.1" style="width: 2rem">
+            <br/>
+            <div>Current XYZ position: <span id="cameraPositionXYZ" class="kontrolDenom"></span></div>
+            <div><button id="posXplusCamera">posXplus</button> <button id="posYplusCamera">posYplus</button> <button id="posZplusCamera">posZplus</button></div>
+            <div><button id="posXminusCamera">posXminus</button> <button id="posYminusCamera">posYminus</button> <button id="posZminusCamera">posZminus</button></div>
+            <br/>
+            <div>Current XYZ Rotation: <span id="cameraRotationXYZ" class="kontrolDenom"></span></div>
+            <div><button id="rotaXplusCamera">rotaXplus</button> <button id="rotaYplusCamera">rotaYplus</button> <button id="rotaZplusCamera">rotaZplus</button></div>
+            <div><button id="rotaXminusCamera">rotaXminus</button> <button id="rotaYminusCamera">rotaYminus</button> <button id="rotaZminusCamera">rotaZminus</button></div>
+            <br/>
+            <div id="cameraFrustum"></div>
+
+            <div id="cameraFarPlane">
+            
+            </div>
+            <div><button id="farCameraPlus">Far +</button> <button id="farCameraMinus">Far -</button></div>
+            <div id="cameraNearPlane">
+            
+            </div>
+            <div><button id="nearCameraPlus">Near +</button> <button id="nearCameraMinus">Near -</button></div>
+            <div id="cameraFOV">
+            
+            </div>
+            <div><button id="fovPlus">FOV +</button> <button id="fovMinus">FOV -</button></div>
+            <div id="cameraZoom">
+            
+            </div>
+            <div><button id="zoomPlus">Zoom +</button> <button id="zoomMinus">Zoom -</button></div>
+            <br/>
+            <button id="saveChangesCamera"> SAVE! (copies to clipboard) </button>
+        </div>
+        <div id="kontrolCamerasListCont"><h1>Camera List</h1>
+            <ul id="kontrolCamerasList"> 
+            </ul>
+        </div>
+        <button id="kontrolDisableOrbit">Orbit Mode On/Off</button>
+    </div>
     `
     document.getElementsByTagName("body")[0].appendChild(kontrolBox)
     
+
+    
     function changeValueLoc(_type, _prop, _minus){
-        console.log("!!what is the chosenLight apparently? ", chosenLight)
-        console.log("!!chosenLightIncrement: ", chosenIncrement)
+/*         console.log("!!what is the chosenLight apparently? ", chosenLight)
+        console.log("!!chosenLightIncrement: ", chosenIncrement) */
+        if (currentMode == "lights"){
+            try{
+                _type==null ? chosenLight[_prop] +=(_minus?-chosenIncrement:chosenIncrement) : chosenLight[_type][_prop] +=(_minus?-chosenIncrement:chosenIncrement)
+                updateChosenLightData()
+            }
+            catch(error){
+                console.log(error, "If you haven't chosen an item or using the extra options, you can safely ignore this error.")
+            }
+        } else if (currentMode == "cameras"){
+            try{
+                _type==null ? chosenCamera[_prop] +=(_minus?-chosenIncrement:chosenIncrement) : chosenCamera[_type][_prop] +=(_minus?-chosenIncrement:chosenIncrement)
+                updateChosenCameraData()
+                BGcamera.updateProjectionMatrix()
+            }
+            catch(error){
+                console.log(error, "If you haven't chosen an item or using the extra options, you can safely ignore this error.")
+            }
+        }
         
-        try{
-            _type==null ? chosenLight[_prop] +=(_minus?-chosenIncrement:chosenIncrement) : chosenLight[_type][_prop] +=(_minus?-chosenIncrement:chosenIncrement)
-            updateChosenLightData()
-        }
-        catch(error){
-            console.log(error, "If you haven't chosen a light or using the extra options, you can safely ignore this error.")
-        }
     }
 
     function changeValueSpecial(_type, _prop, _minus){
@@ -240,7 +389,7 @@ function kontroller(_scene){
 
     }
 
-    
+    //lights
     document.querySelector("#posXplus").addEventListener("click", ()=>{changeValueLoc("position", "x")})
     document.querySelector("#posYplus").addEventListener("click", ()=>{changeValueLoc("position", "y")})  
     document.querySelector("#posZplus").addEventListener("click", ()=>{changeValueLoc("position", "z")})  
@@ -292,20 +441,62 @@ function kontroller(_scene){
     document.querySelector("#lightOption4Minus").addEventListener("click", ()=>{changeValueLoc(null, "decay", true)})  
 
     document.querySelector("#saveChanges").addEventListener("click", ()=>{copyPasteLightSetup()})
+    //lights end
+
+    //camera
+    document.querySelector("#posXplusCamera").addEventListener("click", ()=>{changeValueLoc("position", "x")})
+    document.querySelector("#posYplusCamera").addEventListener("click", ()=>{changeValueLoc("position", "y")})  
+    document.querySelector("#posZplusCamera").addEventListener("click", ()=>{changeValueLoc("position", "z")})  
+    
+    document.querySelector("#posXminusCamera").addEventListener("click", ()=>{changeValueLoc("position", "x", true)})  
+    document.querySelector("#posYminusCamera").addEventListener("click", ()=>{changeValueLoc("position", "y", true)})  
+    document.querySelector("#posZminusCamera").addEventListener("click", ()=>{changeValueLoc("position", "z", true)})  
+
+    document.querySelector("#rotaXplusCamera").addEventListener("click", ()=>{changeValueLoc("rotation", "x")})  
+    document.querySelector("#rotaYplusCamera").addEventListener("click", ()=>{changeValueLoc("rotation", "y")})  
+    document.querySelector("#rotaZplusCamera").addEventListener("click", ()=>{changeValueLoc("rotation", "z")})  
+
+    document.querySelector("#rotaXminusCamera").addEventListener("click", ()=>{changeValueLoc("rotation", "x", true)}) 
+    document.querySelector("#rotaYminusCamera").addEventListener("click", ()=>{changeValueLoc("rotation", "y", true)})  
+    document.querySelector("#rotaZminusCamera").addEventListener("click", ()=>{changeValueLoc("rotation", "z", true)})  
+
+    document.querySelector("#fovPlus").addEventListener("click", ()=>{changeValueLoc(null, "fov")})  
+    document.querySelector("#fovMinus").addEventListener("click", ()=>{changeValueLoc(null, "fov", true)})  
+
+    document.querySelector("#nearCameraPlus").addEventListener("click", ()=>{changeValueLoc(null, "near")})  
+    document.querySelector("#nearCameraMinus").addEventListener("click", ()=>{changeValueLoc(null, "near", true)})  
+
+    document.querySelector("#farCameraPlus").addEventListener("click", ()=>{changeValueLoc(null, "far")})  
+    document.querySelector("#farCameraMinus").addEventListener("click", ()=>{changeValueLoc(null, "far", true)})  
+
+    document.querySelector("#zoomPlus").addEventListener("click", ()=>{changeValueLoc(null, "zoom")})  
+    document.querySelector("#zoomMinus").addEventListener("click", ()=>{changeValueLoc(null, "zoom", true)})  
+    
+    document.querySelector("#lightOption4Plus").addEventListener("click", ()=>{changeValueLoc(null, "decay")})  
+    document.querySelector("#lightOption4Minus").addEventListener("click", ()=>{changeValueLoc(null, "decay", true)})  
+    document.querySelector("#saveChangesCamera").addEventListener("click", ()=>{copyPasteCameraSetup()})
+
+
+    //camera end
+
     //   `posxyz[${chosenLight.position.x.toFixed(3)},${chosenLight.position.y.toFixed(3)},${chosenLight.position.z.toFixed(3)}], rotaxyz[${chosenLight.rotation.x.toFixed(3)},${chosenLight.rotation.y.toFixed(3)},${chosenLight.rotation.z.toFixed(3)}]`
 
 
+    //lights start
     const kontrolLightsUI = document.getElementById("kontrolLightsUI"), 
         kontrolMeshesUI = document.getElementById("kontrolMeshesUI"), 
+        kontrolCamerasUI = document.getElementById("kontrolCamerasUI"), 
         kontrolLightsBtn = document.getElementById("kontrolLightsBtn"), 
         kontrolMeshesBtn = document.getElementById("kontrolMeshesBtn"), 
+        kontrolCamerasBtn = document.getElementById("kontrolCamerasBtn"), 
         kontrolLightsList = document.getElementById("kontrolLightsList"), 
+        kontrolCamerasList = document.getElementById("kontrolCamerasList"), 
         lightSettingsColor = document.getElementById("lightSettingsColor"),
         kontrolTab = Array.from(document.getElementsByClassName("kontrolTab")),
-        kontrolIncrement = document.getElementById("kontrolIncrement")
+        kontrolIncrementLight = document.getElementById("kontrolIncrementLight")
 
 
-        kontrolIncrement.addEventListener('input', (event)=>{
+        kontrolIncrementLight.addEventListener('input', (event)=>{
             chosenIncrement = parseFloat(event.target.value);
             console.log("chosenIncrement: ", chosenIncrement)
         })
@@ -317,13 +508,36 @@ function kontroller(_scene){
             })
         }
         kontrolLightsUI.classList.toggle("kontrolTab")
+        currentMode = "lights"
+        console.log("current Mode: ", currentMode)
+        chosenKey = null
     })
+
     kontrolMeshesBtn.addEventListener("click", ()=>{
         kontrolMeshesUI.style.display = "flex"
+        currentMode = "meshes"
+        console.log("current Mode: ", currentMode)
+        chosenKey = null
     })
+
+    kontrolCamerasBtn.addEventListener("click", ()=>{
+        if (kontrolCamerasUI.classList.contains("kontrolTab")){
+            kontrolTab.forEach((div)=>{
+                div.classList.toggle("kontrolTab", true)
+            })
+        }
+        kontrolCamerasUI.classList.toggle("kontrolTab")
+        currentMode = "cameras"
+        console.log("current Mode: ", currentMode)
+        chosenKey = null
+    })
+
+
     closeKontrolsBtn.addEventListener("click", ()=>{
         kontrolTab.forEach((div)=>{
             div.classList.toggle("kontrolTab", true)
+            currentMode = null
+            chosenKey = null
         })
     })
 
@@ -347,16 +561,6 @@ function kontroller(_scene){
             updateChosenLightData()
             
         })
-
-/*         Object.entries(lightsList[key][0]).forEach(([key, value])=>{
-            let lightStat = document.createElement("li")
-            lightStat.innerHTML = `${key} = ${value}`
-            light.appendChild(lightStat)
-        }) */
-
-        
-
-
         if (lightsList[key][0] && lightsList[key][0]["rotation"] != undefined){
             const lightRotation = document.createElement("li")
             lightRotation.innerHTML = `ROTATION: x:${lightsList[key][0]["rotation"].x}, y:${lightsList[key][0]["rotation"].y}, z:${lightsList[key][0]["rotation"].z}`
@@ -368,11 +572,38 @@ function kontroller(_scene){
             light.appendChild(lightPosition)
             console.log(Object.values(lightsList[key][0]))
         }
+    })
+
+    Object.keys(camerasList).forEach((key)=>{
+        console.log("adding new camera to list: ", key)
+        let camera = document.createElement("ul")
+        camera.innerHTML = `<button class="kontrolSelectBtn">${key}</button>` 
+        kontrolCamerasList.appendChild(camera)
+        camera.addEventListener("click",()=>{
+            console.log("switching to camera: ", key)
+            chosenCamera = camerasList[key]
+            chosenKey = key
+            updateChosenCameraData()
+        })
+            
+    })
+
+
+/*         Object.entries(lightsList[key][0]).forEach(([key, value])=>{
+            let lightStat = document.createElement("li")
+            lightStat.innerHTML = `${key} = ${value}`
+            light.appendChild(lightStat)
+        }) */
+
+        
+
+
+        
         
 
         
         
-    })
+
 
     function updateChosenLightData(){
         document.querySelector("#chosenLightName").innerHTML = chosenKey
@@ -460,6 +691,20 @@ function kontroller(_scene){
         `)
     }
 
+    
+    function copyPasteCameraSetup(){
+
+        navigator.clipboard.writeText(`
+        posxyz:[${chosenCamera.position.x.toFixed(4)},${chosenCamera.position.y.toFixed(4)},${chosenCamera.position.z.toFixed(4)}], 
+        rotaxyz:[${chosenCamera.rotation.x.toFixed(4)},${chosenCamera.rotation.y.toFixed(4)},${chosenCamera.rotation.z.toFixed(4)}],
+        fustrum:${chosenCamera.aspect.toFixed(4)},
+        far:${chosenCamera.far.toFixed(4)},
+        near:${chosenCamera.near.toFixed(4)},
+        fov:${chosenCamera.fov.toFixed(4)},
+        zoom:${chosenCamera.zoom.toFixed(4)},
+        `)
+    }
+
     function hideHelpers(_scene){
         console.log("Hiding helpers throughout Scene")
         _scene.traverse((object) => {
@@ -481,6 +726,27 @@ function kontroller(_scene){
           }); 
     }
     document.querySelector("#showHelpers").addEventListener("click", ()=>{showHelpers(_scene)})
+    //lights end
+
+    function updateChosenCameraData(){
+        document.querySelector("#chosenCameraName").innerHTML = chosenKey
+        document.querySelector("#cameraPositionXYZ").innerHTML= `X: ${fixInt(chosenCamera.position.x)} Y: ${fixInt(chosenCamera.position.y)} Z: ${fixInt(chosenCamera.position.z)}`
+        document.querySelector("#cameraRotationXYZ").innerHTML= `X: ${fixInt(chosenCamera.rotation.x)} Y: ${fixInt(chosenCamera.rotation.y)} Z: ${fixInt(chosenCamera.rotation.z)}`
+        document.querySelector("#cameraFrustum").innerHTML = `Frustum: ${fixInt(chosenCamera.aspect)}`
+        document.querySelector("#cameraFarPlane").innerHTML = `View Dist: ${fixInt(chosenCamera.far)}`
+        document.querySelector("#cameraNearPlane").innerHTML = `View Close: ${fixInt(chosenCamera.near)}`
+        document.querySelector("#cameraFOV").innerHTML = `Vertical FOV: ${fixInt(chosenCamera.fov)}`
+        document.querySelector("#cameraZoom").innerHTML = `Zoom Effect: ${fixInt(chosenCamera.zoom)}`
+
+/*     BGcamera.updateProjectionMatrix() ⚠️⚠️*/
+    }
+
+    function toggleHelper(_orbit){
+        _orbit.enabled = !_orbit.enabled
+    }
+    
+    document.querySelector("#kontrolDisableOrbit").addEventListener("click", ()=>{toggleHelper(_fullControls)})
+
 
 }//kontroller end
 
@@ -488,3 +754,75 @@ function kontroller(_scene){
 
 
 kontroller(BGscene)
+
+
+//test
+
+/* gsap.to(BGcamera.position, {
+    x: 10,
+    y: 5,
+    z: -10,
+    duration: 2,
+    ease: "power2.inOut"
+});
+
+gsap.to(BGcamera.rotation, {
+    y: Math.PI / 2,
+    duration: 2,
+    ease: "power2.inOut"
+}); */
+
+
+const degRad = (degrees) => degrees * (Math.PI / 180);
+
+//INITIAL CAMERA POS
+BGcamera.rotation.set(degRad(-0.08), degRad(0.08), degRad(0));
+BGcamera.position.set(0.7545,-0.3523,-0.6129)
+BGcamera.updateProjectionMatrix() 
+
+
+
+//SECOND CAMERA POS
+/* BGcamera.rotation.set(degRad(0.058), degRad(-0.14), degRad(0.009));
+BGcamera.position.set(-0.11,0.4,-0.054)
+BGcamera.updateProjectionMatrix()  */
+
+
+function gsapIntroAnim() {
+    _fullControls.enabled = false;
+
+    gsap.to(BGcamera.position, {
+        x: -0.11,
+        y: 0.4,
+        z: -0.184,
+        duration: 2,
+        ease: "power2.inOut"
+    });
+
+    gsap.to(BGcamera.rotation, {
+        x: 0,
+        y: -3,
+        z: 0,
+        delay: 2,
+        duration: 2,
+        ease: "power2.inOut",
+        onComplete: () => {
+            // Ensure camera rotation is correct
+            console.log("Pre-snap camera: ", BGcamera.rotation)
+            BGcamera.rotation.set(0, -3, 0);
+            
+            /* _fullControls.target.copy(BGcamera.position); */
+            _fullControls.target.set(
+                BGcamera.position.x,
+                BGcamera.position.y,
+                BGcamera.position.z + 0.1
+            );
+            /* BGcamera.position.set(-0.11, 0.4, -0.264) //0.164 diff */
+            targetHelper.position.copy(_fullControls.target);
+            _fullControls.enabled = true;
+            console.log("Post-snap camera: ", BGcamera.rotation)
+        }
+    });
+}
+
+gsapIntroAnim()
