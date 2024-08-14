@@ -22,9 +22,60 @@ window.modelsList = {}
 window.camerasList = {}
 let raycastList = {}
 
-console.log("detecting user machine perf. ", window.performance)
-const availableMemory = (performance.memory.jsHeapSizeLimit - performance.memory.usedJSHeapSize)/1000000000;
-console.log('Available memory for allocation (in bytes):', availableMemory + " GB");
+
+
+function checkPerformance() {
+    let perfScore = 10;
+    console.log("detecting user machine perf. ", window.performance)
+
+    const availableMemory = (performance.memory.jsHeapSizeLimit - performance.memory.usedJSHeapSize)/1000000000;
+    const perf = window.performance;
+    const timing = perf.timing;
+    const memory = perf.memory;
+
+    // Calculate page load time
+    const pageLoadTime = (timing.domComplete - timing.navigationStart) / 1000; // in seconds
+    const responseTime = (timing.responseEnd - timing.responseStart) / 1000; // in seconds
+
+    // Check page load time
+    if (pageLoadTime > 3) {
+        console.warn(`Page load time is high: ${pageLoadTime.toFixed(2)} seconds`);
+        perfScore -= 2
+    }
+
+    //latency/network
+    if (responseTime > 1) {
+        console.warn(`Resource fetching time is high: ${responseTime.toFixed(2)} seconds`);
+        perfScore -= 3
+    }
+
+    //avail memory 
+    if (availableMemory < 2.5){
+        console.warn('Available memory for allocation low! (in bytes):', availableMemory + " GB");
+        perfScore -= 3
+    } else {
+        console.log('Available memory for allocation (in bytes):', availableMemory + " GB");
+    }
+
+    //memory heap
+    if (memory && memory.jsHeapSizeLimit) {
+        const usedMemory = memory.usedJSHeapSize / memory.jsHeapSizeLimit;
+        console.log(`Memory usage: ${(usedMemory * 100).toFixed(2)}% of allocated heap`);
+        if (usedMemory > 0.6) {
+            console.warn(`High memory usage: ${(usedMemory * 100).toFixed(2)}% of allocated heap`);
+            perfScore -= 2
+        }
+    } else {
+        console.warn('Memory information is not available');
+    }
+    
+    if (perfScore < 7){
+        console.warn(`Entering performance mode.`)
+    }
+    return perfScore
+}
+//checkPerformance();
+
 
 //test
 /* console.log(`model loader: ${GLTFLoader}`)
@@ -75,6 +126,29 @@ gltfLoader1.load(
 }
 loadAllModels() //⚠️back-up for old style */
 
+/* 
+lightsList.lightMenuWall = 
+createLight("PointLight", BGscene, {lightSetup:['rgb(220,220,220)', 0.1, 20, 3.8], posxyz:[-1, 1.5, 0.3], rotaxyz:[0,0,0], lightH:true, lightHSetup:[]})
+
+lightsList.lightHangingBulb1 = 
+createLight("PointLight", BGscene, {lightSetup:['rgb(220,220,190)', 2.1, 5, 1.9], posxyz: [0.000,2.800,-0.200], rotaxyz: [0.000,0.000,0.000], lightH:true, lightHSetup:[]})
+
+lightsList.lightHangingBulb2 = 
+createLight("PointLight", BGscene, {lightSetup:['rgb(220,220,190)', 2.1, 5, 1.9], posxyz:[0.000,2.800,-3.400], rotaxyz: [0.000,0.000,0.000], lightH:true, lightHSetup:[]})
+
+lightsList.lightHangingBulb3 = 
+createLight("PointLight", BGscene, {lightSetup:['rgb(220,220,190)', 2.1, 5, 1.9], posxyz: [0.000,2.800,-6.800], rotaxyz: [0.000,0.000,0.000], lightH:true, lightHSetup:[]})
+
+
+lightsList.lightShop1Door = 
+createLight("RectAreaLight", BGscene, {lightSetup:['rgb(220,220,190)', 3, 0.7, 2.5], posxyz:[-1.200,0.700,-1.400], rotaxyz:[0.000,-1.600,0.000], lightH:true, lightHSetup:[]})
+
+lightsList.lightShop1window = 
+createLight("PointLight", BGscene, {lightSetup:['rgb(250,250,220)', 4.1, 15, 3.8], posxyz:[-1.100,1.300,-2.700], rotaxyz:[0,0,0], lightH:true, lightHSetup:[]})
+
+lightsList.lightVending1 = 
+createLight("RectAreaLight", BGscene, {lightSetup:['rgb(220,220,190)', 6, 0.7, 2.5], width:0.85, height:1.0, posxyz:[1.250,1.400,0.500], rotaxyz:[0.000,1.600,0.000], lightColor:[0.71,0.71,0.51], lightH:true, lightHSetup:[]})
+ //⚠️back-up for old style */
 
 
 
@@ -105,23 +179,30 @@ export async function loadAllModels(){
 
 //kot pos-sofa: position: [0.0750,0.0790,-0.3950], rotation: [0,230,0]
 
-
-
-
-lightsList.lightAmbient = 
-createLight("AmbientLight", BGscene, {lightSetup:['rgb(37,38,84)', 0.03, 3, 1.9], intensity: 1.43})
-
 /* lightsList.lightBGcityFront = 
 createLight("PointLight", BGscene, {lightSetup:['rgb(220,220,190)', 0.5, 9, 0.2], intensity: 0.15, distance: 8.4, posxyz:[0.000,1.200,-10.200], rotaxyz: [0.000,0.000,0.000], lightH:true, lightHSetup:[]})
 
 lightsList.lightBGcityRight = 
 createLight("PointLight", BGscene, {lightSetup:['rgb(220,220,190)', 0.5, 9, 0.2], intensity: 0.11, distance: 7, posxyz:[6.000,0.000,-1.500], rotaxyz:[0.000,0.000,0.000], lightH:true, lightHSetup:[]})
  */
+
+/* lightsList.rectLightKanpan7ElevenNorth = 
+createLight("RectAreaLight", BGscene, {lightSetup:['rgb(250,250,250)', 3, 0.7, 2.5], posxyz:[0.0750,-1.0500,-3.5450], intensity: 0.5, rotaxyz:[0.0000,6.2500,0.0000], width:0.65, height: 0.26, lightH:true, lightHSetup:[]})
+
+lightsList.rectLightKanpan7ElevenEast = 
+createLight("RectAreaLight", BGscene, {lightSetup:['rgb(250,250,250)', 3, 0.7, 2.5], posxyz:[6.5750,0.3550,-1.4450], intensity: 0.5, rotaxyz:[0.0000,-1.5500,0.0000], width:0.65, height: 0.26, lightH:true, lightHSetup:[]})
+ */
+
+lightsList.lightAmbient = 
+createLight("AmbientLight", BGscene, {lightSetup:['rgb(37,38,84)', 0.03, 3, 1.9], intensity: 1.43})
+
 lightsList.pointLight전등 = 
-createLight("PointLight", BGscene, {lightSetup:['rgb(220,220,190)', 0.5, 9, 0.2], intensity:0.75, distance: 0.4, decay:2.8, posxyz:[-0.0500,0.3000,-0.1000], rotaxyz:[0.000,0.600,0.000], lightH:true, lightHSetup:[]})
+createLight("PointLight", BGscene, {lightSetup:['rgb(220,220,190)', 0, 9, 0.2], intensity: 0, distance: 0.4, decay:2.8, posxyz:[-0.0500,0.3000,-0.1000], rotaxyz:[0.000,0.600,0.000], lightH:true, lightHSetup:[]})
+//lightsList.pointLight전등.intensity = 0.75;
 
 lightsList.pointLight등 = 
-createLight("PointLight", BGscene, {lightSetup:['rgb(255,255,255)', 0.5, 9, 0.2], intensity: 0.55, distance: 0.5, decay: 1.5, posxyz:[0.250,0.350,-0.400], rotaxyz:[-0.050,0.600,0.000], lightH:true, lightHSetup:[]})
+createLight("PointLight", BGscene, {lightSetup:['rgb(255,255,255)', 0, 9, 0.2], intensity: 0, distance: 0.5, decay: 1.5, posxyz:[0.250,0.350,-0.400], rotaxyz:[-0.050,0.600,0.000], lightH:true, lightHSetup:[]})
+//lightsList.pointLight등.intensity = 0.55;
 
 lightsList.pointLight작은등 = 
 createLight("PointLight", BGscene, {lightSetup:['rgb(240,185,110)', 0.5, 9, 0.2], intensity: 0.2, distance: 0.4, decay: 1, posxyz:[-0.3050,0.0900,-0.4850], rotaxyz:[-0.0500,0.5700,0.0000], lightH:true, lightHSetup:[]})
@@ -138,47 +219,19 @@ createLight("PointLight", BGscene, {lightSetup:['rgb(250,20,20)', 0.5, 9, 0.2], 
 lightsList.pointLightReact = 
 createLight("PointLight", BGscene, {lightSetup:['rgb(77,255,255)', 0.5, 9, 0.2], intensity:0.39, distance:0.2, posxyz:[0.120,0.380,0.230],  rotaxyz:[-0.100,0.600,0.000], lightH:true, lightHSetup:[]})
 
-/* lightsList.rectLightKanpan7ElevenNorth = 
-createLight("RectAreaLight", BGscene, {lightSetup:['rgb(250,250,250)', 3, 0.7, 2.5], posxyz:[0.0750,-1.0500,-3.5450], intensity: 0.5, rotaxyz:[0.0000,6.2500,0.0000], width:0.65, height: 0.26, lightH:true, lightHSetup:[]})
-
-lightsList.rectLightKanpan7ElevenEast = 
-createLight("RectAreaLight", BGscene, {lightSetup:['rgb(250,250,250)', 3, 0.7, 2.5], posxyz:[6.5750,0.3550,-1.4450], intensity: 0.5, rotaxyz:[0.0000,-1.5500,0.0000], width:0.65, height: 0.26, lightH:true, lightHSetup:[]})
- */
 lightsList.rectLight새로간판 = 
 createLight("RectAreaLight", BGscene, {lightSetup:['rgb(250,250,250)', 3, 0.7, 2.5], posxyz:[-2.6250,1.4500,-8.5450],  intensity: 1, rotaxyz:[-2.6000,3.1500,0.0000], width:1.15, height: 0.26, lightH:true, lightHSetup:[]})
 
-
+//example manip: lightsList.lightAmbient.intensity = 0;
 
 raycastList.spawnCV = 
 createTouchSphere(BGscene, {posxyz:[-0.0150,0.2550,0.20905], scalexyz:[1.2,0.6,0.3], name:"spawnCV"})
 
-/* 
-lightsList.lightMenuWall = 
-createLight("PointLight", BGscene, {lightSetup:['rgb(220,220,220)', 0.1, 20, 3.8], posxyz:[-1, 1.5, 0.3], rotaxyz:[0,0,0], lightH:true, lightHSetup:[]})
-
-lightsList.lightHangingBulb1 = 
-createLight("PointLight", BGscene, {lightSetup:['rgb(220,220,190)', 2.1, 5, 1.9], posxyz: [0.000,2.800,-0.200], rotaxyz: [0.000,0.000,0.000], lightH:true, lightHSetup:[]})
-
-lightsList.lightHangingBulb2 = 
-createLight("PointLight", BGscene, {lightSetup:['rgb(220,220,190)', 2.1, 5, 1.9], posxyz:[0.000,2.800,-3.400], rotaxyz: [0.000,0.000,0.000], lightH:true, lightHSetup:[]})
-
-lightsList.lightHangingBulb3 = 
-createLight("PointLight", BGscene, {lightSetup:['rgb(220,220,190)', 2.1, 5, 1.9], posxyz: [0.000,2.800,-6.800], rotaxyz: [0.000,0.000,0.000], lightH:true, lightHSetup:[]})
-
-
-lightsList.lightShop1Door = 
-createLight("RectAreaLight", BGscene, {lightSetup:['rgb(220,220,190)', 3, 0.7, 2.5], posxyz:[-1.200,0.700,-1.400], rotaxyz:[0.000,-1.600,0.000], lightH:true, lightHSetup:[]})
-
-lightsList.lightShop1window = 
-createLight("PointLight", BGscene, {lightSetup:['rgb(250,250,220)', 4.1, 15, 3.8], posxyz:[-1.100,1.300,-2.700], rotaxyz:[0,0,0], lightH:true, lightHSetup:[]})
-
-lightsList.lightVending1 = 
-createLight("RectAreaLight", BGscene, {lightSetup:['rgb(220,220,190)', 6, 0.7, 2.5], width:0.85, height:1.0, posxyz:[1.250,1.400,0.500], rotaxyz:[0.000,1.600,0.000], lightColor:[0.71,0.71,0.51], lightH:true, lightHSetup:[]})
- //⚠️back-up for old style */
-
 addRandoms('rgb(255,255,255)', BGscene, 100)
 BGscene.add(BGbackgroundFull)
 BGscene.add(BGbackgroundFull2)
+
+//lightsList.pointLight전등.intensity = 0.75;
 
 //initial setup:
 const targetGeometry = new THREE.SphereGeometry(0.05, 32, 32); //target for the orbit
@@ -195,6 +248,7 @@ BGscene.traverse((object) => {
     object.visible = false;
     }
 });
+console.log("current performance score: ", checkPerformance())
 
 const threeJsClock = new THREE.Clock();
 let intersects
@@ -888,6 +942,9 @@ export async function welcomeStartUp(){
         BGrenderer.domElement.addEventListener("click", raycastClick)
         BGrenderer.domElement.addEventListener("mousemove", raycastHover)
         cinematicMode()
+        lightsList.pointLight등[0].intensity = 0.55;
+        lightsList.pointLight전등[0].intensity = 0.75; 
+        console.log("current performance score: ", checkPerformance())
     },6500)
 }
 
