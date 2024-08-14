@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Portfolio-DXM</title>
   <link href="style.css" rel="stylesheet">
+  <link rel="stylesheet" href="style2d.css">
+  <link rel="stylesheet" href="../static/css/styling.css">
+  <link rel="stylesheet" href="../static/css/toolkit.css">
+  <link rel="stylesheet" href="../static/css/animations.css">
   <script type="importmap">
     {
         "imports": {
@@ -17,19 +21,31 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/gsap.min.js"></script>
 <body>
   <canvas id="cMain"></canvas>
-  <front5 class="layer"></front5>
-  <front4 class="layer"></front4>
-  <front3 class="layer"></front3>
-  <front2 class="layer"></front2>
-  <front1 class="layer filterDarken70"></front1>
-  <front0></front0>
-  <canvas id="c1"></canvas>
-  <canvas id="c2"></canvas>
 
-  <!-- Include your JavaScript files as modules -->
+  <div id="cFrontCover"> <!-- cover -->
+    <div id="threeNavBar">
+      <button id="threeEditorMode"></button>
+      <button></button>
+    </div>
+
+
+
+    <!-- intro stuff -->
+    <div id="threeIntroText">
+      <p>Portfolio - Isaac</p>
+      <span id="est-date"></span>
+      <span id="pressToStart">Touch or Press Any Key to Start</span>
+    </div>
+    <div id="threeLoadingScreen">
+      <div id="3dDXM"></div>
+      <div id="threeLoadingText">Loading...</div>
+    </div>
+  </div> <!-- cover end -->
+
+  <script src="./3jsDOM.js"></script>
   <script type="module" src="./3jsScene.js"></script>
   <script type="module" src="./3jsMesh.js"></script>
   <script type="module" src="./3jsFX.js"></script>
-  <script type="module" src="./3jsMain.js"></script> 
+  <script type="module" src="./main.js"></script> 
 </body>
 </html>

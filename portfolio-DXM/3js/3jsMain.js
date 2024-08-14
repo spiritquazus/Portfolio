@@ -6,8 +6,6 @@ import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'; 
 
-
-
 import { RectAreaLightHelper } from 'three/addons/helpers/RectAreaLightHelper.js';
 
 import { addRandoms, modelInstall, BGbackgroundFull, BGbackgroundFull2, createTouchSphere } from './3jsMesh.js'
@@ -15,36 +13,14 @@ import { BGrenderer, BGscene, BGcamera, raycaster, pointer} from './3jsScene.js'
 import { bulbLight1, pointLight1, lightHelper1, ambientLight, lightHelperPoint1, createLight} from './3jsFX.js'
 import { playModelAnim, updateModelAnim } from './3jsAnim.js'
 
-const cMain = document.getElementById("cMain")
 let targetHelper;
-function editorMode(_scene) {
-    _fullControls.enabled = true;
-    _fullControls.enableDamping = true; // Inertia damping
-    _fullControls.dampingFactor = 0.25;
-   /*  _fullControls.enableZoom = false; // Disable zooming */
-    _fullControls.enablePan = false; // Disable panning
-    /* _fullControls.target.set(-0.11, 0.4, -0.084); // Initial target position */
-    /* _fullControls.target.set(-0.0150,0.2550,0.20905); //vanilla settings */
-    _fullControls.minDistance = 0.0;
-    _fullControls.maxDistance = 0.05;
-     /* _fullControls.minPolarAngle = Math.PI/ 3  */
-    /* _fullControls.maxPolarAngle = Math.PI/ 10 */
-    const targetGeometry = new THREE.SphereGeometry(0.05, 32, 32); // Small sphere
-    const targetMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 }); // Red color
-    targetHelper = new THREE.Mesh(targetGeometry, targetMaterial);
-    targetHelper.position.copy(_fullControls.target);
-
-    const _gridHelper = new THREE.GridHelper();
-    _scene.add(_gridHelper);
-    _scene.add(targetHelper);
-}
-
+let cameraModeCheck;
+let _fullControls = new OrbitControls(BGcamera, BGrenderer.domElement);
+_fullControls.enabled = false
 window.lightsList = {}
 window.modelsList = {}
 window.camerasList = {}
 let raycastList = {}
-let _fullControls = new OrbitControls(BGcamera, BGrenderer.domElement);
-_fullControls.enabled = false
 
 console.log("detecting user machine perf. ", window.performance)
 const availableMemory = (performance.memory.jsHeapSizeLimit - performance.memory.usedJSHeapSize)/1000000000;
@@ -80,7 +56,6 @@ gltfLoader1.load(
         modelInstall(GLTFLoader, '../gallery/3dAssets/kot1/scene.gltf', BGscene, {scale: [0.021,0.021,0.021], position: [-1.01,0.647,0.03], rotation: [0,100,0]})
         .then(({ model, mixer }) => {
             console.log('Model and animations loaded successfully.');
-            // Additional setup if needed
         })
         .catch(error => {
             console.error('Error loading model or animations:', error);
@@ -100,10 +75,38 @@ gltfLoader1.load(
 }
 loadAllModels() //⚠️back-up for old style */
 
+
+
+
 camerasList.BGcamera = BGcamera
 
-modelInstall(GLTFLoader, '../gallery/3dAssets/suburbsBG/suburbs_wip1.gltf', BGscene, {scale: [0.1,0.1,0.1], position: [2.8,-2.2,-3.45], rotation: [0,-180,0]}),
+/* modelInstall(GLTFLoader, '../gallery/3dAssets/suburbsBG/suburbs_wip1.gltf', BGscene, {scale: [0.1,0.1,0.1], position: [2.8,-2.2,-3.45], rotation: [0,-180,0]}),
 modelInstall(GLTFLoader, '../gallery/3dAssets/yourRoom/BasemenrRoomFixed_2exp.gltf', BGscene, {scale: [0.2,0.2,0.2], position: [0,0,0], rotation: [0,180,0]}),
+ */
+export async function loadAllModels(){
+    const modelLoadProm = [
+        modelInstall(GLTFLoader, '../gallery/3dAssets/suburbsBG/suburbs_wip1.gltf', BGscene, {scale: [0.1,0.1,0.1], position: [2.8,-2.2,-3.45], rotation: [0,-180,0]}),
+        modelInstall(GLTFLoader, '../gallery/3dAssets/yourRoom/BasemenrRoomFixed_2exp.gltf', BGscene, {scale: [0.2,0.2,0.2], position: [0,0,0], rotation: [0,180,0]}),
+        modelInstall(GLTFLoader, '../gallery/3dAssets/kot1/scene.gltf', BGscene, {scale: [0.005,0.005,0.005], position: [0.0750,0.0790,-0.3950], rotation: [0,230,0]})
+        .then(({ model, mixer }) => {
+            console.log('Model and animations loaded successfully. ', model);
+        })
+        .catch(error => {
+            console.error('Error loading model or animations: ', error);
+        }),
+    ]
+    const [suburbBG, room, cat] = await Promise.all(modelLoadProm);
+    modelsList.suburbBG = suburbBG;
+    modelsList.room = room;
+    modelsList.cat = cat;
+
+    console.log("finished 3d model building")
+}
+
+//kot pos-sofa: position: [0.0750,0.0790,-0.3950], rotation: [0,230,0]
+
+
+
 
 lightsList.lightAmbient = 
 createLight("AmbientLight", BGscene, {lightSetup:['rgb(37,38,84)', 0.03, 3, 1.9], intensity: 1.43})
@@ -135,12 +138,12 @@ createLight("PointLight", BGscene, {lightSetup:['rgb(250,20,20)', 0.5, 9, 0.2], 
 lightsList.pointLightReact = 
 createLight("PointLight", BGscene, {lightSetup:['rgb(77,255,255)', 0.5, 9, 0.2], intensity:0.39, distance:0.2, posxyz:[0.120,0.380,0.230],  rotaxyz:[-0.100,0.600,0.000], lightH:true, lightHSetup:[]})
 
-lightsList.rectLightKanpan7ElevenNorth = 
+/* lightsList.rectLightKanpan7ElevenNorth = 
 createLight("RectAreaLight", BGscene, {lightSetup:['rgb(250,250,250)', 3, 0.7, 2.5], posxyz:[0.0750,-1.0500,-3.5450], intensity: 0.5, rotaxyz:[0.0000,6.2500,0.0000], width:0.65, height: 0.26, lightH:true, lightHSetup:[]})
 
 lightsList.rectLightKanpan7ElevenEast = 
 createLight("RectAreaLight", BGscene, {lightSetup:['rgb(250,250,250)', 3, 0.7, 2.5], posxyz:[6.5750,0.3550,-1.4450], intensity: 0.5, rotaxyz:[0.0000,-1.5500,0.0000], width:0.65, height: 0.26, lightH:true, lightHSetup:[]})
-
+ */
 lightsList.rectLight새로간판 = 
 createLight("RectAreaLight", BGscene, {lightSetup:['rgb(250,250,250)', 3, 0.7, 2.5], posxyz:[-2.6250,1.4500,-8.5450],  intensity: 1, rotaxyz:[-2.6000,3.1500,0.0000], width:1.15, height: 0.26, lightH:true, lightHSetup:[]})
 
@@ -173,22 +176,29 @@ lightsList.lightVending1 =
 createLight("RectAreaLight", BGscene, {lightSetup:['rgb(220,220,190)', 6, 0.7, 2.5], width:0.85, height:1.0, posxyz:[1.250,1.400,0.500], rotaxyz:[0.000,1.600,0.000], lightColor:[0.71,0.71,0.51], lightH:true, lightHSetup:[]})
  //⚠️back-up for old style */
 
-addRandoms('rgb(255,255,255)', BGscene, 500)
-/* BGscene.add(ambientLight)
-BGscene.add(bulbLight1)
-BGscene.add(lightHelperPoint1) */
+addRandoms('rgb(255,255,255)', BGscene, 100)
 BGscene.add(BGbackgroundFull)
 BGscene.add(BGbackgroundFull2)
-editorMode(BGscene)
+
+//initial setup:
+const targetGeometry = new THREE.SphereGeometry(0.05, 32, 32); //target for the orbit
+const targetMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 }); 
+targetHelper = new THREE.Mesh(targetGeometry, targetMaterial);
+targetHelper.position.copy(_fullControls.target);
+BGscene.add(targetHelper);
+const gridHelper = new THREE.GridHelper();
+BGscene.add(gridHelper);
+gridHelper.visible = false
+targetHelper.visible = false
+BGscene.traverse((object) => {
+    if (object.type.includes('Helper')) {
+    object.visible = false;
+    }
+});
 
 const threeJsClock = new THREE.Clock();
-
-
-
-
-
 let intersects
-function animateMain(){
+export function animateMain(){
    
     // update the picking ray with the camera and pointer position
 	raycaster.setFromCamera( pointer, BGcamera );
@@ -207,11 +217,8 @@ function animateMain(){
     BGrenderer.render(BGscene, BGcamera);
     requestAnimationFrame(animateMain)
 }
-animateMain()
 
 
-BGrenderer.domElement.addEventListener("click", raycastClick)
-BGrenderer.domElement.addEventListener("mousemove", raycastHover)
 
 function raycastClick(){
     if (intersects[0]){
@@ -248,9 +255,18 @@ function raycastHover(){
     
 }
 
-//KONTROLLER
 
+//KONTROLLER
+let kontrolActive = false;
 function kontroller(_scene){
+
+    if (kontrolActive){
+        document.getElementById("kontrolBoxCont").style.display = "flex"
+        return
+    } else {
+        kontrolActive = true;
+    }
+
     let chosenLight = {};
     let chosenKey;
     let chosenMesh;
@@ -753,7 +769,7 @@ function kontroller(_scene){
 
 
 
-kontroller(BGscene)
+
 
 
 //test
@@ -788,14 +804,15 @@ BGcamera.position.set(-0.11,0.4,-0.054)
 BGcamera.updateProjectionMatrix()  */
 
 
-function gsapIntroAnim() {
+async function gsapIntroAnim() {
     _fullControls.enabled = false;
 
     gsap.to(BGcamera.position, {
         x: -0.11,
         y: 0.4,
         z: -0.184,
-        duration: 2,
+        duration: 4,
+        delay: 1,
         ease: "power2.inOut"
     });
 
@@ -803,26 +820,77 @@ function gsapIntroAnim() {
         x: 0,
         y: -3,
         z: 0,
-        delay: 2,
+        delay: 4.2,
         duration: 2,
         ease: "power2.inOut",
         onComplete: () => {
             // Ensure camera rotation is correct
-            console.log("Pre-snap camera: ", BGcamera.rotation)
             BGcamera.rotation.set(0, -3, 0);
-            
-            /* _fullControls.target.copy(BGcamera.position); */
             _fullControls.target.set(
                 BGcamera.position.x,
                 BGcamera.position.y,
                 BGcamera.position.z + 0.1
             );
-            /* BGcamera.position.set(-0.11, 0.4, -0.264) //0.164 diff */
-            targetHelper.position.copy(_fullControls.target);
             _fullControls.enabled = true;
-            console.log("Post-snap camera: ", BGcamera.rotation)
         }
     });
 }
 
-gsapIntroAnim()
+function cinematicMode() {
+    _fullControls.enabled = true;
+    _fullControls.enableDamping = true; // Inertia damping
+    _fullControls.dampingFactor = 0.2;
+    _fullControls.enablePan = false; // Disable panning
+    _fullControls.minDistance = 0.0;
+    _fullControls.maxDistance = 0.05;
+    if (kontrolActive)document.getElementById("kontrolBoxCont").style.display = "none"
+    targetHelper.visible = false;
+    gridHelper.visible = false
+    BGscene.traverse((object) => {
+        if (object.type.includes('Helper')) {
+        object.visible = false;
+        }
+    });
+    cameraModeCheck = "cinematic"
+}
+
+function editorMode(_scene) {
+    _fullControls.enabled = true;
+    _fullControls.enableDamping = false; // Inertia damping
+    _fullControls.minDistance = 0.0;
+    _fullControls.maxDistance = Infinity;
+    gridHelper.visible = true
+    targetHelper.visible = true
+    kontroller(_scene)
+    _scene.traverse((object) => {
+        if (object.type.includes('Helper')) {
+        object.visible = true;
+        }
+    });
+    cameraModeCheck = "editor"
+}
+
+threeEditorMode.addEventListener("click", ()=>{
+    cameraModeCheck = cameraModeCheck==="editor"?"cinematic":"editor"
+    if (cameraModeCheck === "editor"){
+        editorMode(BGscene)
+    } else {
+        cinematicMode()
+    }
+})
+
+export async function welcomeStartUp(){
+/*     await loadAllModels()
+    threeLoadingScreen.style.opacity = "0" */
+    await gsapIntroAnim() //duration actually instant, set timeout instead
+    setTimeout(()=>{
+
+        BGrenderer.domElement.addEventListener("click", raycastClick)
+        BGrenderer.domElement.addEventListener("mousemove", raycastHover)
+        cinematicMode()
+    },6500)
+}
+
+
+
+//editorMode(BGscene)

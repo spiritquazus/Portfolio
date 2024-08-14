@@ -228,7 +228,7 @@ function addRandoms(_color, _scene, _loop){
 
     for (let i = 0; i < _loop; i++){
     const _star = new THREE.Mesh( _geometry, _material)
-    const  [x, y] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(100));
+    const  [x, y] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(40));
     const z = THREE.MathUtils.randFloat(-25, -35);
     _star.position.set(x, y, z);
     _scene.add(_star);

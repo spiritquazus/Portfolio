@@ -73,7 +73,11 @@ body{
 
 
 
-
+#kontrolBoxCont{
+  min-width: 20vw;
+  position: absolute;
+  top: 20%;
+}
 
 #kontrolBox{
   position: absolute;
@@ -140,3 +144,7 @@ button {
   backdrop-filter: blur(15px);
   padding: 10px;
 }
+
+
+
+
