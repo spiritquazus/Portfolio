@@ -1,11 +1,5 @@
-function handleLowMemory() {
-    if (navigator.deviceMemory && navigator.deviceMemory < 2) { //2GB mark
-        console.warn('Low memory detected. Switching to performance mode.');
-        togglePerfMode();
-    }
-}
 
-handleLowMemory();
+
 
 
 
@@ -129,10 +123,11 @@ let playSFXcinematic = new Audio();
 
 const allSounds = [playingBGM, playSFXBG, playSFXReact, playSFXcinematic]
 
-function playSFX(_type, _url){
+function playSFX(_type, _url, _mode){
     _type.pause()
     _type.currentTime = 0
-    _type.src = `../../gallery/SFX/${_url}`
+    
+    _type.src = _mode=="3d"?`../gallery/SFX/${_url}`:`../../gallery/SFX/${_url}`
     _type.onloadedmetadata = function(){
     
         _type.play().catch((error) => {

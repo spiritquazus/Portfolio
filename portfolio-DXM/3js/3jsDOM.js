@@ -5,3 +5,12 @@ const cMain = document.getElementById("cMain"),
     threeEditorMode = document.getElementById("threeEditorMode")
 ;
 
+let loadCompletion = 0;
+function loadProg(_val){
+    loadCompletion += _val
+    console.log("loadCompletion: ", loadCompletion)
+    loadBarInner.style.width = loadCompletion + "%"
+    if (loadCompletion == 100){
+        loadCompletion = null;
+    }
+}

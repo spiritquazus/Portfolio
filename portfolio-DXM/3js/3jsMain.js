@@ -9,7 +9,7 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { RectAreaLightHelper } from 'three/addons/helpers/RectAreaLightHelper.js';
 
 import { addRandoms, modelInstall, BGbackgroundFull, BGbackgroundFull2, createTouchSphere } from './3jsMesh.js'
-import { BGrenderer, BGscene, BGcamera, raycaster, pointer} from './3jsScene.js'
+import { BGrenderer, BGscene, BGcamera, raycaster, pointer, degRad, roomPov, scenicPov, scenicRota} from './3jsScene.js'
 import { bulbLight1, pointLight1, lightHelper1, ambientLight, lightHelperPoint1, createLight} from './3jsFX.js'
 import { playModelAnim, updateModelAnim } from './3jsAnim.js'
 
@@ -21,6 +21,8 @@ window.lightsList = {}
 window.modelsList = {}
 window.camerasList = {}
 let raycastList = {}
+
+
 
 
 
@@ -169,12 +171,14 @@ export async function loadAllModels(){
             console.error('Error loading model or animations: ', error);
         }),
     ]
+    
     const [suburbBG, room, cat] = await Promise.all(modelLoadProm);
     modelsList.suburbBG = suburbBG;
     modelsList.room = room;
     modelsList.cat = cat;
 
-    console.log("finished 3d model building")
+    console.log("load: finished 3d model building")
+    loadProg(60)
 }
 
 //kot pos-sofa: position: [0.0750,0.0790,-0.3950], rotation: [0,230,0]
@@ -843,7 +847,6 @@ gsap.to(BGcamera.rotation, {
 }); */
 
 
-const degRad = (degrees) => degrees * (Math.PI / 180);
 
 //INITIAL CAMERA POS
 BGcamera.rotation.set(degRad(-0.08), degRad(0.08), degRad(0));
@@ -888,6 +891,35 @@ async function gsapIntroAnim() {
             _fullControls.enabled = true;
         }
     });
+}
+
+export async function camWarmUp() {
+    return new Promise((resolve)=>{
+        console.log('load: engaging warmup round 1')
+        BGcamera.position.set(...roomPov) //room pos.
+        gsap.to(BGcamera.rotation, {
+            x: BGcamera.rotation.x + degRad(360),   
+            duration: 0.5,
+            ease: "power2.inOut",
+            onComplete: () => {
+                console.log('load: engaging warmup round 2')
+                loadProg(15)
+                gsap.to(BGcamera.rotation, {
+                    y: BGcamera.rotation.y + degRad(360),   
+                    duration: 0.5,
+                    ease: "power2.inOut"
+                })
+            }
+        })
+        setTimeout(() => { 
+            BGcamera.position.set(...scenicPov)
+            BGcamera.rotation.set(...scenicRota)
+            BGcamera.updateProjectionMatrix()
+            console.log("load: warmup complete")
+            loadProg(15)
+            resolve()
+        }, 1000);
+    })
 }
 
 function cinematicMode() {
@@ -938,7 +970,6 @@ export async function welcomeStartUp(){
     threeLoadingScreen.style.opacity = "0" */
     await gsapIntroAnim() //duration actually instant, set timeout instead
     setTimeout(()=>{
-
         BGrenderer.domElement.addEventListener("click", raycastClick)
         BGrenderer.domElement.addEventListener("mousemove", raycastHover)
         cinematicMode()
@@ -948,6 +979,31 @@ export async function welcomeStartUp(){
     },6500)
 }
 
+async function firstLoad(){
+    await loadAllModels()
+    animateMain()
+    loadProg(10)
+    await camWarmUp()
+    threeLoadingScreen.style.opacity = "0"
+    threeIntroText.style.opacity = "1" 
+    document.addEventListener("keydown", startApp);
+    document.addEventListener("click", startApp);
+    document.addEventListener("touchstart", startApp);
+    
+}
 
+function startApp(event) {
+    event.preventDefault();
+    threeIntroText.style.opacity = "0"
+    document.removeEventListener("keydown", startApp);
+    document.removeEventListener("click", startApp);
+    document.removeEventListener("touchstart", startApp);
+    welcomeStartUp()
+    playSFX(playingBGM, "gunzBGM.mp3", "3d")
+    playSFX(playSFXBG, "streetAmb.mp3", "3d")
+}
+
+console.log("Starting up")
+firstLoad()
 
 //editorMode(BGscene)

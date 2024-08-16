@@ -15,11 +15,27 @@
     height: 100%;
     background-color: var(--colorMidnight); 
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     pointer-events: none;
-    transition: all 1.3s ease-in-out;
+    transition: all 1.3s 0.5s ease-in-out;
 }
+
+#loadBarOuter{
+    width: 20vw;
+    max-width: 30%;
+    min-width: 20%;
+    height: 10px;
+    max-height: 5%;
+    border: 1px solid var(--colorBone);
+}
+
+#loadBarInner{
+    width: 0%;
+    height: 100%;
+    background-color: var(--colorBone);
+}   
 
 #threeLoadingText{
     text-align: center;

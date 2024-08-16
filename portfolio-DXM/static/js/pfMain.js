@@ -12,7 +12,14 @@ const totalPg = Array.from(document.getElementsByClassName("pagination")).length
 console.log("num of pages detected, ", totalPg)
 window.userCurrentPage = 0;
 
+function handleLowMemory() {
+    if (navigator.deviceMemory && navigator.deviceMemory < 2) { //2GB mark
+        console.warn('Low memory detected. Switching to performance mode.');
+        togglePerfMode();
+    }
+}
 
+handleLowMemory();
 
 
 function detectDevice() {

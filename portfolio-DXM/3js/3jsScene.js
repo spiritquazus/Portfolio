@@ -16,9 +16,6 @@ import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 const BGcamera = new THREE.PerspectiveCamera(70, window.innerWidth/window.innerHeight, 0.1, 500);
 
 
-
-
-
 /* 
 
     initial camera settings
@@ -31,6 +28,11 @@ const BGcamera = new THREE.PerspectiveCamera(70, window.innerWidth/window.innerH
         zoom:1.0000,
         
 */
+const degRad = (degrees) => degrees * (Math.PI / 180);
+
+const roomPov = [-0.11,0.4,-0.184] //room pos.
+const scenicPov = [0.7545,-0.3523,-0.6129] //pos outside 1
+const scenicRota = [degRad(-0.08), degRad(0.08), degRad(0)]
 
 const BGscene = new THREE.Scene(); //container 
 const BGrenderer = new THREE.WebGLRenderer({
@@ -68,4 +70,4 @@ function onPointerMove( event ) {
 
 
 
-export {BGrenderer, BGcamera, BGscene, raycaster, pointer} 
+export {BGrenderer, BGcamera, BGscene, raycaster, pointer, degRad, roomPov, scenicPov, scenicRota} 

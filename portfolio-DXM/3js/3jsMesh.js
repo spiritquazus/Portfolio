@@ -217,6 +217,7 @@ function modelInstall(_loaderType, _item, _scene, _obj){
 
 //autoGenerate
 
+
 function addRandoms(_color, _scene, _loop){
     const _geometry = new THREE.SphereGeometry(0.1,24,24);
     const _material = new THREE.MeshStandardMaterial({
