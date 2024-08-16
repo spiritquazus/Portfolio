@@ -9,7 +9,7 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { RectAreaLightHelper } from 'three/addons/helpers/RectAreaLightHelper.js';
 
 import { addRandoms, modelInstall, BGbackgroundFull, BGbackgroundFull2, createTouchSphere } from './3jsMesh.js'
-import { BGrenderer, BGscene, BGcamera, raycaster, pointer, degRad, roomPov, scenicPov, scenicRota} from './3jsScene.js'
+import { BGrenderer, BGscene, BGcamera, raycaster, pointer, degRad, roomPov, scenicPov, scenicRota, scenicPov2, scenicRota2} from './3jsScene.js'
 import { bulbLight1, pointLight1, lightHelper1, ambientLight, lightHelperPoint1, createLight} from './3jsFX.js'
 import { playModelAnim, updateModelAnim } from './3jsAnim.js'
 
@@ -25,57 +25,6 @@ let raycastList = {}
 
 
 
-
-function checkPerformance() {
-    let perfScore = 10;
-    console.log("detecting user machine perf. ", window.performance)
-
-    const availableMemory = (performance.memory.jsHeapSizeLimit - performance.memory.usedJSHeapSize)/1000000000;
-    const perf = window.performance;
-    const timing = perf.timing;
-    const memory = perf.memory;
-
-    // Calculate page load time
-    const pageLoadTime = (timing.domComplete - timing.navigationStart) / 1000; // in seconds
-    const responseTime = (timing.responseEnd - timing.responseStart) / 1000; // in seconds
-
-    // Check page load time
-    if (pageLoadTime > 3) {
-        console.warn(`Page load time is high: ${pageLoadTime.toFixed(2)} seconds`);
-        perfScore -= 2
-    }
-
-    //latency/network
-    if (responseTime > 1) {
-        console.warn(`Resource fetching time is high: ${responseTime.toFixed(2)} seconds`);
-        perfScore -= 3
-    }
-
-    //avail memory 
-    if (availableMemory < 2.5){
-        console.warn('Available memory for allocation low! (in bytes):', availableMemory + " GB");
-        perfScore -= 3
-    } else {
-        console.log('Available memory for allocation (in bytes):', availableMemory + " GB");
-    }
-
-    //memory heap
-    if (memory && memory.jsHeapSizeLimit) {
-        const usedMemory = memory.usedJSHeapSize / memory.jsHeapSizeLimit;
-        console.log(`Memory usage: ${(usedMemory * 100).toFixed(2)}% of allocated heap`);
-        if (usedMemory > 0.6) {
-            console.warn(`High memory usage: ${(usedMemory * 100).toFixed(2)}% of allocated heap`);
-            perfScore -= 2
-        }
-    } else {
-        console.warn('Memory information is not available');
-    }
-    
-    if (perfScore < 7){
-        console.warn(`Entering performance mode.`)
-    }
-    return perfScore
-}
 //checkPerformance();
 
 
@@ -154,7 +103,7 @@ createLight("RectAreaLight", BGscene, {lightSetup:['rgb(220,220,190)', 6, 0.7, 2
 
 
 
-camerasList.BGcamera = BGcamera
+
 
 /* modelInstall(GLTFLoader, '../gallery/3dAssets/suburbsBG/suburbs_wip1.gltf', BGscene, {scale: [0.1,0.1,0.1], position: [2.8,-2.2,-3.45], rotation: [0,-180,0]}),
 modelInstall(GLTFLoader, '../gallery/3dAssets/yourRoom/BasemenrRoomFixed_2exp.gltf', BGscene, {scale: [0.2,0.2,0.2], position: [0,0,0], rotation: [0,180,0]}),
@@ -298,7 +247,7 @@ function raycastClick(){
 }
 
 function raycastHover(){
-    console.log("using raycastHover!")
+    
     if (intersects[0]){
         const currentMesh = intersects[0].object
         currentMesh.material.color.set( "rgb(0, 0, 255)" );
@@ -849,8 +798,9 @@ gsap.to(BGcamera.rotation, {
 
 
 //INITIAL CAMERA POS
-BGcamera.rotation.set(degRad(-0.08), degRad(0.08), degRad(0));
-BGcamera.position.set(0.7545,-0.3523,-0.6129)
+camerasList.BGcamera = BGcamera
+BGcamera.rotation.set(...scenicPov2);
+BGcamera.position.set(...scenicRota2)
 BGcamera.updateProjectionMatrix() 
 
 
@@ -907,13 +857,21 @@ export async function camWarmUp() {
                 gsap.to(BGcamera.rotation, {
                     y: BGcamera.rotation.y + degRad(360),   
                     duration: 0.5,
-                    ease: "power2.inOut"
+                    ease: "power2.inOut",
+                    onComplete: () => {
+                        BGcamera.rotation.set(...scenicRota2)
+                        gsap.to(BGcamera.rotation, {
+                            y: BGcamera.rotation.y,
+                            duration: 0.1,
+                            delay: 0.1
+                        })
+                    }
                 })
             }
         })
         setTimeout(() => { 
-            BGcamera.position.set(...scenicPov)
-            BGcamera.rotation.set(...scenicRota)
+            BGcamera.position.set(...scenicPov2)
+            BGcamera.rotation.set(...scenicRota2)
             BGcamera.updateProjectionMatrix()
             console.log("load: warmup complete")
             loadProg(15)
@@ -942,6 +900,7 @@ function cinematicMode() {
 
 function editorMode(_scene) {
     _fullControls.enabled = true;
+    _fullControls.enablePan = true; // Disable panning
     _fullControls.enableDamping = false; // Inertia damping
     _fullControls.minDistance = 0.0;
     _fullControls.maxDistance = Infinity;

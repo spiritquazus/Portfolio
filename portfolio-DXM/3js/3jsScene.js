@@ -33,6 +33,10 @@ const degRad = (degrees) => degrees * (Math.PI / 180);
 const roomPov = [-0.11,0.4,-0.184] //room pos.
 const scenicPov = [0.7545,-0.3523,-0.6129] //pos outside 1
 const scenicRota = [degRad(-0.08), degRad(0.08), degRad(0)]
+const scenicPov2 = [0.6260,0.1823,0.0102]
+const scenicRota2 = [-0.2382,-0.5697,-0.1302]
+
+
 
 const BGscene = new THREE.Scene(); //container 
 const BGrenderer = new THREE.WebGLRenderer({
@@ -70,4 +74,4 @@ function onPointerMove( event ) {
 
 
 
-export {BGrenderer, BGcamera, BGscene, raycaster, pointer, degRad, roomPov, scenicPov, scenicRota} 
+export {BGrenderer, BGcamera, BGscene, raycaster, pointer, degRad, roomPov, scenicPov, scenicRota, scenicPov2, scenicRota2} 
