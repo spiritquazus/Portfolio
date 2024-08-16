@@ -123,7 +123,7 @@ function contLangShow(_lang){
         case "english":           
             bodyDOM.style.backgroundImage = "url(../../gallery/2dElems/bg_london.jpg)"
             chooseMobile.innerText = "Mobile/Static Portfolio"
-            chooseMobile.onClick = () => userLangPref("");
+            chooseMobile.onclick = () => userLangPref("eng");
             choose3d.innerText = "3D Portfolio (You have a decent computer)"
             greetingsMsg.innerHTML = "<p>Portfolio</p><p>Isaac Kim</p>"
             cvLinks.forEach((link)=>link.onclick=(()=>redirBtnExt('../txt/CV_IKY_fullStack_2024.pdf')))
@@ -132,6 +132,7 @@ function contLangShow(_lang){
         case "french":
             bodyDOM.style.backgroundImage = "url(../../gallery/2dElems/bg_louvre.jpg)"
             chooseMobile.innerText = "Portfolio Statique"
+            chooseMobile.onclick = () => userLangPref("fr");
             choose3d.innerText = "Portfolio en 3D (Three.js)"
             greetingsMsg.innerHTML = "<p>Portfolio de</p><p>Isaac Kim</p>"
             rootCSS.style.setProperty("--font-primary", "Zen Antique, serif")
@@ -163,6 +164,7 @@ function contLangShow(_lang){
         case "japanese":
             bodyDOM.style.backgroundImage = "url(../../gallery/2dElems/bg_tokyo.jpg)"
             chooseMobile.innerText = "ポートフォリオ"
+            chooseMobile.onclick = () => userLangPref("jp");
             choose3d.innerText = "3D ポートフォリオ"
             greetingsMsg.innerHTML = "<p style='font-size: 0.6rem'>キムアイザックの</p><p style='font-size: 1rem'>ポートフォリオ</p>"
             rootCSS.style.setProperty("--font-primary", "Zen Antique, serif")

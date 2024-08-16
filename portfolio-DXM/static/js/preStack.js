@@ -25,6 +25,7 @@ function redirBtnExt(_route, _new){
 }
 
 function userLangPref(language) {
+    console.log("moving to page")
     localStorage.setItem("language", language);
     window.location.href = `https\://spiritquazus.github.io/Portfolio/portfolio-DXM//static/html/portFolioMain.html?language=${language}`
     //https\://spiritquazus.github.io/Portfolio/portfolio-DXM//static/html/portFolioMain.html
@@ -374,7 +375,7 @@ const langLoader = {
     "p1Btn0": "< 포트폴리오 >",
     "p1Btn1": "< 이력서 >",
 
-    "lsWarn0": "죄송합니다.",
+    "lsWarn0": "주위.",
     "lsWarn1": "이 웹사이트는 세로 모드에서 방문할 수 없습니다.",
     "lsWarn2": "장치를 가로 모드로 전환해 주세요.",
 
