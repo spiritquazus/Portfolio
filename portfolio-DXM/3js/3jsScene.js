@@ -45,6 +45,10 @@ const BGrenderer = new THREE.WebGLRenderer({
 BGrenderer.setSize(window.innerWidth, window.innerHeight);
 BGrenderer.toneMapping = THREE.ReinhardToneMapping
 BGrenderer.toneMappingExposure = 0.8
+BGrenderer.gammaOutput = true;
+BGrenderer.gammaFactor = 2.2;
+BGrenderer.depthTest = true;
+BGrenderer.depthWrite = true;
 /* BGrenderer.render(BGscene, BGcamera); */
 
 
@@ -68,10 +72,15 @@ function onPointerMove( event ) {
 }
 
 
+//FPS and Stats
+import Stats from 'https://cdnjs.cloudflare.com/ajax/libs/stats.js/r17/Stats.min.js';
+const fpsTracker = new Stats();
+fpsTracker.dom.style.position = "absolute";
+fpsTracker.dom.style.left = "50vmin";
+threePerfChecker.appendChild(fpsTracker.dom);
 
 
 
 
 
-
-export {BGrenderer, BGcamera, BGscene, raycaster, pointer, degRad, roomPov, scenicPov, scenicRota, scenicPov2, scenicRota2} 
+export {BGrenderer, BGcamera, BGscene, raycaster, pointer, degRad, roomPov, scenicPov, scenicRota, scenicPov2, scenicRota2, fpsTracker} 

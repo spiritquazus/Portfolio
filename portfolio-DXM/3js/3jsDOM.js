@@ -2,8 +2,17 @@ const cMain = document.getElementById("cMain"),
     threeLoadingScreen = document.getElementById("threeLoadingScreen"),
     threeIntroText = document.getElementById("threeIntroText"),
     estDate = document.getElementById("est-date"),
-    threeEditorMode = document.getElementById("threeEditorMode")
+    threeEditorMode = document.getElementById("threeEditorMode"),
+    threePerfChecker = document.getElementById("threePerfChecker"),
+    loadTimeDisplay = document.getElementById("loadTimeDisplay"),
+    assetLoadDisplay = document.getElementById("assetLoadDisplay"),
+    perfScoreDisplay = document.getElementById("perfScoreDisplay"),
+    kontrolMsg = document.getElementById("kontrolMsg")
 ;
+
+let startTime = Date.now();
+let assetLoadCheck = Date.now();
+
 
 function checkPerformance() {
     let perfScore = 10;
@@ -63,6 +72,9 @@ function checkPerformance() {
         console.warn(`Entering performance mode.`)
         //⚠️⚠️to do: disable cat, disable bg and swap with 2d, disable some lights. 
     }
+    loadTimeDisplay.innerText = Math.max(0, pageLoadTime.toFixed(2))
+    assetLoadDisplay.innerText = (assetLoadCheck - startTime)/1000  ;
+    perfScoreDisplay.innerText = perfScore
     return perfScore
 }
 

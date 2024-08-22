@@ -69,7 +69,7 @@ function userSetLang() {
                 break;
         }
         translatorObj = langLoader[language];
-        lsMsgs.forEach((elem, index)=>elem.innerText = translatorObj["lsWarn" + index])
+        lsMsgs.forEach((elem, index)=>elem.innerText = translatorObj[`lsWarn${index}`])
         pageMovBtn[0].innerText = translatorObj.pagePrev
         pageMovBtn[1].innerText = translatorObj.pageNxt
         /* introMsg.innerHTML = translatorObj.p1IntroMsg */
@@ -117,8 +117,10 @@ function eyeBlink(_mainCont, _mainContAfter, _elem, _cont){
 }
 
 let playingBGM = new Audio();
-playingBGM.volume = 0.3;
+playingBGM.volume = 0.2;
+playingBGM.loop = true;
 let playSFXBG = new Audio();
+playSFXBG.loop = true;
 let playSFXReact = new Audio();
 let playSFXcinematic = new Audio();
 

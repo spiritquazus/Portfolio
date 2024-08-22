@@ -27,6 +27,11 @@
     <div id="threeNavBar">
       <button id="threeEditorMode"></button>
       <button></button>
+      <div id="threePerfChecker" style="display: none">
+        <p> Init. Loading Time: <span id="loadTimeDisplay"></span></p>
+        <p> Assets Loading Time: <span id="assetLoadDisplay"></span></p>
+        <p>Performance Score: <span id="perfScoreDisplay"></span></p>
+      </div>
     </div>
 
 
@@ -41,8 +46,10 @@
       <div id="3dDXM"></div>
       <div id="threeLoadingText">Loading...</div>
       <div id="loadBarOuter"><div id="loadBarInner"></div></div>
+      <div id="kontrolMsg">Preparing GLTF Model Loader</div>
     </div>
   </div> <!-- cover end -->
+
 
   <script src="./3jsDOM.js"></script>
   <script src="../static/js/preStack.js"></script>

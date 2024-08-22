@@ -98,6 +98,7 @@ function createTouchSphere(_scene, _obj){
     touchSphere.position.set(..._obj.posxyz)
     touchSphere.name = _obj.name;
     touchSphere.raycastable = true;
+    touchSphere.visible = false;
     console.log("created new touchSphere: ", touchSphere)
     _scene.add(touchSphere)
     return touchSphere
@@ -160,8 +161,15 @@ function degreesToRadians(degrees) {
     return degrees * (Math.PI / 180);
 }
 
-//GLTF:
+//SPRITE:
+function createSprite(_scene, _item, ){
+    const map = new THREE.TextureLoader().load( _item);
+    const material = new THREE.SpriteMaterial( { map: map } );
+    const sprite = new THREE.Sprite( material );
+    _scene.add( sprite );
+}
 
+//GLTF:
 //modelInstall(GLTFLoader, '../gallery/3dAssets/streetTokyo/scene.gltf', {scale: [1,1,1], position: [2,0,0]})
 function modelInstall(_loaderType, _item, _scene, _obj){
     const gltfLoader = new _loaderType();
@@ -188,7 +196,9 @@ function modelInstall(_loaderType, _item, _scene, _obj){
                 console.log("GLTF loaded successfully:", gltfScene);
                 
                 _scene.add(gltfScene.scene); // Add gltfScene.scene to BGscene
-
+                if (_obj.msg && _obj.name){
+                    _obj.msg.innerText = `Loading Model: ${_obj.name}`; 
+                }
                 const mixer = new THREE.AnimationMixer(gltfScene.scene);
                 gltfScene.animations.forEach(clip => {
                     mixer.clipAction(clip).play();
@@ -236,4 +246,4 @@ function addRandoms(_color, _scene, _loop){
     }
 }
 
-export {addRandoms, modelInstall, BGbackgroundFull, BGbackgroundFull2, createTouchSphere};
+export {addRandoms, modelInstall, BGbackgroundFull, BGbackgroundFull2, createTouchSphere, createSprite};

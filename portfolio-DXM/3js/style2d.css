@@ -13,7 +13,7 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: var(--colorMidnight); 
+    background: var(--gradientGeistBis); 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -111,4 +111,14 @@
     background-image: url(../gallery/2dElems/iconAdmin.svg);
     
     
+}
+
+#threePerfChecker{
+    margin-left: 2vmin;
+}
+
+#threePerfChecker>p{
+    font-family: var(--font-tertiary);
+    margin: 0;
+    padding: 0;
 }

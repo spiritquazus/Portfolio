@@ -8,8 +8,8 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 import { RectAreaLightHelper } from 'three/addons/helpers/RectAreaLightHelper.js';
 
-import { addRandoms, modelInstall, BGbackgroundFull, BGbackgroundFull2, createTouchSphere } from './3jsMesh.js'
-import { BGrenderer, BGscene, BGcamera, raycaster, pointer, degRad, roomPov, scenicPov, scenicRota, scenicPov2, scenicRota2} from './3jsScene.js'
+import { addRandoms, modelInstall, BGbackgroundFull, BGbackgroundFull2, createTouchSphere, createSprite } from './3jsMesh.js'
+import { BGrenderer, BGscene, BGcamera, raycaster, pointer, degRad, roomPov, scenicPov, scenicRota, scenicPov2, scenicRota2, fpsTracker} from './3jsScene.js'
 import { bulbLight1, pointLight1, lightHelper1, ambientLight, lightHelperPoint1, createLight} from './3jsFX.js'
 import { playModelAnim, updateModelAnim } from './3jsAnim.js'
 
@@ -103,16 +103,51 @@ createLight("RectAreaLight", BGscene, {lightSetup:['rgb(220,220,190)', 6, 0.7, 2
 
 
 
+ lightsList.pointlightTram = 
+ createLight("PointLight", BGscene, {lightSetup:['rgb(220,220,190)', 0.7, 1.3, 4.8], intensity: 0.7, distance:1.3, decay:4.8, posxyz:[8.0500,0.3050,-22.2000], rotaxyz:[0.000,0.600,0.000], lightH:true, lightHSetup:[]})
 
+/* 
+ lightsList.pointlightTram = 
+createLight("RectAreaLight", BGscene, {lightSetup:['rgb(200,200,250)', 10, 0.7, 2.5], posxyz:[8.900,0.0550,4.3143],  rotaxyz:[0.0000,1.6000,0.0000], width:5, height: 0.39, lightH:true, lightHSetup:[]})
 
+ */
 /* modelInstall(GLTFLoader, '../gallery/3dAssets/suburbsBG/suburbs_wip1.gltf', BGscene, {scale: [0.1,0.1,0.1], position: [2.8,-2.2,-3.45], rotation: [0,-180,0]}),
 modelInstall(GLTFLoader, '../gallery/3dAssets/yourRoom/BasemenrRoomFixed_2exp.gltf', BGscene, {scale: [0.2,0.2,0.2], position: [0,0,0], rotation: [0,180,0]}),
  */
 export async function loadAllModels(){
     const modelLoadProm = [
-        modelInstall(GLTFLoader, '../gallery/3dAssets/suburbsBG/suburbs_wip1.gltf', BGscene, {scale: [0.1,0.1,0.1], position: [2.8,-2.2,-3.45], rotation: [0,-180,0]}),
-        modelInstall(GLTFLoader, '../gallery/3dAssets/yourRoom/BasemenrRoomFixed_2exp.gltf', BGscene, {scale: [0.2,0.2,0.2], position: [0,0,0], rotation: [0,180,0]}),
-        modelInstall(GLTFLoader, '../gallery/3dAssets/kot1/scene.gltf', BGscene, {scale: [0.005,0.005,0.005], position: [0.0750,0.0790,-0.3950], rotation: [0,230,0]})
+/*         modelInstall(GLTFLoader, '../gallery/3dAssets/tram/cars.gltf', BGscene, {scale: [0.20,0.20,0.20], position: [8.8500,-0.250,12.2000], rotation: [0,270,0], name:"cars2", msg:kontrolMsg})
+        .then(({ model }) => {
+            model.children[0].material.depthWrite = true;
+            model.children[0].renderOrder = -1
+            console.log("mesh? ", model.children[0])
+            console.log(model.children[0].material.depthWrite)
+            if (model.children[0].isMesh && model.children[0].material.map){
+                animatePlaneAndLight(model.children[0], lightsList.pointlightTram, 10)
+                
+            }
+        }), */
+        modelInstall(GLTFLoader, '../gallery/3dAssets/suburbsBG/suburbs_wip1.gltf', BGscene, {scale: [0.1,0.1,0.1], position: [2.8,-2.2,-3.45], rotation: [0,-180,0], name:"Background Suburbs", msg:kontrolMsg})
+        .then(({ model }) => {
+            console.log("train. ", model.children[11])
+            animatePlaneAndLight(model.children[11], lightsList.pointlightTram, 10)
+        }),
+        modelInstall(GLTFLoader, '../gallery/3dAssets/yourRoom/BasemenrRoomFixed_2exp.gltf', BGscene, {scale: [0.2,0.2,0.2], position: [0,0,0], rotation: [0,180,0], name:"Room", msg:kontrolMsg})
+        .then(({ model }) => {
+            console.log("basement", model)
+            console.log("child of index 9: plane001", model.children[9])
+            model.children[9].material.transparent = true;
+            model.children[9].material.alphaTest = 0.1;
+            model.children[9].material.depthWrite = true;
+
+        }),
+        modelInstall(GLTFLoader, '../gallery/3dAssets/carsTraffic/carsTraffic.gltf', BGscene, {scale: [0.6,0.2,0.2], position: [0.9500,-2.000,-11.3000], rotation: [0,90,0], name:"cars1", msg:kontrolMsg})
+        .then(({ model }) => {
+            if (model.children[0].isMesh && model.children[0].material.map){
+                scrollUV(model.children[0].material, 0.002, 0.7, 0.7)
+            }
+        }),
+        modelInstall(GLTFLoader, '../gallery/3dAssets/kot1/scene.gltf', BGscene, {scale: [0.005,0.005,0.005], position: [0.0750,0.0790,-0.3950], rotation: [0,230,0], name:"Animated Cat", msg:kontrolMsg})
         .then(({ model, mixer }) => {
             console.log('Model and animations loaded successfully. ', model);
         })
@@ -127,7 +162,60 @@ export async function loadAllModels(){
     modelsList.cat = cat;
 
     console.log("load: finished 3d model building")
+    assetLoadCheck = Date.now()
     loadProg(60)
+}
+
+
+function scrollUV(material, _speed, _start, _end) {
+
+    function update() {
+        material.map.offset.x -= _speed; // Scroll the texture horizontally
+        if (material.map.offset.x <= -_end) { 
+            material.map.offset.x = _start;  // Reset after full scroll
+        }
+        if (material.emissiveMap){
+            material.emissiveMap.offset.x -= _speed; // Scroll the texture horizontally
+            if (material.emissiveMap.offset.x <= -_end) { 
+                material.emissiveMap.offset.x = _start;  // Reset after full scroll
+            }
+        }
+        requestAnimationFrame(update);
+    }
+
+    update();
+}
+
+function animatePlaneAndLight(_model, _lightAttach, _speed) {
+    // Initialize variables for tracking time
+    let lastTime = 0;
+
+    function update(time) {
+        // Calculate elapsed time
+        const deltaTime = (time - lastTime) / 1000; // Time in seconds
+        lastTime = time;
+
+        // Animate the plane by moving it along the X-axis
+        _model.position.z -= _speed * deltaTime;
+        
+        // Optionally, reset position if the plane moves too far
+        if (_model.position.z < -150) { // Adjust -100 based on your scene
+            _model.position.z = 90; // Reset to start position (adjust as needed)
+        }
+
+        // Move the light to follow the plane
+        /* _lightAttach[0].position.x = _model.position.x; */
+       /*  _lightAttach[0].position.y = _model.position.y;  */
+       _lightAttach[0].position.z = (- _model.position.z / 10.278317451477051) -1;
+/*         console.log("lightpos: ", _lightAttach[0].position.z)
+        console.log("modelPos", _model.position.z) */
+
+        // Request the next frame
+        requestAnimationFrame(update);
+    }
+
+    // Start the animation
+    update(0);
 }
 
 //kot pos-sofa: position: [0.0750,0.0790,-0.3950], rotation: [0,230,0]
@@ -180,6 +268,16 @@ createLight("RectAreaLight", BGscene, {lightSetup:['rgb(250,250,250)', 3, 0.7, 2
 raycastList.spawnCV = 
 createTouchSphere(BGscene, {posxyz:[-0.0150,0.2550,0.20905], scalexyz:[1.2,0.6,0.3], name:"spawnCV"})
 
+raycastList.spawnProjects =
+createTouchSphere(BGscene, {posxyz:[-0.3550,0.1400,-0.3850], scalexyz:[0.85,1,0.6], name:"spawnProjects"})
+
+raycastList.spawnContact =
+createTouchSphere(BGscene, {posxyz:[0.3500,0.3500,-0.0700], scalexyz:[0.15,0.5,1.1], name:"spawnContact"})
+
+raycastList.spawnCatFunc =
+createTouchSphere(BGscene, {posxyz:[0.0750,0.1270,-0.3950], scalexyz:[0.225,0.225,0.225], name:"spawnCatFunc"})
+
+
 addRandoms('rgb(255,255,255)', BGscene, 100)
 BGscene.add(BGbackgroundFull)
 BGscene.add(BGbackgroundFull2)
@@ -201,12 +299,12 @@ BGscene.traverse((object) => {
     object.visible = false;
     }
 });
-console.log("current performance score: ", checkPerformance())
+console.log("At start-up: current performance score: ", checkPerformance())
 
 const threeJsClock = new THREE.Clock();
 let intersects
 export function animateMain(){
-   
+    fpsTracker.begin();
     // update the picking ray with the camera and pointer position
 	raycaster.setFromCamera( pointer, BGcamera );
     // calculate objects intersecting the picking ray
@@ -220,31 +318,135 @@ export function animateMain(){
     const deltaTime = threeJsClock.getDelta(); 
     //updates animation according to next move
     updateModelAnim(deltaTime);
-    
+    fpsTracker.end();
     BGrenderer.render(BGscene, BGcamera);
     requestAnimationFrame(animateMain)
 }
 
+let mouseDownChk = false;
+let isDragging = false;
+let mousePos = { x: 0, y: 0 };
+const dragThreshold = 5;
+
+document.addEventListener("mousedown", (event) => {
+    mouseDownChk = true;
+    isDragging = false;
+    mousePos = { x: event.clientX, y: event.clientY };
+});
+
+document.addEventListener("mousemove", (event) => {
+    if (mouseDownChk) {
+        const currMousePos = { x: event.clientX, y: event.clientY };
+        const dist = Math.sqrt(
+            Math.pow(currMousePos.x - mousePos.x, 2) +
+            Math.pow(currMousePos.y - mousePos.y, 2)
+        );
+
+        if (dist > dragThreshold) {
+            isDragging = true;
+        }
+    }
+});
+
+document.addEventListener("mouseup", () => {
+    mouseDownChk = false;
+});
 
 
 function raycastClick(){
-    if (intersects[0]){
+    if (intersects[0] && !isDragging){
         const currentMesh = intersects[0].object
         currentMesh.material.color.set( "rgb(255, 0, 0)" ); 
         currentMesh.clicked = true
         switch (currentMesh.name){
             case "spawnCV":
                 //do shit
+                gsapForce({position: [-0.1096,0.3001,0.0156], rotation: [-2.8944,-0.1558,-3.0673], time: 0.6})
+                freezeCamera(BGscene, true) 
                 break;
             case "spawnProjects":
                 //do shit
+                gsapForce({position: [-0.1850,0.1874,-0.1566], rotation: [-0.0580,0.4751,0.0406], time:0.5})
+                freezeCamera(BGscene, true)
                 break;
             case "spawnContact":
                 //do shit
+                gsapForce({position: [0.1559,0.3526,-0.0182], rotation: [-2.0473,-1.3194,-2.0620], time: 0.5})
+                freezeCamera(BGscene, true)
+                break;
+            case "spawnCatFunc":
+                catFunc()
                 break;
         }
     }
 }
+
+
+
+let catSFX = ["cat1.aac", "cat2.aac", "cat3.aac", "cat4.aac"]
+function catFunc(){
+    const num = Math.floor(Math.random() * 4)
+    playSFX(playSFXReact, catSFX[num], "3d")
+}
+
+function gsapForce(_obj){
+    if(_obj.position){
+        gsap.to(BGcamera.position, {
+            x: _obj.position[0],
+            y: _obj.position[1],
+            z: _obj.position[2],
+            duration: _obj.time,
+            ease: "power2.inOut"
+        });
+    }
+    if(_obj.rotation){
+        gsap.to(BGcamera.rotation, {
+            x: _obj.rotation[0],
+            y: _obj.rotation[1],
+            z: _obj.rotation[2],
+            duration: 0,
+            ease: "power2.inOut"
+        });
+    }
+/*     setTimeout(() => { 
+        BGcamera.position.set(..._obj.position)
+        BGcamera.rotation.set(..._obj.rotation)
+        BGcamera.updateProjectionMatrix()
+    }, _obj.time * 1000); */
+}
+    
+//gsapForce({position: [0.1459,0.3526,-0.1182], rotation: [-2.1473,-1.2194,-2.1620]})
+const camFocTelephone = `
+posxyz:[0.1559,0.3526,-0.0182], 
+rotaxyz:[-2.0473,-1.3194,-2.0620],
+fustrum:2.1076,
+far:500.0000,
+near:0.1000,
+fov:70.0000,
+zoom:1.0000,
+`
+//gsapForce({position: [-0.1096,0.3001,0.0156], rotation: [-2.8944,-0.1558,-3.0673]})
+const camFocComputer = `
+posxyz:[-0.1096,0.3001,0.0156], 
+rotaxyz:[-2.8944,-0.1558,-3.0673],
+fustrum:2.1076,
+far:500.0000,
+near:0.1000,
+fov:70.0000,
+zoom:1.0000,
+`
+//gsapForce({position: [-0.1850,0.2074,-0.1566], rotation: [-0.0580,0.4751,0.0406]})
+const camFocRecords = `
+posxyz:[-0.1850,0.2074,-0.1566], 
+rotaxyz:[-0.0580,0.4751,0.0406],
+fustrum:2.1076,
+far:500.0000,
+near:0.1000,
+fov:70.0000,
+zoom:1.0000,
+`
+
+
 
 function raycastHover(){
     
@@ -846,6 +1048,7 @@ async function gsapIntroAnim() {
 export async function camWarmUp() {
     return new Promise((resolve)=>{
         console.log('load: engaging warmup round 1')
+        kontrolMsg.innerText = "Warming up camera..."
         BGcamera.position.set(...roomPov) //room pos.
         gsap.to(BGcamera.rotation, {
             x: BGcamera.rotation.x + degRad(360),   
@@ -853,6 +1056,7 @@ export async function camWarmUp() {
             ease: "power2.inOut",
             onComplete: () => {
                 console.log('load: engaging warmup round 2')
+                kontrolMsg.innerText = "Concluding camera warm-up..."
                 loadProg(15)
                 gsap.to(BGcamera.rotation, {
                     y: BGcamera.rotation.y + degRad(360),   
@@ -890,6 +1094,10 @@ function cinematicMode() {
     if (kontrolActive)document.getElementById("kontrolBoxCont").style.display = "none"
     targetHelper.visible = false;
     gridHelper.visible = false
+    threePerfChecker.style.display = "none"
+    Object.values(raycastList).forEach((obj)=>{
+        obj.visible = false
+    })
     BGscene.traverse((object) => {
         if (object.type.includes('Helper')) {
         object.visible = false;
@@ -906,6 +1114,10 @@ function editorMode(_scene) {
     _fullControls.maxDistance = Infinity;
     gridHelper.visible = true
     targetHelper.visible = true
+    threePerfChecker.style.display = "block"
+    Object.values(raycastList).forEach((obj)=>{
+        obj.visible = true
+    })
     kontroller(_scene)
     _scene.traverse((object) => {
         if (object.type.includes('Helper')) {
@@ -913,6 +1125,14 @@ function editorMode(_scene) {
         }
     });
     cameraModeCheck = "editor"
+}
+
+function freezeCamera(_scene, _bool){
+
+    _bool?_fullControls.enabled = false:_fullControls.enabled = true
+
+    
+
 }
 
 threeEditorMode.addEventListener("click", ()=>{
@@ -932,8 +1152,10 @@ export async function welcomeStartUp(){
         BGrenderer.domElement.addEventListener("click", raycastClick)
         BGrenderer.domElement.addEventListener("mousemove", raycastHover)
         cinematicMode()
-        lightsList.pointLight등[0].intensity = 0.55;
-        lightsList.pointLight전등[0].intensity = 0.75; 
+        setTimeout(()=>{
+            lightsList.pointLight등[0].intensity = 0.55;
+            lightsList.pointLight전등[0].intensity = 0.75; 
+        },500)
         console.log("current performance score: ", checkPerformance())
     },6500)
 }
@@ -941,6 +1163,7 @@ export async function welcomeStartUp(){
 async function firstLoad(){
     await loadAllModels()
     animateMain()
+    kontrolMsg.innerText="Preparing 3D render and animation"
     loadProg(10)
     await camWarmUp()
     threeLoadingScreen.style.opacity = "0"
