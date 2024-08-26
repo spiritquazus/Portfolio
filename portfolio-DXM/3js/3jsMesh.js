@@ -83,7 +83,7 @@ const BGcoverMat = new THREE.ShaderMaterial({
 })
 
 //background Mesh:
-const BGbackgroundMesh = new THREE.TextureLoader().load('../gallery/3jsTextures/tokyoBGNight.webp') //unused
+const BGbackgroundMesh = new THREE.TextureLoader().load('../gallery/3jsTextures/skylineBGNight.webp') //unused
 const BGbackgroundMaterial = new THREE.MeshPhongMaterial({ //unused
     map: BGbackgroundMesh,
     side: THREE.FrontSide,

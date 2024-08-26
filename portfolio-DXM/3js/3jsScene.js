@@ -56,6 +56,7 @@ const scenicRota2 = [-0.2382,-0.5697,-0.1302]
 //Renderer
 const BGscene = new THREE.Scene(); //container 
 const BGrenderer = new THREE.WebGLRenderer({
+    version: 1,
     canvas: document.getElementById("cMain")
 })
 BGrenderer.setSize(window.innerWidth, window.innerHeight);
@@ -64,6 +65,7 @@ BGrenderer.toneMappingExposure = 0.8
 BGrenderer.gammaOutput = true;
 BGrenderer.gammaFactor = userDevice=="mobile"?1.3:1.7;
 BGrenderer.antialias = true;
+
 console.log("Renderer ready: ", BGrenderer)
 
 //composer for post-processing
