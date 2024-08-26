@@ -9,11 +9,15 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { RectAreaLightHelper } from 'three/addons/helpers/RectAreaLightHelper.js';
 
 import { addRandoms, modelInstall, BGbackgroundFull, BGbackgroundFull2, createTouchSphere, createSprite } from './3jsMesh.js'
-import { BGrenderer, BGscene, BGcamera, raycaster, pointer, degRad, roomPov, scenicPov, scenicRota, scenicPov2, scenicRota2, fpsTracker} from './3jsScene.js'
+import { BGrenderer, BGscene, BGcamera, raycaster, pointer, degRad, roomPov, roomRota, scenicPov, scenicRota, scenicPov2, scenicRota2, fpsTracker, composer, composerBloom, composerBokeh} from './3jsScene.js'
 import { bulbLight1, pointLight1, lightHelper1, ambientLight, lightHelperPoint1, createLight} from './3jsFX.js'
 import { playModelAnim, updateModelAnim } from './3jsAnim.js'
 
 let targetHelper;
+let toggleAnim = true;
+let perfMode3D = false;
+window.postProcessing = {"bloom":false, "bokeh":false,};
+window.passList = {"bloom":{}, "bokeh":{}}
 let cameraModeCheck;
 let _fullControls = new OrbitControls(BGcamera, BGrenderer.domElement);
 _fullControls.enabled = false
@@ -22,10 +26,34 @@ window.modelsList = {}
 window.camerasList = {}
 let raycastList = {}
 
+let mouseDownChk = false;
+let isDragging = false;
+let mousePos = { x: 0, y: 0 };
+const dragThreshold = 5;
 
+document.addEventListener("mousedown", (event) => {
+    mouseDownChk = true;
+    isDragging = false;
+    mousePos = { x: event.clientX, y: event.clientY };
+});
 
+document.addEventListener("mousemove", (event) => {
+    if (mouseDownChk) {
+        const currMousePos = { x: event.clientX, y: event.clientY };
+        const dist = Math.sqrt(
+            Math.pow(currMousePos.x - mousePos.x, 2) +
+            Math.pow(currMousePos.y - mousePos.y, 2)
+        );
 
-//checkPerformance();
+        if (dist > dragThreshold) {
+            isDragging = true;
+        }
+    }
+});
+
+document.addEventListener("mouseup", () => {
+    mouseDownChk = false;
+});
 
 
 //test
@@ -130,16 +158,11 @@ export async function loadAllModels(){
         modelInstall(GLTFLoader, '../gallery/3dAssets/suburbsBG/suburbs_wip1.gltf', BGscene, {scale: [0.1,0.1,0.1], position: [2.8,-2.2,-3.45], rotation: [0,-180,0], name:"Background Suburbs", msg:kontrolMsg})
         .then(({ model }) => {
             console.log("train. ", model.children[11])
-            animatePlaneAndLight(model.children[11], lightsList.pointlightTram, 10)
+            animatePlaneAndLight(model.children[11], lightsList.pointlightTram, 30)
         }),
         modelInstall(GLTFLoader, '../gallery/3dAssets/yourRoom/BasemenrRoomFixed_2exp.gltf', BGscene, {scale: [0.2,0.2,0.2], position: [0,0,0], rotation: [0,180,0], name:"Room", msg:kontrolMsg})
         .then(({ model }) => {
-            console.log("basement", model)
-            console.log("child of index 9: plane001", model.children[9])
-            model.children[9].material.transparent = true;
-            model.children[9].material.alphaTest = 0.1;
-            model.children[9].material.depthWrite = true;
-
+/*             console.log("child of index 9: plane001", model.children[9]) */
         }),
         modelInstall(GLTFLoader, '../gallery/3dAssets/carsTraffic/carsTraffic.gltf', BGscene, {scale: [0.6,0.2,0.2], position: [0.9500,-2.000,-11.3000], rotation: [0,90,0], name:"cars1", msg:kontrolMsg})
         .then(({ model }) => {
@@ -166,9 +189,7 @@ export async function loadAllModels(){
     loadProg(60)
 }
 
-
 function scrollUV(material, _speed, _start, _end) {
-
     function update() {
         material.map.offset.x -= _speed; // Scroll the texture horizontally
         if (material.map.offset.x <= -_end) { 
@@ -182,7 +203,6 @@ function scrollUV(material, _speed, _start, _end) {
         }
         requestAnimationFrame(update);
     }
-
     update();
 }
 
@@ -199,8 +219,8 @@ function animatePlaneAndLight(_model, _lightAttach, _speed) {
         _model.position.z -= _speed * deltaTime;
         
         // Optionally, reset position if the plane moves too far
-        if (_model.position.z < -150) { // Adjust -100 based on your scene
-            _model.position.z = 90; // Reset to start position (adjust as needed)
+        if (_model.position.z < -200) { // Adjust -100 based on your scene
+            _model.position.z = 200; // Reset to start position (adjust as needed)
         }
 
         // Move the light to follow the plane
@@ -226,8 +246,8 @@ createLight("PointLight", BGscene, {lightSetup:['rgb(220,220,190)', 0.5, 9, 0.2]
 lightsList.lightBGcityRight = 
 createLight("PointLight", BGscene, {lightSetup:['rgb(220,220,190)', 0.5, 9, 0.2], intensity: 0.11, distance: 7, posxyz:[6.000,0.000,-1.500], rotaxyz:[0.000,0.000,0.000], lightH:true, lightHSetup:[]})
  */
-
-/* lightsList.rectLightKanpan7ElevenNorth = 
+/* 
+ lightsList.rectLightKanpan7ElevenNorth = 
 createLight("RectAreaLight", BGscene, {lightSetup:['rgb(250,250,250)', 3, 0.7, 2.5], posxyz:[0.0750,-1.0500,-3.5450], intensity: 0.5, rotaxyz:[0.0000,6.2500,0.0000], width:0.65, height: 0.26, lightH:true, lightHSetup:[]})
 
 lightsList.rectLightKanpan7ElevenEast = 
@@ -277,6 +297,7 @@ createTouchSphere(BGscene, {posxyz:[0.3500,0.3500,-0.0700], scalexyz:[0.15,0.5,1
 raycastList.spawnCatFunc =
 createTouchSphere(BGscene, {posxyz:[0.0750,0.1270,-0.3950], scalexyz:[0.225,0.225,0.225], name:"spawnCatFunc"})
 
+createSprite(BGscene, "../gallery/3jsTextures/sprites/iconCircle.svg", {position: [0.2900,0.3500,-0.0700], scale: [0.1, 0.1, 0.1]})
 
 addRandoms('rgb(255,255,255)', BGscene, 100)
 BGscene.add(BGbackgroundFull)
@@ -317,41 +338,28 @@ export function animateMain(){
     //get the time elapsed since the last call
     const deltaTime = threeJsClock.getDelta(); 
     //updates animation according to next move
-    updateModelAnim(deltaTime);
+    if (toggleAnim)updateModelAnim(deltaTime);
     fpsTracker.end();
-    BGrenderer.render(BGscene, BGcamera);
+    /* BGrenderer.render(BGscene, BGcamera); */
     requestAnimationFrame(animateMain)
+    composer.render();
 }
 
-let mouseDownChk = false;
-let isDragging = false;
-let mousePos = { x: 0, y: 0 };
-const dragThreshold = 5;
-
-document.addEventListener("mousedown", (event) => {
-    mouseDownChk = true;
-    isDragging = false;
-    mousePos = { x: event.clientX, y: event.clientY };
-});
-
-document.addEventListener("mousemove", (event) => {
-    if (mouseDownChk) {
-        const currMousePos = { x: event.clientX, y: event.clientY };
-        const dist = Math.sqrt(
-            Math.pow(currMousePos.x - mousePos.x, 2) +
-            Math.pow(currMousePos.y - mousePos.y, 2)
-        );
-
-        if (dist > dragThreshold) {
-            isDragging = true;
-        }
+function raycastHover(){
+    
+    if (intersects[0]){
+        const currentMesh = intersects[0].object
+        currentMesh.material.color.set( "rgb(0, 0, 255)" );
+        currentMesh.hovered = true
+    } else {
+        Object.values(raycastList).forEach((obj)=>{
+            obj.hovered = false
+            obj.clicked = false
+            obj.material.color.set( "rgb(0, 255, 0)" )
+        })
     }
-});
-
-document.addEventListener("mouseup", () => {
-    mouseDownChk = false;
-});
-
+    
+}
 
 function raycastClick(){
     if (intersects[0] && !isDragging){
@@ -381,7 +389,9 @@ function raycastClick(){
     }
 }
 
-
+function freezeCamera(_scene, _bool){
+    _bool?_fullControls.enabled = false:_fullControls.enabled = true
+}
 
 let catSFX = ["cat1.aac", "cat2.aac", "cat3.aac", "cat4.aac"]
 function catFunc(){
@@ -408,11 +418,6 @@ function gsapForce(_obj){
             ease: "power2.inOut"
         });
     }
-/*     setTimeout(() => { 
-        BGcamera.position.set(..._obj.position)
-        BGcamera.rotation.set(..._obj.rotation)
-        BGcamera.updateProjectionMatrix()
-    }, _obj.time * 1000); */
 }
     
 //gsapForce({position: [0.1459,0.3526,-0.1182], rotation: [-2.1473,-1.2194,-2.1620]})
@@ -447,588 +452,36 @@ zoom:1.0000,
 `
 
 
-
-function raycastHover(){
-    
-    if (intersects[0]){
-        const currentMesh = intersects[0].object
-        currentMesh.material.color.set( "rgb(0, 0, 255)" );
-        currentMesh.hovered = true
-    } else {
-        Object.values(raycastList).forEach((obj)=>{
-            obj.hovered = false
-            obj.clicked = false
-            obj.material.color.set( "rgb(0, 255, 0)" )
-        })
-    }
-    
-}
-
-
-//KONTROLLER
-let kontrolActive = false;
-function kontroller(_scene){
-
-    if (kontrolActive){
-        document.getElementById("kontrolBoxCont").style.display = "flex"
-        return
-    } else {
-        kontrolActive = true;
-    }
-
-    let chosenLight = {};
-    let chosenKey;
-    let chosenMesh;
-    let chosenCamera;
-
-    let currentMode = null
-    
-    let chosenIncrement = 0.1;
-    const kontrolBox = document.createElement("div")
-    kontrolBox.id = "kontrolBoxCont"
-    kontrolBox.innerHTML=
-    `
-    <div id="kontrolBox">KONTROLBOX
-        <button id="kontrolLightsBtn">Lights</button>
-        <button id="kontrolMeshesBtn">Meshes</button>
-        <button id="kontrolCamerasBtn">Cameras</button>
-        <button id="closeKontrolsBtn">X</button>
-    </div>
-    <div id="kontrolLightsUI" class="kontrolTab">
-        <div id="kontrolLightsChosen"><h1>Kontrol Lights</h1><h3 id="chosenLightName"></h3>
-            <br/>
-            <span>Increment:</span>
-            <input id="kontrolIncrementLight" type="text" value="0.1" style="width: 2rem">
-            <br/>
-            <br/>
-            <div>Current XYZ position: <span id="lightPositionXYZ" class="kontrolDenom"></span></div>
-            <div><button id="posXplus">posXplus</button> <button id="posYplus">posYplus</button> <button id="posZplus">posZplus</button></div>
-            <div><button id="posXminus">posXminus</button> <button id="posYminus">posYminus</button> <button id="posZminus">posZminus</button></div>
-            <br/>
-            <div>Current XYZ Rotation: <span id="lightRotationXYZ" class="kontrolDenom"></span></div>
-            <div><button id="rotaXplus">rotaXplus</button> <button id="rotaYplus">rotaYplus</button> <button id="rotaZplus">rotaZplus</button></div>
-            <div><button id="rotaXminus">rotaXminus</button> <button id="rotaYminus">rotaYminus</button> <button id="rotaZminus">rotaZminus</button></div>
-            <br/>
-
-            <div>Lights Settings <span id="lightSettingsAAA" class="kontrolDenom"></span>:</div>
-            <div style="display: flex">Color/skyColor<span id="lightOption1"></span><div id=lightSettingsColor></div></div>
-            <div><button id="lightsRedPlus">Red+</button><button id="lightsRedMinus">Red-</button><button id="lightsGreenPlus">Green+</button><button id="lightsGreenMinus">Green-</button><button id="lightsBluePlus">Blue+</button><button id="lightsBlueMinus">Blue-</button></div>
-            
-            <div>Intensity/groundcolor - <span id="lightOption2" class="kontrolDenom"></span></div>
-            <div><button id="lightOption2Plus">+</button><button id="lightOption2Minus">-</button></div>
-            
-            <div>Width/distance/skyIntensity - <span id="lightOption3" class="kontrolDenom"></span></div>
-            <div><button id="lightOption3Plus">+</button><button id="lightOption3Minus">-</button></div>
-            
-            <div>Height/angle/decay - <span id="lightOption4" class="kontrolDenom"></span></div>
-            <div><button id="lightOption4Plus">+</button><button id="lightOption4Minus">-</button></div>
-            <br/>
-            <button id="saveChanges"> SAVE! (copies to clipboard) </button>
-        
-            
-        </div>
-        <div id="kontrolLightsListCont"><h1>Light List</h1>
-            <ul id="kontrolLightsList"> 
-            </ul>
-            <div>
-                <button id="showHelpers">Helpers On</button>
-                <button id="hideHelpers">Helpers Off</button>
-            </div>
-        </div>
-    </div>
-    <div id="kontrolMeshesUI" class="kontrolTab">kontrolMeshesUI
-    </div>
-    <div id="kontrolCamerasUI" class="kontrolTab">kontrolCameraUI
-        <div id="kontrolCameraOptions">
-            <p id=chosenCameraName></p>
-            <br/>
-            <span>Increment:</span>
-            <input id="kontrolIncrementCamera" type="text" value="0.1" style="width: 2rem">
-            <br/>
-            <div>Current XYZ position: <span id="cameraPositionXYZ" class="kontrolDenom"></span></div>
-            <div><button id="posXplusCamera">posXplus</button> <button id="posYplusCamera">posYplus</button> <button id="posZplusCamera">posZplus</button></div>
-            <div><button id="posXminusCamera">posXminus</button> <button id="posYminusCamera">posYminus</button> <button id="posZminusCamera">posZminus</button></div>
-            <br/>
-            <div>Current XYZ Rotation: <span id="cameraRotationXYZ" class="kontrolDenom"></span></div>
-            <div><button id="rotaXplusCamera">rotaXplus</button> <button id="rotaYplusCamera">rotaYplus</button> <button id="rotaZplusCamera">rotaZplus</button></div>
-            <div><button id="rotaXminusCamera">rotaXminus</button> <button id="rotaYminusCamera">rotaYminus</button> <button id="rotaZminusCamera">rotaZminus</button></div>
-            <br/>
-            <div id="cameraFrustum"></div>
-
-            <div id="cameraFarPlane">
-            
-            </div>
-            <div><button id="farCameraPlus">Far +</button> <button id="farCameraMinus">Far -</button></div>
-            <div id="cameraNearPlane">
-            
-            </div>
-            <div><button id="nearCameraPlus">Near +</button> <button id="nearCameraMinus">Near -</button></div>
-            <div id="cameraFOV">
-            
-            </div>
-            <div><button id="fovPlus">FOV +</button> <button id="fovMinus">FOV -</button></div>
-            <div id="cameraZoom">
-            
-            </div>
-            <div><button id="zoomPlus">Zoom +</button> <button id="zoomMinus">Zoom -</button></div>
-            <br/>
-            <button id="saveChangesCamera"> SAVE! (copies to clipboard) </button>
-        </div>
-        <div id="kontrolCamerasListCont"><h1>Camera List</h1>
-            <ul id="kontrolCamerasList"> 
-            </ul>
-        </div>
-        <button id="kontrolDisableOrbit">Orbit Mode On/Off</button>
-    </div>
-    `
-    document.getElementsByTagName("body")[0].appendChild(kontrolBox)
-    
-
-    
-    function changeValueLoc(_type, _prop, _minus){
-/*         console.log("!!what is the chosenLight apparently? ", chosenLight)
-        console.log("!!chosenLightIncrement: ", chosenIncrement) */
-        if (currentMode == "lights"){
-            try{
-                _type==null ? chosenLight[_prop] +=(_minus?-chosenIncrement:chosenIncrement) : chosenLight[_type][_prop] +=(_minus?-chosenIncrement:chosenIncrement)
-                updateChosenLightData()
-            }
-            catch(error){
-                console.log(error, "If you haven't chosen an item or using the extra options, you can safely ignore this error.")
-            }
-        } else if (currentMode == "cameras"){
-            try{
-                _type==null ? chosenCamera[_prop] +=(_minus?-chosenIncrement:chosenIncrement) : chosenCamera[_type][_prop] +=(_minus?-chosenIncrement:chosenIncrement)
-                updateChosenCameraData()
-                BGcamera.updateProjectionMatrix()
-            }
-            catch(error){
-                console.log(error, "If you haven't chosen an item or using the extra options, you can safely ignore this error.")
-            }
-        }
-        
-    }
-
-    function changeValueSpecial(_type, _prop, _minus){
-        console.log("what is the chosenLight apparently? ", chosenLight)
-
-    }
-
-    //lights
-    document.querySelector("#posXplus").addEventListener("click", ()=>{changeValueLoc("position", "x")})
-    document.querySelector("#posYplus").addEventListener("click", ()=>{changeValueLoc("position", "y")})  
-    document.querySelector("#posZplus").addEventListener("click", ()=>{changeValueLoc("position", "z")})  
-    
-    document.querySelector("#posXminus").addEventListener("click", ()=>{changeValueLoc("position", "x", true)})  
-    document.querySelector("#posYminus").addEventListener("click", ()=>{changeValueLoc("position", "y", true)})  
-    document.querySelector("#posZminus").addEventListener("click", ()=>{changeValueLoc("position", "z", true)})  
-
-    document.querySelector("#rotaXplus").addEventListener("click", ()=>{changeValueLoc("rotation", "x")})  
-    document.querySelector("#rotaYplus").addEventListener("click", ()=>{changeValueLoc("rotation", "y")})  
-    document.querySelector("#rotaZplus").addEventListener("click", ()=>{changeValueLoc("rotation", "z")})  
-    
-    document.querySelector("#rotaXminus").addEventListener("click", ()=>{changeValueLoc("rotation", "x", true)}) 
-    document.querySelector("#rotaYminus").addEventListener("click", ()=>{changeValueLoc("rotation", "y", true)})  
-    document.querySelector("#rotaZminus").addEventListener("click", ()=>{changeValueLoc("rotation", "z", true)})  
-
-    document.querySelector("#lightsRedPlus").addEventListener("click", ()=>{changeValueLoc("color", "r")}) 
-    document.querySelector("#lightsGreenPlus").addEventListener("click", ()=>{changeValueLoc("color", "g")})  
-    document.querySelector("#lightsBluePlus").addEventListener("click", ()=>{changeValueLoc("color", "b")})  
-
-    document.querySelector("#lightsRedMinus").addEventListener("click", ()=>{changeValueLoc("color", "r", true)}) 
-    document.querySelector("#lightsGreenMinus").addEventListener("click", ()=>{changeValueLoc("color", "g", true)})  
-    document.querySelector("#lightsBlueMinus").addEventListener("click", ()=>{changeValueLoc("color", "b", true)})  
-    
-    document.querySelector("#lightsRedPlus").addEventListener("click", ()=>{changeValueLoc("skyColor", "r")}) 
-    document.querySelector("#lightsGreenPlus").addEventListener("click", ()=>{changeValueLoc("skyColor", "g")})  
-    document.querySelector("#lightsBluePlus").addEventListener("click", ()=>{changeValueLoc("skyColor", "b")})  
-
-    document.querySelector("#lightsRedMinus").addEventListener("click", ()=>{changeValueLoc("skyColor", "r", true)}) 
-    document.querySelector("#lightsGreenMinus").addEventListener("click", ()=>{changeValueLoc("skyColor", "g", true)})  
-    document.querySelector("#lightsBlueMinus").addEventListener("click", ()=>{changeValueLoc("skyColor", "b", true)})  
-
-    document.querySelector("#lightOption2Plus").addEventListener("click", ()=>{changeValueLoc(null, "intensity")})  
-    document.querySelector("#lightOption2Minus").addEventListener("click", ()=>{changeValueLoc(null, "intensity", true)})  
-
-    document.querySelector("#lightOption3Plus").addEventListener("click", ()=>{changeValueLoc(null, "width")})  
-    document.querySelector("#lightOption3Minus").addEventListener("click", ()=>{changeValueLoc(null, "width", true)})  
-
-    document.querySelector("#lightOption3Plus").addEventListener("click", ()=>{changeValueLoc(null, "distance")})  
-    document.querySelector("#lightOption3Minus").addEventListener("click", ()=>{changeValueLoc(null, "distance", true)})  
-
-    document.querySelector("#lightOption4Plus").addEventListener("click", ()=>{changeValueLoc(null, "height")})  
-    document.querySelector("#lightOption4Minus").addEventListener("click", ()=>{changeValueLoc(null, "height", true)})  
-
-    document.querySelector("#lightOption4Plus").addEventListener("click", ()=>{changeValueLoc(null, "angle")})  
-    document.querySelector("#lightOption4Minus").addEventListener("click", ()=>{changeValueLoc(null, "angle", true)})  
-
-    document.querySelector("#lightOption4Plus").addEventListener("click", ()=>{changeValueLoc(null, "decay")})  
-    document.querySelector("#lightOption4Minus").addEventListener("click", ()=>{changeValueLoc(null, "decay", true)})  
-
-    document.querySelector("#saveChanges").addEventListener("click", ()=>{copyPasteLightSetup()})
-    //lights end
-
-    //camera
-    document.querySelector("#posXplusCamera").addEventListener("click", ()=>{changeValueLoc("position", "x")})
-    document.querySelector("#posYplusCamera").addEventListener("click", ()=>{changeValueLoc("position", "y")})  
-    document.querySelector("#posZplusCamera").addEventListener("click", ()=>{changeValueLoc("position", "z")})  
-    
-    document.querySelector("#posXminusCamera").addEventListener("click", ()=>{changeValueLoc("position", "x", true)})  
-    document.querySelector("#posYminusCamera").addEventListener("click", ()=>{changeValueLoc("position", "y", true)})  
-    document.querySelector("#posZminusCamera").addEventListener("click", ()=>{changeValueLoc("position", "z", true)})  
-
-    document.querySelector("#rotaXplusCamera").addEventListener("click", ()=>{changeValueLoc("rotation", "x")})  
-    document.querySelector("#rotaYplusCamera").addEventListener("click", ()=>{changeValueLoc("rotation", "y")})  
-    document.querySelector("#rotaZplusCamera").addEventListener("click", ()=>{changeValueLoc("rotation", "z")})  
-
-    document.querySelector("#rotaXminusCamera").addEventListener("click", ()=>{changeValueLoc("rotation", "x", true)}) 
-    document.querySelector("#rotaYminusCamera").addEventListener("click", ()=>{changeValueLoc("rotation", "y", true)})  
-    document.querySelector("#rotaZminusCamera").addEventListener("click", ()=>{changeValueLoc("rotation", "z", true)})  
-
-    document.querySelector("#fovPlus").addEventListener("click", ()=>{changeValueLoc(null, "fov")})  
-    document.querySelector("#fovMinus").addEventListener("click", ()=>{changeValueLoc(null, "fov", true)})  
-
-    document.querySelector("#nearCameraPlus").addEventListener("click", ()=>{changeValueLoc(null, "near")})  
-    document.querySelector("#nearCameraMinus").addEventListener("click", ()=>{changeValueLoc(null, "near", true)})  
-
-    document.querySelector("#farCameraPlus").addEventListener("click", ()=>{changeValueLoc(null, "far")})  
-    document.querySelector("#farCameraMinus").addEventListener("click", ()=>{changeValueLoc(null, "far", true)})  
-
-    document.querySelector("#zoomPlus").addEventListener("click", ()=>{changeValueLoc(null, "zoom")})  
-    document.querySelector("#zoomMinus").addEventListener("click", ()=>{changeValueLoc(null, "zoom", true)})  
-    
-    document.querySelector("#lightOption4Plus").addEventListener("click", ()=>{changeValueLoc(null, "decay")})  
-    document.querySelector("#lightOption4Minus").addEventListener("click", ()=>{changeValueLoc(null, "decay", true)})  
-    document.querySelector("#saveChangesCamera").addEventListener("click", ()=>{copyPasteCameraSetup()})
-
-
-    //camera end
-
-    //   `posxyz[${chosenLight.position.x.toFixed(3)},${chosenLight.position.y.toFixed(3)},${chosenLight.position.z.toFixed(3)}], rotaxyz[${chosenLight.rotation.x.toFixed(3)},${chosenLight.rotation.y.toFixed(3)},${chosenLight.rotation.z.toFixed(3)}]`
-
-
-    //lights start
-    const kontrolLightsUI = document.getElementById("kontrolLightsUI"), 
-        kontrolMeshesUI = document.getElementById("kontrolMeshesUI"), 
-        kontrolCamerasUI = document.getElementById("kontrolCamerasUI"), 
-        kontrolLightsBtn = document.getElementById("kontrolLightsBtn"), 
-        kontrolMeshesBtn = document.getElementById("kontrolMeshesBtn"), 
-        kontrolCamerasBtn = document.getElementById("kontrolCamerasBtn"), 
-        kontrolLightsList = document.getElementById("kontrolLightsList"), 
-        kontrolCamerasList = document.getElementById("kontrolCamerasList"), 
-        lightSettingsColor = document.getElementById("lightSettingsColor"),
-        kontrolTab = Array.from(document.getElementsByClassName("kontrolTab")),
-        kontrolIncrementLight = document.getElementById("kontrolIncrementLight")
-
-
-        kontrolIncrementLight.addEventListener('input', (event)=>{
-            chosenIncrement = parseFloat(event.target.value);
-            console.log("chosenIncrement: ", chosenIncrement)
-        })
-
-    kontrolLightsBtn.addEventListener("click", ()=>{
-        if (kontrolLightsUI.classList.contains("kontrolTab")){
-            kontrolTab.forEach((div)=>{
-                div.classList.toggle("kontrolTab", true)
-            })
-        }
-        kontrolLightsUI.classList.toggle("kontrolTab")
-        currentMode = "lights"
-        console.log("current Mode: ", currentMode)
-        chosenKey = null
-    })
-
-    kontrolMeshesBtn.addEventListener("click", ()=>{
-        kontrolMeshesUI.style.display = "flex"
-        currentMode = "meshes"
-        console.log("current Mode: ", currentMode)
-        chosenKey = null
-    })
-
-    kontrolCamerasBtn.addEventListener("click", ()=>{
-        if (kontrolCamerasUI.classList.contains("kontrolTab")){
-            kontrolTab.forEach((div)=>{
-                div.classList.toggle("kontrolTab", true)
-            })
-        }
-        kontrolCamerasUI.classList.toggle("kontrolTab")
-        currentMode = "cameras"
-        console.log("current Mode: ", currentMode)
-        chosenKey = null
-    })
-
-
-    closeKontrolsBtn.addEventListener("click", ()=>{
-        kontrolTab.forEach((div)=>{
-            div.classList.toggle("kontrolTab", true)
-            currentMode = null
-            chosenKey = null
-        })
-    })
-
-
-    //Lights Selector
-    //click on object name to select it as main!
-    Object.keys(lightsList).forEach((key)=>{
-        let light = document.createElement("ul")
-        light.innerHTML = `<button class="kontrolSelectBtn">${key}</button>` 
-        kontrolLightsList.appendChild(light)
-        light.addEventListener("click",()=>{
-            if (lightsList[key].type == "AmbientLight"){
-                chosenLight = lightsList[key]
-                chosenKey = key
-                console.log("changing chosenLight to: ", lightsList[key],)
-            } else {
-                chosenLight = lightsList[key][0]
-                chosenKey = key
-                console.log("changing chosenLight to: ", lightsList[key][0],)
-            }
-            updateChosenLightData()
-            
-        })
-        if (lightsList[key][0] && lightsList[key][0]["rotation"] != undefined){
-            const lightRotation = document.createElement("li")
-            lightRotation.innerHTML = `ROTATION: x:${lightsList[key][0]["rotation"].x}, y:${lightsList[key][0]["rotation"].y}, z:${lightsList[key][0]["rotation"].z}`
-            light.appendChild(lightRotation)
-        }
-        if (lightsList[key][0] && lightsList[key][0]["position"] != undefined){
-            const lightPosition = document.createElement("li")
-            lightPosition.innerHTML = `POSITION: x:${lightsList[key][0]["position"].x}, y:${lightsList[key][0]["position"].y}, z:${lightsList[key][0]["rotation"].z}`
-            light.appendChild(lightPosition)
-            console.log(Object.values(lightsList[key][0]))
-        }
-    })
-
-    Object.keys(camerasList).forEach((key)=>{
-        console.log("adding new camera to list: ", key)
-        let camera = document.createElement("ul")
-        camera.innerHTML = `<button class="kontrolSelectBtn">${key}</button>` 
-        kontrolCamerasList.appendChild(camera)
-        camera.addEventListener("click",()=>{
-            console.log("switching to camera: ", key)
-            chosenCamera = camerasList[key]
-            chosenKey = key
-            updateChosenCameraData()
-        })
-            
-    })
-
-
-/*         Object.entries(lightsList[key][0]).forEach(([key, value])=>{
-            let lightStat = document.createElement("li")
-            lightStat.innerHTML = `${key} = ${value}`
-            light.appendChild(lightStat)
-        }) */
-
-        
-
-
-        
-        
-
-        
-        
-
-
-    function updateChosenLightData(){
-        document.querySelector("#chosenLightName").innerHTML = chosenKey
-
-        if (chosenLight.type != "AmbientLight"){
-            console.log("chosen light type detected: ", chosenLight.type)
-            document.querySelector("#lightPositionXYZ").innerHTML= `X: ${fixInt(chosenLight.position.x)} Y: ${fixInt(chosenLight.position.y)} Z: ${fixInt(chosenLight.position.z)}`
-            document.querySelector("#lightRotationXYZ").innerHTML= `X: ${fixInt(chosenLight.rotation.x)} Y: ${fixInt(chosenLight.rotation.y)} Z: ${fixInt(chosenLight.rotation.z)}`
-        }
-        
-        lightSettingsColor.style.backgroundColor = `rgb(${chosenLight.color.r*255},${chosenLight.color.g*255},${chosenLight.color.b*255})`
-        document.querySelector("#lightOption2").innerHTML = `Intensity: ${chosenLight.intensity}` //options 2
-        if (chosenLight.type == "HemisphereLight"){
-            document.querySelector("#lightOption2").innerHTML = `groundColor: ${fixInt(chosenLight.intensity)}`
-        }
-        switch (chosenLight.type){ //options 3
-            case "RectAreaLight": 
-                document.querySelector("#lightOption3").innerHTML = `Width: ${fixInt(chosenLight.width)}`
-                break;
-            case "PointLight":
-            case "SpotLight":
-                document.querySelector("#lightOption3").innerHTML = `Distance: ${fixInt(chosenLight.distance)}`
-                break;
-            case "HemisphereLight":
-                document.querySelector("#lightOption3").innerHTML = `Intensity: ${fixInt(chosenLight.intensity)}`
-                break;
-            default:
-                document.querySelector("#lightOption3").innerHTML = "N/A" //nothing.
-                break;
-        }
-        switch (chosenLight.type){ //options 4
-            case "RectAreaLight": 
-                document.querySelector("#lightOption4").innerHTML = `Height: ${fixInt(chosenLight.height)}`
-                break;
-            case "SpotLight":
-                document.querySelector("#lightOption4").innerHTML = `Angle: ${fixInt(chosenLight.angle)}`
-                break;
-            case "PointLight":
-                document.querySelector("#lightOption4").innerHTML = `Decay: ${fixInt(chosenLight.decay)}`
-                break;
-            default:
-                document.querySelector("#lightOption4").innerHTML = "N/A" //nothing.
-                break;
-        }
-    }
-
-    function fixInt(_int){
-        return parseFloat(_int.toFixed(4))
-    }
-    
-    function copyPasteLightSetup(){
-
-        let option1 = `color:${chosenLight.color.r*255},${chosenLight.color.g*255},${chosenLight.color.b*255}`
-        let option2 = `intensity:${chosenLight.intensity}`
-        let option3 
-        let option4
-        switch (chosenLight.type){
-            case "HemisphereLight":
-                option1 = `skyColor:${chosenLight.skyColor.r},${chosenLight.skyColor.g},${chosenLight.skyColor.b}`
-                option2 = `groundColor:${chosenLight.groundColor.r},${chosenLight.groundColor.g},${chosenLight.groundColor.b}`
-                option3 = `intensity:${chosenLight.intensity}`;
-                option4 = null;
-                break;
-            case "RectAreaLight":
-                option3 = `width:${chosenLight.width}`
-                option4 = `height:${chosenLight.height}`
-                break
-            case "SpotLight":
-                option3 = `distance:${chosenLight.distance}`
-                option4 = `angle:${chosenLight.angle}`
-                break;
-            case "PointLight":
-                option3 = `distance:${chosenLight.distance}`
-                option4 = `decay:${chosenLight.decay}`
-                break;
-        }
-
-        navigator.clipboard.writeText(`
-        posxyz:[${chosenLight.position.x.toFixed(4)},${chosenLight.position.y.toFixed(4)},${chosenLight.position.z.toFixed(4)}], 
-        rotaxyz:[${chosenLight.rotation.x.toFixed(4)},${chosenLight.rotation.y.toFixed(4)},${chosenLight.rotation.z.toFixed(4)}],
-        ${option1}, 
-        ${option2}, 
-        ${option3}, 
-        ${option4}, 
-        `)
-    }
-
-    
-    function copyPasteCameraSetup(){
-
-        navigator.clipboard.writeText(`
-        posxyz:[${chosenCamera.position.x.toFixed(4)},${chosenCamera.position.y.toFixed(4)},${chosenCamera.position.z.toFixed(4)}], 
-        rotaxyz:[${chosenCamera.rotation.x.toFixed(4)},${chosenCamera.rotation.y.toFixed(4)},${chosenCamera.rotation.z.toFixed(4)}],
-        fustrum:${chosenCamera.aspect.toFixed(4)},
-        far:${chosenCamera.far.toFixed(4)},
-        near:${chosenCamera.near.toFixed(4)},
-        fov:${chosenCamera.fov.toFixed(4)},
-        zoom:${chosenCamera.zoom.toFixed(4)},
-        `)
-    }
-
-    function hideHelpers(_scene){
-        console.log("Hiding helpers throughout Scene")
-        _scene.traverse((object) => {
-            console.log("!!WHAT IS THE OBJECTm, ", object)
-            if (object.type.includes('Helper')) {
-            object.visible = false;
-            }
-        });
-    }
-    document.querySelector("#hideHelpers").addEventListener("click", ()=>{hideHelpers(_scene)})
-    
-    function showHelpers(_scene){
-        console.log("Showing helpers throughout Scene")
-        _scene.traverse((object) => {
-            if (object.type.includes('Helper')) {
-                
-              object.visible = true;
-            }
-          }); 
-    }
-    document.querySelector("#showHelpers").addEventListener("click", ()=>{showHelpers(_scene)})
-    //lights end
-
-    function updateChosenCameraData(){
-        document.querySelector("#chosenCameraName").innerHTML = chosenKey
-        document.querySelector("#cameraPositionXYZ").innerHTML= `X: ${fixInt(chosenCamera.position.x)} Y: ${fixInt(chosenCamera.position.y)} Z: ${fixInt(chosenCamera.position.z)}`
-        document.querySelector("#cameraRotationXYZ").innerHTML= `X: ${fixInt(chosenCamera.rotation.x)} Y: ${fixInt(chosenCamera.rotation.y)} Z: ${fixInt(chosenCamera.rotation.z)}`
-        document.querySelector("#cameraFrustum").innerHTML = `Frustum: ${fixInt(chosenCamera.aspect)}`
-        document.querySelector("#cameraFarPlane").innerHTML = `View Dist: ${fixInt(chosenCamera.far)}`
-        document.querySelector("#cameraNearPlane").innerHTML = `View Close: ${fixInt(chosenCamera.near)}`
-        document.querySelector("#cameraFOV").innerHTML = `Vertical FOV: ${fixInt(chosenCamera.fov)}`
-        document.querySelector("#cameraZoom").innerHTML = `Zoom Effect: ${fixInt(chosenCamera.zoom)}`
-
-/*     BGcamera.updateProjectionMatrix() ⚠️⚠️*/
-    }
-
-    function toggleHelper(_orbit){
-        _orbit.enabled = !_orbit.enabled
-    }
-    
-    document.querySelector("#kontrolDisableOrbit").addEventListener("click", ()=>{toggleHelper(_fullControls)})
-
-
-}//kontroller end
-
-
-
-
-
-
-
-//test
-
-/* gsap.to(BGcamera.position, {
-    x: 10,
-    y: 5,
-    z: -10,
-    duration: 2,
-    ease: "power2.inOut"
-});
-
-gsap.to(BGcamera.rotation, {
-    y: Math.PI / 2,
-    duration: 2,
-    ease: "power2.inOut"
-}); */
-
-
-
 //INITIAL CAMERA POS
 camerasList.BGcamera = BGcamera
-BGcamera.rotation.set(...scenicPov2);
-BGcamera.position.set(...scenicRota2)
+BGcamera.rotation.set(...scenicRota);
+BGcamera.position.set(...scenicPov)
 BGcamera.updateProjectionMatrix() 
-
-
-
-//SECOND CAMERA POS
-/* BGcamera.rotation.set(degRad(0.058), degRad(-0.14), degRad(0.009));
-BGcamera.position.set(-0.11,0.4,-0.054)
-BGcamera.updateProjectionMatrix()  */
-
+/* 
+    const roomPov = [-0.11,0.4,-0.184] //room pos.
+    const roomRota = [0, -3, 0]
+    const scenicPov = [0.7545,-0.3523,-0.6129] //pos outside 1
+    const scenicRota = [degRad(-0.08), degRad(0.08), degRad(0)]
+    const scenicPov2 = [0.6260,0.1823,0.0102]
+    const scenicRota2 = [-0.2382,-0.5697,-0.1302]
+*/
 
 async function gsapIntroAnim() {
     _fullControls.enabled = false;
 
     gsap.to(BGcamera.position, {
-        x: -0.11,
-        y: 0.4,
-        z: -0.184,
+        x: roomPov[0],
+        y: roomPov[1],
+        z: roomPov[2],
         duration: 4,
         delay: 1,
         ease: "power2.inOut"
     });
 
     gsap.to(BGcamera.rotation, {
-        x: 0,
-        y: -3,
-        z: 0,
+        x: roomRota[0],
+        y: roomRota[1],
+        z: roomRota[2],
         delay: 4.2,
         duration: 2,
         ease: "power2.inOut",
@@ -1074,8 +527,8 @@ export async function camWarmUp() {
             }
         })
         setTimeout(() => { 
-            BGcamera.position.set(...scenicPov2)
-            BGcamera.rotation.set(...scenicRota2)
+            BGcamera.position.set(...scenicPov)
+            BGcamera.rotation.set(...scenicRota)
             BGcamera.updateProjectionMatrix()
             console.log("load: warmup complete")
             loadProg(15)
@@ -1084,6 +537,8 @@ export async function camWarmUp() {
     })
 }
 
+
+//Cinematic or Editor
 function cinematicMode() {
     _fullControls.enabled = true;
     _fullControls.enableDamping = true; // Inertia damping
@@ -1104,6 +559,7 @@ function cinematicMode() {
         }
     });
     cameraModeCheck = "cinematic"
+    threeEditorMode.classList.toggle("filter-activated", false)
 }
 
 function editorMode(_scene) {
@@ -1125,14 +581,7 @@ function editorMode(_scene) {
         }
     });
     cameraModeCheck = "editor"
-}
-
-function freezeCamera(_scene, _bool){
-
-    _bool?_fullControls.enabled = false:_fullControls.enabled = true
-
-    
-
+    threeEditorMode.classList.toggle("filter-activated", true)
 }
 
 threeEditorMode.addEventListener("click", ()=>{
@@ -1143,6 +592,100 @@ threeEditorMode.addEventListener("click", ()=>{
         cinematicMode()
     }
 })
+
+//Bloom and Bokeh toggle
+
+function togglePP(_effect, _force){
+    if (_effect == "bloom"){
+        if (_force){
+            postProcessing.bloom = true;
+        }
+        if (postProcessing.bloom == true){
+            console.log("turning off bloom")
+            bloomDispose()
+            threeBloom.classList.toggle("filter-activated", false)
+        } else {
+            composerBloom("bloom")
+            postProcessing.bloom = true
+            console.log("turning on bloom")
+            threeBloom.classList.toggle("filter-activated", true)
+        }
+    } else {
+        if (_force){
+            postProcessing.bokeh = true;
+        }
+        if (postProcessing.bokeh == true){
+            bokehDispose()
+            threeBokeh.classList.toggle("filter-activated", false)
+        } else {
+            composerBokeh("bokeh")
+            postProcessing.bokeh = true
+            threeBokeh.classList.toggle("filter-activated", true)
+        }
+    }
+    console.log("!! postProcessing OBJ: ", postProcessing.bloom, postProcessing.bokeh)
+}
+
+function bloomDispose() {
+/*     console.log("!!current passlist", passList)
+    console.log("!! what is composer then, ", composer) */
+    if (passList.bloom) {
+        const bloom = passList.bloom
+/*         console.log("!!activated the disposal.") */
+        composer.removePass(bloom);
+
+        bloom.renderTargetsHorizontal.forEach(target => target.dispose());
+        bloom.renderTargetsVertical.forEach(target => target.dispose());
+
+        if (bloom.renderTargetBright)bloom.renderTargetBright.dispose();
+
+        if (bloom.materialBright)bloom.materialBright.dispose();
+        if (bloom.materialComposite)bloom.materialComposite.dispose();
+
+        if (bloom.materialBlur)bloom.materialBlur.dispose();
+        if (bloom.materialCopy)bloom.materialCopy.dispose();
+
+        passList.bloom = null
+        postProcessing.bloom = false
+        console.log("post-disposal passlist, ", passList)
+    }
+}
+
+function bokehDispose() {
+    if (passList.bokeh) {
+        const bokeh = passList.bokeh
+        composer.removePass(bokeh);
+
+        if (bokeh.materialBokeh) {
+            bokeh.materialBokeh.dispose();  
+        }
+        if (bokeh.uniforms) {
+            if (bokeh.uniforms.tColor && bokeh.uniforms.tColor.value) {
+                bokeh.uniforms.tColor.value.dispose(); 
+            }
+            if (bokeh.uniforms.tDepth && bokeh.uniforms.tDepth.value) {
+                bokeh.uniforms.tDepth.value.dispose();  
+            }
+        }
+
+        if (bokeh.renderTargetColor) {
+            bokeh.renderTargetColor.dispose();
+        }
+        if (bokeh.renderTargetDepth) {
+            bokeh.renderTargetDepth.dispose();
+        }
+
+        passList.bokeh = null
+        postProcessing.bokeh = false
+        console.log("post-disposal passlist, ", passList)
+    }
+}
+
+threeBloom.addEventListener("click", ()=>{togglePP("bloom")})
+threeBokeh.addEventListener("click", ()=>{togglePP("bokeh")})
+
+
+//start-up settings
 
 export async function welcomeStartUp(){
 /*     await loadAllModels()
@@ -1156,13 +699,14 @@ export async function welcomeStartUp(){
             lightsList.pointLight등[0].intensity = 0.55;
             lightsList.pointLight전등[0].intensity = 0.75; 
         },500)
-        console.log("current performance score: ", checkPerformance())
+        console.log("post-anim performance score: ", checkPerformance())
     },6500)
 }
 
 async function firstLoad(){
     await loadAllModels()
     animateMain()
+    console.log("pre-intro performance score: ", checkPerformance(3))
     kontrolMsg.innerText="Preparing 3D render and animation"
     loadProg(10)
     await camWarmUp()
@@ -1185,7 +729,120 @@ function startApp(event) {
     playSFX(playSFXBG, "streetAmb.mp3", "3d")
 }
 
-console.log("Starting up")
-firstLoad()
+function perfMode3DToggle(){
+    if (!perfMode3D){
+        try{
+            const cat = modelsList["Animated Cat"];
+            toggleAnim = false;
+            BGscene.remove(cat);
+            if (cat.geometry) cat.geometry.dispose();
+            if (cat.material) {
+                if (Array.isArray(cat.material)) {
+                    cat.material.forEach(material => {
+                        if (material.map) material.map.dispose();  // Dispose of textures
+                        material.dispose();
+                    });
+                } else {
+                    if (cat.material.map) cat.material.map.dispose();  // Dispose of textures
+                    cat.material.dispose();
+                }
+            }
+            BGscene.remove(raycastList.spawnCatFunc)
+            delete modelsList["Animated Cat"];
+            console.log("El gato is gone :(")
+            togglePP("bloom", true)
+            togglePP("bokeh", true)
+            perfMode3D = !perfMode3D  
+        } catch (error){
+            console.log("Performance Mode didnt switch on. Models not consumed yet? ", error)
+        }
 
-//editorMode(BGscene)
+    } else {
+        try {
+            //add cat
+            //add cat raycastlist
+            //re-add bokeh
+            //re-add bloom
+            perfMode3D = !perfMode3D  
+        } catch (error){
+            console.log("Could not restore normal mode.", error)
+        }
+    }
+}
+
+function checkPerformance(_round) {
+    let perfScore = 10;
+    console.log("detecting user machine perf. ", window.performance)
+    console.log("detecting user agent: ", navigator.userAgent)
+    console.log("detecting user device memory: ", navigator.deviceMemory)
+    console.log("detecting user device HW: ", navigator.hardwareConcurrency)
+
+    const availableMemory = (performance.memory.jsHeapSizeLimit - performance.memory.usedJSHeapSize)/1000000000;
+    const perf = window.performance;
+    const timing = perf.timing;
+    const memory = perf.memory;
+
+    // Calculate page load time
+    const pageLoadTime = (timing.domComplete - timing.navigationStart) / 1000; // in seconds
+    const responseTime = (timing.responseEnd - timing.responseStart) / 1000; // in seconds
+
+    // Check page load time
+    if (pageLoadTime > 3) {
+        console.warn(`Page load time is high: ${pageLoadTime.toFixed(2)} seconds`);
+        perfScore -= 2
+    }
+
+    //latency/network
+    if (responseTime > 1) {
+        console.warn(`Resource fetching time is high: ${responseTime.toFixed(2)} seconds`);
+        perfScore -= 3
+    }
+
+    //avail memory 
+    if (availableMemory < 2.5){
+        console.warn('Available memory for allocation low! (in bytes):', availableMemory + " GB");
+        perfScore -= 3
+    } else {
+        console.log('Available memory for allocation (in bytes):', availableMemory + " GB");
+    }
+
+    //dev memory 
+    if (navigator.deviceMemory < 5){
+        console.warn('Device memory low/phone level.', navigator.deviceMemory + " GB");
+        perfScore -= 1
+    }
+
+    //memory heap
+    if (memory && memory.jsHeapSizeLimit) {
+        const usedMemory = memory.usedJSHeapSize / memory.jsHeapSizeLimit;
+        console.log(`Memory usage: ${(usedMemory * 100).toFixed(2)}% of allocated heap`);
+        if (usedMemory > 0.6) {
+            console.warn(`High memory usage: ${(usedMemory * 100).toFixed(2)}% of allocated heap`);
+            perfScore -= 2
+        }
+    } else {
+        console.warn('Memory information is not available');
+    }
+    
+    if (perfScore < 5){
+        console.warn(`Warning: specs very low. Entering performance mode.`)
+        //⚠️⚠️to do: disable bg and swap with 2d, disable some lights. 
+        perfMode3DToggle()
+    } else if (perfScore < 7){
+        console.warn(`Warning: specs rather low. Reducing post-processing and texture filter.`)
+    } else if (_round == 3){
+        console.warn("Final Verdict: Device performance above average. Enabling all effects")
+        lightsList.lightAmbient.color.b = 0.1586
+        lightsList.lightAmbient.color.g = 0.0593
+        lightsList.lightAmbient.color.r = 0.0585
+        togglePP("bloom")
+        togglePP("bokeh") 
+    }
+    loadTimeDisplay.innerText = Math.max(0, pageLoadTime.toFixed(2))
+    assetLoadDisplay.innerText = (assetLoadCheck - startTime)/1000  ;
+    perfScoreDisplay.innerText = perfScore
+    return perfScore
+}
+
+
+firstLoad()

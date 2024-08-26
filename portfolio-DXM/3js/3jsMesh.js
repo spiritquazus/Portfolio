@@ -162,11 +162,14 @@ function degreesToRadians(degrees) {
 }
 
 //SPRITE:
-function createSprite(_scene, _item, ){
+function createSprite(_scene, _item, _obj){
     const map = new THREE.TextureLoader().load( _item);
     const material = new THREE.SpriteMaterial( { map: map } );
     const sprite = new THREE.Sprite( material );
     _scene.add( sprite );
+    sprite.position.set(_obj.position[0], _obj.position[1], _obj.position[2]);
+    [sprite.scale.x, sprite.scale.y, sprite.scale.z] = _obj.scale
+    console.log("added new sprite: ", sprite)
 }
 
 //GLTF:
@@ -210,7 +213,7 @@ function modelInstall(_loaderType, _item, _scene, _obj){
                 }
                 window.animationMixers.push(mixer);
 
-
+                modelsList[_obj.name] = gltfScene.scene
                 resolve({ model: gltfScene.scene, mixer });
             },
             (xhr) => {

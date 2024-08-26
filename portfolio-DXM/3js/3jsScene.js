@@ -6,12 +6,25 @@
 import { OrbitControls } from 'https://unpkg.com/three@0.166.1/examples/jsm/controls/OrbitControls.js'; */
 
 import * as THREE from 'three';
-import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
+import { WebGLRenderer } from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { BokehPass } from 'three/addons/postprocessing/BokehPass.js';
 
 
 
 
 
+//⚠️todo: 
+/* 
+CubeTexturePass.js ⚠️ important! use instead of flat plane.
+GlitchPass.js
+OutlinePass.js
+SAOPass.js
+*/
 
 const BGcamera = new THREE.PerspectiveCamera(70, window.innerWidth/window.innerHeight, 0.1, 500);
 
@@ -31,13 +44,16 @@ const BGcamera = new THREE.PerspectiveCamera(70, window.innerWidth/window.innerH
 const degRad = (degrees) => degrees * (Math.PI / 180);
 
 const roomPov = [-0.11,0.4,-0.184] //room pos.
-const scenicPov = [0.7545,-0.3523,-0.6129] //pos outside 1
-const scenicRota = [degRad(-0.08), degRad(0.08), degRad(0)]
+const roomRota = [0, -3, 0]
+const scenicPov = [0.8508,-0.1581,-3.1654] //pos outside 1
+const scenicRota = [-0.3799,2.2220,0.0142]
 const scenicPov2 = [0.6260,0.1823,0.0102]
 const scenicRota2 = [-0.2382,-0.5697,-0.1302]
 
 
+        
 
+//Renderer
 const BGscene = new THREE.Scene(); //container 
 const BGrenderer = new THREE.WebGLRenderer({
     canvas: document.getElementById("cMain")
@@ -47,10 +63,41 @@ BGrenderer.toneMapping = THREE.ReinhardToneMapping
 BGrenderer.toneMappingExposure = 0.8
 BGrenderer.gammaOutput = true;
 BGrenderer.gammaFactor = 2.2;
-BGrenderer.depthTest = true;
-BGrenderer.depthWrite = true;
+BGrenderer.antialias = true;
+console.log("Renderer ready: ", BGrenderer)
+
+//composer for post-processing
+const composer = new EffectComposer(BGrenderer);
+const renderPass = new RenderPass(BGscene, BGcamera);
+composer.addPass(renderPass);
+console.log("Adding composer: ", composer)
+
+//bloom
+export function composerBloom(UeBloomPass){
+  passList[UeBloomPass] = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 0.13, 0.1, 0.15);
+  composer.addPass(passList[UeBloomPass]);
+}
+//DOF
+export function composerBokeh(bokehPass){
+  passList[bokehPass] = new BokehPass(BGscene, BGcamera, {
+    focus: 0.005,      // Moderate focus distance
+    aperture: 0.001, // Slightly larger aperture for some blur
+    maxBlur: 0.15     // Moderate blur for a softer effect
+  });
+  composer.addPass(passList[bokehPass]);
+}
+
+
+
+
+console.log("composer: ", composer)
+
 /* BGrenderer.render(BGscene, BGcamera); */
 
+if ( BGrenderer.getContext() instanceof WebGL2RenderingContext ) {
+    composer.renderTarget1.samples = 8;
+    composer.renderTarget2.samples = 8;
+}
 
 //on-resize adjust:
 window.addEventListener('resize', () => {
@@ -83,4 +130,4 @@ threePerfChecker.appendChild(fpsTracker.dom);
 
 
 
-export {BGrenderer, BGcamera, BGscene, raycaster, pointer, degRad, roomPov, scenicPov, scenicRota, scenicPov2, scenicRota2, fpsTracker} 
+export {BGrenderer, BGcamera, BGscene, raycaster, pointer, degRad, roomPov, roomRota, scenicPov, scenicRota, scenicPov2, scenicRota2, fpsTracker, composer} 

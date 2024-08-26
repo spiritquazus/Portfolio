@@ -102,15 +102,27 @@
     border-radius: 5rem;
     border: 0;
     background-position: center;
-    background-size: contain;
+    background-size: 80% 80%;
     background-repeat: no-repeat;
     margin: 0.5vmin;
 }
 
 #threeEditorMode{
     background-image: url(../gallery/2dElems/iconAdmin.svg);
-    
-    
+}
+
+/* #threeSound{
+    background-image: url(../gallery/2dElems/)
+}
+#threeSpeech{
+    background-image: url(../gallery/2dElems/)
+} */
+
+#threeBloom{
+    background-image: url(../gallery/3jsTextures/sprites/iconBloom.svg);
+}
+#threeBokeh{
+    background-image: url(../gallery/3jsTextures/sprites/iconBokeh.svg);
 }
 
 #threePerfChecker{

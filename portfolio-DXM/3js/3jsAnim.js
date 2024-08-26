@@ -3,15 +3,13 @@ function playModelAnim(gltfLoader, animationUrl, scene) {
         gltfLoader.load(
             animationUrl,
             (gltfScene) => {
-                // Create an AnimationMixer for the loaded scene
+
                 const mixer = new THREE.AnimationMixer(scene);
 
-                // Add all animation clips to the mixer
                 gltfScene.animations.forEach(clip => {
                     mixer.clipAction(clip).play();
                 });
 
-                // Store the mixer for updating
                 if (!window.animationMixers) {
                     window.animationMixers = [];
                 }
