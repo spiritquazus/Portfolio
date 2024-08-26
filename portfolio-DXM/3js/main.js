@@ -11,8 +11,29 @@ function currDate() {
 }
 estDate.innerHTML = `EST ${currDate()}`
 
+function dispel(_elem){
+    document.addEventListener("click", ()=>{
+        _elem.style.opacity = 0
+        setTimeout(()=>{_elem.style.display="none"}, 500)
+    }, {once: true})
+    document.addEventListener('touchstart', (event) => {
+        _elem.style.opacity = 0
+        setTimeout(()=>{_elem.style.display="none"}, 500)
+    }, {once: true})
+}
 
+export function spawnCV(){
+    pfCV.style.opacity = 1;
+    pfCV.style.display = "grid";
+    setTimeout(()=>{
+        styleQuotes[0].classList.toggle("rightLeftAnim")
+        styleQuotes[1].classList.toggle("leftRightAnim")
+        photoID.classList.toggle("opacityAnim")
+        sideText.forEach((elem)=>{elem.classList.toggle("rightLeftAnim")})
+        blockText.forEach((elem)=>{elem.classList.toggle("leftRightAnim")})
+        dispel(pfCV)
+    }, 300)
 
-
+}
 
 

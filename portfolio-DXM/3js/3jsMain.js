@@ -12,6 +12,7 @@ import { addRandoms, modelInstall, BGbackgroundFull, BGbackgroundFull2, createTo
 import { BGrenderer, BGscene, BGcamera, raycaster, pointer, degRad, roomPov, roomRota, scenicPov, scenicRota, scenicPov2, scenicRota2, fpsTracker, composer, composerBloom, composerBokeh} from './3jsScene.js'
 import { bulbLight1, pointLight1, lightHelper1, ambientLight, lightHelperPoint1, createLight} from './3jsFX.js'
 import { playModelAnim, updateModelAnim } from './3jsAnim.js'
+import {spawnCV} from './main.js'
 
 let targetHelper;
 let toggleAnim = true;
@@ -384,6 +385,7 @@ function raycastClick(){
         switch (currentMesh.name){
             case "spawnCV":
                 //do shit
+                spawnCV()
                 gsapForce({position: [-0.1096,0.3001,0.0156], rotation: [-2.8944,-0.1558,-3.0673], time: 0.6})
                 freezeCamera(BGscene, true) 
                 toggleSprite("off")
@@ -752,6 +754,10 @@ export async function welcomeStartUp(){
             toggleSprite()
             ui2d.style.opacity = 1
             document.addEventListener("mousedown", ()=>{
+                ui2d.style.opacity = 0
+                setTimeout(()=>{ui2d.style.display="none"}, 500)
+            }, {once: true})
+            document.addEventListener('touchstart', (event) => {
                 ui2d.style.opacity = 0
                 setTimeout(()=>{ui2d.style.display="none"}, 500)
             }, {once: true})

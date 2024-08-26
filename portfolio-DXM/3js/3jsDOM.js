@@ -15,8 +15,16 @@ const cMain = document.getElementById("cMain"),
     kontrolMsg = document.getElementById("kontrolMsg")
 ;
 
+const pfCV = document.getElementById("pf-page1"),
+    styleQuotes = Array.from(pfCV.getElementsByClassName("styleQuote")), /* [0] rightLeftAnim - [1] leftRightAnim */
+    photoID = document.getElementById("photoID"), /* opacityAnim */
+    sideText = Array.from(pfCV.getElementsByClassName("sideText")), /* all rightLeftAnim */
+    blockText = Array.from(pfCV.getElementsByClassName("blockText")) /* all leftRightAnim */
+;
+
 let startTime = Date.now();
 let assetLoadCheck = Date.now();
+console.log("assetLoadCheck? ", assetLoadCheck)
 
 
 function randInt(_max, _min){
