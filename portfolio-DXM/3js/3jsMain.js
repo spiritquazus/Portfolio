@@ -16,11 +16,13 @@ import { playModelAnim, updateModelAnim } from './3jsAnim.js'
 let targetHelper;
 let toggleAnim = true;
 let perfMode3D = false;
-window.postProcessing = {"bloom":false, "bokeh":false,};
+let postProcessing = {"bloom":false, "bokeh":false,};
 window.passList = {"bloom":{}, "bokeh":{}}
+
 let cameraModeCheck;
 let _fullControls = new OrbitControls(BGcamera, BGrenderer.domElement);
 _fullControls.enabled = false
+window.spriteList = {}
 window.lightsList = {}
 window.modelsList = {}
 window.camerasList = {}
@@ -297,7 +299,17 @@ createTouchSphere(BGscene, {posxyz:[0.3500,0.3500,-0.0700], scalexyz:[0.15,0.5,1
 raycastList.spawnCatFunc =
 createTouchSphere(BGscene, {posxyz:[0.0750,0.1270,-0.3950], scalexyz:[0.225,0.225,0.225], name:"spawnCatFunc"})
 
-createSprite(BGscene, "../gallery/3jsTextures/sprites/iconCircle.svg", {position: [0.2900,0.3500,-0.0700], scale: [0.1, 0.1, 0.1]})
+createSprite(BGscene, "../gallery/3jsTextures/sprites/touchCircle.webp", {position: [0.2900,0.3500,-0.0700], scale: [0.07, 0.07, 0.07], name:"circlePhone"})
+createSprite(BGscene, "../gallery/3jsTextures/sprites/iconPhone.svg", {position: [0.2900,0.3500,-0.0700], scale: [0.05, 0.05, 0.05], name:"phone"})
+
+createSprite(BGscene, "../gallery/3jsTextures/sprites/touchCircle.webp", {position: [-0.3550,0.1500,-0.3850], scale: [0.08, 0.08, 0.08], name:"circleProj"})
+createSprite(BGscene, "../gallery/3jsTextures/sprites/iconProj.svg", {position: [-0.3550,0.1500,-0.3850], scale: [0.06, 0.06, 0.06], name:"proj"})
+
+createSprite(BGscene, "../gallery/3jsTextures/sprites/touchCircle.webp", {position: [-0.0490,0.2550,0.11905], scale: [0.07, 0.07, 0.07], name:"circleCV"})
+createSprite(BGscene, "../gallery/3jsTextures/sprites/iconCV.svg", {position: [-0.0490,0.2550,0.11905], scale: [0.05, 0.05, 0.05], name:"CV"})
+
+createSprite(BGscene, "../gallery/3jsTextures/sprites/touchCircleSmol.webp", {position: [0.0250,0.1790,-0.3050], scale: [0.025, 0.025, 0.025], name:"circleCat"})
+createSprite(BGscene, "../gallery/3jsTextures/sprites/iconTouch.svg", {position: [0.0250,0.1790,-0.3050], scale: [0.020, 0.020, 0.020], name:"cat"})
 
 addRandoms('rgb(255,255,255)', BGscene, 100)
 BGscene.add(BGbackgroundFull)
@@ -322,6 +334,7 @@ BGscene.traverse((object) => {
 });
 console.log("At start-up: current performance score: ", checkPerformance())
 
+//animate Function
 const threeJsClock = new THREE.Clock();
 let intersects
 export function animateMain(){
@@ -344,6 +357,8 @@ export function animateMain(){
     requestAnimationFrame(animateMain)
     composer.render();
 }
+
+//raycast setup
 
 function raycastHover(){
     
@@ -371,16 +386,19 @@ function raycastClick(){
                 //do shit
                 gsapForce({position: [-0.1096,0.3001,0.0156], rotation: [-2.8944,-0.1558,-3.0673], time: 0.6})
                 freezeCamera(BGscene, true) 
+                toggleSprite("off")
                 break;
             case "spawnProjects":
                 //do shit
                 gsapForce({position: [-0.1850,0.1874,-0.1566], rotation: [-0.0580,0.4751,0.0406], time:0.5})
                 freezeCamera(BGscene, true)
+                toggleSprite("off")
                 break;
             case "spawnContact":
                 //do shit
                 gsapForce({position: [0.1559,0.3526,-0.0182], rotation: [-2.0473,-1.3194,-2.0620], time: 0.5})
                 freezeCamera(BGscene, true)
+                toggleSprite("off")
                 break;
             case "spawnCatFunc":
                 catFunc()
@@ -389,8 +407,38 @@ function raycastClick(){
     }
 }
 
+//sprite toggle
+
+function toggleSprite(_force){
+    Object.values(spriteList).forEach((sprite)=>{
+        if (_force == "on") sprite.visible = true
+        else if (_force == "off") sprite.visible = false
+        else sprite.visible = !sprite.visible
+    })
+}
+
+
+//camera works
+
 function freezeCamera(_scene, _bool){
-    _bool?_fullControls.enabled = false:_fullControls.enabled = true
+    if (_bool){
+        _fullControls.enabled = false
+        setTimeout(()=>{ 
+            document.addEventListener("click", recoverCamera, { once: true })
+        },300)
+    } else {
+        _fullControls.enabled = true
+    }
+}
+
+function recoverCamera(){
+    gsapForce({position: roomPov, time: 0.6})
+    toggleSprite("on")
+    document.removeEventListener("click", recoverCamera)
+    setTimeout(()=>{
+        freezeCamera(BGscene, false)
+    },600)
+    
 }
 
 let catSFX = ["cat1.aac", "cat2.aac", "cat3.aac", "cat4.aac"]
@@ -406,7 +454,10 @@ function gsapForce(_obj){
             y: _obj.position[1],
             z: _obj.position[2],
             duration: _obj.time,
-            ease: "power2.inOut"
+            ease: "power2.inOut",
+            onComplete: () => {
+                BGcamera.updateProjectionMatrix() 
+            }
         });
     }
     if(_obj.rotation){
@@ -698,6 +749,12 @@ export async function welcomeStartUp(){
         setTimeout(()=>{
             lightsList.pointLight등[0].intensity = 0.55;
             lightsList.pointLight전등[0].intensity = 0.75; 
+            toggleSprite()
+            ui2d.style.opacity = 1
+            document.addEventListener("mousedown", ()=>{
+                ui2d.style.opacity = 0
+                setTimeout(()=>{ui2d.style.display="none"}, 500)
+            }, {once: true})
         },500)
         console.log("post-anim performance score: ", checkPerformance())
     },6500)
@@ -712,10 +769,10 @@ async function firstLoad(){
     await camWarmUp()
     threeLoadingScreen.style.opacity = "0"
     threeIntroText.style.opacity = "1" 
+    toggleSprite()
     document.addEventListener("keydown", startApp);
     document.addEventListener("click", startApp);
     document.addEventListener("touchstart", startApp);
-    
 }
 
 function startApp(event) {
@@ -749,6 +806,8 @@ function perfMode3DToggle(){
             }
             BGscene.remove(raycastList.spawnCatFunc)
             delete modelsList["Animated Cat"];
+            spriteList.cat.visible = false
+            spriteList.circleCat.visible = false
             console.log("El gato is gone :(")
             togglePP("bloom", true)
             togglePP("bokeh", true)

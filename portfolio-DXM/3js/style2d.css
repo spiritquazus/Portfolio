@@ -134,3 +134,25 @@
     margin: 0;
     padding: 0;
 }
+
+#ui2d{
+    width: 100%;
+    height: 100%;
+    grid-column: 1 / span 100;
+    grid-row: 7 / 15;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* animation: pulseEffect 1.1s linear infinite; */
+    transition: all 0.5s ease-in;
+    font-family: var(--font-tertiary);
+    font-size: var(--font-M2);
+}
+
+#ui2d>img{
+    max-width: 30%;
+    max-height: 30%;
+    aspect-ratio: 1 / 1;
+    animation: swingLeftRight 3s linear infinite;
+}

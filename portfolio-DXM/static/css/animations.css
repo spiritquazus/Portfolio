@@ -280,6 +280,23 @@
     }
 }
 
+@keyframes swingLeftRight{
+    0%{
+        transform: rotate(0deg);
+    }
+
+    20%, 30%{
+        transform: rotate(-20deg) translateX(-10%);
+    }
+
+    50%, 60%{
+        transform: rotate(20deg) translateX(10%);
+    }
+
+    80%{
+        transform: rotate(0deg);
+    }
+}
 
 /* Spawner Classes */
 
