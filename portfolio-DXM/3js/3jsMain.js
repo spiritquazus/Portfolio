@@ -12,7 +12,7 @@ import { addRandoms, modelInstall, BGbackgroundFull, BGbackgroundFull2, createTo
 import { BGrenderer, BGscene, BGcamera, raycaster, pointer, degRad, roomPov, roomRota, scenicPov, scenicRota, scenicPov2, scenicRota2, fpsTracker, composer, composerBloom, composerBokeh} from './3jsScene.js'
 import { bulbLight1, pointLight1, lightHelper1, ambientLight, lightHelperPoint1, createLight} from './3jsFX.js'
 import { playModelAnim, updateModelAnim } from './3jsAnim.js'
-import {spawnCV} from './main.js'
+import { spawnCV, spawnContact, spawnProjects} from './main.js'
 
 let targetHelper;
 let toggleAnim = true;
@@ -392,12 +392,14 @@ function raycastClick(){
                 break;
             case "spawnProjects":
                 //do shit
+                spawnProjects()
                 gsapForce({position: [-0.1850,0.1874,-0.1566], rotation: [-0.0580,0.4751,0.0406], time:0.5})
                 freezeCamera(BGscene, true)
                 toggleSprite("off")
                 break;
             case "spawnContact":
                 //do shit
+                spawnContact()
                 gsapForce({position: [0.1559,0.3526,-0.0182], rotation: [-2.0473,-1.3194,-2.0620], time: 0.5})
                 freezeCamera(BGscene, true)
                 toggleSprite("off")

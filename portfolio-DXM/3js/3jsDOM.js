@@ -22,6 +22,9 @@ const pfCV = document.getElementById("pf-page1"),
     blockText = Array.from(pfCV.getElementsByClassName("blockText")) /* all leftRightAnim */
 ;
 
+const pfContact = document.getElementById("pf-page2")
+;
+
 let startTime = Date.now();
 let assetLoadCheck = Date.now();
 console.log("assetLoadCheck? ", assetLoadCheck)

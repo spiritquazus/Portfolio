@@ -1,9 +1,21 @@
+a{
+    pointer-events: auto;
+}
+
 .pagination{
     background: linear-gradient(180deg, rgba(36,36,36,0.75968137254901966) 5%, rgba(0,0,0,0.9217436974789917) 70%) ;
     backdrop-filter: blur(2px);
     animation: none;
     opacity: 0;
     display: none;
+}
+
+.style-lineBase, .style-lineCross{
+    pointer-events:none;
+}
+
+.hangingText{
+    font-family: var(--font-1);
 }
 
 .blockText{
@@ -211,4 +223,33 @@
 
 .leftBlockText2{
     grid-column: 15 / span 4;
+}
+
+#contactList1{
+    grid-row: 3 / span 5;
+    grid-column: 3 / span 3;
+}
+
+#contactList2{
+    grid-row: 3 / span 8;
+    grid-column: 6 / span 4;
+}
+
+#contactList2>ul{
+    display: flex;
+    flex-direction: column;
+}
+
+#eventsList{
+    grid-row: 3 / span 8;
+    grid-column: 10 / span 5;
+}
+
+.contact-setup{
+
+}
+
+.contact-setup>p{
+    font-family: var(--font-primary);
+    font-size: var(--font-M2);
 }

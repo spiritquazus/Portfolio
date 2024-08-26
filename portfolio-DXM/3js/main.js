@@ -11,7 +11,7 @@ function currDate() {
 }
 estDate.innerHTML = `EST ${currDate()}`
 
-function dispel(_elem){
+function dispel(_elem, _func){
     document.addEventListener("click", ()=>{
         _elem.style.opacity = 0
         setTimeout(()=>{_elem.style.display="none"}, 500)
@@ -20,6 +20,7 @@ function dispel(_elem){
         _elem.style.opacity = 0
         setTimeout(()=>{_elem.style.display="none"}, 500)
     }, {once: true})
+    _func()
 }
 
 export function spawnCV(){
@@ -31,9 +32,27 @@ export function spawnCV(){
         photoID.classList.toggle("opacityAnim")
         sideText.forEach((elem)=>{elem.classList.toggle("rightLeftAnim")})
         blockText.forEach((elem)=>{elem.classList.toggle("leftRightAnim")})
-        dispel(pfCV)
+        dispel(pfCV, despawnCV)
     }, 300)
-
 }
 
+function despawnCV(){
+    styleQuotes[0].classList.toggle("rightLeftAnim")
+    styleQuotes[1].classList.toggle("leftRightAnim")
+    photoID.classList.toggle("opacityAnim")
+    sideText.forEach((elem)=>{elem.classList.toggle("rightLeftAnim")})
+    blockText.forEach((elem)=>{elem.classList.toggle("leftRightAnim")})
+}
 
+export function spawnContact(){
+    pfContact.style.opacity = 1;
+    pfContact.style.display = "grid";
+    setTimeout(()=>{
+
+        dispel(pfContact)
+    }, 300)
+}
+
+export function spawnProjects(){
+    
+}
