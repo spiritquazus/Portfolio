@@ -25,6 +25,21 @@ const pfCV = document.getElementById("pf-page1"),
 const pfContact = document.getElementById("pf-page2")
 ;
 
+window.userDevice = "PC"
+detectMobile()
+
+function detectMobile(){
+    const agent = navigator.userAgent || navigator.vendor || window.opera; 
+    const touchAvail = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    const screenChk = window.innerWidth <= 800;
+  
+    if (/android|iphone|ipad|ipod|iemobile|windows phone/i.test(agent) || touchAvail || screenChk) {
+      userDevice = "mobile" //bit rough need to adjust the judgement factor
+    } else {
+        userDevice = "PC"
+    }
+}
+
 let startTime = Date.now();
 let assetLoadCheck = Date.now();
 console.log("assetLoadCheck? ", assetLoadCheck)

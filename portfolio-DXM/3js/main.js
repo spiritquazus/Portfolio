@@ -1,6 +1,8 @@
 import {welcomeStartUp, loadAllModels, animateMain, camWarmUp} from "./3jsMain.js" //cancel
 import { BGscene } from "./3jsScene.js";
 
+
+
 function currDate() {
     const today = new Date();
     const day = String(today.getDate()).padStart(2, '0');
@@ -15,12 +17,13 @@ function dispel(_elem, _func){
     document.addEventListener("click", ()=>{
         _elem.style.opacity = 0
         setTimeout(()=>{_elem.style.display="none"}, 500)
+        _func()
     }, {once: true})
     document.addEventListener('touchstart', (event) => {
         _elem.style.opacity = 0
         setTimeout(()=>{_elem.style.display="none"}, 500)
+        _func()
     }, {once: true})
-    _func()
 }
 
 export function spawnCV(){
@@ -54,5 +57,5 @@ export function spawnContact(){
 }
 
 export function spawnProjects(){
-    
+
 }

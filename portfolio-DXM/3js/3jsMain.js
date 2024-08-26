@@ -300,17 +300,17 @@ createTouchSphere(BGscene, {posxyz:[0.3500,0.3500,-0.0700], scalexyz:[0.15,0.5,1
 raycastList.spawnCatFunc =
 createTouchSphere(BGscene, {posxyz:[0.0750,0.1270,-0.3950], scalexyz:[0.225,0.225,0.225], name:"spawnCatFunc"})
 
-createSprite(BGscene, "../gallery/3jsTextures/sprites/touchCircle.webp", {position: [0.2900,0.3500,-0.0700], scale: [0.07, 0.07, 0.07], name:"circlePhone"})
-createSprite(BGscene, "../gallery/3jsTextures/sprites/iconPhone.svg", {position: [0.2900,0.3500,-0.0700], scale: [0.05, 0.05, 0.05], name:"phone"})
+createSprite(BGscene, "../gallery/3jsTextures/sprites/touchCircle.webp", {position: [0.2900,0.3500,-0.0700], scale: userDevice=="PC"?[0.07, 0.07, 0.07]:[0.08, 0.08, 0.08], name:"circlePhone"})
+createSprite(BGscene, "../gallery/3jsTextures/sprites/iconPhone.svg", {position: [0.2900,0.3500,-0.0700], scale: userDevice=="PC"?[0.05, 0.05, 0.05]:[0.06, 0.06, 0.06], name:"phone"})
 
-createSprite(BGscene, "../gallery/3jsTextures/sprites/touchCircle.webp", {position: [-0.3550,0.1500,-0.3850], scale: [0.08, 0.08, 0.08], name:"circleProj"})
-createSprite(BGscene, "../gallery/3jsTextures/sprites/iconProj.svg", {position: [-0.3550,0.1500,-0.3850], scale: [0.06, 0.06, 0.06], name:"proj"})
+createSprite(BGscene, "../gallery/3jsTextures/sprites/touchCircle.webp", {position: [-0.3550,0.1500,-0.3850], scale: userDevice=="PC"?[0.08, 0.08, 0.08]:[0.09, 0.09, 0.09], name:"circleProj"})
+createSprite(BGscene, "../gallery/3jsTextures/sprites/iconProj.svg", {position: [-0.3550,0.1500,-0.3850], scale: userDevice=="PC"?[0.06, 0.06, 0.06]:[0.07, 0.07, 0.07], name:"proj"})
 
-createSprite(BGscene, "../gallery/3jsTextures/sprites/touchCircle.webp", {position: [-0.0490,0.2550,0.11905], scale: [0.07, 0.07, 0.07], name:"circleCV"})
-createSprite(BGscene, "../gallery/3jsTextures/sprites/iconCV.svg", {position: [-0.0490,0.2550,0.11905], scale: [0.05, 0.05, 0.05], name:"CV"})
+createSprite(BGscene, "../gallery/3jsTextures/sprites/touchCircle.webp", {position: [-0.0490,0.2550,0.11905], scale: userDevice=="PC"?[0.07, 0.07, 0.07]:[0.08, 0.08, 0.08], name:"circleCV"})
+createSprite(BGscene, "../gallery/3jsTextures/sprites/iconCV.svg", {position: [-0.0490,0.2550,0.11905], scale: userDevice=="PC"?[0.05, 0.05, 0.05]:[0.06, 0.06, 0.06], name:"CV"})
 
-createSprite(BGscene, "../gallery/3jsTextures/sprites/touchCircleSmol.webp", {position: [0.0250,0.1790,-0.3050], scale: [0.025, 0.025, 0.025], name:"circleCat"})
-createSprite(BGscene, "../gallery/3jsTextures/sprites/iconTouch.svg", {position: [0.0250,0.1790,-0.3050], scale: [0.020, 0.020, 0.020], name:"cat"})
+createSprite(BGscene, "../gallery/3jsTextures/sprites/touchCircleSmol.webp", {position: [0.0250,0.1790,-0.3050], scale: userDevice=="PC"?[0.025, 0.025, 0.025]:[0.035, 0.035, 0.035], name:"circleCat"})
+createSprite(BGscene, "../gallery/3jsTextures/sprites/iconTouch.svg", {position: [0.0250,0.1790,-0.3050], scale: userDevice=="PC"?[0.020, 0.020, 0.020]:[0.030, 0.030, 0.030], name:"cat"})
 
 addRandoms('rgb(255,255,255)', BGscene, 100)
 BGscene.add(BGbackgroundFull)
@@ -899,11 +899,14 @@ function checkPerformance(_round) {
         console.warn(`Warning: specs rather low. Reducing post-processing and texture filter.`)
     } else if (_round == 3){
         console.warn("Final Verdict: Device performance above average. Enabling all effects")
-        lightsList.lightAmbient.color.b = 0.1586
-        lightsList.lightAmbient.color.g = 0.0593
-        lightsList.lightAmbient.color.r = 0.0585
         togglePP("bloom")
-        togglePP("bokeh") 
+        if (userDevice=="PC"){
+            lightsList.lightAmbient.color.b = 0.1586
+            lightsList.lightAmbient.color.g = 0.0593
+            lightsList.lightAmbient.color.r = 0.0585
+            togglePP("bokeh") 
+        }
+        
     }
     loadTimeDisplay.innerText = Math.max(0, pageLoadTime.toFixed(2))
     assetLoadDisplay.innerText = (assetLoadCheck - startTime)/1000  ;

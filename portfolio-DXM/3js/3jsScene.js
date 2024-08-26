@@ -62,7 +62,7 @@ BGrenderer.setSize(window.innerWidth, window.innerHeight);
 BGrenderer.toneMapping = THREE.ReinhardToneMapping
 BGrenderer.toneMappingExposure = 0.8
 BGrenderer.gammaOutput = true;
-BGrenderer.gammaFactor = 2.2;
+BGrenderer.gammaFactor = userDevice=="mobile"?1.3:1.7;
 BGrenderer.antialias = true;
 console.log("Renderer ready: ", BGrenderer)
 

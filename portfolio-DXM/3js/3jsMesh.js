@@ -107,7 +107,7 @@ function createTouchSphere(_scene, _obj){
 
 
 
-const BGbackgroundGeo = new THREE.PlaneGeometry(2700, window.innerHeight, 50);
+const BGbackgroundGeo = new THREE.PlaneGeometry(2700, window.innerHeight*1.3, 50);
 /* const BGbackgroundGeo = new THREE.PlaneGeometry(window.innerWidth, window.innerHeight, 50); //need to change so its not related to window width or height... terrible idea */
 const BGbackgroundFull = new THREE.Mesh(BGbackgroundGeo, BGshaderMat)
 
