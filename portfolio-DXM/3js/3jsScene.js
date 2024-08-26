@@ -50,14 +50,13 @@ const scenicRota = [-0.3799,2.2220,0.0142]
 const scenicPov2 = [0.6260,0.1823,0.0102]
 const scenicRota2 = [-0.2382,-0.5697,-0.1302]
 
-
-        
+const mainCanvas = document.getElementById("cMain")
 
 //Renderer
 const BGscene = new THREE.Scene(); //container 
 const BGrenderer = new THREE.WebGLRenderer({
-    version: 1,
-    canvas: document.getElementById("cMain")
+    version: 2,
+    canvas: mainCanvas
 })
 BGrenderer.setSize(window.innerWidth, window.innerHeight);
 BGrenderer.toneMapping = THREE.ReinhardToneMapping

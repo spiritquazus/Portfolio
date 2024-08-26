@@ -26,6 +26,7 @@ const pfContact = document.getElementById("pf-page2")
 ;
 
 window.userDevice = "PC"
+window.perfCheck = {"start": performance.now()};
 detectMobile()
 
 function detectMobile(){

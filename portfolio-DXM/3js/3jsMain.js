@@ -775,6 +775,7 @@ async function firstLoad(){
     kontrolMsg.innerText="Preparing 3D render and animation"
     loadProg(10)
     await camWarmUp()
+    perfCheck.end = performance.now(); //perfCheck.start is inititalized in 3jsDOM.js
     threeLoadingScreen.style.opacity = "0"
     threeIntroText.style.opacity = "1" 
     toggleSprite()
@@ -843,30 +844,49 @@ function checkPerformance(_round) {
     console.log("detecting user agent: ", navigator.userAgent)
     console.log("detecting user device memory: ", navigator.deviceMemory)
     console.log("detecting user device HW: ", navigator.hardwareConcurrency)
-
-    const availableMemory = (performance.memory.jsHeapSizeLimit - performance.memory.usedJSHeapSize)/1000000000;
     const perf = window.performance;
-    const timing = perf.timing;
     const memory = perf.memory;
+    let availableMemory = null
+    let timing = null
 
-    // Calculate page load time
-    const pageLoadTime = (timing.domComplete - timing.navigationStart) / 1000; // in seconds
-    const responseTime = (timing.responseEnd - timing.responseStart) / 1000; // in seconds
-
-    // Check page load time
-    if (pageLoadTime > 3) {
-        console.warn(`Page load time is high: ${pageLoadTime.toFixed(2)} seconds`);
-        perfScore -= 2
+    try {
+        if (typeof performance.memory !== 'undefined') {
+            console.log('Memory information:', performance.memory.jsHeapSizeLimit);
+            availableMemory = (performance.memory.jsHeapSizeLimit - performance.memory.usedJSHeapSize)/1000000000;
+        } else {
+            console.log("performance.memory is not supported in this browser! Aborting");
+        }
+    } catch (error) {
+        console.error("error accessing performance.memory: ", error);
     }
 
-    //latency/network
-    if (responseTime > 1) {
-        console.warn(`Resource fetching time is high: ${responseTime.toFixed(2)} seconds`);
-        perfScore -= 3
+    try {
+        timing = perf.timing;
+    } catch (error) {
+        timing = null
+        console.log("error infiltrating memory: ", error)
     }
+    
+    
+    if (timing != null && timing != undefined){
+        // Calculate page load time
+        const pageLoadTime = (timing.domComplete - timing.navigationStart) / 1000; // in seconds
+        const responseTime = (timing.responseEnd - timing.responseStart) / 1000; // in seconds
+        // Check page load time
+        if (pageLoadTime > 3) {
+            console.warn(`Page load time is high: ${pageLoadTime.toFixed(2)} seconds`);
+            perfScore -= 2
+        }
+        //latency/network
+        if (responseTime > 1) {
+            console.warn(`Resource fetching time is high: ${responseTime.toFixed(2)} seconds`);
+            perfScore -= 3
+        }
+    }
+    
 
     //avail memory 
-    if (availableMemory < 2.5){
+    if (availableMemory != null && availableMemory < 2.5){
         console.warn('Available memory for allocation low! (in bytes):', availableMemory + " GB");
         perfScore -= 3
     } else {
@@ -890,6 +910,12 @@ function checkPerformance(_round) {
     } else {
         console.warn('Memory information is not available');
     }
+
+    if (perfCheck.start && perfCheck.end && perfCheck.end  - perfCheck.start > 5000){
+        console.warn(`Full init took ${perfCheck.end  - perfCheck.start} seconds. Slow loading time`);
+        perfScore -= 2
+    } 
+
     
     if (perfScore < 5){
         console.warn(`Warning: specs very low. Entering performance mode.`)
@@ -908,7 +934,7 @@ function checkPerformance(_round) {
         }
         
     }
-    loadTimeDisplay.innerText = Math.max(0, pageLoadTime.toFixed(2))
+    loadTimeDisplay.innerText = perfCheck.end?perfCheck.end  - perfCheck.start:"unknown"
     assetLoadDisplay.innerText = (assetLoadCheck - startTime)/1000  ;
     perfScoreDisplay.innerText = perfScore
     return perfScore
