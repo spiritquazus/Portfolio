@@ -50,6 +50,9 @@
     <button class="pageMovBtn dl-navBtn topBottomAnim" onclick="pageSwitch(false, -1)" style="display: none;">PREV.</button>
     <button class="pageMovBtn dl-navBtn topBottomAnim" onclick="pageSwitch(false, 1)">NXT.</button>
 
+    <button class="pageMovInvis" onclick="pageSwitch(false, -1)" style="left: 0px"></button>
+    <button class="pageMovInvis" onclick="pageSwitch(false, 1)" style="right: 0px"></button>
+
     <button id="btn-contact" class="dl-navBtn topBottomAnim">Contact</button>
     <div class="nav-dropDown style-collapsed" style="left: calc(2vh + 5vw* 15 + 0.5vh* 15); top: calc(5vh + 1.5vh)">
         <p style="grid-row: 1 / span 1;">Phone: (+82) 10 2515 9789</p>
@@ -195,7 +198,7 @@
             
             
             <float id="introMsg">
-                <span id="greetingsF" class="greetingsAnim">Hello, I am</span>
+                <span id="greetingsF">Hello, I am</span>
                 <div><span id="HL-Isaac" style="opacity: 0">Isaac </span><span id="HL-Kim" style="opacity:0">Kim</span></div>
                 <span><span id="HL-title" style="opacity: 0; white-space: pre-wrap;">&lt; Full Stack Dev &gt;</span><span class="style-typeBar">_</span></span>
             </float>

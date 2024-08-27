@@ -492,7 +492,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
     userSetLang();
     await awaitRotation()
     console.log("rotation solved.")
-    greetingsChange()
+/*     greetingsChange() */
     setTimeout(async ()=>{
         
         
@@ -526,7 +526,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
             typeScroll(speechText, 15, translatorObj[`dxmTrivia${_rand}`])
         })    
 
-    }, 4000)
+    }, 500)
     
  
 })

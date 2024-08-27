@@ -54,7 +54,7 @@ function cssVarSwitch(_oldVal, _newVal){
 
 function userSetLang() {
     const params = getQueryParams();
-    const language = params["language"]
+    const language = params["language"]?params["language"]:null;
     console.log("retrieving language from params: ", params)
     if (language) {
         localStorage.setItem("language", language);
@@ -62,6 +62,8 @@ function userSetLang() {
         console.log(`Language set to ${language}`);
 
         switch(language){
+            case "eng":
+                return
             case "kor":
                 console.log("switching fonts.")
                 cssVarSwitch("--font-secondary", "--font-secondary-kor")

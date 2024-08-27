@@ -170,7 +170,7 @@ button{
     text-align: justify;
     position: relative;
     height: var(--font-M2);
-    transition: all 2.3s ease-in; 
+    transition: all 0.3s ease-in; 
     
     z-index: 5;
 }
@@ -1023,6 +1023,13 @@ button{
     background-image: url(../../gallery/2dElems/pageMove.webp);
     background-size: contain;
     background-repeat: no-repeat;
+}
+.pageMovInvis{
+    position: absolute;
+    background-color: rgba(0,0,0,0);
+    width: calc(2vh + 0.5vh + 4.8vw);
+    height: 100vh;
+    z-index: 5;
 }
 
 

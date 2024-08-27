@@ -157,8 +157,14 @@
     animation: swingLeftRight 3s linear infinite;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1200px) {
     #threeIntroText>p{
         font-size: var(--font-title);
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    #threeIntroText>p{
+        font-size: var(--font-M1);
     }
 }
