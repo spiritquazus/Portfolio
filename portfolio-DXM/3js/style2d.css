@@ -45,6 +45,12 @@
     font-size: var(--font-M2);
 }
 
+#thisStack{
+    position: absolute;
+    bottom: 2vh;
+    max-width: 80%;
+}
+
 #threeIntroText{
     position: relative;
     grid-row: 3 / span 15;
@@ -65,6 +71,7 @@
 }
 
 #est-date{
+    padding-top: 5vmin;
     font-family: var(--font-signature);
     font-size: var(--font-title);
     line-height: 0%;

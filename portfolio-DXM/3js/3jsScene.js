@@ -93,11 +93,7 @@ function resizeScr() {
   const width = document.body.clientWidth;
   const height = document.body.clientHeight;
 
-  // Adjust the renderer size and pixel ratio based on the current viewport dimensions
   BGrenderer.setSize(width, height);
-  BGrenderer.setPixelRatio(window.devicePixelRatio || 1);
-
-  // If using a camera, update its aspect ratio and projection matrix
   if (BGcamera) {
       BGcamera.aspect = width / height;
       BGcamera.updateProjectionMatrix();
