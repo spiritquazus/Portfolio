@@ -60,9 +60,9 @@ const BGrenderer = new THREE.WebGLRenderer({
 })
 BGrenderer.setSize(window.innerWidth, window.innerHeight);
 BGrenderer.toneMapping = THREE.ReinhardToneMapping
-BGrenderer.toneMappingExposure = 0.8
+BGrenderer.toneMappingExposure = 1.1
 BGrenderer.gammaOutput = true;
-BGrenderer.gammaFactor = userDevice=="mobile"?1.3:1.7;
+BGrenderer.gammaFactor = userDevice=="mobile"?1.5:2;
 BGrenderer.antialias = true;
 
 console.log("Renderer ready: ", BGrenderer)
@@ -81,12 +81,13 @@ export function composerBloom(UeBloomPass){
 //DOF
 export function composerBokeh(bokehPass){
   passList[bokehPass] = new BokehPass(BGscene, BGcamera, {
-    focus: 0.005,      // Moderate focus distance
-    aperture: 0.001, // Slightly larger aperture for some blur
-    maxBlur: 0.15     // Moderate blur for a softer effect
+    focus: 0.005,
+    aperture: 0.001, 
+    maxBlur: 0.15
   });
   composer.addPass(passList[bokehPass]);
 }
+
 
 
 

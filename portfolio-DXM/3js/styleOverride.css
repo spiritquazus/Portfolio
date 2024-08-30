@@ -1,6 +1,24 @@
 a{
     pointer-events: auto;
 }
+gras{
+    font-weight:600;
+}
+p{
+    margin: 0;
+    gap: 0;
+    font-size: var(--font-M2);
+    font-family: var(--font-primary);
+}
+ul{
+    margin: 0;
+    padding-left: 0;
+}
+/* li{
+    text-align: justify;
+    text-align-last: justify;
+} */
+
 
 .pagination{
     background: linear-gradient(180deg, rgba(36,36,36,0.75968137254901966) 5%, rgba(0,0,0,0.9217436974789917) 70%) ;
@@ -16,21 +34,26 @@ a{
 
 .hangingText{
     font-family: var(--font-1);
+    grid-row: 1;
+    grid-column: 1;
+    font-size: var(--font-M1);
 }
 
 .blockText{
-    font-family: var(--font-1);
     /* color: var(--colorGreyGlass) */
+    font-family: var(--font-tertiary);
+    max-height: 90%;
+    font-size: var(--font-M3)
 }
 
 .styleQuote{
-    grid-row: 1 / span 2;
-    grid-column: 5 / span 1;
+    grid-row: 3 / span 2;
+    grid-column: 1 / span 1;
 }
 
 #photoID{
-    grid-row: 3 / span 7;
-    grid-column: 2 / span 3;
+    grid-row: 2 / span 7;
+    grid-column: 15 / span 3;
 }
 
 #iky-profile{
@@ -63,7 +86,8 @@ a{
     height: 100%;
     width: 100%;
     grid-row: 10/ span 6;
-    grid-column: 2 / span 4;
+    grid-column: 15 / span 4;
+    transition: all 0.4s ease-in;
     /* border-left: 1px solid var(--colorBone); */
 }
 
@@ -195,6 +219,8 @@ a{
 .munitorium{
     font-size: var(--font-M3);
     font-family: var(--font-tertiary);
+    font-weight: 200;
+    transition: all 0.5s 0.1s ease-in-out;
 }
 
 .munitorium>p{
@@ -203,27 +229,36 @@ a{
 }
 
 #munitorium-ed{
-    grid-row: 3 / span 5;
-    grid-column: 7 / span 6;
+    grid-row: 9 / span 5;
+    grid-column: 2 / span 6;
 }
 
 #munitorium-work{
     grid-row: 9 / span 5;
-    grid-column: 7 / span 6;
+    grid-column: 8 / span 6;
 }
 
-#munitorium-lang{
-    grid-row: 15 / span 5;
-    grid-column: 7 / span 6;
+#munitorium-profile{
+    grid-row: 2 / span 4;
+    grid-column: 8 / span 5;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
+#munitorium-profile>span{
+    width: 100%;
+    text-align: justify;
+}
+
 
 .leftBlockText1{
-    grid-column: 15 / span 4;
+    grid-column: 2 / span 5;
+    grid-row: 2 / span 7;
+    font-weight: 200;
+    width: 100%;
+    height: 100%;
 }
 
-.leftBlockText2{
-    grid-column: 15 / span 4;
-}
 
 #contactList1{
     grid-row: 3 / span 5;
@@ -252,4 +287,147 @@ a{
 .contact-setup>p{
     font-family: var(--font-primary);
     font-size: var(--font-M2);
+}
+
+.style-lineBase{
+    border-color: var(--colorMoonGlass)
+}
+
+#botBarIntro{
+    display: none;
+}
+
+:root{
+    --font-logo: calc(var(--font-title) *1.618);
+    --font-title: clamp(1vh, 8vh, 9vh) !important;
+    --font-M1: calc(var(--font-title) /1.618);
+    --font-M2: calc(var(--font-title) /1.618/1.618);
+    --font-M3: calc(var(--font-title) /1.618/1.618/1.618);
+    --font-S1: calc(var(--font-title) /1.618/1.618/1.618/1.618);
+    --font-S2: calc(var(--font-title) /1.618/1.618/1.618/1.618/1.618);
+}
+
+@media (max-aspect-ratio: 4.5/3){
+
+    .blockText{
+        font-size: clamp(var(--font-S1), calc(var(--font-S1)*1.25), var(--font-M3));
+        text-align: left;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+@media (max-width: 1000px){
+    :root{
+        --font-logo: calc(var(--font-title) *1.618);
+        --font-title: 7.2vh !important;
+        --font-M1: calc(var(--font-title) /1.618);
+        --font-M2: calc(var(--font-title) /1.618/1.618);
+        --font-M3: calc(var(--font-title) /1.618/1.618/1.618);
+        --font-S1: calc(var(--font-title) /1.618/1.618/1.618/1.618);
+        --font-S2: calc(var(--font-title) /1.618/1.618/1.618/1.618/1.618);
+    }
+}
+
+@media (orientation:portrait) {
+    .pagination{
+        overflow: hidden;
+    }
+    :root{
+        --font-title: 7vh !important;
+    }
+    .hangingText{
+        grid-row: 1 / span 1;
+        line-height: 15vh;
+    }
+    .style-tagMap{
+        width: 100%;
+    }
+    #photoID{
+        grid-row: 2 / span 5;
+        grid-column: 1 / span 6;
+    }
+    #photoID>img{
+        aspect-ratio: 1/1;
+        height: 100%;
+        grid-row: 1 / span 250 !important;
+    }
+    #munitorium-profile{
+        grid-row: 2 / span 4;
+        grid-column: 7 / span 11;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+    #munitorium-profile>span{
+        width: 100%;
+        text-align: justify;
+    }
+    .munitorium{
+        font-size: clamp(var(--font-S1), calc(var(--font-S1)*1.25), var(--font-M3));
+    }
+    #munitorium-ed{
+        grid-row: 8 / span 6;
+        grid-column: 2 / span 15;
+    }
+    #munitorium-work{
+        grid-row: 14 / span 10;
+        grid-column: 2 / span 15;
+    }
+    .leftBlockText1{
+        grid-row: 5 / span 2;
+        grid-column: 7 / span 9;
+    }
+    .style-lineCross{
+        opacity: 0;
+    }
+    .techStackShow{
+        display: none;
+    }
+    .style-decoText{
+        overflow: hidden;
+        display: flex;
+        text-wrap: nowrap;
+        color: var(--colorMoonGlass);
+    }
+
+    #botBarIntro{
+        display: flex;
+        position: absolute;
+        color: var(--lightDarkFont);
+        flex-wrap: nowrap;
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+        place-self: center;
+        border-top: 2px solid var(--colorBone);
+        border-bottom: 2px solid var(--colorBone);
+        opacity: 1;
+        transition: opacity 1.3s linear; 
+        grid-row: 18 / span 1;
+        align-items: center;
+    }
+    
+    #botBarIntro > div {
+        display: inline-block;
+        white-space: nowrap;
+        min-width: 200%; 
+        animation: scroll-Right 25s linear infinite; 
+        transform: translateX(-20%);
+    }
+    
+    #botBarIntro > div > span {
+        text-align: center;
+        font-size: var(--font-M3);
+        overflow-x: hidden;
+        width: 9%;
+        margin: 0.2% 0.5% 0;
+        display: inline-block;
+        text-align: center;
+        font-family: "Bebas Neue", sans-serif;
+    }
+    
+    #botBarIntro > div > :nth-child(11){
+        width: 5%
+    }
 }

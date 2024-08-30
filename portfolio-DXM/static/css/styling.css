@@ -150,13 +150,13 @@
     --font-secondary-kor: "SourceHanSerifK", sans-serif;
     --font-tertiary-kor: "SourceHanSerifK", sans-serif;
 
-    --font-logo: calc(9vh*1.618);
+    --font-logo: calc(var(--font-title) *1.618);
     --font-title: 9vh;
-    --font-M1: calc(9vh/1.618);
-    --font-M2: calc(9vh/1.618/1.618);
-    --font-M3: calc(9vh/1.618/1.618/1.618);
-    --font-S1: calc(9vh/1.618/1.618/1.618/1.618);
-    --font-S2: calc(9vh/1.618/1.618/1.618/1.618/1.618);
+    --font-M1: calc(var(--font-title) /1.618);
+    --font-M2: calc(var(--font-title) /1.618/1.618);
+    --font-M3: calc(var(--font-title) /1.618/1.618/1.618);
+    --font-S1: calc(var(--font-title) /1.618/1.618/1.618/1.618);
+    --font-S2: calc(var(--font-title) /1.618/1.618/1.618/1.618/1.618);
     --lightDarkBG: rgba(0, 0, 5, 0.8);
     --lightDarkPrimary: var(--colorVentaBlack);
     --lightDarkSecondary: var(--colorNight);

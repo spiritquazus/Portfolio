@@ -13,7 +13,7 @@ function currDate() {
 }
 estDate.innerHTML = `EST ${currDate()}`
 
-function dispel(_elem, _func){
+function dispel(_elem, _func, _bool){
     document.addEventListener("click", ()=>{
         _elem.style.opacity = 0
         setTimeout(()=>{_elem.style.display="none"}, 500)
@@ -22,7 +22,7 @@ function dispel(_elem, _func){
     document.addEventListener('touchstart', (event) => {
         _elem.style.opacity = 0
         setTimeout(()=>{_elem.style.display="none"}, 500)
-        _func()
+        _func(_bool)
     }, {once: true})
 }
 
@@ -30,21 +30,19 @@ export function spawnCV(){
     pfCV.style.opacity = 1;
     pfCV.style.display = "grid";
     setTimeout(()=>{
-        styleQuotes[0].classList.toggle("rightLeftAnim")
-        styleQuotes[1].classList.toggle("leftRightAnim")
-        photoID.classList.toggle("opacityAnim")
-        sideText.forEach((elem)=>{elem.classList.toggle("rightLeftAnim")})
-        blockText.forEach((elem)=>{elem.classList.toggle("leftRightAnim")})
-        dispel(pfCV, despawnCV)
+        despawnCV(false)
+        dispel(pfCV, despawnCV, true)
     }, 300)
 }
 
-function despawnCV(){
-    styleQuotes[0].classList.toggle("rightLeftAnim")
-    styleQuotes[1].classList.toggle("leftRightAnim")
-    photoID.classList.toggle("opacityAnim")
-    sideText.forEach((elem)=>{elem.classList.toggle("rightLeftAnim")})
-    blockText.forEach((elem)=>{elem.classList.toggle("leftRightAnim")})
+function despawnCV(_bool){
+/*     styleQuotes[0].classList.toggle("rightLeftAnim", _bool)
+    styleQuotes[1].classList.toggle("leftRightAnim", _bool) */
+    photoID.classList.toggle("opacityAnim", _bool)
+    sideText.forEach((elem)=>{elem.classList.toggle("rightLeftAnim", _bool)})
+    blockText.forEach((elem)=>{elem.classList.toggle("leftRightAnim", _bool)})
+    munitoriumCV.forEach((elem)=>{elem.classList.toggle("topBottomAnim", _bool)})
+    techStackShow.classList.toggle("bottomTopAnim", _bool)
 }
 
 export function spawnContact(){

@@ -749,6 +749,11 @@ button{
     left: -2.5px; /* Extend slightly beyond the left side */
 }
 
+.dateAffi{
+    font-size: var(--font-S1); 
+    color: var(--colorAsbestos);
+}
+
 /* #pf-sideBar{
     width: calc(100vh/4);
     min-width: 10%;

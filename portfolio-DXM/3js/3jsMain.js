@@ -367,12 +367,15 @@ function raycastHover(){
         const currentMesh = intersects[0].object
         currentMesh.material.color.set( "rgb(0, 0, 255)" );
         currentMesh.hovered = true
+        document.body.style.cursor = "pointer"
     } else {
         Object.values(raycastList).forEach((obj)=>{
             obj.hovered = false
             obj.clicked = false
             obj.material.color.set( "rgb(0, 255, 0)" )
+            
         })
+        document.body.style.cursor = "default"
     }
     
 }
@@ -575,20 +578,23 @@ export async function camWarmUp() {
                         gsap.to(BGcamera.rotation, {
                             y: BGcamera.rotation.y,
                             duration: 0.1,
-                            delay: 0.1
+                            delay: 0.1,
+                            onComplete: () =>{
+                                setTimeout(() => { 
+                                    BGcamera.position.set(...scenicPov2)
+                                    BGcamera.rotation.set(...scenicRota2)
+                                    BGcamera.updateProjectionMatrix()
+                                    console.log("load: warmup complete")
+                                    loadProg(15)
+                                    resolve()
+                                }, 1500);
+                            }
                         })
+
                     }
                 })
             }
         })
-        setTimeout(() => { 
-            BGcamera.position.set(...scenicPov)
-            BGcamera.rotation.set(...scenicRota)
-            BGcamera.updateProjectionMatrix()
-            console.log("load: warmup complete")
-            loadProg(15)
-            resolve()
-        }, 1000);
     })
 }
 
@@ -650,7 +656,7 @@ threeEditorMode.addEventListener("click", ()=>{
 
 //Bloom and Bokeh toggle
 
-function togglePP(_effect, _force){
+function togglePP(_effect, _force, _light){
     if (_effect == "bloom"){
         if (_force){
             postProcessing.bloom = true;
@@ -671,10 +677,20 @@ function togglePP(_effect, _force){
         }
         if (postProcessing.bokeh == true){
             bokehDispose()
+            if (_light){
+                lightsList.lightAmbient.color.b = 0.329
+                lightsList.lightAmbient.color.g = 0.115
+                lightsList.lightAmbient.color.r = 0.115
+            }
             threeBokeh.classList.toggle("filter-activated", false)
         } else {
             composerBokeh("bokeh")
             postProcessing.bokeh = true
+            if (_light){
+                lightsList.lightAmbient.color.b = 0.596
+                lightsList.lightAmbient.color.g = 0.289
+                lightsList.lightAmbient.color.r = 0.288
+            }
             threeBokeh.classList.toggle("filter-activated", true)
         }
     }
@@ -737,7 +753,7 @@ function bokehDispose() {
 }
 
 threeBloom.addEventListener("click", ()=>{togglePP("bloom")})
-threeBokeh.addEventListener("click", ()=>{togglePP("bokeh")})
+threeBokeh.addEventListener("click", ()=>{togglePP("bokeh", false, "light")})
 
 
 //start-up settings
@@ -819,10 +835,10 @@ function perfMode3DToggle(){
             spriteList.circleCat.visible = false
             console.log("El gato is gone :(")
             togglePP("bloom", true)
-            togglePP("bokeh", true)
+            togglePP("bokeh", true, "light")
             perfMode3D = !perfMode3D  
         } catch (error){
-            console.log("Performance Mode didnt switch on. Models not consumed yet? ", error)
+            console.warn("Performance Mode didnt switch on. Models not consumed yet? ", error)
         }
 
     } else {
@@ -911,8 +927,8 @@ function checkPerformance(_round) {
         console.warn('Memory information is not available');
     }
 
-    if (perfCheck.start && perfCheck.end && perfCheck.end  - perfCheck.start > 5000){
-        console.warn(`Full init took ${perfCheck.end  - perfCheck.start} seconds. Slow loading time`);
+    if (perfCheck.start && perfCheck.end && perfCheck.end  - perfCheck.start > 8000){
+        console.warn(`Full init took ${(perfCheck.end  - perfCheck.start) / 1000} seconds. Slow loading time`);
         perfScore -= 2
     } 
 
@@ -927,10 +943,8 @@ function checkPerformance(_round) {
         console.warn("Final Verdict: Device performance above average. Enabling all effects")
         togglePP("bloom")
         if (userDevice=="PC"){
-            lightsList.lightAmbient.color.b = 0.1586
-            lightsList.lightAmbient.color.g = 0.0593
-            lightsList.lightAmbient.color.r = 0.0585
-            togglePP("bokeh") 
+
+            togglePP("bokeh", false, "light") 
         }
         
     }

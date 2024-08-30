@@ -16,10 +16,12 @@ const cMain = document.getElementById("cMain"),
 ;
 
 const pfCV = document.getElementById("pf-page1"),
-    styleQuotes = Array.from(pfCV.getElementsByClassName("styleQuote")), /* [0] rightLeftAnim - [1] leftRightAnim */
+    /* styleQuotes = Array.from(pfCV.getElementsByClassName("styleQuote")), */
     photoID = document.getElementById("photoID"), /* opacityAnim */
     sideText = Array.from(pfCV.getElementsByClassName("sideText")), /* all rightLeftAnim */
-    blockText = Array.from(pfCV.getElementsByClassName("blockText")) /* all leftRightAnim */
+    blockText = Array.from(pfCV.getElementsByClassName("blockText")), /* all leftRightAnim */
+    munitoriumCV = Array.from(pfCV.getElementsByClassName("munitorium")),
+    techStackShow = pfCV.getElementsByClassName("techStackShow")[0]
 ;
 
 const pfContact = document.getElementById("pf-page2")
