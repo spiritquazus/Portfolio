@@ -570,7 +570,6 @@ button{
 #DXM-nest{
     position: fixed;
     top: calc(89vh); /* Align with the top of row 17 */
-    left: calc(2vh);
     width: calc(5vw + 0.5vh);
     height: calc(5.0833vh*2 + 0.5vh);
     background-size: contain;

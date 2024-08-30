@@ -27,6 +27,9 @@ const pfCV = document.getElementById("pf-page1"),
 const pfContact = document.getElementById("pf-page2")
 ;
 
+const pfProjects = document.getElementById("pf-page3")
+;
+
 window.userDevice = "PC"
 window.perfCheck = {"start": performance.now()};
 detectMobile()

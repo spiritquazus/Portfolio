@@ -88,7 +88,27 @@ export function composerBokeh(bokehPass){
   composer.addPass(passList[bokehPass]);
 }
 
+function resizeScr() {
+  console.log("RESIZING")
+  const width = document.body.clientWidth;
+  const height = document.body.clientHeight;
 
+  // Adjust the renderer size and pixel ratio based on the current viewport dimensions
+  BGrenderer.setSize(width, height);
+  BGrenderer.setPixelRatio(window.devicePixelRatio || 1);
+
+  // If using a camera, update its aspect ratio and projection matrix
+  if (BGcamera) {
+      BGcamera.aspect = width / height;
+      BGcamera.updateProjectionMatrix();
+  }
+}
+
+window.addEventListener('resize', resizeScr);
+window.addEventListener('orientationchange', () => {
+  setTimeout(resizeScr, 1000); // Delay to ensure accurate dimensions after orientation change
+});
+resizeScr();
 
 
 

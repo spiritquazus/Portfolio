@@ -218,15 +218,15 @@
 
 @keyframes DXM-float{
     0%{
-        transform: translateY(0.5vmin);
+        transform: translateY(0.85vmin);
     }
 
     50%{
-        transform: translateY(-0.5vmin);
+        transform: translateY(0vmin);
     }
 
     100%{
-        transform: translateY(0.5vmin);
+        transform: translateY(0.85vmin);
     }
 
 }

@@ -17,12 +17,12 @@ function dispel(_elem, _func, _bool){
     document.addEventListener("click", ()=>{
         _elem.style.opacity = 0
         setTimeout(()=>{_elem.style.display="none"}, 500)
-        _func()
+        if (_func)_func(_bool)
     }, {once: true})
     document.addEventListener('touchstart', (event) => {
         _elem.style.opacity = 0
         setTimeout(()=>{_elem.style.display="none"}, 500)
-        _func(_bool)
+        if (_func)_func(_bool)
     }, {once: true})
 }
 
@@ -49,11 +49,14 @@ export function spawnContact(){
     pfContact.style.opacity = 1;
     pfContact.style.display = "grid";
     setTimeout(()=>{
-
         dispel(pfContact)
     }, 300)
 }
 
 export function spawnProjects(){
-
+    pfProjects.style.opacity = 1;
+    pfProjects.style.display = "grid";
+    setTimeout(()=>{
+        dispel(pfProjects)
+    }, 300)
 }

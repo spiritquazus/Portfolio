@@ -50,7 +50,7 @@
     <div id="threeIntroText">
       <p>Portfolio - Isaac</p>
       <span id="est-date"></span>
-      <span id="pressToStart">Touch or Press Any Key to Start</span>
+      <span id="pressToStart">Touch or Click to Start (Sound Warning)</span>
     </div>
     <div id="threeLoadingScreen">
       <div id="3dDXM"></div>
@@ -59,6 +59,7 @@
       <div id="kontrolMsg">Preparing GLTF Model Loader</div>
     </div>
   </div> <!-- cover end -->
+
 
   <div id="pf-page1" class="pagination">
 
@@ -122,6 +123,12 @@
 
     <div id="photoID" class="opacityAnim">
         <img src="../gallery/2dElems/photoIKStylized.webp" alt="">    
+    </div>
+
+    <div id="qrDL">
+        <img src="../gallery/2dElems/qr-code.webp" alt="">    
+        <p><a href="https://github.com/spiritquazus/Portfolio/blob/c52dfdd311136156f70a8786fec7da155d40f1ed/portfolio-DXM/static/txt/CV_IKY_fullStack_2024.pdf" target="blank">
+          Click Here</a> to View Full CV</p>
     </div>
 
     <float class="rightMostText">
@@ -226,39 +233,30 @@
 
     <!-- DECORUM -->
 
-    <div class="hangingText"><span>Connect</span></div>
+    <div class="hangingText" style="line-height: 10vh;"><span>Connect</span></div>
   
 
     <div class="style-lineVertDotted style-lineBase"></div>
 
-    <div class="style-lineHor style-lineBase"></div>
-    <div class="style-lineHorDotted style-lineBase" style="grid-row: 4 / span 1; "></div>
-    <div class="style-lineHorDotted style-lineBase" style="grid-row: 18 / span 1; border-bottom: none; border-top: dashed 1px"></div>
+    <div class="style-lineBase" style="grid-row: 2 / span 1; grid-column: 1 / span 7; border-bottom: none; border-top: dashed 1px; border-color: var(--colorMoonGlass);"></div>
+    <div class="style-lineBase" style="grid-row: 17 / span 1; grid-column: 1 / span 7; border-bottom: none; border-top: dashed 1px; border-color: var(--colorMoonGlass)"></div>
 
-    <div class="style-lineVert style-lineBase" style="grid-column:  3 / span 1; border-color: var(--colorMoonGlass)"></div>
-    <div class="style-lineVert style-lineBase" style="grid-column:  6 / span 1; border-color: var(--colorMoonGlass)"></div>
-    <div class="style-lineVert style-lineBase" style="grid-column:  10 / span 1; border-color: var(--colorMoonGlass)"></div>
-
-    <div class="style-lineCross" style="grid-row: 3 / span 1; grid-column:  3 / span 1;"></div>
-    <div class="style-lineCross" style="grid-row: 3 / span 1; grid-column:  6 / span 1;"></div>
-    <div class="style-lineCross" style="grid-row: 3 / span 1; grid-column:  10 / span 1;"></div>
-    <div class="style-lineCross" style="grid-row: 17 / span 1; grid-column:  19/ span 1;"></div>
-
-    <div class="style-decoText" style="grid-row: 1 / span 1; grid-column:  7/ span 3; justify-content: flex-start;"><span>Font Families and Layout - "Brutalisme Nouveau"</span></div>
-    <div class="style-decoText" style="grid-row: 1 / span 1; grid-column:  10/ span 3;"><span>Typographer Style - 20 Set Grid - Gap 0.5</span></div>
+    <div class="style-lineCross" style="grid-row: 2 / span 1; grid-column:  8 / span 1;"></div>
+    <div class="style-lineCross" style="grid-row: 17 / span 1; grid-column:  8 / span 1;"></div>
+    <div class="style-lineCross" style="grid-row: 17 / span 1; grid-column:  2 / span 1;"></div>
 
     <!-- DECORUM END-->
 
     <div id="contactList1" class="contact-setup">
       <p>Websites</p>
       <ul>
-        <li>Github: 
+        <li><img src="../gallery/2dElems/smGithub.svg">Github: 
           <a href="https://github.com/spiritquazus" target="_blank">Link</a>
         </li>
-        <li>Linkedin: 
+        <li><img src="../gallery/2dElems/smLinkedin.svg">Linkedin: 
           <a href="https://www.linkedin.com/in/isaac-kimrw/" target="_blank">Link</a>
         </li>
-        <li>Leetcode:
+        <li><img src="../gallery/2dElems/smLeetcode.svg">Leetcode:
           <a href="https://leetcode.com/u/spiritquazus/" target="_blank">Link</a>
         </li>
       </ul>
@@ -267,19 +265,19 @@
     <div id="contactList2" class="contact-setup">
       <p>Contact</p>
       <ul>
-        <li>eMail: 
+        <li><img src="../gallery/2dElems/smMail.svg">Email: 
           <a href="kimisaac010@gmail.com" target="_blank">kimisaac010@gmail.com</a>
         </li>
-        <li>Phone (South Korea): 
+        <li><img src="../gallery/2dElems/smPhone.svg">Phone (SK): 
           <span>(+82) 10-2515-9789</span>
         </li>
-        <li>Residence (South Korea):
-          <span>Seoul Yongsan</span>
+        <li><img src="../gallery/2dElems/smPin.svg">Residence (SK):
+          <span>Seoul</span>
         </li>
-        <li>Phone (France): 
+        <li><img src="../gallery/2dElems/smPhone.svg">Phone (France): 
           <span>(+33) 4 72 15 04 73</span>
         </li>
-        <li>Residence (France):
+        <li><img src="../gallery/2dElems/smPin.svg">Residence (France):
           <span>Lyon 69006</span>
         </li>
       </ul>
@@ -288,17 +286,82 @@
     <div id="eventsList" class="contact-setup">
       <p>Upcoming Attendance</p>
       <ul>
-        <li>Seoul Start-up Contest "A Big Think" 
+        <li><img src="../gallery/2dElems/smEvent.svg">Seoul Start-up Contest "A Big Think" 
           <span>Finalist</span>
           <a href="https://www.investseoul.org/eng/web/busi/busiManageView.do?busiId=BUSIID_0000000000100" target="_blank">Link</a>
         </li>
-        <li>Seoul Tech Impact Hackathon 
-          <span>Participant (Hacker)</span>
+        <li><img src="../gallery/2dElems/smEvent.svg">Seoul Tech Impact Hackathon 
+          <span>Participant</span>
           <a href="https://www.seoultechimpact.com/" target="_blank">Link</a>
         </li>
       </ul>
     </div>
-  </div>
+  </div> <!-- Page 2 end -->
+
+  <div id="pf-page3" class="pagination" style="overflow-y: scroll;">
+
+    <div class="style-lineVert style-lineBase" style="grid-row: 1 / -1; grid-column: 2; border-color: var(--colorMoonGlass);"></div>
+    <div class="style-lineHor style-lineBase" style="grid-row: 1 / -1; grid-column: 1; border-color: var(--colorMoonGlass);"></div>
+    <div class="style-lineHor style-lineBase" style="grid-row: 7 / -1; grid-column: 1; border-color: var(--colorMoonGlass);"></div>
+    <div class="style-lineHor style-lineBase" style="grid-row: 13 / -1; grid-column: 1; border-color: var(--colorMoonGlass);"></div>
+
+    <div class="proj-section1">
+      <img src="../gallery/2dElems/albumHOGA.webp">
+      <p>HOGA - Productivity App</p>
+    </div>
+    <div class="proj-section2">
+      <span>
+        HOGA is a web-based productivity dashboard with a complex customization system yet intuitive and easy to use UI, designed to promote time management efficiency and good working/studying habits. The dashboard allows users to have all the necessary implements and 'mini-apps' one usually accesses for focus sessions.
+      </span>
+      <br><br>
+      <span>
+        Our app HOGA is currently a contender for a <gras>government-funded kickstarter seeding program in Seoul</gras> (A Big Think 2024), having captured the interest of various local tech investors. 
+      </span>
+      <br><br>
+      <span><gras>L/F:</gras>: JavaScript/HTML/CSS, Python, Flask, SQL, JQuery, Three.js</span>
+      <br>
+      <a href="https://github.com/spiritquazus/hoga-Prod" target="_blank">Link to Github Repository</a>
+    </div>
+
+    <div class="proj-section1" style="grid-row: 7 / span 5;">
+      <img src="../gallery/2dElems/albumFitLogger.webp">
+      <p>FitLogger - Fitness App</p>
+    </div>
+    <div class="proj-section2" style="grid-row: 7 / span 5;">
+      <span>
+        FitLogger is a React.js project currently being made in collaboration with Luke Schmit, primary for personal usage. 
+      </span>
+      <br><br>
+      <span>
+        The goal of the App is to provide its users with a highly modular interface allowing them to freely plan and follow weekly diet, exercise and other athletic-related goals. Thanks to React's component and hooks system, FitLogger will be able to provide a very comprehensive tracker module that will let users switch from imperial to metric, change daily work-out sessions on the fly, and share their plans with anyone, be it friends, students or coach. 
+      </span>
+      <br><br>
+      <span><gras>L/F:</gras>: JavaScript/HTML/CSS, React, Node.js</span>
+      <br>
+      <a href="https://github.com/lukeschmit-dev/FitLogger" target="_blank">Link to Github Repository</a>
+    </div>
+
+    <div class="proj-section1" style="grid-row: 13 / span 5;">
+      <img src="../gallery/2dElems/brutalistCover.webp">
+      <p>Psychophobia - Game</p>
+    </div>
+    <div class="proj-section2" style="grid-row: 13 / span 5;">
+      <span>
+        Based on the world of the movie STALKER by Andrei Tarkovsky and the subsequent, Psychophobia is a fan-project entirely made on JavaScript. I've started this game from scratch in April 2024, back when I just started learning coding. The purpose being to practice my first language (JS/HTML/CSS) and get familiar with new concepts by integrating them into this project as I learn them.
+      </span>
+      <br><br>
+      <span>
+        Currently all the foundations and core system of a classic RPG game have been implemented: Inventory, level and equipment system, Randomized loot, Asynchronous combat, Multiple factions with reputation as well as a roguelite approach for replayability and gameplay diversity.
+      </span>
+      <br><br>
+      <span><gras>L/F:</gras> JavaScript/HTML/CSS</span>
+      <br>
+      <a href="https://github.com/spiritquazus/psyP-Teknika" target="_blank">Link to Github Repository</a>
+    </div>
+
+    <div id="pf3-creueBot"></div>
+
+  </div><!-- Page 3 end -->
 
   <script src="./3jsDOM.js"></script>
   <script src="../static/js/preStack.js"></script>

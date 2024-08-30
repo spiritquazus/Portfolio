@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+
+# test stuff
+
+3js/test.html
+3js/test2.html
+static/html/test.html

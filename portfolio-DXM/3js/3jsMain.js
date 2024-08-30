@@ -678,9 +678,9 @@ function togglePP(_effect, _force, _light){
         if (postProcessing.bokeh == true){
             bokehDispose()
             if (_light){
-                lightsList.lightAmbient.color.b = 0.329
-                lightsList.lightAmbient.color.g = 0.115
-                lightsList.lightAmbient.color.r = 0.115
+                lightsList.lightAmbient.color.b = 0.03
+                lightsList.lightAmbient.color.g = 0.01
+                lightsList.lightAmbient.color.r = 0.01
             }
             threeBokeh.classList.toggle("filter-activated", false)
         } else {
