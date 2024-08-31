@@ -52,7 +52,7 @@ console.log("assetLoadCheck? ", assetLoadCheck)
 
 
 function randInt(_max, _min){
-    Math.floor(Math.random()*_max)+_min
+    return Math.floor(Math.random()*(_max - _min + 1))+_min // INCLUSIVE
 }
 
 let loadCompletion = 0;

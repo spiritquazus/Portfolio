@@ -75,7 +75,7 @@ console.log("Adding composer: ", composer)
 
 //bloom
 export function composerBloom(UeBloomPass){
-  passList[UeBloomPass] = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 0, 0.5, 0.35);
+  passList[UeBloomPass] = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 0.21, 0.4, 0.15);
   composer.addPass(passList[UeBloomPass]);
 }
 //DOF
