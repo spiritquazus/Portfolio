@@ -75,7 +75,7 @@ console.log("Adding composer: ", composer)
 
 //bloom
 export function composerBloom(UeBloomPass){
-  passList[UeBloomPass] = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 0.23, 0.5, 0.35);
+  passList[UeBloomPass] = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 0, 0.5, 0.35);
   composer.addPass(passList[UeBloomPass]);
 }
 //DOF
@@ -88,26 +88,6 @@ export function composerBokeh(bokehPass){
   composer.addPass(passList[bokehPass]);
 }
 
-function resizeScr() {
-  console.log("RESIZING")
-  const width = document.body.clientWidth;
-  const height = document.body.clientHeight;
-
-  BGrenderer.setSize(width, height);
-  if (BGcamera) {
-      BGcamera.aspect = width / height;
-      BGcamera.updateProjectionMatrix();
-  }
-}
-
-window.addEventListener('resize', resizeScr);
-window.addEventListener('orientationchange', () => {
-  setTimeout(resizeScr, 1000); // Delay to ensure accurate dimensions after orientation change
-});
-resizeScr();
-
-
-
 console.log("composer: ", composer)
 
 /* BGrenderer.render(BGscene, BGcamera); */
@@ -117,13 +97,22 @@ if ( BGrenderer.getContext() instanceof WebGL2RenderingContext ) {
     composer.renderTarget2.samples = 8;
 }
 
-//on-resize adjust:
-window.addEventListener('resize', () => {
-    BGcamera.aspect = window.innerWidth / window.innerHeight
-    BGcamera.updateProjectionMatrix()
-    BGrenderer.setSize(window.innerWidth, window.innerHeight)
-  })
 
+function resizeScr() {
+  console.log("RESIZING")
+  const width = document.body.clientWidth
+  const height = document.body.clientHeight
+
+  BGrenderer.setSize(width, height)
+  if (BGcamera) {
+      BGcamera.aspect = width / height
+      BGcamera.updateProjectionMatrix()
+  }
+}
+
+window.addEventListener('resize', resizeScr)
+window.addEventListener('orientationchange', () => {setTimeout(resizeScr, 500); })
+resizeScr();
 
 const raycaster  = new THREE.Raycaster();
 const pointer = new THREE.Vector2();

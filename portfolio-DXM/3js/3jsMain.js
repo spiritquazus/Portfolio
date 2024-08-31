@@ -24,6 +24,7 @@ let cameraModeCheck;
 let _fullControls = new OrbitControls(BGcamera, BGrenderer.domElement);
 _fullControls.enabled = false
 window.spriteList = {}
+window.sprRotaArr = []
 window.lightsList = {}
 window.modelsList = {}
 window.camerasList = {}
@@ -300,16 +301,16 @@ createTouchSphere(BGscene, {posxyz:[0.3500,0.3500,-0.0700], scalexyz:[0.15,0.5,1
 raycastList.spawnCatFunc =
 createTouchSphere(BGscene, {posxyz:[0.0750,0.1270,-0.3950], scalexyz:[0.225,0.225,0.225], name:"spawnCatFunc"})
 
-createSprite(BGscene, "../gallery/3jsTextures/sprites/touchCircle.webp", {position: [0.2900,0.3500,-0.0700], scale: userDevice=="PC"?[0.07, 0.07, 0.07]:[0.08, 0.08, 0.08], name:"circlePhone"})
+createSprite(BGscene, "../gallery/3jsTextures/sprites/touchCircle.webp", {position: [0.2900,0.3500,-0.0700], scale: userDevice=="PC"?[0.07, 0.07, 0.07]:[0.08, 0.08, 0.08], rotate:true, name:"circlePhone"})
 createSprite(BGscene, "../gallery/3jsTextures/sprites/iconPhone.svg", {position: [0.2900,0.3500,-0.0700], scale: userDevice=="PC"?[0.05, 0.05, 0.05]:[0.06, 0.06, 0.06], name:"phone"})
 
-createSprite(BGscene, "../gallery/3jsTextures/sprites/touchCircle.webp", {position: [-0.3550,0.1500,-0.3850], scale: userDevice=="PC"?[0.08, 0.08, 0.08]:[0.09, 0.09, 0.09], name:"circleProj"})
+createSprite(BGscene, "../gallery/3jsTextures/sprites/touchCircle.webp", {position: [-0.3550,0.1500,-0.3850], scale: userDevice=="PC"?[0.08, 0.08, 0.08]:[0.09, 0.09, 0.09], rotate:true, name:"circleProj"})
 createSprite(BGscene, "../gallery/3jsTextures/sprites/iconProj.svg", {position: [-0.3550,0.1500,-0.3850], scale: userDevice=="PC"?[0.06, 0.06, 0.06]:[0.07, 0.07, 0.07], name:"proj"})
 
-createSprite(BGscene, "../gallery/3jsTextures/sprites/touchCircle.webp", {position: [-0.0490,0.2550,0.11905], scale: userDevice=="PC"?[0.07, 0.07, 0.07]:[0.08, 0.08, 0.08], name:"circleCV"})
+createSprite(BGscene, "../gallery/3jsTextures/sprites/touchCircle.webp", {position: [-0.0490,0.2550,0.11905], scale: userDevice=="PC"?[0.07, 0.07, 0.07]:[0.08, 0.08, 0.08], rotate:true, name:"circleCV"})
 createSprite(BGscene, "../gallery/3jsTextures/sprites/iconCV.svg", {position: [-0.0490,0.2550,0.11905], scale: userDevice=="PC"?[0.05, 0.05, 0.05]:[0.06, 0.06, 0.06], name:"CV"})
 
-createSprite(BGscene, "../gallery/3jsTextures/sprites/touchCircleSmol.webp", {position: [0.0250,0.1790,-0.3050], scale: userDevice=="PC"?[0.025, 0.025, 0.025]:[0.035, 0.035, 0.035], name:"circleCat"})
+createSprite(BGscene, "../gallery/3jsTextures/sprites/touchCircleSmol.webp", {position: [0.0250,0.1790,-0.3050], scale: userDevice=="PC"?[0.025, 0.025, 0.025]:[0.035, 0.035, 0.035], rotate:true, name:"circleCat"})
 createSprite(BGscene, "../gallery/3jsTextures/sprites/iconTouch.svg", {position: [0.0250,0.1790,-0.3050], scale: userDevice=="PC"?[0.020, 0.020, 0.020]:[0.030, 0.030, 0.030], name:"cat"})
 
 addRandoms('rgb(255,255,255)', BGscene, 100)
@@ -348,7 +349,7 @@ export function animateMain(){
      console.log("check interesects: ", intersects) //well of course it doesnt exist ytet  */
 
  	
- 
+    sprRotaArr.forEach((sprite)=>sprite.rotation.z+=0.05)
     //get the time elapsed since the last call
     const deltaTime = threeJsClock.getDelta(); 
     //updates animation according to next move

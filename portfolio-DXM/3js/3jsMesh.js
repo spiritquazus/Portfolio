@@ -163,12 +163,13 @@ function degreesToRadians(degrees) {
 
 //SPRITE:
 function createSprite(_scene, _item, _obj){
-    const map = new THREE.TextureLoader().load( _item);
-    const material = new THREE.SpriteMaterial( { map: map } );
-    const sprite = new THREE.Sprite( material );
-    _scene.add( sprite );
-    sprite.position.set(_obj.position[0], _obj.position[1], _obj.position[2]);
+    const map = new THREE.TextureLoader().load( _item)
+    const material = new THREE.SpriteMaterial( { map: map } )
+    const sprite = new THREE.Sprite( material )
+    _scene.add( sprite )
+    sprite.position.set(_obj.position[0], _obj.position[1], _obj.position[2])
     [sprite.scale.x, sprite.scale.y, sprite.scale.z] = _obj.scale
+    if (_obj.rotate)sprRotaArr.push(sprite)
     if (_obj.name)sprite.name = _obj.name
     spriteList[_obj.name] = sprite
     console.log("added new sprite: ", sprite)
