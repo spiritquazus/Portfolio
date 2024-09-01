@@ -19,6 +19,7 @@ let toggleAnim = true;
 let perfMode3D = false;
 let postProcessing = {"bloom":false, "bokeh":false,};
 window.passList = {"bloom":{}, "bokeh":{}}
+let soundToggle = true;
 
 let cameraModeCheck;
 let _fullControls = new OrbitControls(BGcamera, BGrenderer.domElement);
@@ -35,29 +36,32 @@ let isDragging = false;
 let mousePos = { x: 0, y: 0 };
 const dragThreshold = 5;
 
-document.addEventListener("mousedown", (event) => {
-    mouseDownChk = true;
-    isDragging = false;
-    mousePos = { x: event.clientX, y: event.clientY };
-});
-
-document.addEventListener("mousemove", (event) => {
-    if (mouseDownChk) {
-        const currMousePos = { x: event.clientX, y: event.clientY };
-        const dist = Math.sqrt(
-            Math.pow(currMousePos.x - mousePos.x, 2) +
-            Math.pow(currMousePos.y - mousePos.y, 2)
-        );
-
-        if (dist > dragThreshold) {
-            isDragging = true;
+if (userDevice == "PC"){
+    document.addEventListener("mousedown", (event) => {
+        mouseDownChk = true;
+        isDragging = false;
+        mousePos = { x: event.clientX, y: event.clientY };
+    });
+    
+    document.addEventListener("mousemove", (event) => {
+        if (mouseDownChk) {
+            const currMousePos = { x: event.clientX, y: event.clientY };
+            const dist = Math.sqrt(
+                Math.pow(currMousePos.x - mousePos.x, 2) +
+                Math.pow(currMousePos.y - mousePos.y, 2)
+            );
+    
+            if (dist > dragThreshold) {
+                isDragging = true;
+            }
         }
-    }
-});
+    });
+    
+    document.addEventListener("mouseup", () => {
+        mouseDownChk = false;
+    });
+}
 
-document.addEventListener("mouseup", () => {
-    mouseDownChk = false;
-});
 
 
 //test
@@ -397,37 +401,40 @@ function raycastHover(){
 }
 
 function raycastClick(){
-    if (intersects[0] && !isDragging){
-        const currentMesh = intersects[0].object
-        currentMesh.material.color.set( "rgb(255, 0, 0)" ); 
-        currentMesh.clicked = true
-        switch (currentMesh.name){
-            case "spawnCV":
-                //do shit
-                spawnCV()
-                gsapForce({position: [-0.1096,0.3001,0.0156], rotation: [-2.8944,-0.1558,-3.0673], time: 0.6})
-                freezeCamera(BGscene, true) 
-                toggleSprite("off")
-                break;
-            case "spawnProjects":
-                //do shit
-                spawnProjects()
-                gsapForce({position: [-0.1850,0.1874,-0.1566], rotation: [-0.0580,0.4751,0.0406], time:0.5})
-                freezeCamera(BGscene, true)
-                toggleSprite("off")
-                break;
-            case "spawnContact":
-                //do shit
-                spawnContact()
-                gsapForce({position: [0.1559,0.3526,-0.0182], rotation: [-2.0473,-1.3194,-2.0620], time: 0.5})
-                freezeCamera(BGscene, true)
-                toggleSprite("off")
-                break;
-            case "spawnCatFunc":
-                catFunc()
-                break;
+    setTimeout(()=>{
+        if (intersects[0] && !isDragging){
+            const currentMesh = intersects[0].object
+            currentMesh.material.color.set( "rgb(255, 0, 0)" ); 
+            currentMesh.clicked = true
+            switch (currentMesh.name){
+                case "spawnCV":
+                    //do shit
+                    spawnCV()
+                    gsapForce({position: [-0.1096,0.3001,0.0156], rotation: [-2.8944,-0.1558,-3.0673], time: 0.6})
+                    freezeCamera(BGscene, true) 
+                    toggleSprite("off")
+                    break;
+                case "spawnProjects":
+                    //do shit
+                    spawnProjects()
+                    gsapForce({position: [-0.1850,0.1874,-0.1566], rotation: [-0.0580,0.4751,0.0406], time:0.5})
+                    freezeCamera(BGscene, true)
+                    toggleSprite("off")
+                    break;
+                case "spawnContact":
+                    //do shit
+                    spawnContact()
+                    gsapForce({position: [0.1559,0.3526,-0.0182], rotation: [-2.0473,-1.3194,-2.0620], time: 0.5})
+                    freezeCamera(BGscene, true)
+                    toggleSprite("off")
+                    break;
+                case "spawnCatFunc":
+                    catFunc()
+                    break;
+            }
         }
-    }
+    },200)
+
 }
 
 //sprite toggle
@@ -446,15 +453,15 @@ function toggleSprite(_force){
 function freezeCamera(_scene, _bool){
     if (_bool){
         _fullControls.enabled = false
-        setTimeout(()=>{ 
+/*         setTimeout(()=>{ 
             document.addEventListener("click", recoverCamera, { once: true })
-        },300)
+        },300) */
     } else {
         _fullControls.enabled = true
     }
 }
 
-function recoverCamera(){
+export function recoverCamera(){
     gsapForce({position: roomPov, time: 0.6})
     toggleSprite("on")
     document.removeEventListener("click", recoverCamera)
@@ -671,6 +678,24 @@ threeEditorMode.addEventListener("click", ()=>{
     }
 })
 
+//Sound toggle
+function toggleSound(){
+    if (soundToggle){
+        threeSound.classList.toggle("filter-activated", false)
+        allSounds.forEach((sfx)=>{sfx.volume = 0})
+        threeSound.style.backgroundImage = "url(../gallery/2dElems/iconSound2.svg)"
+        
+    } else {
+        threeSound.classList.toggle("filter-activated", true)
+        allSounds.forEach((sfx)=>{sfx.volume = 0.2})
+        playSFXReact.volume = 0.6
+        threeSound.style.backgroundImage = "url(../gallery/2dElems/iconSound1.svg)"
+    }
+    soundToggle = !soundToggle
+}
+
+threeSound.addEventListener("click", toggleSound)
+
 //Bloom and Bokeh toggle
 
 function togglePP(_effect, _force, _light){
@@ -711,7 +736,7 @@ function togglePP(_effect, _force, _light){
             threeBokeh.classList.toggle("filter-activated", true)
         }
     }
-    console.log("!! postProcessing OBJ: ", postProcessing.bloom, postProcessing.bokeh)
+   //console.log("!! postProcessing OBJ: ", postProcessing.bloom, postProcessing.bokeh)
 }
 
 function bloomDispose() {
@@ -773,14 +798,21 @@ threeBloom.addEventListener("click", ()=>{togglePP("bloom")})
 threeBokeh.addEventListener("click", ()=>{togglePP("bokeh", false, "light")})
 
 
+
+
 //start-up settings
 
 export async function welcomeStartUp(){
 /*     await loadAllModels()
     threeLoadingScreen.style.opacity = "0" */
-    await gsapIntroAnim() //duration actually instant, set timeout instead
+    await gsapIntroAnim() //duration actually instant, set a timeout instead (callback pyramid)
     setTimeout(()=>{
-        BGrenderer.domElement.addEventListener("click", raycastClick)
+        BGrenderer.domElement.addEventListener("click", ()=>{
+            raycastClick() 
+        })
+        BGrenderer.domElement.addEventListener('touchend', ()=>{
+            raycastClick();
+        });
         BGrenderer.domElement.addEventListener("mousemove", raycastHover)
         cinematicMode()
         setTimeout(()=>{

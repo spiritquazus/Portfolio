@@ -117,12 +117,26 @@ resizeScr();
 const raycaster  = new THREE.Raycaster();
 const pointer = new THREE.Vector2();
 window.addEventListener('pointermove', onPointerMove);
+if (userDevice=="mobile")window.addEventListener('touchstart', onPointerMove, { passive: false });
 
 function onPointerMove( event ) {
 	// calculate pointer position in normalized device coordinates
 	// (-1 to +1) for both components
-	pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+/* 	pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1;
 	pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+  console.log(`pointer coord: ${pointer.x}, ${pointer.y}`) */
+
+  if (event.touches) {
+    const touch = event.touches[0]; 
+    if (touch) {
+        pointer.x = (touch.clientX / window.innerWidth) * 2 - 1;
+        pointer.y = - (touch.clientY / window.innerHeight) * 2 + 1;
+    } 
+  } else {
+      pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+      pointer.y = - (event.clientY / window.innerHeight) * 2 + 1;
+  }
+
 }
 
 

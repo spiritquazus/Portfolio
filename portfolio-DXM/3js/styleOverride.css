@@ -134,13 +134,13 @@ body{
     margin: 2.5rem;
     filter: blur(4px);
     left: -10%;
-    background-image: url("../../gallery/2dElems/gears.webp");
+    background-image: url("../gallery/2dElems/gears.webp");
     background-size: contain;
     background-repeat: no-repeat;
     animation: spin360 15s infinite linear;
 }
 
-#mainTech::before{
+/* #mainTech::before{
     content: "";
     position: absolute;
     z-index: -2;
@@ -150,11 +150,11 @@ body{
     left: 55%;
     top: 30%;
     filter: blur(4px);
-    background-image: url("../../gallery/2dElems/gears.webp");
+    background-image: url("../gallery/2dElems/gears.webp");
     background-size: contain;
     background-repeat: no-repeat;
     animation: spin360 8s infinite linear;
-}
+} */
 
 #addTech{
     opacity: 0;
@@ -177,7 +177,7 @@ body{
     bottom: -6vh;
     margin: 9rem 6rem 0rem; 
     filter: blur(4px);
-    background-image: url("../../gallery/2dElems/anvil.webp");
+    background-image: url("../gallery/2dElems/anvil.webp");
     background-repeat: no-repeat;
     background-size: contain;
 }
@@ -192,7 +192,7 @@ body{
     left: -5%;
     top: 2%;
     filter: blur(4px);
-    background-image: url("../../gallery/2dElems/hammerAnim.webp");
+    background-image: url("../gallery/2dElems/hammerAnim.webp");
     background-repeat: no-repeat;
     background-size: contain;
     animation: hammerStrike 2.7s infinite ease-in;
@@ -393,6 +393,26 @@ body{
     height: 100%;
 }
 
+.btn-close{
+    background-image: url(../gallery/2dElems/iconClose.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: none;
+    background-color: rgba(0,0,0,0);
+    grid-column: 18 / span 2;
+    grid-row: 3 / span 2;
+    animation: pulseEffect 3s linear infinite;
+}
+
+.btn-close:hover{
+    filter:drop-shadow(0 0 2px white);
+}
+
+#btn-closeProj{
+    grid-column: 18 / span 2;
+    grid-row: 3 / span 2;
+}
+
 :root{
     --font-logo: calc(var(--font-title) *1.618);
     --font-title: clamp(1vh, 8vh, 9vh) !important;
@@ -432,6 +452,14 @@ body{
     }
     :root{
         --font-title: 7vh !important;
+    }
+    .btn-close{
+        grid-column: 15 / span 2;
+        grid-row: 2;
+    }
+    #btn-closeProj{
+        grid-column: 16 / span 2;
+        grid-row: 16 / span 2;
     }
     .hangingText{
         grid-row: 1 / span 1;

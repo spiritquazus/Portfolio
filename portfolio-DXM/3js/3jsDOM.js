@@ -21,13 +21,16 @@ const pfCV = document.getElementById("pf-page1"),
     sideText = Array.from(pfCV.getElementsByClassName("sideText")), /* all rightLeftAnim */
     blockText = Array.from(pfCV.getElementsByClassName("blockText")), /* all leftRightAnim */
     munitoriumCV = Array.from(pfCV.getElementsByClassName("munitorium")),
-    techStackShow = pfCV.getElementsByClassName("techStackShow")[0]
+    techStackShow = pfCV.getElementsByClassName("techStackShow")[0],
+    btnCloseCV  = document.getElementById("btn-closeCV")
 ;
 
-const pfContact = document.getElementById("pf-page2")
+const pfContact = document.getElementById("pf-page2"),
+btnCloseContact  = document.getElementById("btn-closeContact")
 ;
 
-const pfProjects = document.getElementById("pf-page3")
+const pfProjects = document.getElementById("pf-page3"),
+btnCloseProj = document.getElementById("btn-closeProj")
 ;
 
 window.userDevice = "PC"
